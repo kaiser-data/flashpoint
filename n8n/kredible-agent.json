@@ -1,0 +1,699 @@
+{
+  "name": "Kredible · university account signal → LinkedIn → Featherless → agent e-mail → human when hot",
+  "nodes": [
+    {
+      "id": "4a8c15fe-0b2a-4aa4-8a88-0b19ff9a633a",
+      "name": "Form sign-up",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "4656fbfe-463d-4573-86cd-d9d1fa46e758",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "x-signal-secret (set me)"
+        }
+      },
+      "notes": "Called by google/apps-script.gs on every Google Form response.",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kredible-signal",
+        "authentication": "headerAuth",
+        "options": {}
+      }
+    },
+    {
+      "id": "ff717f4d-b922-4f6e-9e6c-3c382eadecc6",
+      "name": "Exactly 3 colleagues?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab84b2b8-3255-4a92-a941-f8846f678682",
+              "leftValue": "={{ $json.body.colleagues }}",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              },
+              "rightValue": 3
+            },
+            {
+              "id": "bd17c3a8-ef34-4169-9066-536ec869f048",
+              "leftValue": "={{ $json.body.company_domain }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "27f9f17d-ae69-4e7f-a74a-c8dbbb0a685a",
+      "name": "LinkedIn company",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Apify (Authorization: Bearer <token>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "~$0.004 per search. Searched by the institution name from the form; the next step checks the match.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ searches: [ String(($json.body.notes || [])[0] || '').split(' | ')[0] || $json.body.company_domain.split('.')[0] ] }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "id": "2b8483c9-3a3c-46f8-8f36-981e239d55a5",
+      "name": "Verify company match",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\n// Accept the LinkedIn match only if its website is the sign-up domain. Otherwise abstain.\nconst signup = $('Form sign-up').first().json.body;\nconst items = $input.all().map(i => i.json).filter(c => c && c.name);\nconst institution = String((signup.notes || [])[0] || '').split(' | ')[0].toLowerCase().trim();\nconst match = items.find(c => String(c.website || '').toLowerCase().includes(signup.company_domain))\n  || (institution ? items.find(c => String(c.name || '').toLowerCase() === institution) : undefined);\nreturn [{ json: {\n  domain: signup.company_domain, city: signup.city, colleagues: signup.colleagues,\n  roles: signup.roles || [], notes: signup.notes || [],\n  partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),\n  colleague_emails: signup.colleague_emails,\n  verified: Boolean(match),\n  company: match ? {\n    name: match.name, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,\n    industries: match.industries, specialities: match.specialities, tagline: match.tagline,\n    description: String(match.description || '').slice(0, 1500),\n    locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),\n  } : null,\n}}];\n"
+      }
+    },
+    {
+      "id": "402ab8a7-04c1-4d48-ac3b-64f21c3c2af4",
+      "name": "LinkedIn posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Apify (Authorization: Bearer <token>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "$1.50 / 1k posts. Engagement per post; commenters are not stored.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company-posts/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ targetUrls: $json.company ? [$json.company.linkedinUrl] : [], maxPosts: 20 }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "id": "83fe5963-6793-4cc6-a59c-2ed2b6d160c7",
+      "name": "Decision-maker roles",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Apify (Authorization: Bearer <token>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "Only job titles reach the LLM (buying committee as roles). Check the exact profileScraperMode value in the actor input.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company-employees/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ profileScraperMode: 'Short ($1.5 per 1k)', maxItems: 15, companies: $('Verify company match').first().json.company ? [$('Verify company match').first().json.company.linkedinUrl] : [], jobTitles: ['International Office', 'International Relations', 'Admissions', 'Zulassung', 'Studierendenservice', 'Vice President International', 'Vizepräsident', 'Kanzler', 'Finance', 'Head of Finance'] }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "id": "e6afc0ae-b469-4f8e-8bc5-1fd50d5ec2b3",
+      "name": "Build context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\n// Company-level context for the LLM. People appear only as roles, never as names.\nconst base = $('Verify company match').first().json;\nconst posts = $('LinkedIn posts').all().map(i => i.json).filter(p => p && (p.content || p.text));\nconst roles = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.headline);\nconst topPosts = posts\n  .map(p => ({ text: String(p.content || p.text).slice(0, 400),\n               engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))\n  .sort((a, b) => b.engagement - a.engagement).slice(0, 8);\nconst roleTitles = [...new Set(roles.map(r => r.headline).filter(Boolean))].slice(0, 12);\nreturn [{ json: { ...base, topPosts, roleTitles, postsAnalysed: posts.length } }];\n"
+      }
+    },
+    {
+      "id": "de5bf5c4-fdf1-4bf7-bc67-1f2244ed9dfe",
+      "name": "Featherless analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Featherless (Authorization: Bearer <key>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.featherless.ai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 1200, messages: [{ role: 'system', content: \"You are a B2B analyst for Kredible. Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main university benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several staff members of one university subscribed to Kredible's newsletter. Use ONLY the facts given; say 'unknown' instead of guessing. Return ONLY JSON: {\\\"culture\\\": string (internationalisation focus, tone of their posts), \\\"structure\\\": string (size, faculties, how international admissions seem organised), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with for this university), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score higher when more distinct roles subscribed (International Office + Admissions + Finance is a full buying committee), when someone asked for a partnership call, and when posts show a strong international student focus. The champion e-mail goes only to the staff who subscribed: thank them, mention that colleagues from their university subscribed too (no names), explain in three sentences how Kredible helps admitted non-EU students enrol at no cost or risk to the university, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write it in German for German universities, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles }) }] }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      }
+    },
+    {
+      "id": "f76218a1-cee1-4d8d-8f40-f22cb1811e6b",
+      "name": "Parse analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : null } }];\n"
+      }
+    },
+    {
+      "id": "362f3484-1863-48d4-8c33-3630e6c545b0",
+      "name": "Send automatically?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "485a6f9b-1451-4854-9a2f-0ffb7e662214",
+              "leftValue": "={{ $json.autoSend }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "afb07473-1c67-48b1-9bb1-36787925ab1d",
+      "name": "Agent e-mails the sign-ups",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2200,
+        180
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      },
+      "notes": "Recipients are the people who signed up (consent). BCC so nobody sees colleagues' addresses.",
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "={{ 'sales@example.com' }}",
+        "subject": "={{ $json.analysis.champion_email_subject || 'Kredible for your university' }}",
+        "emailType": "html",
+        "message": "={{ $json.analysis.champion_email_html }}",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "={{ $json.colleague_emails.join(',') }}"
+        }
+      }
+    },
+    {
+      "id": "189809ee-cd5a-45e4-a0f1-86b6d14478b1",
+      "name": "Hand to a human?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        420
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c144d868-7ffc-4628-a5bd-831f7d81d198",
+              "leftValue": "={{ $json.handToHuman }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a34c6341-2629-4cfa-90a5-4c467e853293",
+      "name": "Write briefing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2200,
+        420
+      ],
+      "parameters": {
+        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} staff at ${d.domain} subscribed to Kredible</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Account-level briefing. Subscriber addresses are not included.</p>`;\nreturn [{ json: { subject: `[${d.score ?? \"review\"}] ${d.colleagues} staff at ${d.domain} subscribed to Kredible`, html } }];\n"
+      }
+    },
+    {
+      "id": "1817f45d-a940-464b-9bf6-8b5678765e59",
+      "name": "Briefing to sales",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2420,
+        420
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      },
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "sales@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    },
+    {
+      "id": "0cc07d64-e207-464e-8ccd-3dd7282a1c4c",
+      "name": "Reply received",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        760
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      },
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "q": "in:inbox is:unread subject:\"Kredible for your university\"",
+          "readStatus": "unread"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "43839c66-c793-4138-943d-b0b497eb5ab9",
+      "name": "Classify reply",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        760
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Featherless (Authorization: Bearer <key>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.featherless.ai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 1200, messages: [{ role: 'system', content: \"Classify a reply to our Kredible e-mail to university staff. Return ONLY JSON: {\\\"label\\\": \\\"interested\\\"|\\\"question\\\"|\\\"not_interested\\\"|\\\"stop\\\", \\\"summary\\\": string}. STOP, unsubscribe, abmelden or any request not to be contacted is \\\"stop\\\".\" }, { role: 'user', content: String($json.text || $json.snippet || '').slice(0, 4000) }] }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      }
+    },
+    {
+      "id": "9b111649-3867-4bb0-9b24-1da06d61487f",
+      "name": "Parse reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        760
+      ],
+      "parameters": {
+        "jsCode": "\nconst mail = $('Reply received').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet r = null;\ntry { r = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst label = r?.label ?? \"question\"; // unclear replies go to a human\nreturn [{ json: { label, summary: r?.summary ?? \"Could not classify\", from: mail.from?.text ?? mail.from, subject: mail.subject,\n                  html: `<p><b>${label.toUpperCase()}</b> reply from ${mail.from?.text ?? \"\"}</p><p>${r?.summary ?? \"\"}</p><blockquote>${String(mail.text || mail.snippet || \"\").slice(0, 2000)}</blockquote>` } }];\n"
+      }
+    },
+    {
+      "id": "c31021bb-c61b-4cb5-88dc-be4fcc289f57",
+      "name": "Interested or question?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        760
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c0cf7fe2-1eac-4d98-bc33-97b9a549dec0",
+              "leftValue": "={{ $json.label }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "interested"
+            },
+            {
+              "id": "3b302007-6146-4e40-bfa1-de0890f28c14",
+              "leftValue": "={{ $json.label }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "question"
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "7bd31534-eb72-4132-96b6-45a492afa1e7",
+      "name": "Hand reply to a human",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        880,
+        740
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      },
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "sales@example.com",
+        "subject": "={{ '[' + $json.label + '] reply: ' + $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Form sign-up": {
+      "main": [
+        [
+          {
+            "node": "Exactly 3 colleagues?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exactly 3 colleagues?": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn company": {
+      "main": [
+        [
+          {
+            "node": "Verify company match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify company match": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn posts": {
+      "main": [
+        [
+          {
+            "node": "Decision-maker roles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decision-maker roles": {
+      "main": [
+        [
+          {
+            "node": "Build context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build context": {
+      "main": [
+        [
+          {
+            "node": "Featherless analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Featherless analysis": {
+      "main": [
+        [
+          {
+            "node": "Parse analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse analysis": {
+      "main": [
+        [
+          {
+            "node": "Send automatically?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Hand to a human?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send automatically?": {
+      "main": [
+        [
+          {
+            "node": "Agent e-mails the sign-ups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hand to a human?": {
+      "main": [
+        [
+          {
+            "node": "Write briefing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write briefing": {
+      "main": [
+        [
+          {
+            "node": "Briefing to sales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply received": {
+      "main": [
+        [
+          {
+            "node": "Classify reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify reply": {
+      "main": [
+        [
+          {
+            "node": "Parse reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse reply": {
+      "main": [
+        [
+          {
+            "node": "Interested or question?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interested or question?": {
+      "main": [
+        [
+          {
+            "node": "Hand reply to a human",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

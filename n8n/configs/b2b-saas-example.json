@@ -1,0 +1,28 @@
+{
+  "workflow_name": "Critical Mass · B2B SaaS example",
+  "webhook_path": "critical-mass-saas",
+  "threshold": 3,
+  "hot_score": 70,
+  "org_type": "company",
+  "email_subject": "Your team asked about us",
+  "product": "EXAMPLE: an expense and travel-cost tool for mid-size companies that removes manual receipt handling and DATEV exports. Replace this text with your own product, its buyer and its main benefits.",
+  "icp": {
+    "countries": ["Germany", "Austria", "Switzerland", "DE", "AT", "CH"],
+    "industries": ["Software", "IT", "Information Technology", "Financial Services", "Consulting", "Manufacturing"],
+    "exclude_industries": ["Government Administration"],
+    "min_employees": 50,
+    "max_employees": 2000,
+    "target_roles": ["Finance", "CFO", "Controlling", "Accounting", "Operations", "Founder"]
+  },
+  "decision_roles": ["CFO", "Head of Finance", "Finance Manager", "Controller", "Head of Accounting", "COO"],
+  "call_request_pattern": "demo|call|meeting|termin",
+  "signals": [
+    {"key": "funding", "label": "New funding", "query": "\"{name}\" (raises OR funding OR \"Series A\" OR \"Series B\" OR Finanzierungsrunde OR investment) after:{since}", "max_results": 5, "hint": "Fresh money means new budget and growing headcount."},
+    {"key": "jobs", "label": "Job vacancies: needs written in the ad text", "query": "\"{name}\" (jobs OR Stellenangebot OR \"we are hiring\") (Finance OR Accounting OR Controlling OR Buchhaltung)", "max_results": 5, "hint": "Read the ad text for needs: manual processes, tools named, growth, pain words like Excel or month-end close."},
+    {"key": "regulation", "label": "Government and regulation changes", "query": "(E-Rechnung OR \"e-invoicing\" OR GoBD OR Reisekostenrecht) (Pflicht OR Gesetz OR regulation) after:{since}", "max_results": 5, "hint": "New obligations that force a process change."},
+    {"key": "customer_voice", "label": "Employee voice (reviews)", "query": "\"{name}\" (kununu OR glassdoor) (Spesen OR Reisekosten OR expenses OR Bürokratie)", "max_results": 5, "hint": "Employees complaining about the process the product fixes."},
+    {"key": "news", "label": "Latest news", "query": "\"{name}\" after:{since}", "max_results": 5, "hint": "Expansion, new offices, leadership changes."}
+  ],
+  "lookback_days": 120,
+  "email_brief": "Thank them, mention that colleagues from their company signed up too (no names), explain in three sentences what the product does for their team, offer a 20-minute demo, and end with: Reply STOP to unsubscribe. Write in German for companies in Germany, Austria or Switzerland, otherwise English."
+}

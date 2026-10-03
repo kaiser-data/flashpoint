@@ -1,0 +1,577 @@
+{
+  "name": "LunchSignal · sign-up → demand alert → benefit scan → sales",
+  "nodes": [
+    {
+      "id": "b4637e2e-ff5a-4e24-9233-e9dadb8fd7d6",
+      "name": "Lunch sign-up form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "107c53fb-47b7-4505-961c-b592f00a5bb0",
+      "parameters": {
+        "formTitle": "Want proper lunch at your office?",
+        "formDescription": "Sign up with your work e-mail. When 5 colleagues from your company ask, we tell your People team how a tax-free lunch benefit of up to €7.67 per workday works. GTM Hackathon Berlin demo; data deleted after the event.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Work email",
+              "fieldType": "email",
+              "placeholder": "you@company.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Office city",
+              "fieldType": "dropdown",
+              "requiredField": true,
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Berlin"
+                  },
+                  {
+                    "option": "München"
+                  },
+                  {
+                    "option": "Düsseldorf"
+                  },
+                  {
+                    "option": "Köln"
+                  },
+                  {
+                    "option": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Consent",
+              "fieldType": "dropdown",
+              "requiredField": true,
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Yes, store my e-mail to count sign-ups per company and contact me once"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "responseMode": "onReceived",
+        "options": {
+          "respondWithOptions": {
+            "values": {
+              "formSubmittedText": "You're on the list. Thanks!"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ba0267fa-6a93-4f23-90ed-f95fba3253a3",
+      "name": "Normalize e-mail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const FREEMAIL = new Set([\"gmail.com\",\"googlemail.com\",\"gmx.de\",\"gmx.net\",\"web.de\",\"yahoo.com\",\"yahoo.de\",\n  \"outlook.com\",\"outlook.de\",\"hotmail.com\",\"hotmail.de\",\"live.com\",\"icloud.com\",\"me.com\",\"t-online.de\",\n  \"posteo.de\",\"mailbox.org\",\"proton.me\",\"protonmail.com\",\"aol.com\",\"freenet.de\"]);\nconst MULTI = new Set([\"co.uk\",\"com.au\",\"co.at\",\"ac.uk\"]);\nconst j = $input.first().json;\nconst key = Object.keys(j).find(k => /mail/i.test(k));\nconst email = String(j[key] ?? \"\").trim().toLowerCase();\nconst host = email.includes(\"@\") ? email.split(\"@\").pop() : \"\";\nconst labels = host.split(\".\");\nconst lastTwo = labels.slice(-2).join(\".\");\nconst reg = MULTI.has(lastTwo) && labels.length >= 3 ? labels.slice(-3).join(\".\") : lastTwo;\nconst company_domain = host && !FREEMAIL.has(reg) ? reg : null;\nreturn [{ json: { email, city: j[\"Office city\"] ?? null, company_domain, consent_at: new Date().toISOString() } }];"
+      }
+    },
+    {
+      "id": "88073f9b-c5f6-47d5-b641-a39edbdc2832",
+      "name": "Save sign-up",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        440,
+        300
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "",
+          "name": "Supabase (set me)"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "Unique e-mail: a repeat sign-up goes to the error output and stops here.",
+      "parameters": {
+        "resource": "row",
+        "operation": "create",
+        "tableId": "signups",
+        "dataToSend": "autoMapInputData"
+      }
+    },
+    {
+      "id": "718c6f2b-4b24-4c13-b288-060e2ea70f94",
+      "name": "Company e-mail?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        280
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "76a1eea4-c5d6-460a-8961-2c4681241e32",
+              "leftValue": "={{ $('Normalize e-mail').first().json.company_domain }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "e06a9745-cfd2-4af7-a00c-62178b6d371a",
+      "name": "Colleagues signed up",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        880,
+        260
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "",
+          "name": "Supabase (set me)"
+        }
+      },
+      "alwaysOutputData": true,
+      "parameters": {
+        "resource": "row",
+        "operation": "getAll",
+        "tableId": "signups",
+        "returnAll": true,
+        "filterType": "string",
+        "filterString": "=company_domain=eq.{{ $('Normalize e-mail').first().json.company_domain }}&select=id"
+      }
+    },
+    {
+      "id": "9a0ddd7e-fbf1-42dd-b315-22caf1ea2878",
+      "name": "Count",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        260
+      ],
+      "parameters": {
+        "jsCode": "const domain = $('Normalize e-mail').first().json.company_domain;\nconst city = $('Normalize e-mail').first().json.city;\nconst signups = $input.all().length;\nreturn [{ json: { domain, city, signups, threshold: 5, reached: signups >= 5 } }];"
+      }
+    },
+    {
+      "id": "93a51c91-a93b-40cd-b43c-36e091aff749",
+      "name": "5+ colleagues?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1320,
+        260
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "abaeb443-88e8-4b91-97b8-5a6f170434a3",
+              "leftValue": "={{ $json.reached }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "65a742b9-753c-435f-b977-3b50dd64208a",
+      "name": "Record demand alert",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        240
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "",
+          "name": "Supabase (set me)"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "Unique (company, kind): only the first time a company crosses the threshold continues.",
+      "parameters": {
+        "resource": "row",
+        "operation": "create",
+        "tableId": "alerts",
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "company_domain",
+              "fieldValue": "={{ $('Count').first().json.domain }}"
+            },
+            {
+              "fieldId": "kind",
+              "fieldValue": "demand_cluster"
+            },
+            {
+              "fieldId": "delivered",
+              "fieldValue": "true"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "301c01fb-b619-45ad-8479-d8f53e21ba76",
+      "name": "Scan benefits (Apify + Featherless)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        220
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "x-enrich-secret (set me)"
+        }
+      },
+      "notes": "Header Auth credential: name x-enrich-secret, value = ENRICH_SECRET of the app.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR-APP.vercel.app/api/enrich",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ domain: $('Count').first().json.domain, city: $('Count').first().json.city }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "id": "d617f68c-9156-43e6-b257-299fcc978f0d",
+      "name": "Segment",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1980,
+        220
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b8b2eaad-a291-4187-8cc8-a682cb45cf0f",
+                    "leftValue": "={{ $json.segment }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "gap"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Gap"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cef26f4e-31d4-4b69-9c83-18f85e48e404",
+                    "leftValue": "={{ $json.segment }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "switch"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Switch"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Skip or unclear"
+        }
+      }
+    },
+    {
+      "id": "c4f31936-3eea-4f16-af45-7cdc39e3949c",
+      "name": "Tell sales: Gap",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2220,
+        80
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/REPLACE/ME",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: '🟢 Gap · ' + $('Count').first().json.signups + ' people at ' + $json.domain + ' asked for office lunch. ' + $json.reasons.join('; ') + '. Perks they already pay: ' + $json.perks.slice(0,6).join(', ') + '. Tax-free up to €7.67/workday per employee. Ads analysed: ' + $json.adsAnalysed + ', scan cost $' + ($json.costUsd ?? 'n/a') }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "ef1afba0-2705-416a-bfaa-da14fe78a1f0",
+      "name": "Tell sales: Switch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2220,
+        240
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/REPLACE/ME",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: '🟠 Switch · ' + $('Count').first().json.signups + ' people at ' + $json.domain + ' asked for office lunch, and the company already pays a meal benefit: ' + $json.reasons.join('; ') + '. Budget exists, pitch real food instead of a card.' }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "e0f726aa-d3b4-48a9-8d1d-5c8f96357f40",
+      "name": "Tell sales: demand only",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2220,
+        400
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/REPLACE/ME",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: '⚪ ' + $('Count').first().json.signups + ' people at ' + $json.domain + ' asked for office lunch. Benefit scan: ' + $json.segment + ' (' + ($json.reasons ?? []).join('; ') + ').' }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "d2046282-6d93-4217-bae1-fb75e8c71290",
+      "name": "Pingen letter to HR (configure)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2440,
+        160
+      ],
+      "disabled": true,
+      "notes": "Replace with the Pingen node (n8n integration) or Pingen API. Letter to 'Personalabteilung', no named person. Keep a suppression list for opt-outs.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pingen.com/",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Lunch sign-up form": {
+      "main": [
+        [
+          {
+            "node": "Normalize e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize e-mail": {
+      "main": [
+        [
+          {
+            "node": "Save sign-up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save sign-up": {
+      "main": [
+        [
+          {
+            "node": "Company e-mail?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company e-mail?": {
+      "main": [
+        [
+          {
+            "node": "Colleagues signed up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Colleagues signed up": {
+      "main": [
+        [
+          {
+            "node": "Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count": {
+      "main": [
+        [
+          {
+            "node": "5+ colleagues?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5+ colleagues?": {
+      "main": [
+        [
+          {
+            "node": "Record demand alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record demand alert": {
+      "main": [
+        [
+          {
+            "node": "Scan benefits (Apify + Featherless)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scan benefits (Apify + Featherless)": {
+      "main": [
+        [
+          {
+            "node": "Segment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Segment": {
+      "main": [
+        [
+          {
+            "node": "Tell sales: Gap",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tell sales: Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tell sales: demand only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tell sales: Gap": {
+      "main": [
+        [
+          {
+            "node": "Pingen letter to HR (configure)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tell sales: Switch": {
+      "main": [
+        [
+          {
+            "node": "Pingen letter to HR (configure)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Board</title>
+<style>
+/* Layout: a single reading column with a ranked board of idea cards, score bars, and a compact plan. */
+:root{
+  --bg:#f3f5f2; --surface:#ffffff; --ink:#18231d; --muted:#5b6a61; --line:#d8ded9;
+  --accent:#1f6b4a; --accent-soft:#e1efe7; --warn:#a2601a; --warn-soft:#f6ead9; --bad:#a3392f; --bad-soft:#f5e1de;
+  --bar:#cfd9d2;
+  --display:"Avenir Next","Avenir","Segoe UI",system-ui,sans-serif;
+  --body:"Charter","Iowan Old Style","Georgia",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111814; --surface:#18221c; --ink:#e4ece6; --muted:#9aaba0; --line:#2b3a31;
+  --accent:#6cc79a; --accent-soft:#1d3428; --warn:#e0a35c; --warn-soft:#3a2c19; --bad:#e58b80; --bad-soft:#3b2220; --bar:#2e3d34; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111814; --surface:#18221c; --ink:#e4ece6; --muted:#9aaba0; --line:#2b3a31;
+  --accent:#6cc79a; --accent-soft:#1d3428; --warn:#e0a35c; --warn-soft:#3a2c19; --bad:#e58b80; --bad-soft:#3b2220; --bar:#2e3d34; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:32px 64px;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:2.1rem;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin-bottom:14px}
+h3{font-size:1.05rem}
+.eyebrow{font:600 .72rem/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+p{margin:0;max-width:68ch}
+header{display:grid;gap:12px}
+.meta{font:.85rem var(--mono);color:var(--muted)}
+.verdict{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:20px 22px;display:grid;gap:8px}
+.verdict strong{font-family:var(--display)}
+.criteria{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.crit{border-top:2px solid var(--ink);padding-top:10px;display:grid;gap:2px}
+.crit b{font-family:var(--display)}
+.crit span{color:var(--muted);font-size:.92rem}
+.board{display:grid;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:18px}
+.card.top{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card .main{display:grid;gap:8px;min-width:0}
+.titleRow{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.tag{font:600 .7rem/1 var(--display);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--bar);color:var(--ink)}
+.tag.go{background:var(--accent);color:var(--surface)}
+.tag.backup{background:var(--warn-soft);color:var(--warn)}
+.tag.drop{background:var(--bad-soft);color:var(--bad)}
+dl{margin:0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 12px;font-size:.95rem}
+dt{font:600 .78rem/1.9 var(--display);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+dd{margin:0}
+.who{font:.8rem var(--mono);color:var(--muted)}
+.scores{display:grid;gap:7px;align-content:start;font:.8rem var(--display)}
+.s{display:grid;grid-template-columns:78px 1fr 14px;gap:8px;align-items:center}
+.s i{display:block;height:7px;border-radius:4px;background:var(--bar);position:relative;overflow:hidden}
+.s i::after{content:"";position:absolute;inset:0;width:calc(var(--v)*20%);background:var(--accent);border-radius:4px}
+.total{font:700 1.6rem/1 var(--display);font-variant-numeric:tabular-nums;text-align:right}
+.total small{font-size:.8rem;color:var(--muted);font-weight:500}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font:.9rem var(--display);font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.num,th.num{text-align:right}
+tr:last-child td{border-bottom:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;min-width:0}
+ol,ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+code{font:.85em var(--mono);background:var(--bar);padding:1px 5px;border-radius:4px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:600 .85rem var(--display)}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+.flow b{color:var(--muted);font-weight:400}
+footer{font:.8rem var(--mono);color:var(--muted)}
+@media (max-width:680px){
+  .card{grid-template-columns:minmax(0,1fr)}
+  dl{grid-template-columns:minmax(0,1fr)}
+  dt{line-height:1.4;margin-top:4px}
+  h1{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">GTM Hackathon Berlin · 3 Oct 2026 · Build 11:00–17:30</div>
+  <h1>Signal Board</h1>
+  <p class="meta">Ideas from Claude, Codex, Grok and Gemini, scored on the official criteria. Scores are the team's judgment, not measured.</p>
+</header>
+
+<section class="verdict">
+  <div class="eyebrow">Recommendation</div>
+  <p><strong>Build F+, "Benefit Stack Radar". Think of it as BuiltWith for employee benefits.</strong> Read each company's benefits from its job ads, then sort it into a segment. <b>Gap</b>: plenty of perks, no food. <b>Switch</b>: already pays through a meal card such as Pluxee, Edenred or Lunchit, so the €7.67 budget exists. <b>Skip</b>: has a canteen, or the evidence is unclear. n8n then sends a letter to the HR department through Pingen with a link to that company's ROI page. No email is sent, and no person is named. Fallback: <strong>B, Apify Store Gap</strong>.</p>
+</section>
+
+<section>
+  <h2>How the judges score</h2>
+  <div class="criteria">
+    <div class="crit"><b>1 · Originality</b><span>How fresh is the signal?</span></div>
+    <div class="crit"><b>2 · Real solution</b><span>Runs today, usable on Monday</span></div>
+    <div class="crit"><b>3 · Reliability</b><span>Fails gracefully, holds up under GDPR</span></div>
+    <div class="crit"><b>4 · Wild card</b><span>The idea, the craft, the ambition</span></div>
+  </div>
+  <p class="meta" style="margin-top:12px">"A small thing that runs beats a big thing that does not." From the organizers' talk: ROI decides, and Clay already sells the hiring and funding signals.</p>
+</section>
+
+<section>
+  <h2>Ideas, ranked</h2>
+  <div class="board">
+
+    <article class="card top">
+      <div class="main">
+        <div class="titleRow"><h3>F+ · Benefit Stack Radar</h3><span class="tag go">Build</span><span class="tag">Capture + Act</span></div>
+        <dl>
+          <dt>Signal</dt><dd>The company's benefits as a stack, read from its job ads. Job ads are just the most complete public record of a company's benefits; the open position itself is ignored. <b>Gap</b>: JobRad, Deutschlandticket or Wellpass listed, no food. <b>Switch</b>: pays through Pluxee, Edenred or Lunchit.</dd>
+          <dt>Reliability</dt><dd>We trust a missing benefit only when the company has at least 3 ads, each listing at least 3 perks, and none of them mentions food. Recruitment agencies, canteens, "free lunch" and anywhere outside the delivery area are skipped.</dd>
+          <dt>Decision</dt><dd>People Ops already administers tax-free perks. Switch companies already have the budget. Q4 benefits planning is an assumption we haven't verified.</dd>
+          <dt>ROI</dt><dd>€7.67 per workday tax-free (2026). Bella&amp;Bona's own claim: about €33k a year for 50 employees compared with a pay rise. That is their figure, not ours.</dd>
+          <dt>Action</dt><dd>n8n: lead in Supabase, then a Pingen letter to the HR department with a QR code to that company's ROI page and an offer of a team lunch. No email (§7 UWG), no named person. In the demo it goes to the Pingen sandbox, which we haven't checked exists yet.</dd>
+          <dt>Stretch</dt><dd>Freshness: a company that recently <i>added</i> a perk is in buying mode right now. Compare old ads or Wayback snapshots.</dd>
+        </dl>
+        <div class="who">Built from Grok's F and Claude's A · round 3 after the data probe</div>
+      </div>
+      <div class="scores">
+        <div class="total">17<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:4"></i>4</div>
+        <div class="s">Real<i style="--v:5"></i>5</div>
+        <div class="s">Reliability<i style="--v:4"></i>4</div>
+        <div class="s">Wild card<i style="--v:4"></i>4</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>B · Apify Store Gap</h3><span class="tag backup">Fallback</span><span class="tag">Capture + Act</span></div>
+        <dl>
+          <dt>Signal</dt><dd>Someone on Hacker News or Reddit asks how to scrape a site, and no Apify Store actor exists for it.</dd>
+          <dt>Action</dt><dd>Automatic actor brief in Apify's internal Slack. Runs fully without a person, and that is legal because the action stays internal.</dd>
+          <dt>ROI</dt><dd>Codex variant: posts that put a price on the workaround, e.g. "we pay €500 a month for this". Return = documented cost against what a replacement would cost.</dd>
+        </dl>
+        <div class="who">Grok (round 1) · Codex's top pick (round 2)</div>
+      </div>
+      <div class="scores">
+        <div class="total">16<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:4"></i>4</div>
+        <div class="s">Real<i style="--v:4"></i>4</div>
+        <div class="s">Reliability<i style="--v:4"></i>4</div>
+        <div class="s">Wild card<i style="--v:4"></i>4</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>A · Bella&amp;Bona NRW Radar (job ads)</h3><span class="tag drop">Absorbed into F</span></div>
+        <dl>
+          <dt>Signal</dt><dd>Job ads with "3 days in office" and other benefits but no meal subsidy.</dd>
+          <dt>Problem</dt><dd>Both reviewers said this is the hiring signal Clay already sells. Its useful part, the gap in benefits, became F.</dd>
+        </dl>
+        <div class="who">Claude · rated 17 in round 1, 11–14 in round 2</div>
+      </div>
+      <div class="scores">
+        <div class="total">13<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:2"></i>2</div>
+        <div class="s">Real<i style="--v:4"></i>4</div>
+        <div class="s">Reliability<i style="--v:4"></i>4</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>D · Office event hosts</h3><span class="tag">Badge for F</span></div>
+        <dl>
+          <dt>Signal</dt><dd>Luma or Meetup events held at a company office, e.g. Doctolib. About 1 in 20 Berlin events on Luma.</dd>
+          <dt>Problem</dt><dd>All four models proposed it, so other teams will too. Coworking venues give false positives, and catering may already be booked.</dd>
+        </dl>
+        <div class="who">All 4 models</div>
+      </div>
+      <div class="scores">
+        <div class="total">13<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:3"></i>3</div>
+        <div class="s">Real<i style="--v:4"></i>4</div>
+        <div class="s">Reliability<i style="--v:3"></i>3</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>C · Canteen closure</h3><span class="tag drop">Too little data</span></div>
+        <dl>
+          <dt>Signal</dt><dd>A canteen marked permanently closed on Google Maps, or a company's menu page disappears.</dd>
+          <dt>Problem</dt><dd>OpenStreetMap has 46 canteens in Berlin, almost all university Mensas. Private operators keep their menus behind apps or PINs. Untested.</dd>
+        </dl>
+        <div class="who">Codex, Grok (round 1)</div>
+      </div>
+      <div class="scores">
+        <div class="total">12<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:5"></i>5</div>
+        <div class="s">Real<i style="--v:2"></i>2</div>
+        <div class="s">Reliability<i style="--v:2"></i>2</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>G · Office lunch pain in reviews</h3><span class="tag">Optional add-on</span></div>
+        <dl>
+          <dt>Signal</dt><dd>Google Maps reviews of an office location saying "no canteen" or "nowhere to eat". The pain point in employees' own words.</dd>
+          <dt>Problem</dt><dd>Sparse in Berlin. Adds evidence to F; can't carry a product alone.</dd>
+        </dl>
+        <div class="who">Grok (round 2)</div>
+      </div>
+      <div class="scores">
+        <div class="total">12<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:4"></i>4</div>
+        <div class="s">Real<i style="--v:2"></i>2</div>
+        <div class="s">Reliability<i style="--v:3"></i>3</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>E · Restaurant hygiene notices</h3><span class="tag drop">Drop</span></div>
+        <dl>
+          <dt>Signal</dt><dd>Berlin district PDFs listing restaurant hygiene violations (§40 LFGB), e.g. Pankow, July 2026.</dd>
+          <dt>Problem</dt><dd>Little link to catering demand. Sole proprietors are named in the notices, which makes them personal data. Selling off the back of them would hurt the brand.</dd>
+        </dl>
+        <div class="who">Gemini</div>
+      </div>
+      <div class="scores">
+        <div class="total">10<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:4"></i>4</div>
+        <div class="s">Real<i style="--v:1"></i>1</div>
+        <div class="s">Reliability<i style="--v:2"></i>2</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="main">
+        <div class="titleRow"><h3>Lunch Desert Radar (original)</h3><span class="tag drop">Drop</span></div>
+        <dl>
+          <dt>Problem</dt><dd>Counting restaurants within 400 m says little in Berlin. Booking tastings automatically is a liability. Too many sources for 6 hours.</dd>
+        </dl>
+        <div class="who">Claude (first draft)</div>
+      </div>
+      <div class="scores">
+        <div class="total">10<small> / 20</small></div>
+        <div class="s">Originality<i style="--v:3"></i>3</div>
+        <div class="s">Real<i style="--v:2"></i>2</div>
+        <div class="s">Reliability<i style="--v:2"></i>2</div>
+        <div class="s">Wild card<i style="--v:3"></i>3</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2>How each model scored them</h2>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Idea</th><th class="num">Claude</th><th class="num">Grok</th><th class="num">Codex</th><th>Top pick of</th></tr></thead>
+      <tbody>
+        <tr><td>F+ · Benefit Stack Radar</td><td class="num">17</td><td class="num">–</td><td class="num">–</td><td>Claude (round 3)</td></tr>
+        <tr><td>F · Sachbezug Gap (careers pages)</td><td class="num">15</td><td class="num">new</td><td class="num">–</td><td>Grok</td></tr>
+        <tr><td>B · Apify Store Gap</td><td class="num">16</td><td class="num">16</td><td class="num">16</td><td>Codex</td></tr>
+        <tr><td>A · NRW Radar (job ads)</td><td class="num">13</td><td class="num">14</td><td class="num">11</td><td>–</td></tr>
+        <tr><td>D · Event hosts</td><td class="num">13</td><td class="num">14</td><td class="num">12</td><td>Gemini (round 1)</td></tr>
+        <tr><td>C · Canteen closure</td><td class="num">12</td><td class="num">11</td><td class="num">13</td><td>–</td></tr>
+        <tr><td>E · Hygiene notices</td><td class="num">10</td><td class="num">9</td><td class="num">10</td><td>–</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="grid2">
+  <div class="box">
+    <h3>Four ways to find a signal others miss</h3>
+    <ol>
+      <li><b>Look for what's missing.</b> A benefits page with everything except lunch.</li>
+      <li><b>Look at related purchases.</b> Whoever already runs perks makes this kind of decision.</li>
+      <li><b>Time it to the budget.</b> Q4 benefits planning, and new tax-free amounts on 1 January.</li>
+      <li><b>Use employees' own words as proof.</b> Reviews that say "nowhere to eat".</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>Scalability: cost and speed</h3>
+    <ul>
+      <li><b>Scraping:</b> job-ad actors charge per result, $1–5 per 1,000 ads (LinkedIn Jobs from $1, Indeed $3, StepStone $5 per 1,000).</li>
+      <li><b>AI:</b> Featherless is a flat subscription with unlimited tokens ($25 a month for 4 parallel requests), so each extra request costs almost nothing. Concurrency is the limit. At about 3 s per extraction, roughly 4,800 ads an hour. That is an estimate; measure it.</li>
+      <li><b>Letters:</b> the only real variable cost, and only qualified leads get one. The price per letter in Germany is unknown; ask Pingen.</li>
+      <li>Every Apify run reports its real cost in <code>usageTotalUsd</code>. Put cost per qualified lead on the slide.</li>
+      <li>Ask Bella&amp;Bona at lunch what a typical customer is worth. That gives the ROI on our cost per lead.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>What GTM leaders struggle with, and what Apify + n8n can do about it</h2>
+  <div class="tablebox" style="margin-bottom:28px">
+    <table>
+      <thead><tr><th>Problem</th><th>Why it hurts</th><th>Apify</th><th>n8n</th><th>In F+</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Everyone uses the same signals</td><td>Clay templates (hiring, funding) → same lists, falling reply rates</td><td>Your own sources from the long tail</td><td>Own scoring logic</td><td>Benefits stack as a signal</td></tr>
+        <tr><td>2 · Too late</td><td>Signals arrive days later, when the competitor has already called</td><td>Scheduled runs + webhooks</td><td>Event trigger → instant action</td><td>Letter goes out the same day</td></tr>
+        <tr><td>3 · Bad data, decaying CRM</td><td>Records go stale, reps call the wrong accounts</td><td>Re-crawl regularly</td><td>Deduplicate, normalize, update</td><td>Group ads by company, normalize names</td></tr>
+        <tr><td>4 · AI personalization without proof</td><td>Generic AI SDR emails, made-up facts</td><td>A source link for every statement</td><td>Template only from verified fields</td><td>Evidence quote + €7.67 math</td></tr>
+        <tr><td>5 · Deliverability + GDPR/UWG</td><td>Cold email blocked or illegal (§7 UWG)</td><td>Company data only</td><td>Other channels: post, ads, CRM task</td><td>Pingen letter to the HR department</td></tr>
+        <tr><td>6 · Tool costs, unclear ROI</td><td>Credit-based tools get expensive, nobody knows the cost per lead</td><td>Pay per result, cost reported per run</td><td>Self-hostable, no per-seat price</td><td>Live cost per lead on the slide</td></tr>
+        <tr><td>7 · Churn goes unnoticed</td><td>Retention matters as much as new customers, but signals are only aimed at prospects</td><td>Same crawl on existing customers</td><td>Alert to Customer Success</td><td><b>Customer watch</b>: a customer's job ads suddenly mention Pluxee or Wolt</td></tr>
+        <tr><td>8 · New markets with no map</td><td>Opening NRW with no list of target companies</td><td>Full scan of a region</td><td>Prioritize, assign reps</td><td>Düsseldorf and Köln territory list</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Pipeline for F+</h2>
+  <div class="flow">
+    <span>Apify: job ads from StepStone / LinkedIn / Indeed (Berlin, Munich, Düsseldorf, Köln)</span><b>→</b><span>Featherless: benefits as JSON</span><b>→</b><span>Code: merge ads per company, assign Gap / Switch / Skip</span><b>→</b><span>Supabase</span><b>→</b><span>n8n: Pingen letter + ROI page</span>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="box">
+      <h3>Data probe, 3 Oct, 10:50</h3>
+      <ul>
+        <li>Holidu (a Bella&amp;Bona customer): the careers page lists <b>no benefits at all</b>.</li>
+        <li>trivago careers page: HTTP 403, blocked.</li>
+        <li>StepStone ads list full benefits, including "Pluxee Essensgutscheine" (meal vouchers) and "Kantine" (canteen).</li>
+        <li>Conclusion: careers pages are unreliable, job ads are the source.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Open risks</h3>
+      <ul>
+        <li>Judges may read job ads as "hiring signal". Say it explicitly in the pitch: we read the benefits, not the vacancy.</li>
+        <li>Recruitment-agency ads hide the employer. Filter them out.</li>
+        <li>The same company appears under several name spellings. Normalize names before grouping.</li>
+        <li>Postal advertising needs a way to opt out (Werbewiderspruch). Keep a suppression list.</li>
+        <li>Apify may already run an ideas board for actor requests, which would weaken B. Not checked.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="grid2">
+  <div class="box">
+    <h3>11:00–11:30 · go or no-go</h3>
+    <ol>
+      <li>Run StepStone or LinkedIn Jobs for Düsseldorf and Berlin, about 200 ads.</li>
+      <li>Featherless extracts the benefits from 20 of them, checked by hand.</li>
+      <li>If at least 60% of ads have a benefit list and both Gap and Switch companies show up, build F+. Otherwise build B.</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>Demo, about 60 seconds</h3>
+    <ol>
+      <li>"Clay sells hiring and funding signals. We look for a gap that is missing."</li>
+      <li>Run live: company → evidence quote → €7.67 per day → ROI page.</li>
+      <li>An unclear page is skipped on screen and nothing is sent.</li>
+      <li>Real cost per lead taken from the Apify run.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>Sources: research/ (codex.md, grok.md, gemini-antigravity.md, codex-review.md, grok-review.md) · IDEAS.md · €7.67 from Haufe and the Bella&amp;Bona office-lunch page · NRW launch from catering.de, 8 Sep 2026</footer>
+</div>
+</body>
+</html>

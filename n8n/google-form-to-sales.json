@@ -1,0 +1,334 @@
+{
+  "name": "LunchSignal · Google Form → 5 colleagues → e-mail sales",
+  "nodes": [
+    {
+      "id": "5c59eefa-c0ef-4d4e-b4ae-63e4f0e58312",
+      "name": "New Google Form response",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ],
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "",
+          "name": "Google (set me)"
+        }
+      },
+      "notes": "Point this at the Form's linked responses sheet. Polls every minute.",
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_SHEET_ID/edit#gid=0"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_SHEET_ID/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      }
+    },
+    {
+      "id": "d8baa7f7-8b57-4ded-88e0-e106a7a9ae48",
+      "name": "Normalize e-mail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const FREEMAIL = new Set([\"gmail.com\",\"googlemail.com\",\"gmx.de\",\"gmx.net\",\"web.de\",\"yahoo.com\",\"yahoo.de\",\n  \"outlook.com\",\"outlook.de\",\"hotmail.com\",\"hotmail.de\",\"live.com\",\"icloud.com\",\"me.com\",\"t-online.de\",\n  \"posteo.de\",\"mailbox.org\",\"proton.me\",\"protonmail.com\",\"aol.com\",\"freenet.de\"]);\nconst MULTI = new Set([\"co.uk\",\"com.au\",\"co.at\",\"ac.uk\"]);\nfunction emailOf(row) {\n  const key = Object.keys(row).find(k => /mail/i.test(k));\n  return String(row[key] ?? \"\").trim().toLowerCase();\n}\nfunction domainOf(email) {\n  const host = email.includes(\"@\") ? email.split(\"@\").pop() : \"\";\n  if (!/^[a-z0-9.-]+\\.[a-z]{2,}$/.test(host)) return null;\n  const labels = host.split(\".\");\n  const lastTwo = labels.slice(-2).join(\".\");\n  const reg = MULTI.has(lastTwo) && labels.length >= 3 ? labels.slice(-3).join(\".\") : lastTwo;\n  return FREEMAIL.has(reg) ? null : reg;\n}\n\n// One item per new form response. Private addresses get company_domain = null.\nreturn $input.all().map(item => {\n  const row = item.json;\n  const email = emailOf(row);\n  const cityKey = Object.keys(row).find(k => /city|stadt|office/i.test(k));\n  return { json: { email, company_domain: domainOf(email), city: cityKey ? row[cityKey] : null, row_number: row.row_number } };\n});\n"
+      }
+    },
+    {
+      "id": "9ba7ed54-8ba6-49e6-8b22-a463b86504f5",
+      "name": "Company e-mail?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "23aac687-6fe9-4738-b13a-3868e51f67b0",
+              "leftValue": "={{ $json.company_domain }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "b038f4e7-3fbb-471b-8b4d-37527280cf55",
+      "name": "Read all responses",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        660,
+        280
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google (set me)"
+        }
+      },
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_SHEET_ID/edit#gid=0"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_SHEET_ID/edit#gid=0"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "9d5a4ca6-9b58-422d-9db8-49361571bdb6",
+      "name": "Count colleagues",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        280
+      ],
+      "parameters": {
+        "jsCode": "const FREEMAIL = new Set([\"gmail.com\",\"googlemail.com\",\"gmx.de\",\"gmx.net\",\"web.de\",\"yahoo.com\",\"yahoo.de\",\n  \"outlook.com\",\"outlook.de\",\"hotmail.com\",\"hotmail.de\",\"live.com\",\"icloud.com\",\"me.com\",\"t-online.de\",\n  \"posteo.de\",\"mailbox.org\",\"proton.me\",\"protonmail.com\",\"aol.com\",\"freenet.de\"]);\nconst MULTI = new Set([\"co.uk\",\"com.au\",\"co.at\",\"ac.uk\"]);\nfunction emailOf(row) {\n  const key = Object.keys(row).find(k => /mail/i.test(k));\n  return String(row[key] ?? \"\").trim().toLowerCase();\n}\nfunction domainOf(email) {\n  const host = email.includes(\"@\") ? email.split(\"@\").pop() : \"\";\n  if (!/^[a-z0-9.-]+\\.[a-z]{2,}$/.test(host)) return null;\n  const labels = host.split(\".\");\n  const lastTwo = labels.slice(-2).join(\".\");\n  const reg = MULTI.has(lastTwo) && labels.length >= 3 ? labels.slice(-3).join(\".\") : lastTwo;\n  return FREEMAIL.has(reg) ? null : reg;\n}\n\n// Distinct e-mails per company up to and including each new row. The alert fires on exactly the\n// 5th distinct colleague, so repeat sign-ups and later sign-ups never fire it again.\nconst all = $input.all().map(i => i.json);\nconst fresh = $('Company e-mail?').all().map(i => i.json);\nconst out = [];\nfor (const s of fresh) {\n  const seen = new Set();\n  for (const r of all) {\n    if (s.row_number != null && r.row_number > s.row_number) continue;\n    const e = emailOf(r);\n    if (domainOf(e) === s.company_domain) seen.add(e);\n  }\n  out.push({ json: { ...s, colleagues: seen.size, reached: seen.size === 5 } });\n}\nreturn out;\n"
+      }
+    },
+    {
+      "id": "0a806b76-d4f4-4b60-9979-fc547e9db27a",
+      "name": "5 colleagues reached?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        280
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8eb73a95-fd19-46dc-b3f1-2032479fde30",
+              "leftValue": "={{ $json.reached }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "add69154-00c3-4676-8102-6fae63c0c007",
+      "name": "Benefit scan (optional)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        260
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "x-enrich-secret (set me)"
+        }
+      },
+      "notes": "Calls the app: Apify job ads -> Featherless -> Gap/Switch/Skip. If it fails, the e-mail still goes out.",
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR-APP.vercel.app/api/enrich",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ domain: $json.company_domain, city: $json.city }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "id": "57779368-31e3-4f34-8352-a4f6e07bd933",
+      "name": "Compose sales e-mail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        260
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\n// Builds the sales e-mail. Works with or without a benefit scan result.\nconst scan = $input.item.json;\nconst base = $('Count colleagues').item.json;\nconst seg = scan && scan.segment ? scan.segment : null;\nconst label = { gap: \"GAP: pays other perks, no food benefit\", switch: \"SWITCH: already pays a meal card\",\n                 skip: \"SKIP: already provides food\", unknown: \"UNCLEAR: not enough evidence\" }[seg] ?? \"Benefit scan not available\";\nconst reasons = (scan.reasons ?? []).map(r => `<li>${r}</li>`).join(\"\");\nconst perks = (scan.perks ?? []).slice(0, 8).join(\", \");\nconst html = `\n<p><b>${base.colleagues} people at ${base.company_domain}</b> signed up for office lunch (office city: ${base.city ?? \"n/a\"}).</p>\n<p><b>Benefit scan:</b> ${label}</p>\n${reasons ? `<ul>${reasons}</ul>` : \"\"}\n${perks ? `<p><b>Perks they already offer:</b> ${perks}</p>` : \"\"}\n<p>Tax-free lunch benefit 2026: up to €7.67 per employee per workday (§8 Abs. 2 / §40 Abs. 2 EStG).</p>\n<p style=\"color:#666\">Company-level signal only. Individual sign-ups are not shared. Contact the company's People team, not the people who signed up.</p>`;\nreturn { json: { subject: `${base.colleagues} people at ${base.company_domain} want office lunch`, html } };\n"
+      }
+    },
+    {
+      "id": "cfc057bd-c7fe-4296-8908-edf390612f9f",
+      "name": "E-mail sales team",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1760,
+        260
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      },
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "sales@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    }
+  ],
+  "connections": {
+    "New Google Form response": {
+      "main": [
+        [
+          {
+            "node": "Normalize e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize e-mail": {
+      "main": [
+        [
+          {
+            "node": "Company e-mail?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company e-mail?": {
+      "main": [
+        [
+          {
+            "node": "Read all responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read all responses": {
+      "main": [
+        [
+          {
+            "node": "Count colleagues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count colleagues": {
+      "main": [
+        [
+          {
+            "node": "5 colleagues reached?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5 colleagues reached?": {
+      "main": [
+        [
+          {
+            "node": "Benefit scan (optional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Benefit scan (optional)": {
+      "main": [
+        [
+          {
+            "node": "Compose sales e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose sales e-mail": {
+      "main": [
+        [
+          {
+            "node": "E-mail sales team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

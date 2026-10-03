@@ -1,0 +1,29 @@
+{
+  "workflow_name": "Critical Mass · Kredible (universities)",
+  "webhook_path": "critical-mass",
+  "threshold": 3,
+  "hot_score": 70,
+  "org_type": "university",
+  "email_subject": "Kredible for your university",
+  "product": "Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk. Tuition is paid directly to the institution, and the university is told when a student's funding is secured. Benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany.",
+  "icp": {
+    "countries": ["Germany", "Deutschland", "DE"],
+    "industries": ["Higher Education", "Education", "Research", "Hochschule", "Universität"],
+    "exclude_industries": [],
+    "min_employees": 200,
+    "max_employees": null,
+    "target_roles": ["International office", "Admissions", "Leadership", "Finance", "International", "Zulassung"]
+  },
+  "decision_roles": ["International Office", "International Relations", "Admissions", "Zulassung", "Studierendenservice", "Vice President International", "Vizepräsident", "Kanzler", "Head of Finance"],
+  "call_request_pattern": "partnership call|call|meeting|termin",
+  "signals": [
+    {"key": "pain", "label": "Application deadline extensions (unfilled seats)", "query": "site:{domain} (\"Bewerbungsfrist verlängert\" OR \"Frist verlängert\" OR \"deadline extended\" OR \"application period reopened\")", "max_results": 5, "hint": "Strongest signal: extended or reopened deadlines mean unfilled seats."},
+    {"key": "customer_voice", "label": "Admitted students who cannot fund their studies (Reddit)", "query": "site:reddit.com \"{name}\" (\"blocked account\" OR Sperrkonto OR \"proof of funds\" OR \"can't afford\")", "max_results": 5, "hint": "Students of this university publicly struggling with the blocked account."},
+    {"key": "regulation", "label": "Government and regulation changes", "query": "(Sperrkonto OR Studienvisum OR Fachkräfteeinwanderungsgesetz OR \"Studiengebühren Nicht-EU\" OR \"international students\" Germany) (Gesetz OR Verordnung OR regulation OR Erhöhung) after:{since}", "max_results": 5, "hint": "Rule changes that make funding harder for non-EU students raise urgency for every university."},
+    {"key": "funding", "label": "Funding and budgets", "query": "\"{name}\" (Förderung OR Fördermittel OR DAAD OR Exzellenzstrategie OR funding OR grant) after:{since}", "max_results": 5, "hint": "New budgets for internationalisation make projects easier to start."},
+    {"key": "jobs", "label": "Job vacancies: needs written in the ad text", "query": "\"{name}\" (Stellenausschreibung OR Stellenangebot OR job OR vacancy) (\"International Office\" OR Zulassung OR Admissions OR \"international students\")", "max_results": 5, "hint": "Read the ad text for needs: workload, new processes, tools, international growth targets."},
+    {"key": "news", "label": "Latest news", "query": "\"{name}\" after:{since}", "max_results": 5, "hint": "What is happening at the organisation right now."}
+  ],
+  "lookback_days": 120,
+  "email_brief": "Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English."
+}
