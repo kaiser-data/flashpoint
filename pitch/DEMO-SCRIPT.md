@@ -6,27 +6,25 @@
 
 - [ ] Sheet open on the **sign-up tab** with 2 TU Berlin test rows already in (your own domain addresses, `+1`, `+2`).
 - [ ] n8n main workflow open, zoomed so all 5 coloured phases fit; one finished execution open in a second tab.
-- [ ] Gmail open on the **[HOT …] briefing** from a finished run (TU Berlin or FU Berlin).
+- [ ] Gmail (martinkaiser.ai@gmail.com) open on a **[HOT/WARM …] briefing** with the scorecard table (runs after 16:22 have it, e.g. Mannheim, Dresden, Hamburg).
 - [ ] Signal Watch digest e-mail open, plus the **Signals** and **Watch queries** tabs.
 - [ ] Eval workflow with a finished run, plus `tests/berlin_report.html` in the browser.
 - [ ] Screen: 1920×1080, browser zoom 110 %, bookmarks bar hidden, notifications off (Do Not Disturb).
 - [ ] Record with QuickTime: **Cmd + Shift + 5 → Record Selected Portion**. Voice-over in one take, or record the screen first and talk over it.
 
-## Shot list
+## Shot list (1:30, matches PITCH.md)
 
 | Time | Screen | Say |
 |---|---|---|
-| 0:00 | Title slide | "Clay sells hiring and funding signals. Everyone has them. We built a signal nobody uses." |
-| 0:08 | Sheet: 2 TU Berlin sign-ups → type the **3rd** | "One sign-up is curiosity. Three people from the same university is a flashpoint." |
-| 0:18 | Status column flips to `sent to n8n` | "The sheet counts sign-ups per e-mail domain and fires once, exactly at the threshold." |
-| 0:25 | n8n canvas, pan across the coloured phases | "Apify researches the account from seven sources: LinkedIn, decision makers, news, the website, and two signals nobody uses: deadline extensions on the university's own site, which mean empty seats, and students on Reddit who can't fund their blocked account." |
-| 0:45 | Finished execution: Verify company match → green | "If LinkedIn isn't really this university, the agent abstains instead of guessing." |
-| 0:52 | Gmail: [HOT 85] briefing, scroll slowly | "Sales gets one briefing: who signed up, the decision makers ranked A to C with LinkedIn links, the evidence, and a template per person. Ready to send on Monday." |
-| 1:12 | Agent e-mail copy (BCC) | "The people who signed up get a personal e-mail automatically. They opted in, so no human in the middle and no cold-mail risk." |
-| 1:22 | Signal Watch digest + Signals tab | "Three times a day the watch reads the news: budget freezes lifted, visa rules changed. It rates each hit, saves everything and tells sales which accounts to call now." |
-| 1:38 | Watch queries tab: precision column, a `learned` row | "It learns: every search has a precision score, dead searches retire, strong signals propose new ones." |
-| 1:48 | Berlin report / eval workflow | "A second model judges every analysis, plus seven hard rule checks. We ran all of Berlin's universities through it." |
-| 1:55 | Closing slide | "About 15 cents and 3 minutes per account. Flashpoint." |
+| 0:00 | Kredible landing page `/universities` | "Kredible finances the €11,904 blocked account for non-EU students. Universities admit them, many never arrive. Kredible's question: which university, and when?" |
+| 0:15 | Form: type the 3rd TU Berlin sign-up (or `npm run fill:demo` in the test folder) | "Clay sells hiring and funding signals. We use one nobody does: staff from the same university signing up on their own." |
+| 0:25 | Sheet: Flashpoint status flips to `sent to n8n` | "The first sign-up starts research. International Office, Admissions and Finance together is critical mass." |
+| 0:32 | n8n main workflow, pan across the coloured phases | "Apify reads LinkedIn, the news and the university's own site: extended deadlines, new programmes, free places, students who can't fund the blocked account." |
+| 0:50 | Briefing e-mail: scorecard table at the top | "Eight signals, each with evidence, become a Flashpoint score. Here: winter term started two days ago, three roles signed up." |
+| 1:00 | Briefing: decision makers A/B/C + template | "Sales gets the right people ranked, and an e-mail written for this moment. The sign-ups get theirs automatically." |
+| 1:08 | Germany report (`tests/germany_report.html`) | "It abstains when unsure, and a second model judges every analysis: 17 of 18 universities on the right path." |
+| 1:16 | n8n Replies phase → Outcomes → Learned playbook node | "Every reply is logged; the next analysis learns which signals got answers. The news is watched three times a day." |
+| 1:25 | README hero screenshot or title slide | "Flashpoint: Kredible talks to the right university at the right moment." |
 
 ## Live pitch (3 min) if there is no video slot
 
