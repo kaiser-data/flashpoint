@@ -9,6 +9,8 @@ Credentials that need a Google sign-in (Gmail, Google Sheets) are reused from n8
 credential is missing are disabled so the workflow can still be activated.
 """
 import json, os, subprocess, sys, urllib.error, urllib.request, uuid
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from node_docs import MAIN as MAIN_DOCS, EVAL as EVAL_DOCS, legend
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SHEET_ID = os.environ.get("SHEET_ID") or "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
@@ -114,7 +116,9 @@ def build_main():
 
     for n in wf["nodes"]:
         if n["name"] in LAYOUT: n["position"] = list(LAYOUT[n["name"]])
-        if n["name"] in NOTES: n["notes"], n["notesInFlow"] = NOTES[n["name"]], True
+        if n["name"] in MAIN_DOCS:
+            ph, what, api, cost = MAIN_DOCS[n["name"]]
+            n["notes"], n["notesInFlow"] = f"{what}\n[{api} · {cost}]", True
 
     wf["nodes"] += [
         sticky("About Flashpoint", -60, -380, 1560, 300, 7,
@@ -139,6 +143,7 @@ def build_main():
                "## 4 · Act and document\n**Auto e-mail** only to consented sign-ups (BCC) when LinkedIn is verified.\n"
                "**Human hand-off** when a call was requested, the score is high or anything is uncertain.\n"
                "**Log** every analysis to the sheet for the eval team."),
+        sticky("Legend", 1320, 880, 2620, 1180, 7, legend(MAIN_DOCS, "Flashpoint main workflow")),
         sticky("5 · Replies", -60, 880, 1260, 380, 3,
                "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to "
                "a human. STOP is respected."),
@@ -302,6 +307,10 @@ def build_eval():
     # Build report must run once over all verdicts, not per item
     for node in wf["nodes"]:
         if node["name"] == "Build report": node["executeOnce"] = True
+        if node["name"] in EVAL_DOCS:
+            ph, what, api, cost = EVAL_DOCS[node["name"]]
+            node["notes"], node["notesInFlow"] = f"{what}\n[{api}]", True
+    wf["nodes"].append(sticky("Legend", -60, 620, 2520, 620, 7, legend(EVAL_DOCS, "Flashpoint eval workflow")))
     connect(wf, "Build report", "Anything judged?")
     connect(wf, "Anything judged?", "E-mail eval team")
     return wf

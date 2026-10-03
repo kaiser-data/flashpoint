@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "4fe788ac-40e6-4e25-96af-ba6478994fbb",
+      "id": "3a8415d7-9668-4e5e-86b1-1c26b381ca5f",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,23 +10,24 @@
         0,
         300
       ],
-      "webhookId": "38c24144-a4fe-47fc-b7de-c3f980fd8b1b",
+      "webhookId": "5cd2fac2-b467-4fdb-99da-0dc345786c34",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
           "name": "x-signal-secret (set me)"
         }
       },
-      "notes": "Called by google/apps-script.gs on every Google Form response.",
+      "notes": "Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header.\n[n8n Webhook · free]",
       "parameters": {
         "httpMethod": "POST",
         "path": "critical-mass",
         "authentication": "headerAuth",
         "options": {}
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "29856057-9456-4b21-afb6-7afb94e15e6f",
+      "id": "46ddd533-063b-46de-b804-efa0e0341ee5",
       "name": "Exactly 3 colleagues?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -44,7 +45,7 @@
           },
           "conditions": [
             {
-              "id": "c3ee872d-c94f-403b-9c88-364e896e2d0d",
+              "id": "42ed290a-f4ec-47de-ae10-011d6a02104c",
               "leftValue": "={{ $json.body.colleagues }}",
               "operator": {
                 "type": "number",
@@ -53,7 +54,7 @@
               "rightValue": 3
             },
             {
-              "id": "cda1281e-84d8-4473-a978-2ec27fd347db",
+              "id": "53a513dc-6cc9-4246-9168-6642d56e389a",
               "leftValue": "={{ $json.body.company_domain }}",
               "operator": {
                 "type": "string",
@@ -67,11 +68,11 @@
         },
         "options": {}
       },
-      "notes": "Fires once per organisation, on the exact threshold sign-up.",
+      "notes": "Continues only on the exact threshold sign-up, so each organisation runs once.\n[n8n IF · free]",
       "notesInFlow": true
     },
     {
-      "id": "c76fc0b6-56d8-4db4-8440-0f5b7680611c",
+      "id": "f980bafc-16c8-4c1a-ae10-89413b2bfd43",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -88,7 +89,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "~$0.004 per search. Searched by the institution name from the form; the next step checks the match.",
+      "notes": "Finds the organisation's LinkedIn page by the name typed in the form, or by the domain.\n[Apify harvestapi/linkedin-company · ~$0.004]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company/run-sync-get-dataset-items",
@@ -100,10 +101,11 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "bc9b03c7-be89-46aa-9e10-615e37f24d3c",
+      "id": "2fca3865-00b5-4157-a007-31262c572bf9",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -114,11 +116,11 @@
       "parameters": {
         "jsCode": "\n// Accept the LinkedIn match only if its website is the sign-up domain. Otherwise abstain.\nconst signup = $('Form sign-up').first().json.body;\nconst items = $input.all().map(i => i.json).filter(c => c && c.name);\nconst institution = String((signup.notes || [])[0] || '').split(' | ')[0].toLowerCase().trim();\nconst match = items.find(c => String(c.website || '').toLowerCase().includes(signup.company_domain))\n  || (institution ? items.find(c => String(c.name || '').toLowerCase() === institution) : undefined);\nreturn [{ json: {\n  domain: signup.company_domain, city: signup.city, colleagues: signup.colleagues,\n  roles: signup.roles || [], notes: signup.notes || [],\n  partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),\n  colleague_emails: signup.colleague_emails,\n  verified: Boolean(match),\n  company: match ? {\n    name: match.name, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,\n    industries: match.industries, specialities: match.specialities, tagline: match.tagline,\n    description: String(match.description || '').slice(0, 1500),\n    locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),\n  } : null,\n}}];\n"
       },
-      "notes": "Abstains if the LinkedIn page is not this organisation.",
+      "notes": "Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains.\n[Code · free]",
       "notesInFlow": true
     },
     {
-      "id": "e5d7e84f-8d5c-4ae7-a868-f3c9f480f61c",
+      "id": "223cb5cf-cadd-4687-ae57-a51c1c92634a",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -135,7 +137,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "$1.50 / 1k posts. Engagement per post; commenters are not stored.",
+      "notes": "Last 20 posts with likes, comments and shares. Commenters are not stored.\n[Apify harvestapi/linkedin-company-posts · ~$0.03]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company-posts/run-sync-get-dataset-items",
@@ -147,10 +149,11 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "e62786ca-f7b0-4d4d-b971-4220e26c76a8",
+      "id": "f16a3ddd-4eec-4c9d-b6b3-cc4a0d899e14",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -167,7 +170,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "Only job titles reach the LLM (buying committee as roles). Check the exact profileScraperMode value in the actor input.",
+      "notes": "Job titles of people in buying roles. Only titles reach the LLM, never names.\n[Apify harvestapi/linkedin-company-employees · ~$0.06]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-company-employees/run-sync-get-dataset-items",
@@ -179,10 +182,11 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "f0536b15-805f-44e8-b22a-723f1edec7a6",
+      "id": "66cb0bf0-c251-4a57-9b3d-44b40d4e11f5",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -199,7 +203,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "Google search + page text for recent news. ~$0.01 per run.",
+      "notes": "Google search for the organisation's news from the last 120 days, with page text.\n[Apify apify/rag-web-browser · ~$0.01]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -211,10 +215,11 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "a2a609c7-c357-42b2-98bb-f22d8a56295e",
+      "id": "e43380cb-0e94-443e-9fda-e3dfe52a2c1f",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -231,7 +236,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "The organisation's own homepage as Markdown.",
+      "notes": "The organisation's homepage as Markdown.\n[Apify apify/rag-web-browser · ~$0.002]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -243,10 +248,11 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "3f501be2-0ddb-474b-88c7-580e98ce8fa9",
+      "id": "d7ef3ae6-faea-40a4-92d9-1c0b7c973fbf",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -263,7 +269,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "Signal nobody uses: public evidence of the pain on the org's own site.",
+      "notes": "Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats).\n[Apify apify/rag-web-browser · ~$0.01]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -279,7 +285,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d2209c8d-e35c-4dcb-bd9c-061d426f5eda",
+      "id": "c7146dc4-5fe0-455d-b326-f460034e8055",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -296,7 +302,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "What the org's own customers say publicly (usernames removed).",
+      "notes": "What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed.\n[Apify apify/rag-web-browser · ~$0.01]",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -312,7 +318,7 @@
       "notesInFlow": true
     },
     {
-      "id": "c10ca206-0131-4910-a538-948d62d90bdc",
+      "id": "e879db11-4a3b-4a73-9b7f-8781264b177e",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -322,10 +328,12 @@
       ],
       "parameters": {
         "jsCode": "\n// Company-level context for the LLM. People appear only as roles, never as names.\nconst base = $('Verify company match').first().json;\nconst posts = $('LinkedIn posts').all().map(i => i.json).filter(p => p && (p.content || p.text));\nconst roles = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.headline);\nconst topPosts = posts\n  .map(p => ({ text: String(p.content || p.text).slice(0, 400),\n               engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))\n  .sort((a, b) => b.engagement - a.engagement).slice(0, 8);\nconst roleTitles = [...new Set(roles.map(r => r.headline).filter(Boolean))].slice(0, 12);\nconst news = $('Latest news').all().map(i => i.json).filter(n => n && n.metadata && n.markdown)\n  .map(n => ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);\nconst site = $('Website').all().map(i => i.json).find(w => w && w.markdown);\nconst website = site ? String(site.markdown).slice(0, 2000) : null;\n// Search engines sometimes ignore site: filters. Keep only hits that are really about this account.\nconst domainRoot = String(base.domain || '').split('.')[0].replace(/-/g, ' ').toLowerCase();\nconst names = [String(base.company?.name || '').toLowerCase(), domainRoot].filter(x => x.length > 2);\nconst mentions = (h) => names.some(n => (String(h.metadata.title) + ' ' + String(h.markdown)).toLowerCase().includes(n));\nconst hits = (n, keep) => $(n).all().map(i => i.json).filter(h => h && h.metadata && h.markdown && keep(h))\n  .map(h => ({ title: String(h.metadata.title).slice(0, 160), url: h.metadata.url,\n               excerpt: String(h.markdown).replace(/u\\/[A-Za-z0-9_-]+/g, '').replace(/[\\w.+-]+@[\\w-]+\\.[\\w.]+/g, '[e-mail]').slice(0, 400) })).slice(0, 5);\nconst painSignal = hits('Pain signal', h => String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || '#none#').replace(/^https?:\\/\\/(www\\.)?/, '').split('/')[0]));\nconst customerVoice = hits('Customer voice', h => /reddit\\.com/.test(h.metadata.url) && mentions(h));\nconst droppedHits = $('Pain signal').all().length + $('Customer voice').all().length - painSignal.length - customerVoice.length;\nreturn [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];\n"
-      }
+      },
+      "notes": "Merges all sources. Drops search hits that are not about this organisation before the LLM sees them.\n[Code · free]",
+      "notesInFlow": true
     },
     {
-      "id": "dd8dca9c-18a2-4bcb-a8af-86611df25eb6",
+      "id": "894a829f-e709-4a15-bc1d-2953f74dc78b",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -352,10 +360,12 @@
         "options": {
           "timeout": 120000
         }
-      }
+      },
+      "notes": "The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail.\n[Featherless Qwen2.5-72B · flat plan]",
+      "notesInFlow": true
     },
     {
-      "id": "d67637b8-eb77-4fe4-abf3-8aef1bc8bfa5",
+      "id": "38e5f78c-5510-4b4a-a647-3918379567a1",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -366,11 +376,11 @@
       "parameters": {
         "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : null } }];\n"
       },
-      "notes": "Code decides: auto-send, hand to a human, or both.",
+      "notes": "Validates the model's JSON. Code decides: auto e-mail, hand to a human, or both.\n[Code · free]",
       "notesInFlow": true
     },
     {
-      "id": "76b3d093-b9a8-4cce-8e41-65bc85452252",
+      "id": "b1cc6d2a-8d5a-43ad-9874-3a84ce78d1d8",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -388,7 +398,7 @@
           },
           "conditions": [
             {
-              "id": "feb738f4-65a5-4b85-897a-63f154645ae2",
+              "id": "6c55f678-b302-42af-9244-61ada464441b",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -401,10 +411,12 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "notes": "True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups.\n[n8n IF · free]",
+      "notesInFlow": true
     },
     {
-      "id": "3ae2fcba-654e-4a47-a242-592ed4eb16e6",
+      "id": "02d92c17-01d8-4c44-96a0-0e49cb6c32a7",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -418,7 +430,7 @@
           "name": "Gmail (set me)"
         }
       },
-      "notes": "Only consented sign-ups, in BCC.",
+      "notes": "Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy.\n[Gmail · free]",
       "parameters": {
         "resource": "message",
         "operation": "send",
@@ -434,7 +446,7 @@
       "notesInFlow": true
     },
     {
-      "id": "41cc147b-8e0e-4a15-968f-864f3b0f074f",
+      "id": "4590ad97-1d27-466d-8574-8cf040f0a302",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -452,7 +464,7 @@
           },
           "conditions": [
             {
-              "id": "7c10dff7-f54b-41a3-932e-1ad69a2542b8",
+              "id": "c3ef845a-c4c9-4bc5-be98-fb38a5547f49",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -465,10 +477,12 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "notes": "True if a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable.\n[n8n IF · free]",
+      "notesInFlow": true
     },
     {
-      "id": "d9531c54-fc54-4f2c-8ce6-9eb273b6517a",
+      "id": "2a7b2c51-1663-4738-94f3-c36bd4721905",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -478,10 +492,12 @@
       ],
       "parameters": {
         "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Account-level briefing. Subscriber addresses are not included.</p>`;\nreturn [{ json: { subject: `[${d.score ?? \"review\"}] Critical mass: ${d.colleagues} people at ${d.domain}`, html } }];\n"
-      }
+      },
+      "notes": "Builds the sales briefing: why it was handed over, evidence links, analysis.\n[Code · free]",
+      "notesInFlow": true
     },
     {
-      "id": "da2f187b-9e39-478d-b090-c12fbe130c2e",
+      "id": "e1ca24e0-c783-4908-8546-46c914593ff3",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -505,10 +521,12 @@
         "options": {
           "appendAttribution": false
         }
-      }
+      },
+      "notes": "E-mails the briefing to the sales team.\n[Gmail · free]",
+      "notesInFlow": true
     },
     {
-      "id": "42686c46-ecd9-428b-ac8d-754b65e0b69d",
+      "id": "db25f413-5af1-4972-afed-f60aea8c0e63",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -536,10 +554,12 @@
           "readStatus": "unread"
         },
         "options": {}
-      }
+      },
+      "notes": "Polls the inbox every minute for unread replies to the agent's e-mail.\n[Gmail Trigger · free]",
+      "notesInFlow": true
     },
     {
-      "id": "7d5b7411-5d6e-4727-8831-74f01367cec7",
+      "id": "6286f2e6-07f6-4072-9a4e-643fd56ec5bf",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -566,10 +586,12 @@
         "options": {
           "timeout": 120000
         }
-      }
+      },
+      "notes": "Labels the reply: interested, question, not interested or stop.\n[Featherless Qwen2.5-72B · flat plan]",
+      "notesInFlow": true
     },
     {
-      "id": "492876b2-9325-4e2a-b327-797e9157e7e3",
+      "id": "b523f1d6-af52-4009-9a3a-e019f4084deb",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -579,10 +601,12 @@
       ],
       "parameters": {
         "jsCode": "\nconst mail = $('Reply received').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet r = null;\ntry { r = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst label = r?.label ?? \"question\"; // unclear replies go to a human\nreturn [{ json: { label, summary: r?.summary ?? \"Could not classify\", from: mail.from?.text ?? mail.from, subject: mail.subject,\n                  html: `<p><b>${label.toUpperCase()}</b> reply from ${mail.from?.text ?? \"\"}</p><p>${r?.summary ?? \"\"}</p><blockquote>${String(mail.text || mail.snippet || \"\").slice(0, 2000)}</blockquote>` } }];\n"
-      }
+      },
+      "notes": "Reads the label. Anything unclear is treated as a question, so a human sees it.\n[Code · free]",
+      "notesInFlow": true
     },
     {
-      "id": "79f8de2f-302b-4c69-a78a-65f793df6234",
+      "id": "faebb2d9-8e33-4970-95b8-6f8c28eaafa4",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -600,7 +624,7 @@
           },
           "conditions": [
             {
-              "id": "663f6201-93d9-44db-aaf4-4e9a0a485cad",
+              "id": "af6812e1-c0b9-4989-a0bd-b2ccbaadbaf1",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -609,7 +633,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "ca21c4dc-db1c-4322-be57-72c15aa7cad8",
+              "id": "5993860d-794c-4011-9483-2971ae2cbe15",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -621,10 +645,12 @@
           "combinator": "or"
         },
         "options": {}
-      }
+      },
+      "notes": "Routes interested replies and questions to a human. Stop and no-interest end here.\n[n8n IF · free]",
+      "notesInFlow": true
     },
     {
-      "id": "343448bf-8fea-4f50-a1da-e742a962c873",
+      "id": "668648c7-96c0-4ce6-9de5-663bc04ba02a",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -648,10 +674,12 @@
         "options": {
           "appendAttribution": false
         }
-      }
+      },
+      "notes": "E-mails the reply and its summary to the sales team.\n[Gmail · free]",
+      "notesInFlow": true
     },
     {
-      "id": "b28d8571-00c5-4896-857b-6d4fbeea96fe",
+      "id": "9ccec6b1-90e1-43b2-80bf-761e1b19a2b2",
       "name": "Prepare log row",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -661,10 +689,12 @@
       ],
       "parameters": {
         "jsCode": "\n// One flat row per analysis for the \"Analyses\" tab. The eval workflow reads these rows.\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst join = (x) => Array.isArray(x) ? x.join(' | ') : (x ?? '');\nconst evidence = [...(d.painSignal || []), ...(d.customerVoice || []), ...(d.news || [])].map(h => h.url).filter(Boolean);\nconst context = { company: d.company, roles_signed_up: d.roles, notes: d.notes, top_posts: (d.topPosts || []).slice(0, 5),\n  people_roles: d.roleTitles, news: d.news, pain_signal: d.painSignal, customer_voice: d.customerVoice,\n  website_excerpt: String(d.website || '').slice(0, 1500) };\nreturn [{ json: {\n  analysis_id: $execution.id + '-' + d.domain,\n  logged_at: new Date().toISOString(),\n  domain: d.domain,\n  organisation: d.company?.name ?? '',\n  linkedin_verified: d.verified ? 'yes' : 'no',\n  colleagues: d.colleagues,\n  roles: join(d.roles),\n  score: d.score ?? '',\n  decision: [d.autoSend ? 'auto-email' : null, d.handToHuman ? 'human' : null].filter(Boolean).join(' + ') || 'none',\n  handoff_reason: d.handoffReason ?? '',\n  angle: a.angle ?? '', news_summary: a.news_summary ?? '', pain_evidence: a.pain_evidence ?? '',\n  culture: a.culture ?? '', structure: a.structure ?? '',\n  buying_committee: join(a.buying_committee), score_reasons: join(a.score_reasons),\n  email_subject: a.champion_email_subject ?? '', email_html: String(a.champion_email_html ?? '').slice(0, 8000),\n  evidence_urls: evidence.join(' '), dropped_hits: d.droppedHits ?? 0,\n  context_json: JSON.stringify(context).slice(0, 20000),\n  model: 'Qwen/Qwen2.5-72B-Instruct',\n}}];\n"
-      }
+      },
+      "notes": "Flattens the analysis and the full context into one row for documentation and evaluation.\n[Code · free]",
+      "notesInFlow": true
     },
     {
-      "id": "3c9be7b4-94de-4e60-b606-a31040d40133",
+      "id": "db07ce08-7bbc-427f-bc02-a65aef25db51",
       "name": "Log analysis to sheet",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -700,11 +730,11 @@
         },
         "options": {}
       },
-      "notes": "Every analysis is documented for the eval team.",
+      "notes": "Appends the row to the Analyses tab. The eval workflow reads it from there.\n[Google Sheets · free]",
       "notesInFlow": true
     },
     {
-      "id": "e2aaa513-2e2b-4757-9a54-075d9cb10427",
+      "id": "3fb4d0c9-26a5-46b7-bdb8-a01e2ab5c3f7",
       "name": "About Flashpoint",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -720,7 +750,7 @@
       }
     },
     {
-      "id": "808dd1fb-9d18-4c9c-8ac7-23938c0aae25",
+      "id": "dc2b1e87-2408-4833-bbe9-770c0439ebf4",
       "name": "1 · Trigger and threshold",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -736,7 +766,7 @@
       }
     },
     {
-      "id": "b6f62fbf-ee33-42d7-9d84-ecafdf3db0dc",
+      "id": "fb127afe-8835-495f-b85b-b7f7e839ce71",
       "name": "2 · Account research",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -752,7 +782,7 @@
       }
     },
     {
-      "id": "b6c17c30-8643-48af-9a23-5a787d832bc6",
+      "id": "9c9fcf2f-07f3-4de5-aa40-08c49207ea10",
       "name": "3 · AI analysis",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -768,7 +798,7 @@
       }
     },
     {
-      "id": "3801513b-576e-47b5-b502-ab07fbe10d74",
+      "id": "31346f25-485e-42b7-aa60-b5b87da9a59d",
       "name": "4 · Act and document",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -784,7 +814,23 @@
       }
     },
     {
-      "id": "488e787e-47e4-4420-8def-abbb8b373f26",
+      "id": "23a4ebf9-8401-44cf-88be-1944bc5c9a45",
+      "name": "Legend",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        880
+      ],
+      "parameters": {
+        "content": "# Legend · Flashpoint main workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Trigger\n- **Form sign-up**: Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header. *(n8n Webhook, free)*\n- **Exactly 3 colleagues?**: Continues only on the exact threshold sign-up, so each organisation runs once. *(n8n IF, free)*\n\n### 2 Research\n- **LinkedIn company**: Finds the organisation's LinkedIn page by the name typed in the form, or by the domain. *(Apify harvestapi/linkedin-company, ~$0.004)*\n- **Verify company match**: Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains. *(Code, free)*\n- **LinkedIn posts**: Last 20 posts with likes, comments and shares. Commenters are not stored. *(Apify harvestapi/linkedin-company-posts, ~$0.03)*\n- **Decision-maker roles**: Job titles of people in buying roles. Only titles reach the LLM, never names. *(Apify harvestapi/linkedin-company-employees, ~$0.06)*\n- **Latest news**: Google search for the organisation's news from the last 120 days, with page text. *(Apify apify/rag-web-browser, ~$0.01)*\n- **Website**: The organisation's homepage as Markdown. *(Apify apify/rag-web-browser, ~$0.002)*\n- **Pain signal**: Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats). *(Apify apify/rag-web-browser, ~$0.01)*\n- **Customer voice**: What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed. *(Apify apify/rag-web-browser, ~$0.01)*\n\n### 3 Analysis\n- **Build context**: Merges all sources. Drops search hits that are not about this organisation before the LLM sees them. *(Code, free)*\n- **Featherless analysis**: The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse analysis**: Validates the model's JSON. Code decides: auto e-mail, hand to a human, or both. *(Code, free)*\n\n### 4 Act\n- **Send automatically?**: True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups. *(n8n IF, free)*\n- **Agent e-mails the sign-ups**: Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy. *(Gmail, free)*\n- **Hand to a human?**: True if a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable. *(n8n IF, free)*\n- **Write briefing**: Builds the sales briefing: why it was handed over, evidence links, analysis. *(Code, free)*\n- **Briefing to sales**: E-mails the briefing to the sales team. *(Gmail, free)*\n- **Prepare log row**: Flattens the analysis and the full context into one row for documentation and evaluation. *(Code, free)*\n- **Log analysis to sheet**: Appends the row to the Analyses tab. The eval workflow reads it from there. *(Google Sheets, free)*\n\n### 5 Replies\n- **Reply received**: Polls the inbox every minute for unread replies to the agent's e-mail. *(Gmail Trigger, free)*\n- **Classify reply**: Labels the reply: interested, question, not interested or stop. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse reply**: Reads the label. Anything unclear is treated as a question, so a human sees it. *(Code, free)*\n- **Interested or question?**: Routes interested replies and questions to a human. Stop and no-interest end here. *(n8n IF, free)*\n- **Hand reply to a human**: E-mails the reply and its summary to the sales team. *(Gmail, free)*",
+        "width": 2620,
+        "height": 1180,
+        "color": 7
+      }
+    },
+    {
+      "id": "31eaf12c-b762-4d15-bd8b-d2b2fc76ecdd",
       "name": "5 · Replies",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

@@ -1,0 +1,162 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flashpoint Reference</title><style>
+/* Layout: sticky side index on wide screens, single column on phones; reference-manual feel with mono for anything literal. */
+:root{--bg:#f5f4f1;--surface:#fff;--ink:#1b1c1f;--muted:#5f6168;--line:#dcdad4;--accent:#c2410c;--accent-soft:#fdeee5;--code:#f1efea;
+--display:"Avenir Next","Segoe UI",system-ui,sans-serif;--body:"Iowan Old Style","Charter",Georgia,serif;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#121315;--surface:#1b1c20;--ink:#e9e8e4;--muted:#a09fa6;--line:#2e2f35;--accent:#fb923c;--accent-soft:#3a2416;--code:#16171a;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+.layout{max-width:1280px;margin:0 auto;padding-inline:20px;padding-block:32px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+nav{position:sticky;top:24px;align-self:start;display:grid;gap:6px;font:500 .9rem var(--display)}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+header{grid-column:1/-1;display:grid;gap:8px}.eyebrow{font:600 .72rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--display);line-height:1.25;text-wrap:balance}h1{margin:0;font-size:2.2rem}h2{font-size:1.4rem;margin:0 0 14px;padding-top:8px;border-top:2px solid var(--ink)}h3{font-size:1.02rem;margin:22px 0 8px}
+main{display:grid;gap:44px;min-width:0}section{min-width:0}p{max-width:72ch;margin:0 0 10px}.sub{color:var(--muted);font-size:.88rem}
+code{font:.85em var(--mono);background:var(--code);padding:1px 5px;border-radius:4px}
+pre.code{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font:.8rem/1.55 var(--mono);white-space:pre-wrap;word-break:break-word;position:relative}
+pre.code::before{content:attr(data-lang);position:absolute;top:6px;right:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase}pre.code code{background:none;padding:0}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow-x:auto}table{border-collapse:collapse;width:100%;font:.9rem/1.45 var(--display)}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}tr:last-child td{border-bottom:0}
+tr.phase td{background:var(--accent-soft);color:var(--accent);font:600 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase}.num{text-align:right;white-space:nowrap}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:600 .85rem var(--display);margin-top:14px}.flow span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 10px}.flow small{font-weight:400;color:var(--muted)}.flow b{color:var(--accent)}
+ul{max-width:72ch;padding-left:1.2em}a{color:var(--accent)}
+@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}nav{position:static;grid-auto-flow:row}}
+</style></head><body><div class="layout">
+<header><div class="eyebrow">Flashpoint · technical reference · generated from the build scripts</div><h1>Flashpoint Reference</h1>
+<p class="sub">Every node, prompt, API, signal query, data field and decision rule used by the Flashpoint n8n workflows.</p></header>
+<nav><a href="#overview">Overview</a><a href="#nodes-main">Main workflow · every node</a><a href="#nodes-eval">Eval workflow · every node</a><a href="#prompts">Prompts</a><a href="#signals">Signal queries</a><a href="#apis">APIs and services</a><a href="#data">Data contracts</a><a href="#logic">Decision logic (code, not the model)</a><a href="#privacy">Privacy and compliance</a></nav><main><section id="overview"><h2>Overview</h2>
+<p>One sign-up is curiosity. When <b>3 different people</b> from the same organisation sign up, Flashpoint researches the
+organisation, scores it, writes to the people who signed up and hands hot accounts to a human. Every analysis is logged and graded
+by a second model.</p>
+<div class="flow">
+  <span>Landing page / Google Form</span><b>→</b><span>Google Sheet</span><b>→</b><span>Apps Script<br><small>count per domain</small></span><b>→</b>
+  <span>n8n webhook</span><b>→</b><span>Apify research<br><small>7 sources</small></span><b>→</b><span>Featherless analyst</span><b>→</b>
+  <span>Code decides</span><b>→</b><span>Gmail + Sheet log</span><b>→</b><span>Eval: rules + LLM judge</span>
+</div></section><section id="nodes-main"><h2>Main workflow · every node</h2><div class="box"><table><thead><tr><th>Node</th><th>What it does</th><th>API / tool</th><th class="num">Cost</th></tr></thead><tbody><tr class="phase"><td colspan="4">1 Trigger</td></tr><tr><td><b>Form sign-up</b></td><td>Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header.</td><td><code>n8n Webhook</code></td><td class='num'>free</td></tr><tr><td><b>Exactly 3 colleagues?</b></td><td>Continues only on the exact threshold sign-up, so each organisation runs once.</td><td><code>n8n IF</code></td><td class='num'>free</td></tr><tr class="phase"><td colspan="4">2 Research</td></tr><tr><td><b>LinkedIn company</b></td><td>Finds the organisation&#x27;s LinkedIn page by the name typed in the form, or by the domain.</td><td><code>Apify harvestapi/linkedin-company</code></td><td class='num'>~$0.004</td></tr><tr><td><b>Verify company match</b></td><td>Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>LinkedIn posts</b></td><td>Last 20 posts with likes, comments and shares. Commenters are not stored.</td><td><code>Apify harvestapi/linkedin-company-posts</code></td><td class='num'>~$0.03</td></tr><tr><td><b>Decision-maker roles</b></td><td>Job titles of people in buying roles. Only titles reach the LLM, never names.</td><td><code>Apify harvestapi/linkedin-company-employees</code></td><td class='num'>~$0.06</td></tr><tr><td><b>Latest news</b></td><td>Google search for the organisation&#x27;s news from the last 120 days, with page text.</td><td><code>Apify apify/rag-web-browser</code></td><td class='num'>~$0.01</td></tr><tr><td><b>Website</b></td><td>The organisation&#x27;s homepage as Markdown.</td><td><code>Apify apify/rag-web-browser</code></td><td class='num'>~$0.002</td></tr><tr><td><b>Pain signal</b></td><td>Signal nobody uses: public evidence of the pain on the org&#x27;s own site (e.g. extended deadlines = empty seats).</td><td><code>Apify apify/rag-web-browser</code></td><td class='num'>~$0.01</td></tr><tr><td><b>Customer voice</b></td><td>What the org&#x27;s own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed.</td><td><code>Apify apify/rag-web-browser</code></td><td class='num'>~$0.01</td></tr><tr class="phase"><td colspan="4">3 Analysis</td></tr><tr><td><b>Build context</b></td><td>Merges all sources. Drops search hits that are not about this organisation before the LLM sees them.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>Featherless analysis</b></td><td>The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail.</td><td><code>Featherless Qwen2.5-72B</code></td><td class='num'>flat plan</td></tr><tr><td><b>Parse analysis</b></td><td>Validates the model&#x27;s JSON. Code decides: auto e-mail, hand to a human, or both.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr class="phase"><td colspan="4">4 Act</td></tr><tr><td><b>Send automatically?</b></td><td>True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups.</td><td><code>n8n IF</code></td><td class='num'>free</td></tr><tr><td><b>Agent e-mails the sign-ups</b></td><td>Sends the agent&#x27;s e-mail to the people who signed up, in BCC. Sales gets the visible copy.</td><td><code>Gmail</code></td><td class='num'>free</td></tr><tr><td><b>Hand to a human?</b></td><td>True if a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable.</td><td><code>n8n IF</code></td><td class='num'>free</td></tr><tr><td><b>Write briefing</b></td><td>Builds the sales briefing: why it was handed over, evidence links, analysis.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>Briefing to sales</b></td><td>E-mails the briefing to the sales team.</td><td><code>Gmail</code></td><td class='num'>free</td></tr><tr><td><b>Prepare log row</b></td><td>Flattens the analysis and the full context into one row for documentation and evaluation.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>Log analysis to sheet</b></td><td>Appends the row to the Analyses tab. The eval workflow reads it from there.</td><td><code>Google Sheets</code></td><td class='num'>free</td></tr><tr class="phase"><td colspan="4">5 Replies</td></tr><tr><td><b>Reply received</b></td><td>Polls the inbox every minute for unread replies to the agent&#x27;s e-mail.</td><td><code>Gmail Trigger</code></td><td class='num'>free</td></tr><tr><td><b>Classify reply</b></td><td>Labels the reply: interested, question, not interested or stop.</td><td><code>Featherless Qwen2.5-72B</code></td><td class='num'>flat plan</td></tr><tr><td><b>Parse reply</b></td><td>Reads the label. Anything unclear is treated as a question, so a human sees it.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>Interested or question?</b></td><td>Routes interested replies and questions to a human. Stop and no-interest end here.</td><td><code>n8n IF</code></td><td class='num'>free</td></tr><tr><td><b>Hand reply to a human</b></td><td>E-mails the reply and its summary to the sales team.</td><td><code>Gmail</code></td><td class='num'>free</td></tr></tbody></table></div></section><section id="nodes-eval"><h2>Eval workflow · every node</h2><div class="box"><table><thead><tr><th>Node</th><th>What it does</th><th>API / tool</th><th class="num">Cost</th></tr></thead><tbody><tr class="phase"><td colspan="4">1 Load</td></tr><tr><td><b>Run evaluation now</b></td><td>Start the evaluation by hand.</td><td><code>Manual Trigger</code></td><td class='num'>free</td></tr><tr><td><b>Every day at 18:00</b></td><td>Runs the evaluation every evening.</td><td><code>Schedule Trigger</code></td><td class='num'>free</td></tr><tr><td><b>Read analyses</b></td><td>All analyses the main workflow logged.</td><td><code>Google Sheets</code></td><td class='num'>free</td></tr><tr><td><b>Read evals</b></td><td>All analyses that were already judged.</td><td><code>Google Sheets</code></td><td class='num'>free</td></tr><tr><td><b>Select unjudged</b></td><td>Keeps only analyses without a verdict, at most 20 per run.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr class="phase"><td colspan="4">2 Grade</td></tr><tr><td><b>Rule checks</b></td><td>7 deterministic checks: STOP line, no e-mail addresses, e-mail length, score range, reasons for high scores, evidence behind pain claims, auto e-mail only when verified.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>LLM judge</b></td><td>A different model family grades 6 criteria from 1 to 5: groundedness, relevance, actionability, e-mail quality, compliance, calibration.</td><td><code>Featherless DeepSeek-V3</code></td><td class='num'>flat plan</td></tr><tr><td><b>Parse verdict</b></td><td>Combines rules and grades into pass / fail / judge-error.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr class="phase"><td colspan="4">3 Report</td></tr><tr><td><b>Write to Evals tab</b></td><td>Appends one row per judged analysis to the Evals tab.</td><td><code>Google Sheets</code></td><td class='num'>free</td></tr><tr><td><b>Build report</b></td><td>Averages per criterion, rule failures and the three weakest analyses.</td><td><code>Code</code></td><td class='num'>free</td></tr><tr><td><b>Anything judged?</b></td><td>Skips the e-mail when nothing new was judged.</td><td><code>n8n IF</code></td><td class='num'>free</td></tr><tr><td><b>E-mail eval team</b></td><td>Sends the report to the eval team.</td><td><code>Gmail</code></td><td class='num'>free</td></tr></tbody></table></div></section><section id="prompts"><h2>Prompts</h2>
+<h3>1 · Analyst (Featherless · <code>Qwen/Qwen2.5-72B-Instruct</code>, temperature 0.2)</h3>
+<p class="sub">System prompt. The user message is a JSON object with the context listed under it.</p>
+<pre class="code" data-lang="system prompt"><code>You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student&#x27;s funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write &#x27;unknown&#x27; instead of guessing. Return ONLY JSON: {&quot;culture&quot;: string, &quot;structure&quot;: string, &quot;news_summary&quot;: string (what is happening at the organisation right now, from the news), &quot;buying_committee&quot;: string[] (roles only, no names), &quot;angle&quot;: string (the one benefit to lead with, tied to their news or posts if possible), &quot;pain_evidence&quot;: string (what pain_signal and customer_voice show, with counts; &#x27;none found&#x27; if empty), &quot;interest_score&quot;: integer 0-100, &quot;score_reasons&quot;: string[], &quot;champion_email_subject&quot;: string, &quot;champion_email_html&quot;: string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.</code></pre>
+<p class="sub">User message fields: domain, colleagues_subscribed, roles, form_notes, partnership_call_requested, linkedin_verified, company,
+top_posts, people_roles, latest_news, website, pain_signal, customer_voice.</p>
+<h3>2 · Reply classifier (Featherless · same model)</h3>
+<pre class="code" data-lang="system prompt"><code>Classify a reply to our e-mail. Return ONLY JSON: {&quot;label&quot;: &quot;interested&quot;|&quot;question&quot;|&quot;not_interested&quot;|&quot;stop&quot;, &quot;summary&quot;: string}. STOP, unsubscribe, abmelden or any request not to be contacted is &quot;stop&quot;.</code></pre>
+<h3>3 · LLM judge (Featherless · <code>deepseek-ai/DeepSeek-V3-0324</code>, temperature 0)</h3>
+<p class="sub">A different model family from the analyst, so the analyst never grades itself.</p>
+<pre class="code" data-lang="system prompt"><code>You are a strict evaluator of B2B sales research produced by an AI agent. You get the CONTEXT the agent saw and the ANALYSIS it wrote. Grade each criterion from 1 (bad) to 5 (excellent): groundedness (every claim in the analysis is supported by the CONTEXT; invented facts or counts are a 1), relevance (the analysis is about this organisation and this product, not something else), actionability (a salesperson knows what to do next), email_quality (clear, specific, polite, right language, not pushy), compliance (no personal data of third parties, contains an unsubscribe line, no false promises), calibration (the 0-100 score matches the evidence; a high score with weak evidence is a 1). Return ONLY JSON: {&quot;groundedness&quot;:int,&quot;relevance&quot;:int,&quot;actionability&quot;:int,&quot;email_quality&quot;:int,&quot;compliance&quot;:int,&quot;calibration&quot;:int,&quot;issues&quot;:string[],&quot;comment&quot;:string}.</code></pre>
+<p class="sub">User message: <code>CONTEXT:</code> the full context the analyst saw, then <code>ANALYSIS:</code> the analyst's output.</p></section><section id="signals"><h2>Signal queries</h2>
+<p>Search queries sent to <code>apify/rag-web-browser</code>. <code>{domain}</code> and <code>{name}</code> are filled per account.</p>
+<div class="box"><table><thead><tr><th>Signal</th><th>Query</th></tr></thead><tbody>
+<tr><td><b>Pain signal</b><div class="sub">Application deadline extensions (empty seats)</div></td><td><code>site:{domain} (&quot;Bewerbungsfrist verlängert&quot; OR &quot;Frist verlängert&quot; OR &quot;deadline extended&quot; OR &quot;application period reopened&quot;)</code></td></tr>
+<tr><td><b>Customer voice</b><div class="sub">Admitted students struggling to fund their studies (Reddit)</div></td><td><code>site:reddit.com &quot;{name}&quot; (&quot;blocked account&quot; OR Sperrkonto OR &quot;proof of funds&quot; OR &quot;can&#x27;t afford&quot;)</code></td></tr>
+<tr><td><b>Latest news</b></td><td><code>"{name}" after:{today − 120 days}</code></td></tr>
+<tr><td><b>Website</b></td><td><code>https://{domain}</code></td></tr>
+</tbody></table></div>
+<h3>Decision-maker roles searched on LinkedIn</h3><p>International Office, International Relations, Admissions, Zulassung, Studierendenservice, Vice President International, Vizepräsident, Kanzler, Finance, Head of Finance</p></section><section id="apis"><h2>APIs and services</h2>
+<div class="box"><table><thead><tr><th>Service</th><th>Endpoint</th><th>Auth</th><th>Used for</th></tr></thead><tbody>
+<tr><td><b>Apify</b></td><td><code>POST https://api.apify.com/v2/acts/{actor}/run-sync-get-dataset-items</code></td><td>Bearer token (credential "Critical Mass · Apify")</td><td>All research steps</td></tr>
+<tr><td><b>Featherless</b></td><td><code>POST https://api.featherless.ai/v1/chat/completions</code> (OpenAI-compatible)</td><td>Bearer key ("Critical Mass · Featherless")</td><td>Analyst, reply classifier, judge</td></tr>
+<tr><td><b>n8n webhook</b></td><td><code>POST /webhook/critical-mass</code></td><td>Header <code>x-signal-secret</code></td><td>Entry point from the sheet script</td></tr>
+<tr><td><b>Gmail</b></td><td>n8n Gmail node (OAuth)</td><td>Google sign-in</td><td>Agent e-mail, briefings, replies, eval report</td></tr>
+<tr><td><b>Google Sheets</b></td><td>n8n Sheets node (OAuth) and Apps Script</td><td>Google sign-in</td><td>Sign-ups, Analyses log, Evals</td></tr>
+</tbody></table></div>
+<h3>Apify actors</h3>
+<div class="box"><table><thead><tr><th>Node</th><th>Actor</th><th>Cost per account</th></tr></thead><tbody><tr><td><b>LinkedIn company</b></td><td><a href='https://apify.com/harvestapi/linkedin-company'>harvestapi/linkedin-company</a></td><td>~$0.004</td></tr><tr><td><b>LinkedIn posts</b></td><td><a href='https://apify.com/harvestapi/linkedin-company-posts'>harvestapi/linkedin-company-posts</a></td><td>~$0.03</td></tr><tr><td><b>Decision-maker roles</b></td><td><a href='https://apify.com/harvestapi/linkedin-company-employees'>harvestapi/linkedin-company-employees</a></td><td>~$0.06</td></tr><tr><td><b>Latest news</b></td><td><a href='https://apify.com/apify/rag-web-browser'>apify/rag-web-browser</a></td><td>~$0.01</td></tr><tr><td><b>Website</b></td><td><a href='https://apify.com/apify/rag-web-browser'>apify/rag-web-browser</a></td><td>~$0.002</td></tr><tr><td><b>Pain signal</b></td><td><a href='https://apify.com/apify/rag-web-browser'>apify/rag-web-browser</a></td><td>~$0.01</td></tr><tr><td><b>Customer voice</b></td><td><a href='https://apify.com/apify/rag-web-browser'>apify/rag-web-browser</a></td><td>~$0.01</td></tr></tbody></table></div></section><section id="data"><h2>Data contracts</h2>
+<h3>Webhook payload (sheet script → n8n)</h3><pre class="code" data-lang="json"><code>{
+  &quot;email&quot;: &quot;newest sign-up&quot;,
+  &quot;city&quot;: &quot;Berlin&quot;,
+  &quot;company_domain&quot;: &quot;tu-berlin.de&quot;,
+  &quot;colleagues&quot;: 3,
+  &quot;threshold&quot;: 3,
+  &quot;colleague_emails&quot;: [
+    &quot;a@tu-berlin.de&quot;,
+    &quot;b@tu-berlin.de&quot;,
+    &quot;c@tu-berlin.de&quot;
+  ],
+  &quot;roles&quot;: [
+    &quot;International office&quot;,
+    &quot;Admissions&quot;,
+    &quot;Finance&quot;
+  ],
+  &quot;notes&quot;: [
+    &quot;Technische Universität Berlin | wants partnership call&quot;
+  ],
+  &quot;source&quot;: &quot;google-sheet&quot;,
+  &quot;submitted_at&quot;: &quot;2026-10-03T12:00:00Z&quot;
+}</code></pre>
+<h3>Analyses tab</h3><p><code>analysis_id · logged_at · domain · organisation · linkedin_verified · colleagues · roles · score · decision · handoff_reason · angle · news_summary · pain_evidence · culture · structure · buying_committee · score_reasons · email_subject · email_html · evidence_urls · dropped_hits · context_json · model</code></p>
+<h3>Evals tab</h3><p><code>analysis_id · judged_at · domain · judge_model · groundedness · relevance · actionability · email_quality · compliance · calibration · llm_overall · rule_checks_passed · rule_failures · verdict · issues · judge_comment</code></p></section><section id="logic"><h2>Decision logic (code, not the model)</h2>
+<h3>Parse analysis: auto e-mail or human</h3><pre class="code" data-lang="javascript"><code>// Parse the model&#x27;s JSON. Anything unparseable goes to a human, never to a customer.
+const ctx = $(&#x27;Build context&#x27;).first().json;
+const raw = $input.first().json.choices?.[0]?.message?.content ?? &quot;&quot;;
+let a = null;
+try { a = JSON.parse(raw.slice(raw.indexOf(&quot;{&quot;), raw.lastIndexOf(&quot;}&quot;) + 1)); } catch (e) {}
+const ok = a &amp;&amp; typeof a.interest_score === &quot;number&quot; &amp;&amp; a.champion_email_html &amp;&amp; a.champion_email_subject;
+const score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;
+return [{ json: { ...ctx, analysis: ok ? a : null, score,
+  autoSend: Boolean(ok &amp;&amp; ctx.verified &amp;&amp; ctx.colleague_emails.length),
+  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score &gt;= 70,
+  handoffReason: !ok ? &quot;LLM output unusable&quot; : !ctx.verified ? &quot;LinkedIn profile not verified&quot; : ctx.partnershipRequested ? &quot;Partnership call requested&quot; : score &gt;= 70 ? &quot;Hot lead (score &quot; + score + &quot;)&quot; : null } }];</code></pre>
+<h3>Build context: drop off-target search hits</h3><pre class="code" data-lang="javascript"><code>// Company-level context for the LLM. People appear only as roles, never as names.
+const base = $(&#x27;Verify company match&#x27;).first().json;
+const posts = $(&#x27;LinkedIn posts&#x27;).all().map(i =&gt; i.json).filter(p =&gt; p &amp;&amp; (p.content || p.text));
+const roles = $(&#x27;Decision-maker roles&#x27;).all().map(i =&gt; i.json).filter(p =&gt; p &amp;&amp; p.headline);
+const topPosts = posts
+  .map(p =&gt; ({ text: String(p.content || p.text).slice(0, 400),
+               engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))
+  .sort((a, b) =&gt; b.engagement - a.engagement).slice(0, 8);
+const roleTitles = [...new Set(roles.map(r =&gt; r.headline).filter(Boolean))].slice(0, 12);
+const news = $(&#x27;Latest news&#x27;).all().map(i =&gt; i.json).filter(n =&gt; n &amp;&amp; n.metadata &amp;&amp; n.markdown)
+  .map(n =&gt; ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);
+const site = $(&#x27;Website&#x27;).all().map(i =&gt; i.json).find(w =&gt; w &amp;&amp; w.markdown);
+const website = site ? String(site.markdown).slice(0, 2000) : null;
+// Search engines sometimes ignore site: filters. Keep only hits that are really about this account.
+const domainRoot = String(base.domain || &#x27;&#x27;).split(&#x27;.&#x27;)[0].replace(/-/g, &#x27; &#x27;).toLowerCase();
+const names = [String(base.company?.name || &#x27;&#x27;).toLowerCase(), domainRoot].filter(x =&gt; x.length &gt; 2);
+const mentions = (h) =&gt; names.some(n =&gt; (String(h.metadata.title) + &#x27; &#x27; + String(h.markdown)).toLowerCase().includes(n));
+const hits = (n, keep) =&gt; $(n).all().map(i =&gt; i.json).filter(h =&gt; h &amp;&amp; h.metadata &amp;&amp; h.markdown &amp;&amp; keep(h))
+  .map(h =&gt; ({ title: String(h.metadata.title).slice(0, 160), url: h.metadata.url,
+               excerpt: String(h.markdown).replace(/u\/[A-Za-z0-9_-]+/g, &#x27;&#x27;).replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, &#x27;[e-mail]&#x27;).slice(0, 400) })).slice(0, 5);
+const painSignal = hits(&#x27;Pain signal&#x27;, h =&gt; String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || &#x27;#none#&#x27;).replace(/^https?:\/\/(www\.)?/, &#x27;&#x27;).split(&#x27;/&#x27;)[0]));
+const customerVoice = hits(&#x27;Customer voice&#x27;, h =&gt; /reddit\.com/.test(h.metadata.url) &amp;&amp; mentions(h));
+const droppedHits = $(&#x27;Pain signal&#x27;).all().length + $(&#x27;Customer voice&#x27;).all().length - painSignal.length - customerVoice.length;
+return [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];</code></pre>
+<h3>Eval rule checks</h3><pre class="code" data-lang="javascript"><code>// Deterministic checks. No model involved, so these are the hard floor of quality.
+const r = $input.item.json;
+const email = String(r.email_html || &#x27;&#x27;);
+const urls = String(r.evidence_urls || &#x27;&#x27;).split(/\s+/).filter(Boolean);
+const score = Number(r.score);
+const checks = {
+  stop_line_present: /STOP/.test(email) || email === &#x27;&#x27;,
+  no_email_addresses_in_text: !/[\w.+-]+@[\w-]+\.[\w.]+/.test(email),
+  email_length_ok: email === &#x27;&#x27; || (email.length &gt;= 300 &amp;&amp; email.length &lt;= 4000),
+  score_in_range: Number.isFinite(score) &amp;&amp; score &gt;= 0 &amp;&amp; score &lt;= 100,
+  high_score_has_reasons: !(score &gt;= 70) || String(r.score_reasons || &#x27;&#x27;).split(&#x27;|&#x27;).filter(s =&gt; s.trim()).length &gt;= 2,
+  pain_claim_has_evidence: !/\b[1-9]\d* hits?\b/i.test(String(r.pain_evidence || &#x27;&#x27;)) || urls.some(u =&gt; u.includes(String(r.domain)) || u.includes(&#x27;reddit.com&#x27;)),
+  auto_email_only_if_verified: !String(r.decision).includes(&#x27;auto-email&#x27;) || r.linkedin_verified === &#x27;yes&#x27;,
+};
+const failures = Object.entries(checks).filter(([, ok]) =&gt; !ok).map(([k]) =&gt; k);
+return { json: { ...r, rule_failures: failures, rule_checks_passed: Object.keys(checks).length - failures.length,
+                 rule_checks_total: Object.keys(checks).length } };</code></pre>
+<h3>Eval verdict</h3><pre class="code" data-lang="javascript"><code>// Combine the judge&#x27;s grades with the rule checks into one verdict per analysis.
+const row = $(&#x27;Rule checks&#x27;).item.json;
+const raw = $input.item.json.choices?.[0]?.message?.content ?? &#x27;&#x27;;
+let j = null;
+try { j = JSON.parse(raw.slice(raw.indexOf(&#x27;{&#x27;), raw.lastIndexOf(&#x27;}&#x27;) + 1)); } catch (e) {}
+const dims = [&#x27;groundedness&#x27;, &#x27;relevance&#x27;, &#x27;actionability&#x27;, &#x27;email_quality&#x27;, &#x27;compliance&#x27;, &#x27;calibration&#x27;];
+const g = Object.fromEntries(dims.map(k =&gt; [k, j &amp;&amp; Number.isFinite(+j[k]) ? Math.max(1, Math.min(5, +j[k])) : null]));
+const vals = dims.map(k =&gt; g[k]).filter(v =&gt; v !== null);
+const overall = vals.length ? Math.round(vals.reduce((a, b) =&gt; a + b, 0) / vals.length * 10) / 10 : null;
+const verdict = !j ? &#x27;judge-error&#x27;
+  : (row.rule_failures.length === 0 &amp;&amp; overall &gt;= 3.5 &amp;&amp; g.groundedness &gt;= 3 &amp;&amp; g.compliance &gt;= 4) ? &#x27;pass&#x27; : &#x27;fail&#x27;;
+return { json: {
+  analysis_id: row.analysis_id, judged_at: new Date().toISOString(), domain: row.domain, judge_model: &#x27;deepseek-ai/DeepSeek-V3-0324&#x27;,
+  ...g, llm_overall: overall ?? &#x27;&#x27;,
+  rule_checks_passed: row.rule_checks_passed + &#x27;/&#x27; + row.rule_checks_total, rule_failures: row.rule_failures.join(&#x27;, &#x27;),
+  verdict, issues: (j?.issues || []).join(&#x27; | &#x27;), judge_comment: j?.comment ?? raw.slice(0, 300),
+}};</code></pre></section><section id="privacy"><h2>Privacy and compliance</h2>
+<ul>
+<li>Sign-ups need consent; rows without it are marked <code>no consent</code> and never sent.</li>
+<li>Private e-mail domains (gmail, gmx, web.de …) are never grouped by organisation.</li>
+<li>The agent only writes to people who signed up, in BCC, with an unsubscribe line. No cold e-mail (UWG §7).</li>
+<li>LinkedIn people appear only as job titles. Reddit usernames and e-mail addresses are removed before the LLM.</li>
+<li>Sales briefings contain account-level facts, not the sign-ups' addresses.</li>
+<li>Secrets live in n8n credentials and Apps Script properties, never in the repo.</li>
+</ul></section></main></div></body></html>
