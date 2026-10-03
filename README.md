@@ -123,7 +123,7 @@ archive/                   earlier prototypes (office-lunch idea, first Kredible
 2. **Deploy**: `bash -c 'set -a; . ./.env; set +a; python3 n8n/flashpoint.py --deploy'` creates or updates the three workflows and their credentials. `TEST_MODE=1` disables the agent e-mail to sign-ups.
 3. **In n8n**: connect Gmail and Google Sheets (Google sign-in), then activate.
 4. **Apps Script**: paste `google/flashpoint-sheet.gs` into the sign-up sheet, set `SHEET_ID`, `N8N_WEBHOOK_URL`, `N8N_SECRET`, `THRESHOLD`, run `checkSetup` and `installTriggers`, deploy as web app for the form.
-5. **Test**: `node tests/fill-form.js --dry`, then without `--dry`; or `python3 tests/berlin_cases.py` against the webhook.
+5. **Test**: `cd tests && npm install && node fill-form.js --dry`, then without `--dry`. This fills the live landing page form (verified: 6/6 sign-ups accepted, written to the sheet). Or `python3 tests/berlin_cases.py` / `tests/germany_cases.py` straight against the webhook.
 
 **New use case**: edit the CONFIG block in `n8n/build_critical_mass.py` (product, ICP, decision roles, signal queries, e-mail brief) and the watch searches in `n8n/watch.py`, then deploy.
 

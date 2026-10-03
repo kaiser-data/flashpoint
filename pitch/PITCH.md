@@ -2,7 +2,21 @@
 
 **One-liner:** Flashpoint turns quiet interest inside an organisation into a scored, explained sales moment, and acts on it the same day.
 
-## Spoken pitch (~220 words, 1:30)
+## Final spoken pitch (team version, ~210 words)
+
+> **Kredible** finances the €11,904 blocked account that non-EU students need for their visa. Universities admit them, and many never arrive. Kredible's question is: *which university should we talk to, and when?*
+>
+> We built **Flashpoint**, a GTM agent on **Apify, n8n and Featherless**. It watches for the right moment. When several people from the same university sign up on Kredible's page, that's critical mass: a buying committee forming on its own. But headcount is only one signal. Flashpoint also reads the news and the university's own website for new programmes, extended deadlines and funding being released, and it checks this **three times a day**, so nothing is missed.
+>
+> **Demo:** a university staff member signs up on the landing page, and the row appears in the sheet automatically. That starts the n8n workflow. Apify researches the university, Featherless analyses it, and a second model judges the result.
+>
+> Sales then gets one email: **the Flashpoint score, the signals that triggered it with sources, the decision makers, and a ready-to-send message.** If you don't want a human in the loop, the people who signed up get an automatic email, written for exactly what's happening right now: the semester start, the new programme, the funding news. No time lost.
+>
+> And it **learns**: every reply is logged, so the next email leans on what got answers.
+>
+> **Flashpoint: the right university, at the right moment.**
+
+## Earlier draft (~220 words, 1:30)
 
 **[0:00 · Kredible's problem]**
 Kredible finances the blocked account for non-EU students: €11,904 they must deposit before they get a visa. Every year German universities admit talented students who never arrive, because they can't raise that money. Kredible fixes that at no cost to the university. Its challenge: which university to talk to, and when.

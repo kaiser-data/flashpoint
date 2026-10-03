@@ -6,7 +6,7 @@
 
 - [ ] Sheet open on the **sign-up tab** with 2 TU Berlin test rows already in (your own domain addresses, `+1`, `+2`).
 - [ ] n8n main workflow open, zoomed so all 5 coloured phases fit; one finished execution open in a second tab.
-- [ ] Gmail (martinkaiser.ai@gmail.com) open on a **[HOT/WARM …] briefing** with the scorecard table (runs after 16:22 have it, e.g. Mannheim, Dresden, Hamburg).
+- [ ] Gmail (the sales inbox from SALES_EMAIL) open on a **[HOT/WARM …] briefing** with the scorecard table (runs after 16:22 have it, e.g. Mannheim, Dresden, Hamburg).
 - [ ] Signal Watch digest e-mail open, plus the **Signals** and **Watch queries** tabs.
 - [ ] Eval workflow with a finished run, plus `tests/berlin_report.html` in the browser.
 - [ ] Screen: 1920×1080, browser zoom 110 %, bookmarks bar hidden, notifications off (Do Not Disturb).
