@@ -2,7 +2,7 @@
   "name": "Flashpoint · Signal Watch (3× daily)",
   "nodes": [
     {
-      "id": "fc9bebb8-58f8-4a61-abc4-6d01355d6af7",
+      "id": "bbdee553-dbfb-4059-afac-9e9be13b9c95",
       "name": "Morning, noon, afternoon",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -24,7 +24,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e56c33af-5cd4-4ad8-805a-a74cf023c848",
+      "id": "3f508d04-85f9-4762-8477-d77dd2d09dec",
       "name": "Check now",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -37,7 +37,7 @@
       "notesInFlow": true
     },
     {
-      "id": "15988460-7e60-4a7b-a270-c47b3923b63f",
+      "id": "210973b1-c099-49c9-a6ce-e38a5b3ee1b0",
       "name": "Read watch queries",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -73,7 +73,7 @@
       "notesInFlow": true
     },
     {
-      "id": "71dec464-5ab3-4590-aa84-b23b482646ef",
+      "id": "12448204-2cdd-4745-acd8-9683ec8c27b5",
       "name": "Read signals",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -109,7 +109,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e1e7d0b0-1ea3-4c64-ad84-7f4662fdc8b9",
+      "id": "c398c053-ac2c-4ab6-b6f8-911f2efe2b44",
       "name": "Plan searches",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -125,7 +125,7 @@
       "notesInFlow": true
     },
     {
-      "id": "5c6272a7-2d9a-493e-a8d7-47e657a9f4b4",
+      "id": "a6aa60ae-3e99-4253-85d7-b3ab2e25b593",
       "name": "Search the web",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -169,7 +169,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d9de325c-5e86-40e0-8210-98e13a9aac1c",
+      "id": "1ac0a3dd-a82f-4bf1-9ef9-db3c1aa6bbd6",
       "name": "New hits only",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -185,7 +185,7 @@
       "notesInFlow": true
     },
     {
-      "id": "6cf822a8-9027-41cc-81ae-2352918efafc",
+      "id": "8e66fef6-8116-4ca6-b78b-cd9f28efa4ef",
       "name": "Rate signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -222,7 +222,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e6330538-a753-4f83-a364-0124b50ba1c4",
+      "id": "851cf185-bace-4d32-a653-148ec99dc34b",
       "name": "Rate signal output",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -238,7 +238,7 @@
       "notesInFlow": true
     },
     {
-      "id": "51d0a0e8-d31d-4038-b118-39240fef09b3",
+      "id": "c7d511b9-2d3d-4cff-94af-62e271a70ceb",
       "name": "Signal rows",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -254,7 +254,7 @@
       "notesInFlow": true
     },
     {
-      "id": "7e003382-b213-4c5b-aba8-1029d5abda3d",
+      "id": "d72dfaf7-5981-4953-8b6a-394bd4beb1bb",
       "name": "Save to Signals tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -294,7 +294,7 @@
       "notesInFlow": true
     },
     {
-      "id": "be287f03-834f-464c-bcad-2d5a9e05184e",
+      "id": "5bbadcd8-5203-4fbc-b15b-fc9225737762",
       "name": "Learn searches",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -310,7 +310,7 @@
       "notesInFlow": true
     },
     {
-      "id": "56b649b4-fa28-406a-95ec-ae74338886a5",
+      "id": "876a2abf-dc89-446e-ba4b-845fd8ddfb41",
       "name": "Update Watch queries tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -352,7 +352,7 @@
       "notesInFlow": true
     },
     {
-      "id": "67ba1fb2-e81b-4bd7-99c9-a6c03a6c427b",
+      "id": "44c9e5de-ce01-43e6-b8d6-370acc0e42c7",
       "name": "Read analyses",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -388,7 +388,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e17a1437-092b-41b6-a391-464d10b9adf8",
+      "id": "6b56b363-8b80-4034-af84-7f1ea7a713bd",
       "name": "Strong signals",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -404,7 +404,7 @@
       "notesInFlow": true
     },
     {
-      "id": "45dc36fc-0e33-44cf-9126-17cb8432bca5",
+      "id": "c04cbeca-3abf-40ec-ac52-ff7e2b27c853",
       "name": "Match to accounts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -435,7 +435,7 @@
       "notesInFlow": true
     },
     {
-      "id": "3aa353d1-2bb5-4ac9-b380-25b2299d2d4a",
+      "id": "10001b66-7fab-4a27-8e7a-6a83e7d40b19",
       "name": "Write digest",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -450,7 +450,7 @@
       "notesInFlow": true
     },
     {
-      "id": "320af76f-3b1e-4418-9638-97d1f41f3d2b",
+      "id": "fa0d6e68-3a79-4d93-994e-6555ba37fb6e",
       "name": "E-mail sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -479,7 +479,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d00bc697-6d22-4cc0-838e-6307f7028257",
+      "id": "86522ff7-db17-44e7-9cb9-90a32c6d9bdb",
       "name": "About Signal Watch",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -495,7 +495,7 @@
       }
     },
     {
-      "id": "93640575-4fde-49d7-b3a0-18d472d0b055",
+      "id": "93a5376e-bf1c-472b-8653-c4ad92032b14",
       "name": "1 · Collect",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -511,7 +511,7 @@
       }
     },
     {
-      "id": "0518618c-6ca6-4e82-bf48-33acd7bf2327",
+      "id": "b60526ad-5646-4fc6-ba92-dd43c954a133",
       "name": "2 · Rate",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -527,7 +527,7 @@
       }
     },
     {
-      "id": "096d756d-9b7a-4569-9b7d-590def29f7d5",
+      "id": "0269880a-02c4-46aa-9232-507d154b355d",
       "name": "3 · Save and learn",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -543,7 +543,7 @@
       }
     },
     {
-      "id": "d79e6232-9eeb-48dd-80ff-8cd79d7025c5",
+      "id": "a4d2a0af-888c-4031-8315-12ccd039e199",
       "name": "4 · Alert",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -559,7 +559,7 @@
       }
     },
     {
-      "id": "26aef275-aad4-4326-8ae7-ccfdec903423",
+      "id": "98b7ca6f-175d-4b73-a5e6-ba3c34b09d6f",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

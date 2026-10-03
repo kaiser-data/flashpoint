@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "a232e014-8780-4850-8dbb-99f0abee1edb",
+      "id": "0d67de4b-ccb4-4c28-b1b2-af38f5d1cc89",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         240
       ],
-      "webhookId": "0e1fea69-5cba-470a-8b5c-41afc062f7bf",
+      "webhookId": "8bc6e220-8e08-4e33-9ace-d189659edc65",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -27,7 +27,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e8a2ad86-c5aa-4d7f-b4b1-2aadcb6e5bb9",
+      "id": "81be19be-7ed2-4b5e-82c7-37b886d103e7",
       "name": "First sign-up or critical mass?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -45,7 +45,7 @@
           },
           "conditions": [
             {
-              "id": "d968fb3a-40d3-44f0-87a7-efa4197d46a8",
+              "id": "97bf5bf3-8ba3-4959-b4f1-6ba0c9f1e27d",
               "leftValue": "={{ [1, $json.body.threshold || 3].includes(Number($json.body.colleagues)) && Boolean($json.body.company_domain) }}",
               "operator": {
                 "type": "boolean",
@@ -63,7 +63,7 @@
       "notesInFlow": true
     },
     {
-      "id": "aea80e2d-3fdb-44b4-b0d4-47fdcc7c6b84",
+      "id": "f3e6cf26-c7a5-474c-b3cb-e7bd3fbb18ee",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -96,7 +96,7 @@
       "notesInFlow": true
     },
     {
-      "id": "b874766b-d351-4b26-a611-236272c6286e",
+      "id": "6cc7b220-2df9-4cec-ab6d-acfaa8841a5e",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -111,7 +111,7 @@
       "notesInFlow": true
     },
     {
-      "id": "43437e21-ff0b-477d-9c9a-22018381cb50",
+      "id": "54629ed6-9a77-45ad-bdef-62039b04dbf3",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -144,7 +144,7 @@
       "notesInFlow": true
     },
     {
-      "id": "ac9013e2-5a89-4157-be72-fb04ee38b1b4",
+      "id": "9c006093-0abd-43db-b55a-7759caafcdc9",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -177,7 +177,7 @@
       "notesInFlow": true
     },
     {
-      "id": "75429ffd-a9d3-4ca1-b1bc-796d2aa6768c",
+      "id": "5a7dadd1-eb8c-4f8f-bdc2-253b675085e4",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -210,7 +210,7 @@
       "notesInFlow": true
     },
     {
-      "id": "5e92fe71-15eb-45e2-be4d-e8cf4dca6529",
+      "id": "8db8b92e-c36a-406f-86e3-68bbf7b6b3cb",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -243,7 +243,7 @@
       "notesInFlow": true
     },
     {
-      "id": "30c0f6ab-d564-4180-8310-6d1d7cae7b7b",
+      "id": "32786b93-aa38-41eb-8eb8-7f36fbf2a127",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -276,7 +276,7 @@
       "notesInFlow": true
     },
     {
-      "id": "0be42f86-ae0d-47e0-81bc-67e5c82100ec",
+      "id": "8669ffd4-fcaf-4c25-9fd3-975227fb1709",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -309,7 +309,7 @@
       "notesInFlow": true
     },
     {
-      "id": "68921044-e063-4dff-b86f-fede3b01945f",
+      "id": "f7da6f7e-cba8-407c-96b0-a96b02df947b",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -324,12 +324,12 @@
       "notesInFlow": true
     },
     {
-      "id": "7f4da868-cc08-4b8e-8c78-a41c93419e78",
+      "id": "576753cb-49c6-4b97-bcc1-9009cec81121",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2600,
+        3140,
         240
       ],
       "credentials": {
@@ -347,7 +347,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"current_situation\\\": string (2 sentences: what is happening at this organisation right now, from semester and signal_scorecard), \\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. Write for the CURRENT SITUATION: open the e-mail and the templates with the strongest detected signal (semester timing, a new programme, an extended deadline, free seats, policy news) and mention only signals listed in signal_scorecard. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"current_situation\\\": string (2 sentences: what is happening at this organisation right now, from semester and signal_scorecard), \\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. Write for the CURRENT SITUATION: open the e-mail and the templates with the strongest detected signal (semester timing, a new programme, an extended deadline, free seats, policy news) and mention only signals listed in signal_scorecard. If what_worked_before is present, lean on the signals and angles that got positive replies. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, what_worked_before: $json.playbook, flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
         "options": {
           "timeout": 120000
         }
@@ -356,12 +356,12 @@
       "notesInFlow": true
     },
     {
-      "id": "416ecf18-9e77-41f4-a3f4-149b6c4563ac",
+      "id": "ca12a433-3bfd-4a87-a3bc-a9c2e3cdbf07",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2780,
+        3320,
         240
       ],
       "parameters": {
@@ -371,12 +371,12 @@
       "notesInFlow": true
     },
     {
-      "id": "cffe49c4-c581-4e8b-a2a8-53998d3c70ab",
+      "id": "f065947f-420d-47d9-953f-5af0d418fea8",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3020,
+        3620,
         120
       ],
       "parameters": {
@@ -389,7 +389,7 @@
           },
           "conditions": [
             {
-              "id": "8f12fdf2-04a9-40a2-b9ef-657cb3048134",
+              "id": "69483946-dc25-4ff9-b593-f717bc14b195",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -407,12 +407,12 @@
       "notesInFlow": true
     },
     {
-      "id": "e5c2c36b-909f-4ab1-af39-16309c0cc299",
+      "id": "d8db0c79-79dc-4611-9d60-454e253991d6",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        3240,
+        3840,
         120
       ],
       "credentials": {
@@ -437,12 +437,12 @@
       "notesInFlow": true
     },
     {
-      "id": "03a57fff-0b15-4250-9146-b25e864c67b1",
+      "id": "f3d44b47-1b88-4f6a-b63a-70e515fabb77",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3020,
+        3620,
         280
       ],
       "parameters": {
@@ -455,7 +455,7 @@
           },
           "conditions": [
             {
-              "id": "3174ddbe-a90a-4e38-88fb-7b7348f95936",
+              "id": "c1621c78-b71b-47dd-abe5-a3829e1706d1",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -473,12 +473,12 @@
       "notesInFlow": true
     },
     {
-      "id": "559b8ec8-f08e-4571-9565-018a0e830bbe",
+      "id": "535d7bc3-e34c-4983-95ad-f117eb97a450",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3240,
+        3840,
         280
       ],
       "parameters": {
@@ -488,12 +488,12 @@
       "notesInFlow": true
     },
     {
-      "id": "04e3c67e-91b7-4b38-83e9-52e30cc5b877",
+      "id": "4b5d24aa-e8ab-4732-afe5-438825a7a000",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        3460,
+        4060,
         280
       ],
       "credentials": {
@@ -517,7 +517,7 @@
       "notesInFlow": true
     },
     {
-      "id": "8af2e06c-21b0-4a02-9ea7-638fefcbeea1",
+      "id": "59f3f3a3-1fbd-4f96-b5ae-c73ddbee8098",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -550,7 +550,7 @@
       "notesInFlow": true
     },
     {
-      "id": "8583e119-4eac-440c-9c3a-b945159a0ceb",
+      "id": "7fb0b89c-f7af-487d-97b9-509b44e2b0b8",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -582,7 +582,7 @@
       "notesInFlow": true
     },
     {
-      "id": "1409abfb-0eef-479d-adff-14eadc1ef43b",
+      "id": "5c1f8276-018f-4344-952f-1848ace97fe5",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -597,7 +597,7 @@
       "notesInFlow": true
     },
     {
-      "id": "1d1c0581-4381-40b8-aebd-fcf68d191d39",
+      "id": "69a467b1-e531-4eb1-8a6d-7634d8c11393",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -615,7 +615,7 @@
           },
           "conditions": [
             {
-              "id": "44a62e95-e7f9-4161-b273-6f8b313e9ca3",
+              "id": "1adba16f-873e-4e67-8af1-364a9aac9056",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -624,7 +624,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "cca83f09-8090-46e4-8511-384992d0559d",
+              "id": "1f295f96-3bb2-4a1e-8cc4-3123455b1d58",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -641,13 +641,13 @@
       "notesInFlow": true
     },
     {
-      "id": "0e0bb736-404f-4552-94b8-04306e9ec651",
+      "id": "cf35ced4-cee8-4495-a001-87a42780d563",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
         880,
-        640
+        560
       ],
       "credentials": {
         "gmailOAuth2": {
@@ -670,12 +670,12 @@
       "notesInFlow": true
     },
     {
-      "id": "65f90ac6-94da-4649-a6c6-9fa2fe748b53",
+      "id": "d4d16911-88c6-4216-bcf9-e503036c2e9c",
       "name": "Prepare log row",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3020,
+        3620,
         440
       ],
       "parameters": {
@@ -685,12 +685,12 @@
       "notesInFlow": true
     },
     {
-      "id": "0c028540-1458-4b2f-bd68-165a30662e18",
+      "id": "6929d91a-d1ac-415f-b12c-27fad5cb0733",
       "name": "Log analysis to sheet",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        3240,
+        3840,
         440
       ],
       "credentials": {
@@ -725,7 +725,149 @@
       "notesInFlow": true
     },
     {
-      "id": "3a993916-bcba-4156-87c2-72162100b122",
+      "id": "74201f8d-827d-4991-a879-d7386f1e5043",
+      "name": "Read reply outcomes",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2600,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Outcomes"
+        },
+        "options": {}
+      },
+      "notes": "All classified replies so far (Outcomes tab).\n[Google Sheets · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "56720b43-3b06-4108-ab42-97dba3a92873",
+      "name": "Read past analyses",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2780,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Analyses"
+        },
+        "options": {}
+      },
+      "notes": "All earlier analyses with their signals and angles (Analyses tab).\n[Google Sheets · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "9a7ad651-6b7f-406a-9816-9dc36ca8a4f8",
+      "name": "Learned playbook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2960,
+        240
+      ],
+      "parameters": {
+        "jsCode": "\n// Learning from replies: join every past reply to the analysis of its organisation and measure which signals and\n// angles led to positive replies (interested or question). The analyst gets the result as \"what worked before\".\nconst ctx = $('Signal scorecard').first().json;\nconst rows = (name) => { try { return $(name).all().map(i => i.json).filter(r => r && (r.domain || r.label)); } catch (e) { return []; } };\nconst outcomes = rows('Read reply outcomes').filter(r => r.label);\nconst analyses = rows('Read past analyses').filter(r => r.analysis_id);\nconst byDomain = {};\nanalyses.forEach(a => { byDomain[a.domain] = a; });\nconst positive = (l) => /^(interested|question)$/i.test(String(l).trim());\nconst stats = {};\nconst angles = [];\noutcomes.forEach(o => {\n  const a = byDomain[o.domain]; if (!a) return;\n  const signals = String(a.signals || '').split(' | ').map(s => s.split(' (')[0]).filter(Boolean);\n  signals.forEach(sig => { stats[sig] = stats[sig] || { replies: 0, positive: 0 }; stats[sig].replies++; if (positive(o.label)) stats[sig].positive++; });\n  if (positive(o.label) && a.angle) angles.push({ angle: a.angle, signals: signals.slice(0, 3), reply: o.summary });\n});\nconst total = outcomes.length, pos = outcomes.filter(o => positive(o.label)).length;\nconst signalRates = Object.entries(stats).map(([signal, s]) => ({ signal, replies: s.replies, positive_rate: Math.round(s.positive / s.replies * 100) + '%' }))\n  .sort((a, b) => parseInt(b.positive_rate) - parseInt(a.positive_rate));\nconst playbook = total ? { replies_seen: total, positive_reply_rate: Math.round(pos / total * 100) + '%',\n  signals_that_get_replies: signalRates.slice(0, 5), angles_that_worked: angles.slice(-3) } : null;\nreturn [{ json: { ...ctx, playbook } }];\n"
+      },
+      "notes": "Learning from replies: which signals and angles got positive replies. Passed to the analyst as what worked before.\n[Code · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "7091a88e-da32-43e6-87f9-165553fb880f",
+      "name": "Outcome row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        720
+      ],
+      "parameters": {
+        "jsCode": "\n// One row per classified reply. The sender's e-mail domain links it to the analysis of that organisation.\nconst r = $input.first().json;\nconst addr = String(r.from || '').match(/[\\w.+-]+@([\\w.-]+)/);\nconst host = addr ? addr[1].toLowerCase() : '';\nconst parts = host.split('.');\nconst domain = parts.length > 2 && ['co.uk', 'ac.uk', 'com.au'].includes(parts.slice(-2).join('.')) ? parts.slice(-3).join('.') : parts.slice(-2).join('.');\nreturn [{ json: { replied_at: new Date().toISOString(), domain, from: host, label: r.label, summary: r.summary, subject: r.subject } }];\n"
+      },
+      "notes": "Links the reply to its organisation by the sender's e-mail domain.\n[Code · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "77025057-25da-420e-8b90-ff2ce5231f82",
+      "name": "Log reply outcome",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        720
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Outcomes"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "notes": "Appends the outcome to the Outcomes tab: the memory the playbook learns from.\n[Google Sheets · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "6b5e3438-1418-47f8-b9b1-a13621d5a873",
       "name": "Signal scorecard",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -740,7 +882,7 @@
       "notesInFlow": true
     },
     {
-      "id": "966d76e1-fb45-4466-9de1-958618aacc7f",
+      "id": "3238433e-11c3-4287-9c8c-74e35872b89c",
       "name": "About Flashpoint",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -756,7 +898,7 @@
       }
     },
     {
-      "id": "1049e0be-9ee1-48c9-abbf-5cc3922cde6b",
+      "id": "c35e0014-fdc0-4a65-8658-22f8a0b63fcc",
       "name": "1 · Trigger and threshold",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -772,7 +914,7 @@
       }
     },
     {
-      "id": "fce7d9bf-0a6e-4eb1-aadc-65994a698f04",
+      "id": "50665ed1-8da7-43fa-aa88-95498177c8a5",
       "name": "2 · Account research",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -788,7 +930,7 @@
       }
     },
     {
-      "id": "60b649b5-bc8f-4a7e-9648-7bbca2ddf613",
+      "id": "ef7e5874-5e34-4cb4-bf62-f2492aad15e9",
       "name": "3 · AI analysis",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -798,18 +940,18 @@
       ],
       "parameters": {
         "content": "## 3 · Signals and AI analysis\n**Signal scorecard** (code): critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news → Flashpoint score 0-100. **Featherless** writes the situation, angle and e-mails for the strongest signals. **Code decides** what happens next.",
-        "width": 700,
+        "width": 1300,
         "height": 300,
         "color": 6
       }
     },
     {
-      "id": "1b1cb345-db84-4cab-a7f9-247c7e54a706",
+      "id": "1309adaa-a030-44ab-8e9b-95b67b33a7bd",
       "name": "4 · Act and document",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2940,
+        3540,
         -20
       ],
       "parameters": {
@@ -820,34 +962,34 @@
       }
     },
     {
-      "id": "cce020e0-8d68-40e1-b404-048bc5f24141",
+      "id": "d2d90471-fbff-4a8b-b496-3a63e80c91c3",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3700,
+        4300,
         -140
       ],
       "parameters": {
-        "content": "# Legend · Flashpoint main workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Trigger\n- **Form sign-up**: Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header. *(n8n Webhook, free)*\n- **First sign-up or critical mass?**: Runs on the first sign-up from an organisation and again when critical mass is reached. The headcount is one signal, not the decision. *(n8n IF, free)*\n\n### 2 Research\n- **LinkedIn company**: Finds the organisation's LinkedIn page by the name typed in the form, or by the domain. *(Apify harvestapi/linkedin-company, ~$0.004)*\n- **Verify company match**: Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains. *(Code, free)*\n- **LinkedIn posts**: Last 20 posts with likes, comments and shares. Commenters are not stored. *(Apify harvestapi/linkedin-company-posts, ~$0.03)*\n- **Decision-maker roles**: Real people in buying roles: name, title, LinkedIn URL, location. Titles go to the LLM; names go to sales. *(Apify harvestapi/linkedin-company-employees, ~$0.06)*\n- **Latest news**: Google search for the organisation's news from the last 120 days, with page text. *(Apify apify/rag-web-browser, ~$0.01)*\n- **Website**: The organisation's homepage as Markdown. *(Apify apify/rag-web-browser, ~$0.002)*\n- **Pain signal**: Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats). *(Apify apify/rag-web-browser, ~$0.01)*\n- **Customer voice**: What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed. *(Apify apify/rag-web-browser, ~$0.01)*\n\n### 3 Analysis\n- **Build context**: Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code. *(Code, free)*\n- **Signal scorecard**: Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence. *(Code, free)*\n- **Featherless analysis**: The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse analysis**: Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both. *(Code, free)*\n\n### 4 Act\n- **Send automatically?**: True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups. *(n8n IF, free)*\n- **Agent e-mails the sign-ups**: Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy. *(Gmail, free)*\n- **Hand to a human?**: True if contacts were found, a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable. *(n8n IF, free)*\n- **Write briefing**: Builds the sales briefing: priority, contact list with names and LinkedIn links, evidence, analysis. *(Code, free)*\n- **Briefing to sales**: E-mails the briefing to the sales team. *(Gmail, free)*\n- **Prepare log row**: Flattens the analysis, the contact list and the context into one row for documentation and evaluation. *(Code, free)*\n- **Log analysis to sheet**: Appends the row to the Analyses tab. The eval workflow reads it from there. *(Google Sheets, free)*\n\n### 5 Replies\n- **Reply received**: Polls the inbox every minute for unread replies to the agent's e-mail. *(Gmail Trigger, free)*\n- **Classify reply**: Labels the reply: interested, question, not interested or stop. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse reply**: Reads the label. Anything unclear is treated as a question, so a human sees it. *(Code, free)*\n- **Interested or question?**: Routes interested replies and questions to a human. Stop and no-interest end here. *(n8n IF, free)*\n- **Hand reply to a human**: E-mails the reply and its summary to the sales team. *(Gmail, free)*",
+        "content": "# Legend · Flashpoint main workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Trigger\n- **Form sign-up**: Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header. *(n8n Webhook, free)*\n- **First sign-up or critical mass?**: Runs on the first sign-up from an organisation and again when critical mass is reached. The headcount is one signal, not the decision. *(n8n IF, free)*\n\n### 2 Research\n- **LinkedIn company**: Finds the organisation's LinkedIn page by the name typed in the form, or by the domain. *(Apify harvestapi/linkedin-company, ~$0.004)*\n- **Verify company match**: Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains. *(Code, free)*\n- **LinkedIn posts**: Last 20 posts with likes, comments and shares. Commenters are not stored. *(Apify harvestapi/linkedin-company-posts, ~$0.03)*\n- **Decision-maker roles**: Real people in buying roles: name, title, LinkedIn URL, location. Titles go to the LLM; names go to sales. *(Apify harvestapi/linkedin-company-employees, ~$0.06)*\n- **Latest news**: Google search for the organisation's news from the last 120 days, with page text. *(Apify apify/rag-web-browser, ~$0.01)*\n- **Website**: The organisation's homepage as Markdown. *(Apify apify/rag-web-browser, ~$0.002)*\n- **Pain signal**: Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats). *(Apify apify/rag-web-browser, ~$0.01)*\n- **Customer voice**: What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed. *(Apify apify/rag-web-browser, ~$0.01)*\n\n### 3 Analysis\n- **Build context**: Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code. *(Code, free)*\n- **Signal scorecard**: Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence. *(Code, free)*\n- **Read reply outcomes**: All classified replies so far (Outcomes tab). *(Google Sheets, free)*\n- **Read past analyses**: All earlier analyses with their signals and angles (Analyses tab). *(Google Sheets, free)*\n- **Learned playbook**: Learning from replies: which signals and angles got positive replies. Passed to the analyst as what worked before. *(Code, free)*\n- **Featherless analysis**: The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse analysis**: Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both. *(Code, free)*\n\n### 4 Act\n- **Send automatically?**: True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups. *(n8n IF, free)*\n- **Agent e-mails the sign-ups**: Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy. *(Gmail, free)*\n- **Hand to a human?**: True if contacts were found, a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable. *(n8n IF, free)*\n- **Write briefing**: Builds the sales briefing: priority, contact list with names and LinkedIn links, evidence, analysis. *(Code, free)*\n- **Briefing to sales**: E-mails the briefing to the sales team. *(Gmail, free)*\n- **Prepare log row**: Flattens the analysis, the contact list and the context into one row for documentation and evaluation. *(Code, free)*\n- **Log analysis to sheet**: Appends the row to the Analyses tab. The eval workflow reads it from there. *(Google Sheets, free)*\n\n### 5 Replies\n- **Reply received**: Polls the inbox every minute for unread replies to the agent's e-mail. *(Gmail Trigger, free)*\n- **Classify reply**: Labels the reply: interested, question, not interested or stop. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse reply**: Reads the label. Anything unclear is treated as a question, so a human sees it. *(Code, free)*\n- **Interested or question?**: Routes interested replies and questions to a human. Stop and no-interest end here. *(n8n IF, free)*\n- **Hand reply to a human**: E-mails the reply and its summary to the sales team. *(Gmail, free)*\n- **Outcome row**: Links the reply to its organisation by the sender's e-mail domain. *(Code, free)*\n- **Log reply outcome**: Appends the outcome to the Outcomes tab: the memory the playbook learns from. *(Google Sheets, free)*",
         "width": 820,
-        "height": 1020,
+        "height": 1100,
         "color": 7
       }
     },
     {
-      "id": "5369f7df-bc8c-4768-82b9-cd889acc3e5f",
+      "id": "413a0c50-b134-4de7-b98e-4b2e8da1029f",
       "name": "5 · Replies",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         -60,
-        510
+        470
       ],
       "parameters": {
-        "content": "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to a human. STOP is respected.",
-        "width": 1160,
-        "height": 280,
+        "content": "## 5 · Replies and learning\nReplies are classified; interested ones and questions go to a human, STOP is respected. **Every reply is logged to Outcomes** and feeds the playbook the next analysis learns from.",
+        "width": 1380,
+        "height": 380,
         "color": 3
       }
     }
@@ -1057,6 +1199,11 @@
             "node": "Interested or question?",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Outcome row",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1083,7 +1230,51 @@
         ]
       ]
     },
+    "Outcome row": {
+      "main": [
+        [
+          {
+            "node": "Log reply outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Signal scorecard": {
+      "main": [
+        [
+          {
+            "node": "Read reply outcomes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read reply outcomes": {
+      "main": [
+        [
+          {
+            "node": "Read past analyses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read past analyses": {
+      "main": [
+        [
+          {
+            "node": "Learned playbook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Learned playbook": {
       "main": [
         [
           {

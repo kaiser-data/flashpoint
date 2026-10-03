@@ -2,7 +2,7 @@
   "name": "Flashpoint · Eval (LLM as a judge)",
   "nodes": [
     {
-      "id": "ac17f139-9c97-45dd-ae07-65a09770b836",
+      "id": "3783e76b-a364-414f-a942-b5f4cb824672",
       "name": "Run evaluation now",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -15,7 +15,7 @@
       "notesInFlow": true
     },
     {
-      "id": "0d1ca7f9-b388-4e18-a3f1-fb4cb3c660c5",
+      "id": "dbc6edcd-1bac-475f-b3d6-df7c190d312a",
       "name": "Every day at 18:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -36,7 +36,7 @@
       "notesInFlow": true
     },
     {
-      "id": "43760df6-0fe1-4ff7-b68f-d4e62d0797a2",
+      "id": "a67dbfb5-d3d9-4c0f-981e-7e14bf91a47e",
       "name": "Read analyses",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -72,7 +72,7 @@
       "notesInFlow": true
     },
     {
-      "id": "30b5f070-b826-49f6-96ad-2ffeb87c7ee4",
+      "id": "f4013655-bc8a-49a1-8a51-0e6eea7f4efb",
       "name": "Read evals",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -108,7 +108,7 @@
       "notesInFlow": true
     },
     {
-      "id": "577f09c9-dd12-4371-9235-b9aaec6d4083",
+      "id": "04e466ae-bf78-4ae8-a789-0ee5e3694b64",
       "name": "Select unjudged",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -123,7 +123,7 @@
       "notesInFlow": true
     },
     {
-      "id": "665c36cd-de4f-4c3f-ad57-a3c90c51080f",
+      "id": "db9f7a2d-f0c8-48b2-9da3-e7a5ae264644",
       "name": "Rule checks",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -139,7 +139,7 @@
       "notesInFlow": true
     },
     {
-      "id": "4ac14483-20d8-4618-bb99-c094ac044271",
+      "id": "af0d7a74-c335-4e15-bb2d-b5f6e16413aa",
       "name": "LLM judge",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -176,7 +176,7 @@
       "notesInFlow": true
     },
     {
-      "id": "9f8a522d-a40e-4fb9-a43d-12526e34350a",
+      "id": "1f533a19-3599-4b13-a017-1fd7a7039d02",
       "name": "Parse verdict",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -192,7 +192,7 @@
       "notesInFlow": true
     },
     {
-      "id": "635829ca-590c-4005-87a7-11ed090d0770",
+      "id": "5769f51f-c0ae-4c18-a985-f97d33dd2408",
       "name": "Write to Evals tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -232,7 +232,7 @@
       "notesInFlow": true
     },
     {
-      "id": "cf70d568-ab64-488c-a2c1-00c6ed94c127",
+      "id": "8222c423-1afe-4e36-906e-7240c7499381",
       "name": "Build report",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -248,7 +248,7 @@
       "notesInFlow": true
     },
     {
-      "id": "1333169e-4ed6-4ada-aeed-e3d653367fe7",
+      "id": "f869a9ce-d841-4a65-a165-acbbc828b454",
       "name": "Anything judged?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -266,7 +266,7 @@
           },
           "conditions": [
             {
-              "id": "767b87bf-547d-467e-aa23-cbc5cdae9a1b",
+              "id": "0df80fc8-a513-46d5-89dc-07714cea297c",
               "leftValue": "={{ $json.skip }}",
               "rightValue": "",
               "operator": {
@@ -284,7 +284,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d4a377b0-a87b-4342-9061-86f859bf6abf",
+      "id": "05f2a02e-289d-4745-8ff5-e44d90864228",
       "name": "E-mail eval team",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -313,7 +313,7 @@
       "notesInFlow": true
     },
     {
-      "id": "5ad77437-36f9-4faf-a75b-8ea37cb6403d",
+      "id": "cc3df4d4-3277-4df4-a172-d16189cc548f",
       "name": "About Eval",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -329,7 +329,7 @@
       }
     },
     {
-      "id": "efc422e0-eb7a-40d1-a9c4-d3d7a680a282",
+      "id": "f0e904d0-9b17-4b54-91ab-521bbd7fabc4",
       "name": "1 · Load",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -345,7 +345,7 @@
       }
     },
     {
-      "id": "07777b4a-a7ef-4536-ba4f-7beef72b9991",
+      "id": "890cc2a0-c90c-4027-b867-1dac0522cf8b",
       "name": "2 · Grade",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -361,7 +361,7 @@
       }
     },
     {
-      "id": "18722abb-10ae-4a61-b5ed-4a5131b44055",
+      "id": "f665e5c0-44ba-49e8-9e92-1823ca46f903",
       "name": "3 · Report",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -377,7 +377,7 @@
       }
     },
     {
-      "id": "3bed120f-eb6c-45f6-bf32-52d5a12f7024",
+      "id": "f62f103c-76e9-4d0b-b863-be13d724c355",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

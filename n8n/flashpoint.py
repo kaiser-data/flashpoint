@@ -50,12 +50,12 @@ LAYOUT = {
     "LinkedIn company": (520, 240), "Verify company match": (730, 240), "LinkedIn posts": (940, 240),
     "Decision-maker roles": (1150, 240), "Latest news": (1360, 240), "Website": (1570, 240),
     "Pain signal": (1780, 240), "Customer voice": (1990, 240),
-    "Build context": (2240, 240), "Signal scorecard": (2420, 240), "Featherless analysis": (2600, 240), "Parse analysis": (2780, 240),
-    "Send automatically?": (3020, 120), "Agent e-mails the sign-ups": (3240, 120),
-    "Hand to a human?": (3020, 280), "Write briefing": (3240, 280), "Briefing to sales": (3460, 280),
-    "Prepare log row": (3020, 440), "Log analysis to sheet": (3240, 440),
+    "Build context": (2240, 240), "Signal scorecard": (2420, 240), "Read reply outcomes": (2600, 240), "Read past analyses": (2780, 240), "Learned playbook": (2960, 240), "Featherless analysis": (3140, 240), "Parse analysis": (3320, 240),
+    "Send automatically?": (3620, 120), "Agent e-mails the sign-ups": (3840, 120),
+    "Hand to a human?": (3620, 280), "Write briefing": (3840, 280), "Briefing to sales": (4060, 280),
+    "Prepare log row": (3620, 440), "Log analysis to sheet": (3840, 440),
     "Reply received": (0, 640), "Classify reply": (220, 640), "Parse reply": (440, 640),
-    "Interested or question?": (660, 640), "Hand reply to a human": (880, 640),
+    "Interested or question?": (660, 640), "Hand reply to a human": (880, 560), "Outcome row": (880, 720), "Log reply outcome": (1100, 720),
 }
 NOTES = {
     "Exactly 3 colleagues?": "Fires once per organisation, on the exact threshold sign-up.",
@@ -139,6 +139,44 @@ return [{ json: { ...c, semester, scorecard: S, flashpointScore: score,
   strongestSignals: top.map(x => x.label + ': ' + x.detail) } }];
 """
 
+OUTCOMES_HEADERS = ["replied_at", "domain", "from", "label", "summary", "subject"]
+
+OUTCOME_ROW_JS = r"""
+// One row per classified reply. The sender's e-mail domain links it to the analysis of that organisation.
+const r = $input.first().json;
+const addr = String(r.from || '').match(/[\w.+-]+@([\w.-]+)/);
+const host = addr ? addr[1].toLowerCase() : '';
+const parts = host.split('.');
+const domain = parts.length > 2 && ['co.uk', 'ac.uk', 'com.au'].includes(parts.slice(-2).join('.')) ? parts.slice(-3).join('.') : parts.slice(-2).join('.');
+return [{ json: { replied_at: new Date().toISOString(), domain, from: host, label: r.label, summary: r.summary, subject: r.subject } }];
+"""
+
+PLAYBOOK_JS = r"""
+// Learning from replies: join every past reply to the analysis of its organisation and measure which signals and
+// angles led to positive replies (interested or question). The analyst gets the result as "what worked before".
+const ctx = $('Signal scorecard').first().json;
+const rows = (name) => { try { return $(name).all().map(i => i.json).filter(r => r && (r.domain || r.label)); } catch (e) { return []; } };
+const outcomes = rows('Read reply outcomes').filter(r => r.label);
+const analyses = rows('Read past analyses').filter(r => r.analysis_id);
+const byDomain = {};
+analyses.forEach(a => { byDomain[a.domain] = a; });
+const positive = (l) => /^(interested|question)$/i.test(String(l).trim());
+const stats = {};
+const angles = [];
+outcomes.forEach(o => {
+  const a = byDomain[o.domain]; if (!a) return;
+  const signals = String(a.signals || '').split(' | ').map(s => s.split(' (')[0]).filter(Boolean);
+  signals.forEach(sig => { stats[sig] = stats[sig] || { replies: 0, positive: 0 }; stats[sig].replies++; if (positive(o.label)) stats[sig].positive++; });
+  if (positive(o.label) && a.angle) angles.push({ angle: a.angle, signals: signals.slice(0, 3), reply: o.summary });
+});
+const total = outcomes.length, pos = outcomes.filter(o => positive(o.label)).length;
+const signalRates = Object.entries(stats).map(([signal, s]) => ({ signal, replies: s.replies, positive_rate: Math.round(s.positive / s.replies * 100) + '%' }))
+  .sort((a, b) => parseInt(b.positive_rate) - parseInt(a.positive_rate));
+const playbook = total ? { replies_seen: total, positive_reply_rate: Math.round(pos / total * 100) + '%',
+  signals_that_get_replies: signalRates.slice(0, 5), angles_that_worked: angles.slice(-3) } : null;
+return [{ json: { ...ctx, playbook } }];
+"""
+
 def build_main():
     subprocess.run([sys.executable, os.path.join(HERE, "build_critical_mass.py")], check=True, cwd=HERE,
                    stdout=subprocess.DEVNULL)
@@ -177,13 +215,33 @@ def build_main():
             b = b.replace('{\\"culture\\": string,', '{\\"current_situation\\": string (2 sentences: what is happening at this organisation right now, from semester and signal_scorecard), \\"culture\\": string,', 1)
             b = b.replace("The champion e-mail goes only to the people who signed up.",
                           "Write for the CURRENT SITUATION: open the e-mail and the templates with the strongest detected signal (semester timing, a new programme, an extended deadline, free seats, policy news) and mention only signals listed in signal_scorecard. The champion e-mail goes only to the people who signed up.", 1)
-            b = b.replace("latest_news: $json.news,", "flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news,", 1)
+            b = b.replace("The champion e-mail goes only to the people who signed up.",
+                          "If what_worked_before is present, lean on the signals and angles that got positive replies. The champion e-mail goes only to the people who signed up.", 1)
+            b = b.replace("latest_news: $json.news,", "what_worked_before: $json.playbook, flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news,", 1)
             node["parameters"]["jsonBody"] = b
+    # --- Learning from replies: log every classified reply, read them back before each analysis
+    reads = lambda name, tab: {"id": uid(), "name": name, "type": "n8n-nodes-base.googleSheets", "typeVersion": 4.5, "position": [0, 0],
+        "credentials": SHEETS, "executeOnce": True, "alwaysOutputData": True, "onError": "continueRegularOutput",
+        "parameters": {"resource": "sheet", "operation": "read", "documentId": rl_id(SHEET_ID), "sheetName": rl_name(tab), "options": {}}}
+    wf["nodes"] += [
+        reads("Read reply outcomes", "Outcomes"), reads("Read past analyses", "Analyses"),
+        {"id": uid(), "name": "Learned playbook", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [0, 0], "parameters": {"jsCode": PLAYBOOK_JS}},
+        {"id": uid(), "name": "Outcome row", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [0, 0], "parameters": {"jsCode": OUTCOME_ROW_JS}},
+        {"id": uid(), "name": "Log reply outcome", "type": "n8n-nodes-base.googleSheets", "typeVersion": 4.5, "position": [0, 0],
+         "credentials": SHEETS, "onError": "continueRegularOutput",
+         "parameters": {"resource": "sheet", "operation": "append", "documentId": rl_id(SHEET_ID), "sheetName": rl_name("Outcomes"),
+                        "columns": {"mappingMode": "autoMapInputData", "value": {}, "matchingColumns": [], "schema": []}, "options": {}}},
+    ]
+    connect(wf, "Parse reply", "Outcome row")
+    connect(wf, "Outcome row", "Log reply outcome")
     # Scorecard sits between context and analysis
     wf["nodes"].append({"id": uid(), "name": "Signal scorecard", "type": "n8n-nodes-base.code", "typeVersion": 2,
                         "position": [0, 0], "parameters": {"jsCode": SCORECARD_JS}})
     wf["connections"]["Build context"] = {"main": [[{"node": "Signal scorecard", "type": "main", "index": 0}]]}
-    connect(wf, "Signal scorecard", "Featherless analysis")
+    connect(wf, "Signal scorecard", "Read reply outcomes")
+    connect(wf, "Read reply outcomes", "Read past analyses")
+    connect(wf, "Read past analyses", "Learned playbook")
+    connect(wf, "Learned playbook", "Featherless analysis")
     for node in wf["nodes"]:
         if node["type"] == "n8n-nodes-base.code":
             node["parameters"]["jsCode"] = node["parameters"]["jsCode"].replace("$('Build context')", "$('Signal scorecard')")
@@ -210,18 +268,18 @@ def build_main():
                "## 2 · Account research (Apify)\nLinkedIn profile, posts and decision-maker roles, latest news, the website, "
                "and two signals nobody uses: **pain on the org's own site** and **its customers' public voice**. "
                "Each step runs once and fails soft: a missing source never stops the run."),
-        sticky("3 · AI analysis", 2220, 110, 700, 300, 6,
+        sticky("3 · AI analysis", 2220, 110, 1300, 300, 6,
                "## 3 · Signals and AI analysis\n**Signal scorecard** (code): critical mass, call request, deadline extension, new programme, "
                "free seats, semester timing, student voice, policy news → Flashpoint score 0-100. "
                "**Featherless** writes the situation, angle and e-mails for the strongest signals. **Code decides** what happens next."),
-        sticky("4 · Act and document", 2940, -20, 720, 560, 2,
+        sticky("4 · Act and document", 3540, -20, 720, 560, 2,
                "## 4 · Act and document\n**Auto e-mail** only to consented sign-ups (BCC) when LinkedIn is verified.\n"
                "**Human hand-off** when a call was requested, the score is high or anything is uncertain.\n"
                "**Log** every analysis to the sheet for the eval team."),
-        sticky("Legend", 3700, -140, 820, 1020, 7, legend(MAIN_DOCS, "Flashpoint main workflow")),
-        sticky("5 · Replies", -60, 510, 1160, 280, 3,
-               "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to "
-               "a human. STOP is respected."),
+        sticky("Legend", 4300, -140, 820, 1100, 7, legend(MAIN_DOCS, "Flashpoint main workflow")),
+        sticky("5 · Replies", -60, 470, 1380, 380, 3,
+               "## 5 · Replies and learning\nReplies are classified; interested ones and questions go to a human, STOP is respected. "
+               "**Every reply is logged to Outcomes** and feeds the playbook the next analysis learns from."),
     ]
     if os.environ.get("TEST_MODE"):
         # Test runs use fake sign-up addresses: never e-mail them. Sales still gets the briefing.
@@ -441,6 +499,7 @@ def call(method, path, body=None):
         return e.code, e.read().decode(errors="replace")[:400]
 
 def deploy(wf, creds, existing):
+    wf = json.loads(json.dumps(wf))  # every node gets its own credentials object
     by_type = {}
     for c in creds:
         by_type.setdefault(c["type"], {"id": c["id"], "name": c["name"]})

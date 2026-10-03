@@ -23,6 +23,7 @@ const LOG_TABS = {
   Analyses: ['analysis_id', 'logged_at', 'domain', 'organisation', 'locations', 'linkedin_verified', 'colleagues', 'roles', 'score', 'decision', 'handoff_reason', 'angle', 'news_summary', 'pain_evidence', 'culture', 'structure', 'buying_committee', 'score_reasons', 'email_subject', 'email_html', 'contacts', 'evidence_urls', 'dropped_hits', 'context_json', 'model'],
   Evals: ['analysis_id', 'judged_at', 'domain', 'judge_model', 'groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration', 'llm_overall', 'rule_checks_passed', 'rule_failures', 'verdict', 'issues', 'judge_comment'],
   Signals: ['signal_id', 'found_at', 'query', 'query_origin', 'title', 'url', 'excerpt', 'event_type', 'region', 'sector', 'relevance', 'urgency', 'action', 'summary', 'affected_accounts', 'useful'],
+  Outcomes: ['replied_at', 'domain', 'from', 'label', 'summary', 'subject'],
   'Watch queries': ['query', 'status', 'origin', 'added_at', 'runs', 'hits', 'relevant_hits', 'precision', 'last_run', 'note'],
 };
 

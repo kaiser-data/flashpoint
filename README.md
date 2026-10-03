@@ -4,7 +4,11 @@
 
 Flashpoint is an n8n agent that finds the moment an organisation is ready to buy. It combines a signal nobody uses, several colleagues signing up on their own, with seven more public signals. It scores them in code, writes to the people who signed up, and hands hot accounts to sales with ranked decision makers and an e-mail written for the current situation.
 
-Built in one day at **GTM Hackathon Berlin** (3 October 2026, *"Detect the signal. Build the agent."*), presented by Co-Learning Club with **Apify** (main partner), **n8n**, **Featherless** and host **Bella&Bona**. First use case: [Kredible](https://getkredible.lovable.app/universities), which finances the blocked account, tuition and living costs of admitted non-EU students at German universities.
+Built in one day at **GTM Hackathon Berlin** (3 October 2026, *"Detect the signal. Build the agent."*), presented by Co-Learning Club with **Apify** (main partner), **n8n**, **Featherless** and host **Bella&Bona**. ## Built for Kredible
+
+[Kredible](https://getkredible.lovable.app/universities) finances the blocked account (€11,904 in 2026), tuition and first-year living costs of admitted non-EU students, so the students a university admits can actually enrol. For the university it costs nothing: no fees, no revenue share, no repayment risk.
+
+Kredible's go-to-market question is which university to talk to, and when. A university is ready when its staff are already curious (several colleagues sign up), when it is losing admitted students right now (semester start, extended deadlines, free seats), and when its money moves (budget freezes lifted). Flashpoint watches all of that and hands Kredible's sales team the moment, the people and the message.
 
 ![Flashpoint main workflow in n8n](docs/screenshots/01-main-overview.png)
 
@@ -14,7 +18,7 @@ Built in one day at **GTM Hackathon Berlin** (3 October 2026, *"Detect the signa
 |---|---|
 | **Capture** (Apify): a signal nobody is using | Colleague clustering on a sign-up sheet, plus deadline extensions on the organisation's own website (= unfilled seats), new programmes, free places, students' public posts about funding, budget freezes and policy changes |
 | **Act** (n8n): close the loop, no human in the middle | The agent e-mails the consented sign-ups by itself; sales gets a briefing; a human only steps in for calls, high scores or anything uncertain |
-| **Out of the box** (Featherless): the unexpected data source that works | Signal Watch reads the news 3× a day, rates every hit and learns which searches work; a second model family judges every analysis |
+| **Out of the box** (Featherless): the unexpected data source that works | Signal Watch reads the news 3× a day and learns which searches work; every reply is logged and the next analysis learns which signals and angles get answers; a second model family judges every analysis |
 
 | Judging criterion | Evidence |
 |---|---|
@@ -36,7 +40,8 @@ Lovable landing page ──► Google Sheet ──► Apps Script ──► n8n 
      │ 3 Signals      scorecard (code) → Flashpoint score 0-100            │
      │   + analysis   Featherless Qwen 72B: situation, angle, e-mails      │
      │ 4 Act          agent e-mail to sign-ups · sales briefing · log      │
-     │ 5 Replies      classify replies, hand interested ones to a human    │
+     │ 5 Replies      classify, hand interested ones to a human, log to    │
+     │                Outcomes → playbook for the next analysis           │
      └───────────────────────────────────────────────────────────────────┘
      Signal Watch (3× daily) ──► Signals tab ──► digest to sales
      Eval (daily) ──► rule checks + DeepSeek-V3 judge ──► Evals tab + report
@@ -57,6 +62,10 @@ Lovable landing page ──► Google Sheet ──► Apps Script ──► n8n 
 
 Score 60+ → hand to a human (HOT). The briefing opens with the scorecard and the current situation.
 
+### It learns from replies
+
+Every reply is classified (interested, question, not interested, stop) and logged to the **Outcomes** tab. Before each analysis, the **Learned playbook** node joins all replies to the analyses they answered and computes the positive-reply rate per signal and the angles that worked. The analyst receives this as *what worked before* and leans on it. The Signal Watch learns too: precision per search, dead searches retired, new searches proposed from strong signals, and sales feedback used as examples.
+
 ### What sales gets
 
 - **Who signed up**: name, e-mail, role
@@ -68,7 +77,7 @@ Score 60+ → hand to a human (HOT). The briefing opens with the scorecard and t
 
 | Workflow | Nodes | Screenshot |
 |---|---|---|
-| Main: trigger → research → signals → act → replies | 26 | [overview](docs/screenshots/01-main-overview.png) · [trigger + research](docs/screenshots/02-trigger-and-research.png) · [analysis + act](docs/screenshots/03-analysis-and-act.png) · [replies](docs/screenshots/04-replies.png) · [legend](docs/screenshots/07-main-legend.png) |
+| Main: trigger → research → signals → learn → act → replies | 31 | [overview](docs/screenshots/01-main-overview.png) · [trigger + research](docs/screenshots/02-trigger-and-research.png) · [analysis + act](docs/screenshots/03-analysis-and-act.png) · [replies](docs/screenshots/04-replies.png) · [legend](docs/screenshots/07-main-legend.png) |
 | Signal Watch: 3× daily news, rating, self-learning searches | 18 | [screenshot](docs/screenshots/05-signal-watch.png) |
 | Eval: rule checks + LLM as a judge | 12 | [screenshot](docs/screenshots/06-eval-llm-judge.png) |
 

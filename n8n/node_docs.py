@@ -15,6 +15,9 @@ MAIN = {
     "Customer voice": ("2 Research", "What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed.", "Apify apify/rag-web-browser", "~$0.01"),
     "Build context": ("3 Analysis", "Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code.", "Code", "free"),
     "Signal scorecard": ("3 Analysis", "Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence.", "Code", "free"),
+    "Read reply outcomes": ("3 Analysis", "All classified replies so far (Outcomes tab).", "Google Sheets", "free"),
+    "Read past analyses": ("3 Analysis", "All earlier analyses with their signals and angles (Analyses tab).", "Google Sheets", "free"),
+    "Learned playbook": ("3 Analysis", "Learning from replies: which signals and angles got positive replies. Passed to the analyst as what worked before.", "Code", "free"),
     "Featherless analysis": ("3 Analysis", "The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals.", "Featherless Qwen2.5-72B", "flat plan"),
     "Parse analysis": ("3 Analysis", "Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both.", "Code", "free"),
     "Send automatically?": ("4 Act", "True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups.", "n8n IF", "free"),
@@ -29,6 +32,8 @@ MAIN = {
     "Parse reply": ("5 Replies", "Reads the label. Anything unclear is treated as a question, so a human sees it.", "Code", "free"),
     "Interested or question?": ("5 Replies", "Routes interested replies and questions to a human. Stop and no-interest end here.", "n8n IF", "free"),
     "Hand reply to a human": ("5 Replies", "E-mails the reply and its summary to the sales team.", "Gmail", "free"),
+    "Outcome row": ("5 Replies", "Links the reply to its organisation by the sender's e-mail domain.", "Code", "free"),
+    "Log reply outcome": ("5 Replies", "Appends the outcome to the Outcomes tab: the memory the playbook learns from.", "Google Sheets", "free"),
 }
 
 EVAL = {
