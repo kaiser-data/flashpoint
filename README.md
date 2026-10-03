@@ -1,60 +1,131 @@
-# LunchSignal
+# Flashpoint
 
-GTM Hackathon Berlin, 3 Oct 2026. Employees sign up with a work e-mail. When 5 people from one company have signed up, n8n raises a demand alert. Apify then pulls that company's job ads, Featherless extracts the listed benefits, and code sorts the company into **Gap** (perks but no food), **Switch** (already pays a meal card) or **Skip** (has food or unclear). Sales gets the result with evidence and the €7.67/workday tax-free figure.
+**One sign-up is curiosity. Three from the same organisation is a flashpoint.**
+
+Flashpoint is an n8n agent that finds the moment an organisation is ready to buy. It combines a signal nobody uses, several colleagues signing up on their own, with seven more public signals. It scores them in code, writes to the people who signed up, and hands hot accounts to sales with ranked decision makers and an e-mail written for the current situation.
+
+Built in one day at **GTM Hackathon Berlin** (3 October 2026, *"Detect the signal. Build the agent."*), presented by Co-Learning Club with **Apify** (main partner), **n8n**, **Featherless** and host **Bella&Bona**. First use case: [Kredible](https://getkredible.lovable.app/universities), which finances the blocked account, tuition and living costs of admitted non-EU students at German universities.
+
+![Flashpoint main workflow in n8n](docs/screenshots/01-main-overview.png)
+
+## Hackathon fit
+
+| Track | What Flashpoint does |
+|---|---|
+| **Capture** (Apify): a signal nobody is using | Colleague clustering on a sign-up sheet, plus deadline extensions on the organisation's own website (= unfilled seats), new programmes, free places, students' public posts about funding, budget freezes and policy changes |
+| **Act** (n8n): close the loop, no human in the middle | The agent e-mails the consented sign-ups by itself; sales gets a briefing; a human only steps in for calls, high scores or anything uncertain |
+| **Out of the box** (Featherless): the unexpected data source that works | Signal Watch reads the news 3× a day, rates every hit and learns which searches work; a second model family judges every analysis |
+
+| Judging criterion | Evidence |
+|---|---|
+| Originality: how fresh is the signal? | 8 named signals in a scorecard; headcount is only one of them |
+| Real solution: runs today, usable on Monday | Live n8n workflows, real universities, real briefings in the sales inbox |
+| Reliability: fails gracefully, holds up under GDPR | Abstains on an unverified LinkedIn match; code decides, not the model; 7 rule checks + LLM judge; consent, BCC, no cold e-mail |
+| Wild card: idea, craft, ambition | Self-learning Signal Watch, generated documentation, end-to-end test harness |
+
+## How it works
 
 ```
-n8n form ─► normalize e-mail ─► Supabase signups ─► count per company domain
-   └─► 5+? ─► alert (once per company) ─► app /api/enrich (Apify job ads → Featherless → segment)
-          └─► Gap / Switch / demand only ─► Slack to sales ─► Pingen letter to HR (disabled until set up)
+Lovable landing page ──► Google Sheet ──► Apps Script ──► n8n webhook
+   (newsletter form)      (sign-ups)       counts per        │
+                                           e-mail domain     ▼
+     ┌───────────────────────────────────────────────────────────────────┐
+     │ 1 Trigger      first sign-up, then again at critical mass          │
+     │ 2 Research     Apify: LinkedIn company, posts, decision makers,    │
+     │                news, website, deadline extensions, student voice   │
+     │ 3 Signals      scorecard (code) → Flashpoint score 0-100            │
+     │   + analysis   Featherless Qwen 72B: situation, angle, e-mails      │
+     │ 4 Act          agent e-mail to sign-ups · sales briefing · log      │
+     │ 5 Replies      classify replies, hand interested ones to a human    │
+     └───────────────────────────────────────────────────────────────────┘
+     Signal Watch (3× daily) ──► Signals tab ──► digest to sales
+     Eval (daily) ──► rule checks + DeepSeek-V3 judge ──► Evals tab + report
 ```
 
-## Setup (about 20 minutes once the credits are in)
+### The signal scorecard
 
-1. **Supabase:** create a project and run `supabase/schema.sql` in the SQL editor.
-2. **Keys** (the vault isn't set up yet: run `keys setup <infisical-project-id>` and `infisical login` in a real terminal):
-   `cd app && keys new-app lunchsignal --needs supabase APIFY_TOKEN FEATHERLESS_API_KEY FEATHERLESS_MODEL ENRICH_SECRET N8N_ALERT_WEBHOOK_URL`
-   The names are listed in `app/.env.example`.
-3. **App:** `cd app && keys run -- npm run dev`, or deploy to Vercel. Pages: `/` is the sign-up page, `/ops` is the sales view.
-4. **n8n:** import `n8n/lunchsignal-workflow.json` (Workflows → Import from file), then:
-   - Set the Supabase credential on the three Supabase nodes.
-   - On "Scan benefits", set a Header Auth credential: name `x-enrich-secret`, value = the app's `ENRICH_SECRET`.
-   - Replace `YOUR-APP.vercel.app` and the Slack webhook URL. Or edit `n8n/build_workflow.py` and run `python3 build_workflow.py` again.
-   - Activate the workflow and share the form's production URL as a QR code.
-5. **First real run:** check which field names the Apify job actor returns. `app/src/lib/server/jobs.ts` logs the keys of the first result and has fallbacks. The default is `misceres/indeed-scraper`; override it with `APIFY_JOBS_ACTOR`.
+| Signal | Weight | Source |
+|---|---|---|
+| Colleagues signing up (critical mass) | 25 | Sign-up sheet: count and distinct roles |
+| Asked for a call | 20 | Form checkbox |
+| Deadline extended (unfilled seats) | 15 | The organisation's own website |
+| New programme launching | 10 | News, website, LinkedIn posts |
+| Seats still free | 10 | "freie Plätze", "still accepting applications" … |
+| Semester timing | 10 | Computed from the date (winter 1 Oct, summer 1 Apr) |
+| Students struggling to fund (public) | 5 | Reddit |
+| Funding or policy news | 5 | Haushaltssperre, DAAD, Sperrkonto, visa … |
 
-## Variant: Google Form → n8n → e-mail to sales (`n8n/google-form-to-sales.json`)
+Score 60+ → hand to a human (HOT). The briefing opens with the scorecard and the current situation.
 
-1. Create the Google Form with the questions "Work email", "Office city" and a required consent checkbox. In the Responses tab, link it to a Google Sheet.
-2. In `n8n/build_google_form.py`, set `SHEET_URL` (the responses sheet), `SALES_EMAIL` and optionally `APP_URL`, then run `python3 build_google_form.py`.
-3. In n8n: Workflows → Import from file → `google-form-to-sales.json`. Connect Google OAuth on the trigger and on "Read all responses", and Gmail OAuth on "E-mail sales team".
-4. Activate the workflow. The trigger polls every minute. On exactly the 5th different work e-mail from one company, sales gets one e-mail. The benefit scan is optional: if it fails, the e-mail still goes out.
+### What sales gets
 
-## Main flow: Google Form → Apps Script → n8n agent (`n8n/lunchsignal-agent.json`)
+- **Who signed up**: name, e-mail, role
+- **Decision makers on LinkedIn**: name, title, profile link, ranked A/B/C by role and seniority in code
+- **Outreach templates**: one per contact, written for the strongest current signal, sent personally
+- **Signal digest**: 3× a day, e.g. *"Funding released in Saxony → these accounts, these contacts"*
 
-1. Link the Google Form to a response Sheet. In the Sheet, open **Extensions → Apps Script** and paste `google/apps-script.gs`.
-2. In Script Properties, set `N8N_WEBHOOK_URL` (the production URL of the "Form sign-up" node) and `N8N_SECRET`. Run `installTrigger()` once.
-3. Set `SALES_EMAIL` and `FEATHERLESS_MODEL` in `n8n/build_agent.py`, then run `python3 build_agent.py` and import the result into n8n.
-4. Credentials in n8n:
-   - Header Auth `x-lunchsignal-secret` (the same value as `N8N_SECRET`)
-   - Header Auth `Authorization: Bearer <Apify token>`
-   - Header Auth `Authorization: Bearer <Featherless key>`
-   - Gmail OAuth
-5. What happens:
-   - At exactly the 5th colleague, the workflow pulls the LinkedIn company profile and checks that its website matches the sign-up domain.
-   - It then pulls 20 company posts and the job titles of People/HR roles.
-   - Featherless writes an analysis: culture, structure, buying committee as roles, angle, a 0–100 score, and an email to the sign-ups.
-   - The agent emails the people who signed up, all in BCC.
-   - Sales gets a briefing when the score is 70 or higher, when the LinkedIn company can't be verified, or when the LLM output can't be used.
-   - Replies are classified. Interested replies and questions go to a human.
+## Workflows
 
-## Checks
+| Workflow | Nodes | Screenshot |
+|---|---|---|
+| Main: trigger → research → signals → act → replies | 26 | [overview](docs/screenshots/01-main-overview.png) · [trigger + research](docs/screenshots/02-trigger-and-research.png) · [analysis + act](docs/screenshots/03-analysis-and-act.png) · [replies](docs/screenshots/04-replies.png) · [legend](docs/screenshots/07-main-legend.png) |
+| Signal Watch: 3× daily news, rating, self-learning searches | 18 | [screenshot](docs/screenshots/05-signal-watch.png) |
+| Eval: rule checks + LLM as a judge | 12 | [screenshot](docs/screenshots/06-eval-llm-judge.png) |
 
-`cd app && npm test && npm run typecheck && npm run lint && npm run build`
+![Analysis and act](docs/screenshots/03-analysis-and-act.png)
+![Signal Watch](docs/screenshots/05-signal-watch.png)
+![Eval with LLM as a judge](docs/screenshots/06-eval-llm-judge.png)
 
-## Reliability and GDPR
+Every prompt, API, signal query, data field and decision rule is listed in the generated reference: [`docs/flashpoint-docs.html`](docs/flashpoint-docs.html).
 
-- The model only extracts. `src/lib/segment.ts` decides, and abstains unless there are 3+ ads with 3+ perks each.
-- A food quote the model didn't copy from the ad is discarded. A failed extraction never counts as "no food".
-- Ads from recruitment agencies are ignored.
-- Sign-ups need consent. Freemail addresses are never grouped by company. Sales only sees counts per company, never e-mail addresses.
-- No e-mail is sent to companies (UWG §7). The outreach channel is a letter to the HR department, with a suppression list.
+## Results (live runs against the deployed workflow)
+
+| Run | Universities | Expected path | Passed eval | Groundedness | Compliance | Avg time |
+|---|---|---|---|---|---|---|
+| Berlin | 10 (TU, FU, HU, BHT, HTW, UdK, Charité, Hertie, HWR, ASH) | 9/10 | 5/6 | 3.5/5 | 4.8/5 | 149 s |
+| Germany | 8 (TUM, LMU, RWTH, KIT, Mannheim, Dresden, Hamburg, Heidelberg) | 8/8 | 7/7 | 3.6/5 | 5.0/5 | 156 s |
+
+Paths tested include: full buying committee, call requested, single role, domain ≠ name, wrong institution typed (correctly not verified), threshold not reached (correctly stopped). Reports: [`tests/berlin_report.html`](tests/berlin_report.html), [`tests/germany_report.html`](tests/germany_report.html).
+
+What the eval caught: an analysis that claimed pain evidence the search had not returned, and a score of 85 without evidence (Hertie School). Off-target search hits are now dropped in code before the model sees them.
+
+## Repository
+
+```
+n8n/
+  flashpoint.py            builds and deploys all three workflows (--deploy)
+  build_critical_mass.py   main workflow core + CONFIG block (product, ICP, roles, signal queries)
+  watch.py                 Signal Watch workflow
+  node_docs.py             one description per node: notes, legends, docs
+  docs.py                  generates docs/flashpoint-docs.html
+  flashpoint-*.json        importable workflows (no keys, no personal data)
+  configs/                 example presets (Kredible, B2B SaaS) showing what to change per use case
+google/flashpoint-sheet.gs Apps Script: form endpoint, per-domain counting, triggers, log tabs
+tests/                     live test runner, evaluator, form filler (Playwright), reports
+pitch/                     90-second pitch, demo video script
+docs/                      reference page and workflow screenshots
+ideation/                  idea evaluation with Claude, Codex, Grok and Gemini
+archive/                   earlier prototypes (office-lunch idea, first Kredible version)
+```
+
+## Setup
+
+1. **Keys** in `.env` (see `.env.example`): `N8N_BASE_URL`, `N8N_API_KEY`, `APIFY_TOKEN`, `FEATHERLESS_API_KEY`, `FEATHERLESS_MODEL`, `SALES_EMAIL`, `SALES_TEAM`, `EVAL_EMAIL`, `SIGNAL_SECRET`.
+2. **Deploy**: `bash -c 'set -a; . ./.env; set +a; python3 n8n/flashpoint.py --deploy'` creates or updates the three workflows and their credentials. `TEST_MODE=1` disables the agent e-mail to sign-ups.
+3. **In n8n**: connect Gmail and Google Sheets (Google sign-in), then activate.
+4. **Apps Script**: paste `google/flashpoint-sheet.gs` into the sign-up sheet, set `SHEET_ID`, `N8N_WEBHOOK_URL`, `N8N_SECRET`, `THRESHOLD`, run `checkSetup` and `installTriggers`, deploy as web app for the form.
+5. **Test**: `node tests/fill-form.js --dry`, then without `--dry`; or `python3 tests/berlin_cases.py` against the webhook.
+
+**New use case**: edit the CONFIG block in `n8n/build_critical_mass.py` (product, ICP, decision roles, signal queries, e-mail brief) and the watch searches in `n8n/watch.py`, then deploy.
+
+## Privacy
+
+- Sign-ups give consent on the form; private e-mail domains are never grouped.
+- The agent writes only to people who signed up, in BCC, with an unsubscribe line. No cold e-mail (UWG §7).
+- LinkedIn decision makers go to sales only; the model sees job titles. Sales contacts them personally and states the source (GDPR Art. 14).
+- Reddit usernames and e-mail addresses are removed before any model sees the text.
+- Keys live in n8n credentials and Apps Script properties, never in the repo.
+
+## Stack
+
+Lovable · Google Sheets + Apps Script · n8n Cloud · Apify (`harvestapi/linkedin-company`, `harvestapi/linkedin-company-posts`, `harvestapi/linkedin-company-employees`, `apify/rag-web-browser`) · Featherless (Qwen2.5-72B-Instruct analyst, DeepSeek-V3 judge) · Gmail · Playwright

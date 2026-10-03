@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flashpoint Germany Test</title><style>
+:root{--bg:#f4f5f7;--surface:#fff;--ink:#1a1d24;--muted:#5d6472;--line:#dde0e6;--accent:#c2410c;--ok:#15803d;--ok-soft:#dcfce7;--bad:#b91c1c;--bad-soft:#fee2e2;--warn:#a16207;--warn-soft:#fef3c7;--mute-soft:#eceef2}
+@media (prefers-color-scheme:dark){:root{--bg:#111318;--surface:#1a1d24;--ink:#e8eaee;--muted:#9aa1ad;--line:#2c313b;--accent:#fb923c;--ok:#4ade80;--ok-soft:#14321f;--bad:#f87171;--bad-soft:#3b1717;--warn:#facc15;--warn-soft:#3a2f0d;--mute-soft:#252932;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Avenir Next","Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:32px 64px;display:grid;gap:28px}
+h1{margin:0;font-size:1.9rem}h2{margin:0 0 12px;font-size:1.1rem}.eyebrow{font:600 .72rem/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}.tile b{display:block;font-size:1.7rem;font-variant-numeric:tabular-nums}.tile span{color:var(--muted);font-size:.85rem}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}tr:last-child td{border-bottom:0}
+.num{text-align:right;white-space:nowrap}.sub{color:var(--muted);font-size:.8rem}.note{font-size:.82rem;color:var(--muted);max-width:340px}
+.pill{font:600 .72rem/1 ui-monospace,monospace;padding:5px 8px;border-radius:99px;text-transform:uppercase}.ok{background:var(--ok-soft);color:var(--ok)}.bad{background:var(--bad-soft);color:var(--bad)}.warn{background:var(--warn-soft);color:var(--warn)}.mute{background:var(--mute-soft);color:var(--muted)}
+.bar{display:inline-block;width:70px;height:7px;background:var(--line);border-radius:4px;vertical-align:middle;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}.pad{padding:16px}ul{margin:0;padding-left:1.2em}
+</style></head><body><div class="wrap">
+<header><div class="eyebrow">Flashpoint · live test · Germany universities</div><h1>Germany test run</h1>
+<p class="sub">8 cases through the live n8n workflow. Graded by 7 rule checks and an LLM judge (deepseek-ai/DeepSeek-V3-0324), the same as the eval workflow. Sign-up address in every case: the team's own inbox.</p></header>
+<section class="tiles">
+<div class="tile"><b>8/8</b><span>cases took the expected path</span></div>
+<div class="tile"><b>7/7</b><span>analyses passed the eval</span></div>
+<div class="tile"><b>3.6</b><span>average groundedness (1–5)</span></div>
+<div class="tile"><b>156s</b><span>average research + analysis time per account</span></div>
+</section>
+<section><h2>Per university</h2><div class="box"><table><thead><tr><th>Account / case</th><th>LinkedIn match</th><th class="num">Score</th><th>Path</th><th class="num">Pain / voice hits</th><th class="num">Rules</th><th>Judge</th><th>Verdict</th><th>Issues</th></tr></thead><tbody>
+<tr>
+  <td><b>tum.de</b><div class="sub">full buying committee</div></td>
+  <td>Technical University of Munich<div class="sub">verified · 11838 employees</div></td>
+  <td class="num">85</td>
+  <td>research + decide<div class="sub">as expected</div></td>
+  <td class="num">0 / 0<div class="sub">10 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:74%"></i></span> 3.7</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">The analysis mentions &#x27;fewer admitted students lost between offer and enrolment&#x27; but there is no direct evidence in the CONTEXT to support this specific pain point.; The score of 85 seems high given the lack of concrete pain signals or direct evidence of the mentioned issue in the CONTEXT.</td>
+</tr>
+<tr>
+  <td><b>lmu.de</b><div class="sub">partnership call requested</div></td>
+  <td>Ludwig-Maximilians-Universität München<div class="sub">verified · 9463 employees</div></td>
+  <td class="num">85</td>
+  <td>call → human<div class="sub">as expected</div></td>
+  <td class="num">5 / 0<div class="sub">5 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:86%"></i></span> 4.3</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">–</td>
+</tr>
+<tr>
+  <td><b>rwth-aachen.de</b><div class="sub">technical university, NRW</div></td>
+  <td>RWTH Aachen University<div class="sub">verified · 6505 employees</div></td>
+  <td class="num">85</td>
+  <td>research + decide<div class="sub">as expected</div></td>
+  <td class="num">0 / 0<div class="sub">10 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:86%"></i></span> 4.3</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">–</td>
+</tr>
+<tr>
+  <td><b>kit.edu</b><div class="sub">research university, .edu</div></td>
+  <td>Karlsruhe Institute of Technology (KIT)<div class="sub">verified · 8114 employees</div></td>
+  <td class="num">70</td>
+  <td>research + decide<div class="sub">as expected</div></td>
+  <td class="num">0 / 0<div class="sub">10 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:74%"></i></span> 3.7</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">The analysis mentions &#x27;Fewer admitted students lost between offer and enrolment&#x27; as an angle, but there is no direct evidence in the CONTEXT to support this specific pain point.; The email suggests that Kredible can help with retaining students and expanding the talent pool, but the CONTEXT does not</td>
+</tr>
+<tr>
+  <td><b>uni-mannheim.de</b><div class="sub">business focus</div></td>
+  <td>University of Mannheim<div class="sub">verified · 2106 employees</div></td>
+  <td class="num">85</td>
+  <td>call → human<div class="sub">as expected</div></td>
+  <td class="num">0 / 0<div class="sub">10 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:86%"></i></span> 4.3</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">–</td>
+</tr>
+<tr>
+  <td><b>tu-dresden.de</b><div class="sub">east Germany</div></td>
+  <td>Technische Universität Dresden<div class="sub">verified · 6316 employees</div></td>
+  <td class="num">85</td>
+  <td>research + decide<div class="sub">as expected</div></td>
+  <td class="num">5 / 0<div class="sub">5 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:76%"></i></span> 3.8</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">The pain_evidence does not strongly support the angle about financial solutions for non-EU students.; The score of 85 seems high given the weak evidence for the specific pain point mentioned.</td>
+</tr>
+<tr>
+  <td><b>uni-hamburg.de</b><div class="sub">large city university</div></td>
+  <td>University of Hamburg<div class="sub">verified · 5772 employees</div></td>
+  <td class="num">85</td>
+  <td>research + decide<div class="sub">as expected</div></td>
+  <td class="num">5 / 0<div class="sub">5 dropped</div></td>
+  <td class="num">7/7</td>
+  <td><span class="bar"><i style="width:84%"></i></span> 4.2</td>
+  <td><span class="pill ok">pass</span></td>
+  <td class="note">The pain evidence mentions 3 signals of extended deadlines, but the context only shows 2-3 examples, which is slightly exaggerated.; The score of 85 seems high given the limited direct evidence of financial pain points for students.</td>
+</tr>
+<tr>
+  <td><b>uni-heidelberg.de</b><div class="sub">threshold not reached</div></td>
+  <td>–<div class="sub">– · ? employees</div></td>
+  <td class="num">–</td>
+  <td>stop at threshold<div class="sub">as expected</div></td>
+  <td class="num">0 / 0<div class="sub">0 dropped</div></td>
+  <td class="num">–</td>
+  <td></td>
+  <td><span class="pill mute">n/a</span></td>
+  <td class="note">–</td>
+</tr></tbody></table></div></section>
+<section class="grid2">
+<div class="box pad"><h2>Judge averages</h2><table><tr><td>groundedness</td><td><span class="bar"><i style="width:72%"></i></span> 3.6</td></tr><tr><td>relevance</td><td><span class="bar"><i style="width:92%"></i></span> 4.6</td></tr><tr><td>actionability</td><td><span class="bar"><i style="width:74%"></i></span> 3.7</td></tr><tr><td>email quality</td><td><span class="bar"><i style="width:80%"></i></span> 4.0</td></tr><tr><td>compliance</td><td><span class="bar"><i style="width:100%"></i></span> 5.0</td></tr><tr><td>calibration</td><td><span class="bar"><i style="width:68%"></i></span> 3.4</td></tr></table></div>
+<div class="box pad"><h2>Rule failures</h2><ul><li>none</li></ul>
+<h2 style="margin-top:16px">How to read this</h2><ul><li><b>Pass</b>: all rules green, average at least 3.5, groundedness at least 3, compliance at least 4.</li><li><b>Path</b> checks the agent's decision logic: stop below threshold, abstain on a wrong LinkedIn match, hand calls to a human.</li><li><b>Dropped</b>: search hits removed in code because they were not about this university.</li></ul></div>
+</section></div></body></html>

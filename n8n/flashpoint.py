@@ -199,21 +199,21 @@ def build_main():
         sticky("About Flashpoint", -60, -140, 1500, 230, 7,
                "# Flashpoint · account signal agent\n"
                "**One sign-up is curiosity. Three from the same organisation is a flashpoint.**\n\n"
-               "When the threshold is reached, the agent researches the organisation, scores it, writes to the people who signed up "
-               "and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the "
+               "The first sign-up starts research; critical mass escalates. Eight weighted signals become a Flashpoint score. "
+               "The agent writes to the people who signed up and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the "
                "**Flashpoint · Eval** workflow.\n\n"
                "Input: Apps Script on the sign-up sheet · Research: Apify · Analysis: Featherless · Output: Gmail + Google Sheets"),
         sticky("1 · Trigger and threshold", -60, 110, 500, 300, 4,
-               "## 1 · Trigger and threshold\nThe sheet script posts here when the **Nth distinct person** from one e-mail "
-               "domain signs up. Secured by the `x-signal-secret` header. Private e-mail domains never reach this point."),
+               "## 1 · Trigger\nRuns on the **first sign-up** from an organisation and again at **critical mass**. "
+               "The headcount is one signal, not the decision. Secured by `x-signal-secret`; private e-mail domains never reach this point."),
         sticky("2 · Account research", 460, 110, 1740, 300, 5,
                "## 2 · Account research (Apify)\nLinkedIn profile, posts and decision-maker roles, latest news, the website, "
                "and two signals nobody uses: **pain on the org's own site** and **its customers' public voice**. "
                "Each step runs once and fails soft: a missing source never stops the run."),
         sticky("3 · AI analysis", 2220, 110, 700, 300, 6,
-               "## 3 · AI analysis (Featherless)\nOff-target search hits are filtered out in code before the LLM sees them. "
-               "The model extracts culture, structure, buying committee, angle, score and the e-mail. "
-               "**Code, not the model, decides** what happens next."),
+               "## 3 · Signals and AI analysis\n**Signal scorecard** (code): critical mass, call request, deadline extension, new programme, "
+               "free seats, semester timing, student voice, policy news → Flashpoint score 0-100. "
+               "**Featherless** writes the situation, angle and e-mails for the strongest signals. **Code decides** what happens next."),
         sticky("4 · Act and document", 2940, -20, 720, 560, 2,
                "## 4 · Act and document\n**Auto e-mail** only to consented sign-ups (BCC) when LinkedIn is verified.\n"
                "**Human hand-off** when a call was requested, the score is high or anything is uncertain.\n"

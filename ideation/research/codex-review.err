@@ -1,0 +1,78 @@
+OpenAI Codex v0.154.0
+--------
+workdir: /Users/marty/claude-projects/hackathon/gtm-apify-bellabona/research
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a100ee-27b5-7c10-acb5-fdab9d006dc0
+--------
+user
+You are reviewing hackathon ideas for a team that starts building in minutes. Answer in English, plain markdown, MAX 500 words. Be decisive. Do not run tools; answer from knowledge.
+
+EVENT (live today, Berlin): GTM Hackathon "Detect the signal. Build the agent." Build 11:00–17:30 (~6h), live demo required.
+TRACKS (each has a prize): Apify "Capture" — find a signal nobody is using ($250 Apify credits/member). n8n "Act" — close the loop, no human in the middle (n8n Cloud Pro/member). Featherless "Out of the box" — the unexpected data source that works ($300 credits/team). Grand prize across all tracks.
+JUDGING: 1 Originality — how fresh is the signal? 2 Real solution — runs today, usable on Monday. 3 Reliability — fails gracefully, holds up under GDPR. 4 Wild card — the idea, the craft, the ambition. Organizer quote: "A small thing that runs beats a big thing that does not."
+NEW INPUT FROM THE ORGANIZERS' TALK: the key factor for GTM signals is ROI. Clay and standard companies already use the obvious signals: hiring signals, funding signals ("they just raised, they need to spend money"), marketing problems. So an original signal must beat these on freshness/predictiveness AND show ROI.
+Bella&Bona (office-lunch + catering, Berlin/Munich, opened NRW Düsseldorf/Köln on 1 Oct 2026, sells a tax-free meal benefit €7.67/workday, claims "30–40% higher office attendance", buyers = People Ops) is only a host providing lunch, NOT a track sponsor. German UWG §7: no unsolicited B2B email automation.
+
+CANDIDATES (current team rating, 4 criteria x 1–5):
+A. Bella&Bona NRW Radar — job ads in Berlin/Munich/NRW listing other benefits (Deutschlandticket, JobRad) but NO meal subsidy + "3 days in office" wording; plus companies hosting events at their office (Luma/Meetup); 3D globe/map UI; n8n creates lead card + German draft with €7.67 ROI calc, never auto-sends. (17)
+B. Apify Store Gap — people on HN/Reddit asking how to scrape a site that has no Apify Store actor; agent auto-writes an actor brief to Apify's internal Slack (internal action, so fully autonomous is legal). (16)
+C. Canteen closure — Google Maps permanentlyClosed canteens / company menu page disappears → displaced food budget. Data thin in Berlin, untested. (14)
+D. Event hosts only (Luma/Meetup at company offices). (13)
+E. Restaurant hygiene notices (Berlin district PDFs under §40 LFGB). (10)
+
+TASK:
+1. Re-score A–E on the four official criteria given the ROI point and "Clay already does hiring/funding". Table.
+2. Is A's core (job ads) too close to the standard hiring signal Clay already sells? How would you make it clearly NOT a hiring signal?
+3. Propose up to 2 NEW ideas whose signal is fresher than hiring/funding and has an obvious ROI number, buildable in 6h with Apify + n8n + Featherless. Signal, source, action, ROI line.
+4. Final pick + the one-sentence pitch + the one ROI number the demo should show.
+
+warning: Exceeded skills context budget. All skill descriptions were removed and 56 additional skills were not included in the model-visible skills list.
+hook: SessionStart
+hook: SessionStart Completed
+codex
+**Pick B, sharpened around documented spending.** Its advantage is buyer intent: someone describes a problem they already pay to solve. A currently repackages a familiar source and adds visual polish.
+
+Scores: 1–5 each; ROI strengthens “Real solution,” rather than becoming a fifth criterion.
+
+| Idea | Originality | Real solution | Reliability | Wild card | Total |
+|---|---:|---:|---:|---:|---:|
+| A. NRW Radar | 2 | 3 | 3 | 3 | **11** |
+| B. Apify Store Gap | 4 | 4 | 4 | 4 | **16** |
+| C. Canteen closure | 5 | 2 | 2 | 4 | **13** |
+| D. Office event hosts | 3 | 3 | 4 | 2 | **12** |
+| E. Hygiene notices | 4 | 1 | 2 | 3 | **10** |
+
+- **A:** Missing benefit wording proves neither missing provision nor purchase intent. €7.67 is not itself ROI.
+- **B:** Requests establish demand; spending evidence establishes commercial value. “No actor exists” needs careful verification.
+- **C:** Potentially excellent timing, but a missing page can mean a redesign. Displaced budget remains unverified.
+- **D:** Concrete occasion and headcount, but catering may already be booked.
+- **E:** Weak connection to office catering demand; interpreting notices adds substantial reliability risk.
+
+**Make A a policy-change signal.** Compare dated versions of company workplace policies: a newly announced increase in mandatory office days, supported by an explicit meal-benefit statement or buyer confirmation. Job ads become corroboration, never the trigger. Calculate additional onsite person-days; attach economics only when headcount, participation, and pricing are known. Drop the globe.
+
+**Two new ideas**
+
+1. **Paid-workaround detector**
+   - **Signal:** A public post explicitly describes recurring spending or manual hours on a scraping workaround.
+   - **Source:** Public technical discussions and issue threads containing first-person cost evidence.
+   - **Action:** Apify captures evidence and checks relevant Store actors; Featherless extracts requirements and uncertainties; n8n creates a deduplicated opportunity and feasibility brief in **your team’s** workspace.
+   - **ROI:** `(documented workaround cost − estimated replacement cost) / replacement cost`. Label estimates.
+
+2. **Catering contract expiry radar**
+   - **Signal:** A published catering contract approaches its stated expiry.
+   - **Source:** Public procurement award notices with contract dates and values.
+   - **Action:** Apify collects notices; Featherless extracts scope; n8n schedules qualification and prepares a bid brief.
+   - **ROI:** Expected contract contribution divided by pursuit cost, with win probability explicit. Contract value alone is not ROI.
+
+**Final pick: B evolved into the paid-workaround detector.** Limit the build to one source, one scraping niche, and one autonomous internal action. Public data still requires minimization and retention controls.
+
+**Pitch:** “We find scraping problems with an existing price tag and turn them into evidence-backed product opportunities automatically.”
+
+**Demo number:** **Customer ROI**, calculated from one sourced spending figure and a clearly labeled replacement-cost estimate. Example: €500/month replaced for €100/month = **400% ROI**. Never present illustrative inputs as observed evidence.
+tokens used
+11,552

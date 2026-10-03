@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "d99cab4f-199b-4608-8a31-3a8247395205",
+      "id": "a232e014-8780-4850-8dbb-99f0abee1edb",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         300
       ],
-      "webhookId": "10e21e64-53f7-4734-8ce6-f28c7bbdbf42",
+      "webhookId": "0e1fea69-5cba-470a-8b5c-41afc062f7bf",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "5c5ff771-d273-4ba1-8d4e-1148b870b69e",
+      "id": "e8a2ad86-c5aa-4d7f-b4b1-2aadcb6e5bb9",
       "name": "Exactly 3 colleagues?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -44,7 +44,7 @@
           },
           "conditions": [
             {
-              "id": "910d2362-2d4a-485b-a684-300d21a42ea6",
+              "id": "ec7eecfd-3134-4daf-a7d9-c9fc5a123352",
               "leftValue": "={{ $json.body.colleagues }}",
               "operator": {
                 "type": "number",
@@ -53,7 +53,7 @@
               "rightValue": 3
             },
             {
-              "id": "5dc2bfe0-37ff-4b07-a314-2fb48d0fa432",
+              "id": "de93b264-75cb-471b-b49e-337af1fb0c88",
               "leftValue": "={{ $json.body.company_domain }}",
               "operator": {
                 "type": "string",
@@ -69,7 +69,7 @@
       }
     },
     {
-      "id": "b237557e-22a3-48ba-a926-b4f904c80664",
+      "id": "aea80e2d-3fdb-44b4-b0d4-47fdcc7c6b84",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -101,7 +101,7 @@
       }
     },
     {
-      "id": "56fdecf1-be5b-4e20-a25c-6cdf08c284ff",
+      "id": "b874766b-d351-4b26-a611-236272c6286e",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -114,7 +114,7 @@
       }
     },
     {
-      "id": "b5a1b73f-51e7-46e3-a58b-0b2e8f14afce",
+      "id": "43437e21-ff0b-477d-9c9a-22018381cb50",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -146,7 +146,7 @@
       }
     },
     {
-      "id": "01cceea6-0a97-4316-8ac7-66698c057843",
+      "id": "ac9013e2-5a89-4157-be72-fb04ee38b1b4",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -178,7 +178,7 @@
       }
     },
     {
-      "id": "00ee4197-fc45-4d3f-aa35-bdb50eda130f",
+      "id": "75429ffd-a9d3-4ca1-b1bc-796d2aa6768c",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -210,7 +210,7 @@
       }
     },
     {
-      "id": "66ca1370-1814-4efd-9539-7d3d77e7fb0a",
+      "id": "5e92fe71-15eb-45e2-be4d-e8cf4dca6529",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -242,7 +242,7 @@
       }
     },
     {
-      "id": "2f5800e6-0d5c-432d-89d5-807327c3aac0",
+      "id": "30c0f6ab-d564-4180-8310-6d1d7cae7b7b",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -274,7 +274,7 @@
       }
     },
     {
-      "id": "37b2d8ba-ee7e-46b9-a4b0-a75fd7812ba5",
+      "id": "0be42f86-ae0d-47e0-81bc-67e5c82100ec",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -306,7 +306,7 @@
       }
     },
     {
-      "id": "0cf89fcd-710c-4b35-aa72-a330a0e82aad",
+      "id": "68921044-e063-4dff-b86f-fede3b01945f",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -319,7 +319,7 @@
       }
     },
     {
-      "id": "48468f0c-27f3-46de-b2b6-11217be7d2f9",
+      "id": "7f4da868-cc08-4b8e-8c78-a41c93419e78",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -349,7 +349,7 @@
       }
     },
     {
-      "id": "9b79e9fa-ff0a-477f-bccf-3a142bb84267",
+      "id": "416ecf18-9e77-41f4-a3f4-149b6c4563ac",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -362,7 +362,7 @@
       }
     },
     {
-      "id": "171bcb73-193a-490b-9113-1791d6b1fe07",
+      "id": "cffe49c4-c581-4e8b-a2a8-53998d3c70ab",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -380,7 +380,7 @@
           },
           "conditions": [
             {
-              "id": "13409d9f-0ccf-4af3-8439-e0c438d1e087",
+              "id": "8f12fdf2-04a9-40a2-b9ef-657cb3048134",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -396,7 +396,7 @@
       }
     },
     {
-      "id": "8a0209dc-1358-4110-ac6c-2f0308d3b88c",
+      "id": "e5c2c36b-909f-4ab1-af39-16309c0cc299",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -425,7 +425,7 @@
       }
     },
     {
-      "id": "294a8417-02a1-4865-b342-c180a1583f39",
+      "id": "03a57fff-0b15-4250-9146-b25e864c67b1",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -443,7 +443,7 @@
           },
           "conditions": [
             {
-              "id": "b0a427c2-b8ae-4a56-9999-d4939ce6d86d",
+              "id": "3174ddbe-a90a-4e38-88fb-7b7348f95936",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -459,7 +459,7 @@
       }
     },
     {
-      "id": "bb25162e-93da-41e8-9619-63ba313d9ec4",
+      "id": "559b8ec8-f08e-4571-9565-018a0e830bbe",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -472,7 +472,7 @@
       }
     },
     {
-      "id": "1df33b76-de59-46dc-b358-f098f33668d4",
+      "id": "04e3c67e-91b7-4b38-83e9-52e30cc5b877",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -499,7 +499,7 @@
       }
     },
     {
-      "id": "8ac6f32a-c364-49ac-a2c1-c185ea69d1a2",
+      "id": "8af2e06c-21b0-4a02-9ea7-638fefcbeea1",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -530,7 +530,7 @@
       }
     },
     {
-      "id": "f770e845-ac86-4fa0-b9f8-c5a4703b6f66",
+      "id": "8583e119-4eac-440c-9c3a-b945159a0ceb",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -560,7 +560,7 @@
       }
     },
     {
-      "id": "916e4727-069d-48f2-bb29-05fef2ae68fd",
+      "id": "1409abfb-0eef-479d-adff-14eadc1ef43b",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -573,7 +573,7 @@
       }
     },
     {
-      "id": "1c4717c6-a636-4135-84cb-af66adababbf",
+      "id": "1d1c0581-4381-40b8-aebd-fcf68d191d39",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -591,7 +591,7 @@
           },
           "conditions": [
             {
-              "id": "36cec775-890a-40e5-8a7a-448dbd931633",
+              "id": "44a62e95-e7f9-4161-b273-6f8b313e9ca3",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -600,7 +600,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "86f903da-6b90-4264-a897-f22167d137ba",
+              "id": "cca83f09-8090-46e4-8511-384992d0559d",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -615,7 +615,7 @@
       }
     },
     {
-      "id": "9b23fe03-9174-4fb9-83a2-29a0249dc6be",
+      "id": "0e0bb736-404f-4552-94b8-04306e9ec651",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,

@@ -1,0 +1,1289 @@
+[
+  {
+    "case": "full buying committee",
+    "domain": "tu-berlin.de",
+    "institution_typed": "Technische Universität Berlin",
+    "roles_signed_up": [
+      "International office",
+      "Admissions",
+      "Finance"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 3,
+    "status": "success",
+    "seconds": 174,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Technische Universität Berlin",
+    "employees": 5519,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Reduce the number of admitted students lost between offer and enrolment, ensuring a wider talent pool and more graduates staying in Germany.",
+    "pain_evidence": "none found",
+    "news_summary": "TU Berlin is celebrating significant milestones, including the 50th anniversary of its partnership with Fraunhofer IPK, the groundbreaking of the Chemical Invention Factory, and a historic win by the Formula Student Team. The university is also expanding its facilities with new buildings like IMoS and TULIUM, enhancing interdisciplinary collaboration and public engagement.",
+    "buying_committee": [
+      "International office",
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Three distinct roles from the International Office, Admissions, and Finance have signed up, indicating a full buying committee.",
+      "The university has a strong international focus, as evidenced by recent news and posts.",
+      "No explicit pain signals or customer voice data were found, but the interest from multiple key departments suggests a high level of engagement."
+    ],
+    "email_subject": "Vielen Dank für Ihr Interesse an Kredible",
+    "email_html": "<p>Lieber Kollege/Liebe Kollegin,</p><p>Vielen Dank, dass Sie sich für Kredible interessieren! Ich freue mich, Ihnen mitteilen zu können, dass auch Kollegen aus Ihrer Organisation sich für unser Angebot eingetragen haben.</p><p>Kredible finanziert die Sperrkonten, Studiengebühren und die ersten Lebenshaltungskosten für zugelassene Nicht-EU-Studenten an deutschen Universitäten. Für Ihre Hochschule kostet es nichts: keine Gebühren, kein Umsatzanteil, kein Rückzahlungsrisiko. Die Studiengebühren werden direkt an die Institution gezahlt, und Sie erfahren, wann die Finanzierung eines Studenten gesichert ist.</p><p>Dies hilft Ihnen, weniger zugelassene Studenten zwischen Angebot und Einschreibung zu verlieren, einen breiteren Talentpool anzuziehen und mehr Absolventen in Deutschland zu halten.</p><p>Ich würde mich freuen, Ihnen in einem kurzen 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie mich wissen, wann es Ihnen passt!</p><p>Mit freundlichen Grüßen,<br>Ihr [Ihr Name]</p><p>Reply STOP to unsubscribe.</p>",
+    "context": {
+      "company": {
+        "name": "Technische Universität Berlin",
+        "website": "http://www.tu.berlin",
+        "linkedinUrl": "https://www.linkedin.com/school/tuberlin/",
+        "employeeCount": 5519,
+        "industries": [
+          {
+            "id": "69",
+            "name": "Education Administration Programs",
+            "urn": "urn:li:fsd_industryV2:69",
+            "title": "Education Administration Programs",
+            "hierarchy": "Government Administration > Health and Human Services > Education Administration Programs"
+          }
+        ],
+        "specialities": [],
+        "tagline": "We‘ve got the brains for the future.\nFor the benefit of society.",
+        "description": "We’ve Got the Brains for the Future – in the Heart of Germany’s Capital\r\n\r\nWith almost 34 000 students, circa 100 course offerings and 40 Institutes, the historic Technische Universität Berlin is one of Germany’s largest and most internationally renowned technical universities. Located in Germany’s capital city – at the heart of Europe – outstanding achievements in research and teaching, imparting skills to excellent graduates, and a modern service-oriented administration characterize TU Berlin.\r\n\r\nThe range of services offered by our seven Faculties serves to forge a unique link between the natural and technical sciences on the one hand, and the planning, economics and social sciences and humanities on the other. This is indeed a significant achievement for any technical university.",
+        "locations": [
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Admissions",
+        "Finance"
+      ],
+      "notes": [
+        "Technische Universität Berlin",
+        "Technische Universität Berlin",
+        "Technische Universität Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "🎉 50 Jahre Fraunhofer IPK: Die #TUBerlin gratuliert herzlich zum Jubiläum!\nGood to know: Die Verbindung zwischen dem Fraunhofer-Institut für Produktionsanlagen und Konstruktionstechnik IPK und der TU Berlin besteht fast ebenso lange wie das IPK selbst: Bereits seit 1977 gibt es einen Kooperationsvertrag mit dem Institut für Werkzeugmaschinen und Fabrikbetrieb (IWF) der TU Berlin. Bis heute arbeit",
+          "engagement": 447
+        },
+        {
+          "text": "🏗️ Richtfest für Europas größte Laborinfrastruktur für Vorgründungsteams und Transfer in der Grünen Chemie: Glück auf für die Chemical Invention Factory (CIF) – John Warner Center (CIF)! 🍀🔨 \n\nAm 4. September 2026 feierte die #TUBerlin Richtfest für den Neubau, gemeinsam mit Gästen aus Wissenschaft, Politik und Wirtschaft.  Die Arbeiten liegen im Zeit- und Kostenplan, die Fertigstellung ist für ",
+          "engagement": 317
+        },
+        {
+          "text": "👏 Historischer Erfolg für FaSTTUBe - Formula Student Team TU Berlin: Das Team von der #TUBerlin gewinnt erstmals in seiner 20-jährigen Geschichte die Gesamtwertung bei der Formula Student Poland. 🏎️ Eine Fachjury aus Expert*innen aus #Industrie und #Motorsport bewertete die technische Entwicklung und Konstruktion, wirtschaftliche Aspekte und die Leistung des Fahrzeugs auf der Rennstrecke. Herzli",
+          "engagement": 267
+        },
+        {
+          "text": "🛰️ „Hello World from CyBEEsat!“ Am 5. September gegen 22 Uhr (MESZ) ist der #TUBerlin-Satellit an Bord der Mission Onward and Upward von Isar Aerospace gestartet. CyBEEsat (Cybersecurity Berlin Experimental & Educational Satellite) wurde unter der Leitung der TU Berlin gemeinsam mit der Universität Potsdam sowie weiteren Partnern aus Wissenschaft und Industrie in Berlin und Brandenburg entwickelt",
+          "engagement": 257
+        },
+        {
+          "text": "🏗️ Was wäre, wenn… sich Wissenschaftler*innen ein Gebäude bauen könnten, das ihre Zusammenarbeit optimal unterstützt? Dann sähe es vielleicht so aus wie das neue Interdisziplinäre Zentrum für Modellierung und Simulation (IMoS) der #TUBerlin: 6 Etagen, 5.700 Quadratmeter Nutzfläche, Raum für rund 300 Wissenschaftler*innen – und vor allem: viel Platz für interdisziplinäre Zusammenarbeit. Genau dafü",
+          "engagement": 217
+        },
+        {
+          "text": "🏗️ Auf dem Campus Charlottenburg entsteht mit dem Gebäude TULIUM ein neuer Ort für Wissenschaft, Ausstellung und Wissenstransfer. Am 22. September 2026 hat die #TUBerlin das Richtfest für den Neubau gefeiert.\n\nKünftig werden hier die Mineralogischen Sammlungen der TU Berlin, Ausstellungen, Veranstaltungsflächen und ein Café zusammenkommen und Wissenschaft für Besucher*innen erlebbar werden. TU-Pr",
+          "engagement": 212
+        },
+        {
+          "text": "Die Technische Universität Berlin trauert um Prof. em. Christina Thürmer-Rohr. Über vier Jahrzehnte war sie eng mit der TU Berlin verbunden: Im Jahr 1966 wurde sie hier promoviert, von 1964 bis 1969 arbeitete sie als wissenschaftliche Assistentin am Institut für Psychologie der TU Berlin und leitete ab 1966 die dort angegliederte Psychologische Beratungsstelle.\n\n1969 wurde Christina Thürmer-Rohr A",
+          "engagement": 184
+        },
+        {
+          "text": "🙏 Ein neuer ERC Starting Grant vom European Research Council (ERC) für die #TUBerlin und für Dr. Lucas da Costa Maciel: Er erhält rund zwei Millionen Euro für das fünfjährige Projekt „MOGEN“. Gemeinsam mit der „Kiñelmapu Koyawe Repatriation Commission“ und weiteren Partner*innen in Chile untersucht er die Folgen des Verlusts von Kulturgütern der chilenischen Mapuche-Gemeinschaft. \n\n📜 Mit dem Pro",
+          "engagement": 161
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Histories of Anti-Tourism - TU Berlin",
+          "url": "https://www.tu.berlin/en/cms/research/projects/current-projects/histories-of-anti-tourism",
+          "excerpt": "Histories of Anti-Tourism - TU Berlin\n\n ![](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Icons/search.svg)\n\n[![TU Berlin](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Images/Logos/tu-berlin-logo-long-red.svg)](https://www.tu.berlin/en/ \"kann wech...\")\n\n![](https://www.static.tu.berlin/fileadmin/www/_processed_/f/4/csm_Carl_Spitzweg_047_c5374a34c6.jpg)\n\n## Histories of Anti-Tourism\n\nAn international research project led by Dr. Kristin Semmens and Dr. Emily Bereskin, _Histories of Anti-Tourism_ examines the long-overlooked history of anti-tourist"
+        },
+        {
+          "title": "The HAP Team at the Conference “Designing Human-Centered Artificial Intelligence” - TU Berlin",
+          "url": "https://www.tu.berlin/en/hap/news-details/das-hap-team-bei-der-tagung-kuenstliche-intelligenz-menschzentriert-gestalten",
+          "excerpt": "The HAP Team at the Conference “Designing Human-Centered Artificial Intelligence” - TU Berlin\n\n ![](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Icons/search.svg)\n\n[![TU Berlin](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Images/Logos/tu-berlin-logo-long-red.svg)](https://www.tu.berlin/en/ \"kann wech...\")\n\n## News\n\n[Overview](https://www.tu.berlin/en/hap/about-us/news)\n\n# The HAP Team at the Conference “Designing Human-Centered Artificial Intelligence”\n\n23/06/2026\n\nOn June 18, 2026, nearly our entire department attended the conference “Artific"
+        },
+        {
+          "title": "Dr. Toyin Omojola Presents MTO Research at Reaction Engineering Annual Conference - TU Berlin",
+          "url": "https://www.tu.berlin/en/fg-evur/news-details/dr-toyin-omojola-praesentiert-mto-forschung-auf-der-jahrestagung-reaktionstechnik",
+          "excerpt": "Dr. Toyin Omojola Presents MTO Research at Reaction Engineering Annual Conference - TU Berlin\n\n ![](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Icons/search.svg)\n\n[![TU Berlin](https://www.static.tu.berlin/_assets/2ff76cde2126808ef662c87f1945ad8e/Images/Logos/tu-berlin-logo-long-red.svg)](https://www.tu.berlin/en/ \"kann wech...\")\n\n## News\n\n[Overview](https://www.tu.berlin/en/fg-evur/about/news)\n\n# Dr. Toyin Omojola Presents MTO Research at Reaction Engineering Annual Conference\n\n11/06/2026\n\nDr. Toyin Omojola attended the Annual Meeting on Reaction Engineering in Würzb"
+        },
+        {
+          "title": "Fully Funded Scholarship in Australia | TU Berlin Scholarships 2027 in Germany (Funded)",
+          "url": "https://www.facebook.com/groups/350054477506562/posts/1074433018402034/",
+          "excerpt": "Fully Funded Scholarship in Australia | TU Berlin Scholarships 2027 in Germany (Funded)"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "partnership call requested",
+    "domain": "fu-berlin.de",
+    "institution_typed": "Freie Universität Berlin",
+    "roles_signed_up": [
+      "International office",
+      "Leadership",
+      "Other"
+    ],
+    "call_requested": true,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 4,
+    "status": "success",
+    "seconds": 215,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Freie Universität Berlin",
+    "employees": 5746,
+    "posts": 20,
+    "news": 3,
+    "roles_found": 0,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Partnership call requested",
+    "angle": "Reduce the number of admitted students lost between offer and enrollment by providing financial solutions for non-EU students.",
+    "pain_evidence": "Application deadline extensions (4 hits) indicate unfilled seats, suggesting a need to attract and retain more students.",
+    "news_summary": "Freie Universität Berlin is currently extending application deadlines for several programs, indicating a need to fill seats. The university is also highly engaged in research and international collaborations, particularly in areas like data-intensive research and political science.",
+    "buying_committee": [
+      "International office",
+      "Leadership",
+      "Other"
+    ],
+    "score_reasons": [
+      "Multiple roles from the buying committee have signed up (International Office, Leadership, Other)",
+      "A partnership call has been requested",
+      "News shows multiple application deadline extensions, indicating unfilled seats",
+      "Strong international student focus in recent posts"
+    ],
+    "email_subject": "Vielen Dank für Ihr Interesse an Kredible",
+    "email_html": "<p>Hallo,</p><br><p>Vielen Dank, dass Sie sich für Kredible interessieren! Es freut uns, dass auch Kollegen aus Ihrer Organisation sich angemeldet haben.</p><br><p>Kredible finanziert die Sperrkonto, Studiengebühren und die ersten Lebenshaltungskosten für zugelassene Nicht-EU-Studenten an deutschen Universitäten. Für Ihre Universität kostet es nichts: keine Gebühren, kein Umsatzanteil, kein Rückzahlungsrisiko. Die Studiengebühren werden direkt an die Institution gezahlt, und Sie erfahren, wann die Finanzierung eines Studenten gesichert ist.</p><br><p>Dies hilft Ihnen, weniger zugelassene Studenten zwischen Angebot und Einschreibung zu verlieren, einen breiteren Talentpool anzuziehen und Absolventen zu fördern, die in Deutschland bleiben.</p><br><p>Wir würden uns freuen, Ihnen in einem 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie uns wissen, wann es Ihnen passt!</p><br><p>Mit freundlichen Grüßen,<br>Ihr Kredible-Team</p><br><p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "Freie Universität Berlin",
+        "website": "http://www.fu-berlin.de/en",
+        "linkedinUrl": "https://www.linkedin.com/school/freie-universitat-berlin/",
+        "employeeCount": 5746,
+        "industries": [
+          {
+            "id": "70",
+            "name": "Research Services",
+            "urn": "urn:li:fsd_industryV2:70",
+            "title": "Research Services",
+            "hierarchy": "Professional Services > Research Services"
+          }
+        ],
+        "specialities": [],
+        "tagline": "Veritas, Iustitia, Libertas",
+        "description": "Freie Universität Berlin was founded in 1948 by professors and students, in response to the persecution faced by students who took a critical eye of the system at Universität Unter den Linden, at that time located in the Soviet sector of the divided city of Berlin. \n\nThe idea of founding a free university found widespread support in the international community, including financial support. This outpouring of aid helped pave the way for Freie Universität to become a university with an outstanding international reputation.\n\nToday, Freie Universität is one of Germany's leading research universities. The principles of freedom and internationality have guided the university’s development ever since. \n\nRegister with the Freie Universität Alumni Network: www.fu-berlin.de/en/alumni \n\nJoin the official LinkedIn group of Freie Universität: www.linkedin.com/groups/2447704",
+        "locations": [
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Leadership",
+        "Other"
+      ],
+      "notes": [
+        "Freie Universität Berlin",
+        "Freie Universität Berlin | wants partnership call",
+        "Freie Universität Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "𝗪𝗲𝗹𝘁𝘄𝗲𝗶𝘁 𝘂𝗻𝘁𝗲𝗿 𝗱𝗲𝗻 𝗯𝗲𝘀𝘁𝗲𝗻 𝗳𝘂̈𝗻𝗳 𝗣𝗿𝗼𝘇𝗲𝗻𝘁 \nDie Freie Universität Berlin steht im neuen Times Higher Education World University Ranking 2027 auf Platz 113 von 2.297 teilnehmenden Hochschulen. Damit gehört sie weltweit zu den besten fünf Prozent und zu den neun bestplatzierten Universitäten Deutschlands. \nIn Europa liegt sie auf Platz 41. Insbesondere im Bereich Forsch",
+          "engagement": 284
+        },
+        {
+          "text": "Sachsen-Anhalt hat gewählt. Was lässt sich aus dem Ergebnis ablesen? Welche Auswirkungen hat das Wahlergebnis auf Bildung, Wissenschaft und Gesellschaft? Welche Folgen hat es für Schulen, Menschen mit Migrationshintergrund und die politische Debattenkultur?\n\nIn einer aktuellen Interviewreihe ordnen Forschende der #FUBerlin die Wahl ein. \n\n💬 Den Auftakt macht Thorsten Faas, Professor für Politikwi",
+          "engagement": 116
+        },
+        {
+          "text": "KI und datenintensive Forschung stellen neue Anforderungen an die wissenschaftliche #Infrastruktur. Leistungsfähige Rechen- und Speichersysteme werden damit zu einer wichtigen Voraussetzung für Forschung in immer mehr Disziplinen.\n\nVor diesem Hintergrund haben das Helmholtz-Zentrum Berlin, das Zuse Institute Berlin und die #BerlinUAlliance eine Vereinbarung für den Aufbau einer institutionenübergr",
+          "engagement": 103
+        },
+        {
+          "text": "Nach der Landtagswahl in Sachsen-Anhalt: Max Steinhardt, Professor für Volkswirtschaftslehre an der #FUBerlin, analysiert in der Interviewreihe, welche Rolle wirtschaftliche Sorgen und Migration für das Ergebnis gespielt haben, was von der Wirtschaftspolitik einer AfD-geführten Regierung zu erwarten wäre und warum vorschnelle Prognosen mit Vorsicht zu genießen sind, da der Partei bislang ein klare",
+          "engagement": 97
+        },
+        {
+          "text": "Welche Auswirkungen hat das Wahlergebnis in Sachsen-Anhalt auf Bildungspolitik und Schule? Was brauchen Lehrkräfte jetzt, um handlungsfähig zu bleiben? Wir setzen unsere Interviewreihe mit Expert*innen der #FUBerlin fort: heute mit Sabine Achour, Professorin für politische Bildung und #Politikdidaktik am Otto-Suhr-Institut für #Politikwissenschaft.\n \nIm Interview analysiert die Wissenschaftlerin, ",
+          "engagement": 97
+        },
+        {
+          "text": "Lifestyle-Influencer, politische Kommunikation, Fehl- und Desinformation: Der Wahlkampf findet längst auch in den Feeds sozialer Medien statt. Wie unterschiedliche Akteur*innen dort zusammenspielen, steht im Mittelpunkt des nächsten Teils unserer Interviewreihe.\n\nChristian von Sikorski, Professor für Publizistik- und Kommunikationswissenschaft an der #FUBerlin, ordnet den digitalen Wahlkampf in Sa",
+          "engagement": 89
+        },
+        {
+          "text": "Wie politisch darf eine Universität sein?\n\nWelchen Auftrag haben Hochschulen? Wer darf was in welcher Rolle sagen? Gibt es ein Neutralitätsgebot?\n\nNach der Wahl in Sachsen-Anhalt und vor Berlin und Mecklenburg-Vorpommern stellen sich diese Fragen mit noch größerer Dringlichkeit. Sie beschäftigen gleichermaßen Hochschulleitungen und ihre Kommunikator*innen in ihrer täglichen Arbeit – und das nicht ",
+          "engagement": 86
+        },
+        {
+          "text": "𝗡𝗮𝗰𝗵𝗵𝗮𝗹𝘁𝗶𝗴𝗸𝗲𝗶𝘁 𝗶𝗻𝘁𝗲𝗿𝗻𝗮𝘁𝗶𝗼𝗻𝗮𝗹 𝗴𝗲𝗱𝗮𝗰𝗵𝘁 🌍\n\nMit ihrem Nachhaltigkeitsbericht 2026 lässt die Stabsstelle Nachhaltigkeit und Energie ihr Engagement der letzten 25 Jahre Revue passieren und zieht Bilanz für das Morgen. Internationalisierung spielt dabei eine maßgebliche Rolle, insbesondere in Zeiten geopolitischer Konflikte und Einschränkungen akademischer Freiheit.\n\nDr",
+          "engagement": 79
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Freie Universität Berlin: Startseite",
+          "url": "https://www.fu-berlin.de/",
+          "excerpt": "Freie Universität Berlin: Startseite\n\n[Springe direkt zu Inhalt](https://www.fu-berlin.de/#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berlin\n\n](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")\n\n# Freie Universität Berlin\n\n* * *\n\n## Service-Navigation\n\n*   [Startseite](https://www.fu-berlin.de/index.html \"Zur Startseite von: Freie Universität Berlin\")\n*   [Leichte Sprache](https://www.fu-berlin.de/leichte-sprache/index.html \"Leichte Sprache: Freie Universität Berlin\")\n*   [Kontakt](https://www.fu-berlin.de/"
+        },
+        {
+          "title": "Free University Berlin - ShanghaiRanking",
+          "url": "https://www.shanghairanking.com/universities/free-university-berlin",
+          "excerpt": "Free University Berlin - ShanghaiRanking\n\n[![](/_nuxt/img/logo.60897d4.svg)](https://www.shanghairanking.com/)\n\n*   [Home](https://www.shanghairanking.com/)\n    \n*   [Rankings ![](/icons/arrow_down.svg)](https://www.shanghairanking.com/rankings) \n    \n    *   [Academic Ranking of World Universities](https://www.shanghairanking.com/rankings/arwu/undefined)\n    *   [Global Ranking of Academic Subjects](https://www.shanghairanking.com/rankings/gras/undefined)\n    *   [Global Ranking of Sport Science Schools and Departments](https://www.shanghairanking.com/rankings/grsssd/undefined)\n    *   [Best "
+        },
+        {
+          "title": "5 Facts You Didn't Know About FU Berlin | International – Freie Universität Berlin",
+          "url": "https://www.linkedin.com/posts/international-freie-universit%C3%A4t-berlin_5-facts-you-didnt-know-about-fu-berlin-activity-7488864001485942785-pPUg",
+          "excerpt": "5 Facts You Didn't Know About FU Berlin | International – Freie Universität Berlin\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Skip to main content](https://www.linkedin.com/posts/international-freie-universit%C3%A4t-berlin_"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "Una Europa Prize - Deadline Extended • Una Europa • Freie Universität Berlin",
+          "url": "https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/news/una-prize-deadline-extended.html",
+          "excerpt": "Una Europa Prize - Deadline Extended • Una Europa • Freie Universität Berlin\n\n[Springe direkt zu Inhalt](https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/news/una-prize-deadline-extended.html#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berlin\n\n](https://www.fu-berlin.de/ \"Zur Startseite der Freien Univer"
+        },
+        {
+          "title": "Application Deadline Extended: Una Europa Summer School - One Health • Una Europa • Freie Universität Berlin",
+          "url": "https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/_termine/2025-summer-school-one-health-deadline-extended.html",
+          "excerpt": "Application Deadline Extended: Una Europa Summer School - One Health • Una Europa • Freie Universität Berlin\n\n[Springe direkt zu Inhalt](https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/_termine/2025-summer-school-one-health-deadline-extended.html#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berlin\n\n](htt"
+        },
+        {
+          "title": "Application deadline extended: research assistant, History department (Praedoc; m/f/d) • History • Institute for East European Studies",
+          "url": "https://www.oei.fu-berlin.de/en/geschichte/aktuelles/2022_12_07_ab_gesch_wimi.html",
+          "excerpt": "Application deadline extended: research assistant, History department (Praedoc; m/f/d) • History • Institute for East European Studies\n\n[Springe direkt zu Inhalt](https://www.oei.fu-berlin.de/en/geschichte/aktuelles/2022_12_07_ab_gesch_wimi.html#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berlin\n\n](https://www.fu-berlin.de/ \"Zur Starts"
+        },
+        {
+          "title": "Application deadline extended until 15 September: Cultural Heritage Winter School • Una Europa • Freie Universität Berlin",
+          "url": "https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/news/2023-cultural-heritage-winter-school-extension.html",
+          "excerpt": "Application deadline extended until 15 September: Cultural Heritage Winter School • Una Europa • Freie Universität Berlin\n\n[Springe direkt zu Inhalt](https://www.fu-berlin.de/en/international/network/partnership-networks/unaeuropa/news/2023-cultural-heritage-winter-school-extension.html#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berli"
+        },
+        {
+          "title": "Deadline extended! | KIU PhD in Interdisciplinary Ukrainian Studies • Institute for East European Studies",
+          "url": "https://www.oei.fu-berlin.de/en/institut/termine/2024_12_09_KIU_PhD.html",
+          "excerpt": "Deadline extended! | KIU PhD in Interdisciplinary Ukrainian Studies • Institute for East European Studies\n\n[Springe direkt zu Inhalt](https://www.oei.fu-berlin.de/en/institut/termine/2024_12_09_KIU_PhD.html#content)\n\n[](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")[\n\nFreie Universität Berlin\n\n](https://www.fu-berlin.de/ \"Zur Startseite der Freien Universität Berlin\")\n\n#"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "single role only",
+    "domain": "hu-berlin.de",
+    "institution_typed": "Humboldt-Universität zu Berlin",
+    "roles_signed_up": [
+      "Other",
+      "Other",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 5,
+    "status": "success",
+    "seconds": 103,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Humboldt-Universität zu Berlin",
+    "employees": 5013,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 0,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": null,
+    "auto_email": false,
+    "to_human": true,
+    "handoff_reason": "LLM output unusable",
+    "angle": null,
+    "pain_evidence": null,
+    "news_summary": null,
+    "buying_committee": null,
+    "score_reasons": null,
+    "email_subject": null,
+    "email_html": null,
+    "context": {
+      "company": {
+        "name": "Humboldt-Universität zu Berlin",
+        "website": "http://www.hu-berlin.de/",
+        "linkedinUrl": "https://www.linkedin.com/school/humboldt-university-berlin/",
+        "employeeCount": 5013,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [],
+        "tagline": "#WirSindHumboldt - Du auch?",
+        "description": "As one of eleven German universities, the Humboldt-Universität was chosen “University of Excellence” in June 2012. It was successful in all three funding lines in the third round of the Excellence Initiative of the German federal and state governments and awarded for its future concept “Educating Enquiring Minds: Individuality – Openness – Guidance”. In an international comparison, Humboldt-Universität ranks among the top ten of German universities. Scientists here research socially relevant topics and challenges of the future and communicate these with the public. Humboldt-Universität invests all its energy in being a place of excellent research and teaching. It’s aim is to promote young talents and to positively influence society and economy outside the university framework.\n\nDie Humboldt-Universität zu Berlin gehört seit dem 15. Juni 2012 zu den elf Exzellenzuniversitäten Deutschlands. Sie hat in der zweiten Phase der Exzellenzinitiative in allen drei Förderlinien erfolgreich abgeschnitten und mit ihrem Zukunftskonzept „Bildung durch Wissenschaft: Persönlichkeit – Offenheit – Orientierung“ in hohem Maß Anerkennung gefunden. Auch in internationalen Vergleichen erreicht die Universität Spitzenplätze unter den zehn besten deutschen Hochschulen. Die Wissenschaftlerinnen und Wissenschaftler erforschen gesellschaftlich relevante Themen und Fragen der Zukunft und kommunizieren die Ergebnisse an die Öffentlichkeit. Die Humboldt-Universität setzt alle Kräfte ein, um ein Ort herausr",
+        "locations": [
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "Other",
+        "Other",
+        "Other"
+      ],
+      "notes": [
+        "Humboldt-Universität zu Berlin",
+        "Humboldt-Universität zu Berlin",
+        "Humboldt-Universität zu Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "🚀 Auszeichnung für herausragendes Gründungsengagement: Prof. Dr. Christian Hackenberger von der Humboldt-Universität zu Berlin erhält den UNIPRENEURS-Preis 2026. Der Chemiker und Unternehmer wird damit für sein Engagement für Unternehmertum, Transfer und Ausgründungen ausgezeichnet. Hackenberger ist Professor für Chemische Biologie an der HU, leitet die Forschungseinheit Biomolecule Modification ",
+          "engagement": 298
+        },
+        {
+          "text": "⚖️ Vom 28. September bis 2. Oktober 2026 wird die Humboldt-Universität zu Berlin zum Treffpunkt der internationalen Rechtswissenschaft: Rund 600 Jurist*innen aus aller Welt kommen zum Generalkongress der International Academy of Comparative Law  zusammen. Der Kongress, der zuletzt 1962 an einer deutschen Universität tagte, vereint sämtliche Rechtsgebiete in vergleichender Perspektive, von klassisc",
+          "engagement": 195
+        },
+        {
+          "text": "🔬 Berliner Wissenschaft bündelt Rechenleistung für Künstliche Intelligenz und Datenforschung: Die Berlin University Alliance hat gemeinsam mit dem Helmholtz-Zentrum Berlin und dem Zuse-Institut Berlin eine Kooperationsvereinbarung für ein gemeinschaftliches Data-Science- und KI-Zentrum in Berlin-Dahlem und Adlershof unterzeichnet. Ziel ist eine leistungsfähige, institutionsübergreifend nutzbare I",
+          "engagement": 114
+        },
+        {
+          "text": "KI und datenintensive Forschung stellen neue Anforderungen an die wissenschaftliche #Infrastruktur. Leistungsfähige Rechen- und Speichersysteme werden damit zu einer wichtigen Voraussetzung für Forschung in immer mehr Disziplinen.\n\nVor diesem Hintergrund haben das Helmholtz-Zentrum Berlin, das Zuse Institute Berlin und die #BerlinUAlliance eine Vereinbarung für den Aufbau einer institutionenübergr",
+          "engagement": 103
+        },
+        {
+          "text": "🎓 Wie kann Lehrkräftebildung Theorie und schulische Praxis noch enger miteinander verbinden? Einblicke in ein erfolgreiches Beispiel erhielt Staatssekretär Dr. Henry Marx bei seinem Besuch an der Humboldt-Universität zu Berlin. Im Mittelpunkt stand das Projekt „SpraFöBG“ des Arbeitsbereichs Sprachbildung/Deutsch als Zweitsprache an der Professional School of Education (PSE). Gemeinsam mit der Mir",
+          "engagement": 92
+        },
+        {
+          "text": "👥 100 Köpfe der Berliner Wissenschaft – Folge 2 ist da!\n\nHeute dreht sich in der Serie alles um Forschung, die technologische Entwicklungen voranbringt: von KI und Quantenkommunikation über neue Materialien bis hin zu Genomanalysen und Zelltherapien.\n\nAlle vorgestellten Wissenschaftler*innen forschen innerhalb der #BerlinUAlliance. Herzlichen Glückwunsch an:\n\n🔹 Prof. Dr. Christian P.R. Hackenber",
+          "engagement": 73
+        },
+        {
+          "text": "🥂 Wir gratulieren!",
+          "engagement": 64
+        },
+        {
+          "text": "👥 100 Köpfe der Berliner Wissenschaft – in Folge 4 geht es um das Leben in all seinen Facetten.\n\nWas können wir von der Natur lernen? Wie entstehen Krankheiten? Und wie können wir Tiere in der Forschung besser schützen? Die heutige Folge der Tagesspiegel-Serie reicht von Verhaltensforschung und globaler Gesundheit bis zu Neurologie, Tierschutz und nachhaltiger Chemie.\n\nUnter den heute vorgestellt",
+          "engagement": 57
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://www.hu-berlin.de/",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website has set up Anubis to protect the server against the scourge of AI companies aggressively scraping websites. This can and does cause downtime for the websites, which makes their resources inaccessible"
+        },
+        {
+          "title": "Humboldt University of Berlin - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Humboldt_University_of_Berlin",
+          "excerpt": "Humboldt University of Berlin - Wikipedia\n\n[Jump to content](https://en.wikipedia.org/wiki/Humboldt_University_of_Berlin#bodyContent)\n\n  [![](/static/images/icons/enwiki-25.svg) ![Wikipedia](/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg) ![The Free Encyclopedia](/static/images/mobile/copyright/wikipedia-tagline-en-25.svg)](https://en.wikipedia.org/wiki/Main_Page)\n\n[Search](https://en.wikipedia.org/wiki/Special:Search \"Search Wikipedia [f]\")\n\nSearch\n\n# Humboldt University of Berlin\n\n 79 languages\n\n*   [Alemannisch](https://als.wikipedia.org/wiki/Humboldt-Universit%C3%A4t_zu_Berli"
+        },
+        {
+          "title": "Google Maps",
+          "url": "https://www.google.com/maps/search/university/@52.442,13.5381,15z",
+          "excerpt": "Google Maps"
+        },
+        {
+          "title": "(institutiondetail_title)",
+          "url": "https://gerit.org/en/institutiondetail/10365",
+          "excerpt": "(institutiondetail\\_title)\n\n*   A service of the [DFG](http://www.dfg.de/en \"Link to the DFG website\"), the [HRK](https://www.hrk.de/home \"Link to the HRK website\") and the [DAAD](https://www.daad.de/en/ \"Link to the DAAD website\")\n\n# [![Logo: German Research Institutions](/images/layout/gerit-logo.svg)German Research Institutions](https://gerit.org/en)\n\n![Logo: Deutsche Forschungsgemeinschaft](/images/layout/dfg_logo_schriftzug.svg)\n\n![](/images/layout/loader.gif)"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://www.sowi.hu-berlin.de/de/lehrbereiche/osteuropa/call-for-proposals-deadline-extended-feb-18-2024-historical-past-and-contemporary-propaganda-in-the-global-context",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website"
+        },
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://www.wiwi.hu-berlin.de/en/Professorships/vwl/statistik/Emmy-Noether/news/copy2_of_open-position-for-student-assistent",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website"
+        },
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://www.projekte.hu-berlin.de/en/central/central-kollegs-en",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website"
+        },
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://www.rewi.hu-berlin.de/de/lf/ls/rhl/news/willem-c-vis-moot-court-bewerbungsfrist-verlaengert",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website"
+        },
+        {
+          "title": "Making sure you're not a bot!",
+          "url": "https://fakultaeten.hu-berlin.de/de/mnf/struktur/fakultaetsverwaltung/hp/Allgemein/stellenausschreibung-der-informatik-bewerbungsfrist-20-11-2025-bis-04-12-2025-aus-33-006-25.pdf/view",
+          "excerpt": "Making sure you're not a bot!\n\n# Making sure you're not a bot!\n\n![](/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=v1.27.0) ![](/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=v1.27.0)\n\nLoading...\n\nAnubis could not load its JavaScript. The server may be overloaded. Please reload the page to try again.\n\nYou are seeing this because the administrator of this website"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "domain differs from name",
+    "domain": "bht-berlin.de",
+    "institution_typed": "Berliner Hochschule für Technik",
+    "roles_signed_up": [
+      "Admissions",
+      "Admissions",
+      "Finance"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 6,
+    "status": "success",
+    "seconds": 113,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Berlin University of Applied Sciences Berlin (BHT)",
+    "employees": 1294,
+    "posts": 20,
+    "news": 5,
+    "roles_found": 0,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": 75,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 75)",
+    "angle": "Fewer admitted students lost between offer and enrolment",
+    "pain_evidence": "Application deadline extensions (empty seats): 1 hit found",
+    "news_summary": "The Berlin University of Applied Sciences Berlin (BHT) is actively involved in various initiatives, including climate research, urban technology, and international collaborations. Recent highlights include a partnership with TWIN-X for digital health, a summer school on biotechnology, and a focus on sustainable urban development.",
+    "buying_committee": [
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Pain signal shows extended application deadlines, indicating unfilled seats.",
+      "Multiple roles from Admissions and Finance have signed up, suggesting a broad interest.",
+      "No partnership call requested, which slightly reduces the score."
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible!",
+    "email_html": "<p>Hallo,</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren! Ich freue mich, Ihnen mitteilen zu können, dass auch Kollegen aus Ihrer Organisation sich für unsere Lösung registriert haben.</p>\n<p>Kredible finanziert die Sperrkonto, Studiengebühren und die ersten Lebenshaltungskosten für zugelassene Nicht-EU-Studenten an deutschen Hochschulen. Für die Hochschule kostet es nichts: keine Gebühren, kein Umsatzanteil, kein Rückzahlungsrisiko. Die Studiengebühren werden direkt an die Institution gezahlt, und Sie erfahren, wann die Finanzierung eines Studenten gesichert ist. Dies hilft Ihnen, weniger zugelassene Studenten zwischen Angebot und Einschreibung zu verlieren.</p>\n<p>Ich würde mich freuen, Ihnen in einem kurzen 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie es mich wissen, wenn Sie Zeit dafür haben!</p>\n<p>Beste Grüße,<br>Ihr Kredible-Team</p>\n<p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "Berlin University of Applied Sciences Berlin (BHT)",
+        "website": "https://www.bht-berlin.de/",
+        "linkedinUrl": "https://www.linkedin.com/school/berliner-hochschule-f%C3%BCr-technik-bht/",
+        "employeeCount": 1294,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [],
+        "tagline": "Future-oriented, practice-oriented, research-oriented",
+        "description": "In the heart of Berlin, the Hochschule für Technik und Wirtschaft Berlin (BHT) offers the largest range of engineering courses in the region. Under the motto \"Study the future\", we train more than 13,000 students in 72 technical, natural and economic degree programs, always at the cutting edge. With 300 professors, 400 employees in science and administration as well as teaching assistants, we are a strong scientific partner - also in international networks.\nThe BHT was called Beuth University of Applied Sciences Berlin until 30.09.2021.",
+        "locations": [
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "Admissions",
+        "Admissions",
+        "Finance"
+      ],
+      "notes": [
+        "Berliner Hochschule für Technik",
+        "Berliner Hochschule für Technik",
+        "Berliner Hochschule für Technik"
+      ],
+      "topPosts": [
+        {
+          "text": "🏙️🌿🌳 Städte entsiegeln und mehr Grün! \n\nDas fordert Dr. Stefanie Grade, Professorin für gartenbauliche Pflanzenproduktion an der BHT, gegen steigende Temperaturen in den Städten. \nDoch wie können Pflanzen, Wasser und klimagerechte Stadtplanung wirklich dazu beitragen, dass Städte wie Berlin auch an heißen Tagen lebenswert bleiben? \nDarüber spricht Stefanie Grade mit Architektin Prof. Dr. Regina",
+          "engagement": 168
+        },
+        {
+          "text": "Berlin-Brandenburg setzt neue Maßstäbe für den Weg von der Forschung zum Startup: Zehn Berliner Hochschulen und Wissenschaftseinrichtungen, die Senatsverwaltungen für Wissenschaft, Gesundheit und Pflege (SenWGP) und für Wirtschaft, Energie und Betriebe (SenWEB) sowie die Berlin-Brandenburger Startup Factory JUNI haben jetzt ein Memorandum of Understanding (MoU) zum „Berliner IP-Modell\" geschlossen",
+          "engagement": 114
+        },
+        {
+          "text": "Mit Drohnen und KI gegen Waldbrände 🌳🔥🧯 \n \nDas Klima liegt dem BHT-Studenten Leo Safia schon seit Schulzeiten am Herzen.  \nGemeinsam mit seinem Bruder Jack Safia und dank der Unterstützung des BHT Startup Hub hat er im Frühjahr 2026 nun Averium Dynamics gegründet und will zukünftig Feuer verhindern und löschen. \n \nMehr unter: https://lnkd.in/dpuDyzcZ",
+          "engagement": 89
+        },
+        {
+          "text": "Update von der Baustelle: Berliner Hochschule für Technik (BHT) baut mit earthbound Baustoffen den Klimaturm 3.0 \n\nWie lassen sich Räume ganz ohne Klimaanlage kühlen? Genau das untersucht die BHT mit ihrem Klimaturm in der Urban Tech Republic in Berlin-Tegel: Das Forschungsbauwerk verbindet historische Prinzipien natürlicher Lüftung mit Low-Tech-Kühlung und natürlichen Materialien. \n\nWichtiger Bes",
+          "engagement": 78
+        },
+        {
+          "text": "🔧🤖 Tüfteln, coden und kreativ sein: Das Maker Festival 2026 kommt an die BHT! \n\nAm 19. September lädt die BHT gemeinsam mit dem Bildungsprojekt Make Your School – Eure Ideenwerkstatt von Wissenschaft im Dialog zum Maker Festival 2026 ein.  \nJugendliche aus ganz Deutschland präsentieren ihre kreativen Ideen und Prototypen für eine bessere Schule. Dazu gibt es spannende Workshops und Mitmachstatio",
+          "engagement": 68
+        },
+        {
+          "text": "📢 Professur für Verteilte Datensysteme an der Berliner Hochschule für Technik (BHT) zu besetzen \n\nWir suchen ab dem Sommersemester 2028 eine engagierte Persönlichkeit mit Expertise in verteilten Rechner- und Datensystemen, Data Engineering und modernen Softwareentwicklungsmethoden. \n\n📅 Jetzt bis zum 23. September bewerben! \n \n👉 Mehr zur unbefristeten Stelle unter: https://lnkd.in/dshHwV92",
+          "engagement": 56
+        },
+        {
+          "text": "„Klare Commitments für eine wirkmächtige Hochschullandschaft.” \n \nDas fordert BHT-Präsidentin und stellvertretende Vorsitzende der Landeskonferenz der Rektor*innen und Präsident*innen der Berliner Hochschulen (LKRP) Dr. Julia Neuhaus. \nAnlässlich der bevorstehenden Wahlen zum Abgeordnetenhaus am 20. September hat sich die LKRP mit „Wahlprüfsteinen“ an alle im Abgeordnetenhaus von Berlin vertretene",
+          "engagement": 55
+        },
+        {
+          "text": "🧑‍💻 Kids entdecken MINT – BHT öffnet ihre Türen \n\n🔬 Wissenschaft zum Ausprobieren: Bei den Summer Schools der Berliner Hochschule für Technik entdecken Grundschüler*innen Programmieren, Robotik, VR und Technik – nicht nur als Zuschauer*innen, sondern indem sie selbst experimentieren, tüfteln und ausprobieren.\n\nDamit bringt die Hochschule Wissenschaft und Gesellschaft zusammen, schafft frühe Zug",
+          "engagement": 55
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "A big thank you to the Berliner Hochschule für Technik (BHT) Social Media Team for capturing our collaboration with the University of Iowa School of Art & Art History on video – and getting it… | Prof. Dr.-Ing. Ina Holfelder",
+          "url": "https://www.linkedin.com/posts/ina-holfelder_a-big-thank-you-to-the-berliner-hochschule-activity-7493925930306977794-ACn5",
+          "excerpt": "A big thank you to the Berliner Hochschule für Technik (BHT) Social Media Team for capturing our collaboration with the University of Iowa School of Art & Art History on video – and getting it… | Prof. Dr.-Ing. Ina Holfelder\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?t"
+        },
+        {
+          "title": "IJCAIconf on X: \"#Demo Conor Fallon, Berlin University of Applied Sciences Berlin (BHT), demonstrating Sparse ProtoPatient: Interactive Multi-Prototype Explanations for Clinical Diagnosis Prediction. https://t.co/aOU9L2wC6V\n\n#IJCAI2026 #ECAI2026\" / X",
+          "url": "https://x.com/IJCAIconf/status/2090685386527850839",
+          "excerpt": "IJCAIconf on X: \"#Demo Conor Fallon, Berlin University of Applied Sciences Berlin (BHT), demonstrating Sparse ProtoPatient: Interactive Multi-Prototype Explanations for Clinical Diagnosis Prediction. https://t.co/aOU9L2wC6V #IJCAI2026 #ECAI2026\" / X\n\n[](https://x.com/)\n\n## Post\n\n[Log in](https://x.com/i/jf/onboarding/web?mode=login&redirect_after_login=%2FIJCAIconf%2Fstatus%2F2090685386527850839)[Sign up](https://x.com/i/jf/onboarding/web?mode=signup&redirect_after_login=%2FIJCAIconf%2Fstatus%2F2090685386527850839)\n\n[](https://x.com/)\n\n## Post\n\n[Log in](https://x.com/i/jf/onboarding/web?mode=l"
+        },
+        {
+          "title": "Berlin University of Applied Sciences Berlin Partners with TWIN-X | TWIN-X posted on the topic | LinkedIn",
+          "url": "https://www.linkedin.com/posts/twin-x_twinx-ai-digitalhealth-activity-7483783602594557952-Uo1G",
+          "excerpt": "Berlin University of Applied Sciences Berlin Partners with TWIN-X | TWIN-X posted on the topic | LinkedIn\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Skip to main content](https://www.linkedin.com/posts/twin-x_twinx-ai-digit"
+        },
+        {
+          "title": "#summerschool #biotechnology #bioprocessengineering #internationalcollaboration #highereducation #studentexchange #bht #businessacademyaarhus #stem #bioreactors | Steffen Kreye",
+          "url": "https://www.linkedin.com/posts/steffen-kreye-3b531183_summerschool-biotechnology-bioprocessengineering-activity-7483459186433933314-BdUX",
+          "excerpt": "#summerschool #biotechnology #bioprocessengineering #internationalcollaboration #highereducation #studentexchange #bht #businessacademyaarhus #stem #bioreactors | Steffen Kreye\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Ski"
+        },
+        {
+          "title": "Ijcai - #Demo Conor Fallon, Berlin University of Applied...",
+          "url": "https://www.facebook.com/ijcai/posts/demo-conor-fallon-berlin-university-of-applied-sciences-berlin-bht-demonstrating/1673133768151191/",
+          "excerpt": "Ijcai - #Demo Conor Fallon, Berlin University of Applied..."
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "Stellenticket Berliner Hochschule für Technik",
+          "url": "https://stellenticket.bht-berlin.de/stellenangebote/205192?filter%5Bresults%5D%5B%5D=workplaceregion&namespace=non_science",
+          "excerpt": "Stellenticket Berliner Hochschule für Technik [Zum Inhalt springen](https://stellenticket.bht-berlin.de/stellenangebote/205192?filter%5Bresults%5D%5B%5D=workplaceregion&namespace=non_science#main)\n\n Menü\n\n [![](/assets/logos/stellenticket_white-e54e1451c8c3ba7d3292374ae0016295981ac53fb295469ab6a1f1721216e133.svg) Berliner Hochschule für Technik](https://stellenticket.bht-berlin.de/)\n\n[Mein Account"
+        },
+        {
+          "title": "Energie- und Ressourceneffizienz: BHT Berlin",
+          "url": "https://www.bht-berlin.de/ere",
+          "excerpt": "Energie- und Ressourceneffizienz: BHT Berlin\n\n![Logo: BHT Berlin](/configuration/Resources/Public/assets/images/BHT_Logo_print.png)\n\n[![Logo der Berliner Hochschule für Technik (BHT)](/fileadmin/images/BHT_Logo_horizontal_Anthrazit.svg \"Berliner Hochschule für Technik (BHT)\")](https://www.bht-berlin.de/ \"Berliner Hochschule für Technik (BHT)\")\n\n# Energie- und Ressourceneffizienz\n\n## Masterstudieng"
+        },
+        {
+          "title": "Presseinformation Nr. 32/2010, 14. September 2010: BHT Berlin",
+          "url": "https://www.bht-berlin.de/232/article/1095",
+          "excerpt": "Presseinformation Nr. 32/2010, 14. September 2010: BHT Berlin\n\n[Direkt zum Inhalt](https://www.bht-berlin.de/232/article/1095#main) [Direkt zur Hauptnavigation](https://www.bht-berlin.de/232/article/1095#main-navbar) [Direkt zur Social-Media-Leiste](https://www.bht-berlin.de/232/article/1095#socialicons) [Direkt zur Fuß-Navigation](https://www.bht-berlin.de/232/article/1095#footer)\n\n![Logo: BHT Be"
+        },
+        {
+          "title": "Presseinformationen: BHT Berlin",
+          "url": "https://www.bht-berlin.de/presseinfo/page/1?tx_news_pi1%5BcurrentPage%5D=36&cHash=603fab831162d18dfed189b475f6c64d",
+          "excerpt": "Presseinformationen: BHT Berlin\n\n![Logo: BHT Berlin](/configuration/Resources/Public/assets/images/BHT_Logo_print.png)\n\n*   [Startseite](https://www.bht-berlin.de/)\n*   [Hochschule](https://www.bht-berlin.de/3005)\n*   [Organisation](https://www.bht-berlin.de/3089)\n*   [Zentrale Verwaltung](https://www.bht-berlin.de/4204)\n*   [Kommunikation](https://www.bht-berlin.de/kommunikation)\n*   [Presseservi"
+        },
+        {
+          "title": "Presseinformationen: BHT Berlin",
+          "url": "https://www.bht-berlin.de/presseinfo/page?print=1&tx_news_pi1%5BcurrentPage%5D=38&cHash=6e199457b692046902fbeed89561bf85",
+          "excerpt": "Presseinformationen: BHT Berlin\n\n![Logo: BHT Berlin](/configuration/Resources/Public/assets/images/BHT_Logo_print.png)\n\n*   [Startseite](https://www.bht-berlin.de/)\n*   [Hochschule](https://www.bht-berlin.de/3005)\n*   [Organisation](https://www.bht-berlin.de/3089)\n*   [Zentrale Verwaltung](https://www.bht-berlin.de/4204)\n*   [Kommunikation](https://www.bht-berlin.de/kommunikation)\n*   [Presseservi"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "university of applied sciences",
+    "domain": "htw-berlin.de",
+    "institution_typed": "HTW Berlin",
+    "roles_signed_up": [
+      "International office",
+      "Admissions",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 7,
+    "status": "success",
+    "seconds": 143,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Hochschule für Technik und Wirtschaft Berlin",
+    "employees": 2085,
+    "posts": 20,
+    "news": 5,
+    "roles_found": 0,
+    "pain_hits": 3,
+    "voice_hits": 0,
+    "dropped_hits": 6,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Mit Kredible verlieren Sie weniger zugesagte Studierende zwischen Angebot und Einschreibung, da wir die blockierte Konten, Studiengebühren und Lebenskosten des ersten Jahres für nicht-EU-Studierende finanzieren.",
+    "pain_evidence": "none found",
+    "news_summary": "Die HTW Berlin ist aktiv in verschiedenen Bereichen wie Nachhaltigkeit, Data Science, und internationale Zusammenarbeit. Aktuelle Projekte beinhalten die Summer School „Data Science for Sustainable Finance and Economics“ und das #GREENBUDDY Partnering Event, das Wissenschaft und Wirtschaft zusammenbringt.",
+    "buying_committee": [
+      "International office",
+      "Admissions",
+      "Other"
+    ],
+    "score_reasons": [
+      "Drei verschiedene Rollen haben sich angemeldet (International Office, Admissions, Other), was auf ein vollständiges Kaufkomitee hindeutet.",
+      "Die HTW Berlin zeigt ein starkes Engagement für internationale Studenten und Nachhaltigkeit, was gut zu Kredibles Angebot passt.",
+      "Es wurden keine offensichtlichen Pain Signals oder Customer Voice Signale gefunden, die direkt auf unbesetzte Plätze oder finanzielle Schwierigkeiten von zugesagten Studierenden hinweisen."
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible!",
+    "email_html": "<p>Hallo,</p><p>vielen Dank, dass Sie sich für Kredible interessieren! Ich freue mich, Ihnen mitteilen zu können, dass Kollegen von Ihrer Organisation ebenfalls Interesse gezeigt haben.</p><p>Mit Kredible verlieren Sie weniger zugesagte Studierende zwischen Angebot und Einschreibung, da wir die blockierten Konten, Studiengebühren und Lebenskosten des ersten Jahres für nicht-EU-Studierende finanzieren. Für Ihre Hochschule entstehen dabei keine Kosten oder Risiken, und die Studiengebühren werden direkt an Ihre Institution gezahlt.</p><p>Ich würde mich freuen, Ihnen in einem kurzen 20-minütigen Gespräch mehr dazu erzählen. Lassen Sie mich wissen, wann es Ihnen passt!</p><p>Beste Grüße,<br>Ihr Kredible-Team</p><p>Reply STOP to unsubscribe.</p>",
+    "context": {
+      "company": {
+        "name": "Hochschule für Technik und Wirtschaft Berlin",
+        "website": "http://htw-berlin.de/karriere",
+        "linkedinUrl": "https://www.linkedin.com/school/htwberlin/",
+        "employeeCount": 2085,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [],
+        "tagline": "#HTWelcome - Vielfalt ist unsere Stärke! ",
+        "description": "Vielfalt ist tief in unserer DNA verwurzelt: Bei uns an der HTW Berlin studieren, lehren, forschen und arbeiten rund 16.000 Menschen aus 130 Nationen. Als größte Hochschule für Angewandte Wissenschaften in Berlin leben wir diese Vielfalt in unseren 80 Studiengängen in den Bereichen Technik, Informatik, Wirtschaft, Recht, Kultur und Gestaltung. Jeden Tag arbeiten wir gemeinsam für eine bessere Zukunft und entwickeln innovative Lösungen für komplexe Probleme. \n\nDoch wir sind nicht nur eine Bildungsinstitution – wir sind auch eine dynamische Arbeitgeberin. Wir bieten ein breites Spektrum an Arbeitsmöglichkeiten, das so vielfältig ist wie unsere Studiengänge. Ob im Rechenzentrum, in unseren Hightech-Laboren, im International Office, im Studierendenservice oder in den Technischen Diensten – bei uns findet jede*r den richtigen Platz.\n\nWarum wir?\n• Freude an der Arbeit: Wir haben spannende Aufgaben, die nicht nur fordern, sondern auch erfüllen. 💚\n• Berufliche Weiterentwicklung: Wir bieten Chancen zur Weiterbildung und Entfaltung. 🚀\n• Einfluss auf die Zukunft: Wir qualifizieren Studierende und gestalten ihre berufliche Zukunft aktiv mit. 👣\n• Professionelle Herausforderungen: Wir bieten interessante Projekte in einem dynamischen Umfeld. 🧠\n• Zuverlässige Arbeitsplätze: Wir bieten ein sicheres und vertrauenswürdiges Arbeitsumfeld. 🏠\n\nLust auf mehr? Unsere aktuellen Stellenangebote gibt’s hier: htwb.de/karriere\n\nImpressum: htwb.de/impressum\nDatenschutzerklärung: htwb.de/datenschutz\n",
+        "locations": [
+          "Berlin",
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Admissions",
+        "Other"
+      ],
+      "notes": [
+        "HTW Berlin",
+        "HTW Berlin",
+        "HTW Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "Was lässt sich mit Data Science für nachhaltige Finanzwirtschaft 💸 und grüne Energie 🥬 erreichen? Genau darum ging es bei der Summer School „Data Science for Sustainable Finance and Economics 2026“. Rund 30 Studierende arbeiteten gemeinsam mit Lehrenden und Praxispartnern an konkreten Fragestellungen und lernten dabei neue Methoden und Anwendungsfelder kennen. Danke an Christina Erlwein-Sayer, A",
+          "engagement": 67
+        },
+        {
+          "text": "💬 „Das LSC ist ein Brückenbauer und hilft uns enorm, uns zu vernetzen, auch über Fachbereiche hinweg.“\n \nSo beschreibt ein Professor der HTW Berlin seine Erfahrungen mit dem Lehrenden-Service-Center (LSC). Das Team um Angela Weisskoeppel begleitet Lehrende bei Fragen rund um die didaktische Gestaltung und Weiterentwicklung ihrer Lehre.\n \nWie erleben andere diese Zusammenarbeit? Im Video kommen Le",
+          "engagement": 64
+        },
+        {
+          "text": "Was macht man eigentlich nach einem Master in Europäischer Wirtschaftspolitik?\nUnsere Alumni zeigen, wie vielfältig die beruflichen Wege nach dem Studium sein können – und wie das Studium auf diese unterschiedlichen Perspektiven vorbereitet.\n\nSophie Brücklmeier hat nach ihrem Studium den Weg in den Deutschen Bundestag Bundestag gefunden und leitet dort das Büro von Reem Alabali Radovan.\nJulius Die",
+          "engagement": 57
+        },
+        {
+          "text": "Nachhaltig engagiertes Unternehmen? Dann bewerben Sie sich jetzt für das #GREENBUDDY Partnering Event – Wirtschaft trifft Wissenschaft\n \n📆 WANN: 18. Februar 2027\n📍 WO: Peter-Behrens-Halle, Technische Universität Berlin\n\nWER: \nNachhaltige Unternehmen aus Berlin-Mitte und Tempelhof-Schöneberg sowie Forschende von 7 Hochschulen – Hochschule für Technik und Wirtschaft Berlin, Universität der Künste ",
+          "engagement": 50
+        },
+        {
+          "text": "Am vergangenen Samstag, dem 12. September 2026 fand ich fachlicher Kooperation und mit freundlicher Unterstützung der Hochschule für Technik und Wirtschaft Berlin das Finale der Microsoft Excel Championship DACH 2026 am Campus Wilhelminenhof der HTW statt.\n\nDie besten 18 Teilnehmer*innen aus dem DACH-Raum duellierten sich hierbei nicht nur um den Titel MEWC DACH-Champion sondern auch um 4 National",
+          "engagement": 49
+        },
+        {
+          "text": "Eine gute Campus App beginnt nicht mit Technik, sondern mit den Menschen, die sie nutzen. 📱\n\nDr. Stefanie Wenzel war von Anfang an an der Entwicklung der Campus App der HTW Berlin beteiligt. Ihr Ziel: den Studienalltag digitaler, einfacher und übersichtlicher zu gestalten.\n\nDafür ging es zunächst um eine ganz einfache Frage: Was brauchen Studierende eigentlich?\n\nGemeinsam mit Studierenden, Verwal",
+          "engagement": 47
+        },
+        {
+          "text": "🔓 Was passiert, wenn wissenschaftliche Daten nicht hinter verschlossenen Türen bleiben?\n\nFür Dr. Constance Holman ist klar: Wissenschaftliche Daten sollten nach Möglichkeit öffentlich zugänglich sein. Denn wer Daten teilt, schafft Transparenz, ermöglicht anderen die Teilhabe am Forschungsprozess und stärkt das Vertrauen in die Wissenschaft. 🔬\n\nAls Forschungsmanagerin im Fachbereich 1 und Open Da",
+          "engagement": 44
+        },
+        {
+          "text": "🌡️ Hitze in der Stadt – wie lindern?\n\n30 Grad und mehr waren im Sommer 2026 auch in Berlin keine Seltenheit. \n\nDoch wie können wir die Hitze in unseren Städten lindern? Welche Rolle spielen Pflanzen dabei? Und wie müssen wir Städte langfristig verändern, damit sie sich weniger stark aufheizen?\n\nUm diese Fragen geht es in der neuen Folge von „Gemeinsam weiterdenken hoch 6“, dem Podcast der Berline",
+          "engagement": 43
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Campusführung: Campus Wilhelminenhof - Hochschule für Technik und Wirtschaft Berlin University of Applied Sciences - HTW Berlin",
+          "url": "https://www.htw-berlin.de/hochschule/aktuelles/news/campusfuehrung-wh",
+          "excerpt": "Campusführung: Campus Wilhelminenhof - Hochschule für Technik und Wirtschaft Berlin University of Applied Sciences - HTW Berlin [Zum Hauptinhalt / Skip to main content](https://www.htw-berlin.de/hochschule/aktuelles/news/campusfuehrung-wh#main)\n\n[\n\n](https://www.htw-berlin.de/)\n\n[\n\n# Hochschule für Technik und Wirtschaft Berlin\n\n](https://www.htw-berlin.de/)[\n\n## University of Applied Sciences\n\n](https://www.htw-berlin.de/)\n\n     \n\nDEEN\n\n[Menu](https://www.htw-berlin.de/hochschule/aktuelles/news/campusfuehrung-wh#nav)\n\nInformationen für\n\n# Campusführung: Campus Wilhelminenhof\n\n[![](https://www"
+        },
+        {
+          "title": "HTW Berlin – Hochschule für Technik und Wirtschaft Berlin | Ingenieurwesen-studieren.de",
+          "url": "https://www.ingenieurwesen-studieren.de/hochschulen/htw-berlin-hochschule-fuer-technik-und-wirtschaft-berlin/",
+          "excerpt": "HTW Berlin – Hochschule für Technik und Wirtschaft Berlin | Ingenieurwesen-studieren.de\n\n[Ingenieurwesen-studieren.de Der Wegweiser zu Deinem Studium](https://www.ingenieurwesen-studieren.de/)\n\n[Ingenieurwesen-studieren.de Der Wegweiser zu Deinem Studium](https://www.ingenieurwesen-studieren.de/)\n\nSchließen\n\n*   [Ingenieurwesen-studieren.de](https://www.ingenieurwesen-studieren.de/ \"Ingenieurwesen-studieren.de\")\n*   [Hochschulen finden](https://www.ingenieurwesen-studieren.de/hochschulen-finden/ \"Hochschulen finden\")\n*   Hochschulen\n\nHier informieren\n\n  \n\n[![](/fileadmin/user_upload/Inhalte/Ba"
+        },
+        {
+          "title": "Wirtschaftskommunikation (Bachelor of Arts) | HTW - Hochschule für Technik und Wirtschaft Berlin",
+          "url": "https://www.studycheck.de/studium/wirtschaftskommunikation/htw-berlin-12738",
+          "excerpt": "Wirtschaftskommunikation (Bachelor of Arts) | HTW - Hochschule für Technik und Wirtschaft Berlin\n\n[\n\n![Studycheck](https://www.studycheck.de/site/img/studycheck-logo.svg)\n\n\n\n](https://www.studycheck.de/)\n\n__\n\n[__](https://www.studycheck.de/reputationsmanager)\n\n__\n\n __\n\n*   [Award 2026](https://www.studycheck.de/hochschulranking)\n*   [Hochschulen](https://www.studycheck.de/hochschulen)\n*   Studiengänge __\n    \n    *   [Alle Studiengänge](https://www.studycheck.de/studium)\n    *   [Bachelor Studium](https://www.studycheck.de/studium/bachelor)\n    *   [Master Studium](https://www.studycheck."
+        },
+        {
+          "title": "🌎 Remember when HTW Berlin hosted EUonAIR European University Alliance Consortium’s very first Blended Intensive Programme, bringing together students from three partner universities: ESSCA School… | Hochschule für Technik und Wirtschaft Berlin",
+          "url": "https://www.linkedin.com/posts/htwberlin_remember-when-htw-berlin-hosted-euonair-activity-7511707022514368512-OUD_",
+          "excerpt": "🌎 Remember when HTW Berlin hosted EUonAIR European University Alliance Consortium’s very first Blended Intensive Programme, bringing together students from three partner universities: ESSCA School… | Hochschule für Technik und Wirtschaft Berlin\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/"
+        },
+        {
+          "title": "Mapy.com",
+          "url": "https://mapy.com/en/?source=osm&id=11587180",
+          "excerpt": "Mapy.com"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "Abschlussarbeit & Kolloquium",
+          "url": "https://www.f4.htw-berlin.de/studieren/abschlussarbeit-kolloquium",
+          "excerpt": "Abschlussarbeit & Kolloquium [Zum Hauptinhalt / Skip to main content](https://www.f4.htw-berlin.de/studieren/abschlussarbeit-kolloquium#main)\n\n[\n\n](https://www.htw-berlin.de/)\n\n[\n\n## Fachbereich 4\n\n](https://www.f4.htw-berlin.de/)[\n\n# Informatik, Kommunikation und Wirtschaft\n\n](https://www.f4.htw-berlin.de/)\n\n     \n\n[Menu](https://www.f4.htw-berlin.de/studieren/abschlussarbeit-kolloquium#nav)\n\n[]("
+        },
+        {
+          "title": "Abschlussarbeit",
+          "url": "https://www.f2.htw-berlin.de/studium/abschlussarbeit",
+          "excerpt": "Abschlussarbeit [Zum Hauptinhalt / Skip to main content](https://www.f2.htw-berlin.de/studium/abschlussarbeit#main)\n\n[\n\n](https://www.htw-berlin.de/)\n\n[\n\n## Fachbereich 2\n\n](https://www.f2.htw-berlin.de/)[\n\n# Ingenieurwissenschaften - Technik und Leben\n\n](https://www.f2.htw-berlin.de/)\n\n     \n\n[Menu](https://www.f2.htw-berlin.de/studium/abschlussarbeit#nav)\n\n[](http://www.facebook.com/htwberlin \"F"
+        },
+        {
+          "title": "Abschlussarbeit und Kolloquium",
+          "url": "https://www.f5.htw-berlin.de/studieren/kurse-pruefungen/abschlussarbeit-und-kolloquium",
+          "excerpt": "Abschlussarbeit und Kolloquium [Zum Hauptinhalt / Skip to main content](https://www.f5.htw-berlin.de/studieren/kurse-pruefungen/abschlussarbeit-und-kolloquium#main)\n\n[\n\n](https://www.htw-berlin.de/)\n\n[\n\n## Fachbereich 5\n\n](https://www.f5.htw-berlin.de/)[\n\n# Gestaltung und Kultur\n\n](https://www.f5.htw-berlin.de/)\n\n     \n\n[Menu](https://www.f5.htw-berlin.de/studieren/kurse-pruefungen/abschlussarbeit"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "arts university",
+    "domain": "udk-berlin.de",
+    "institution_typed": "Universität der Künste Berlin",
+    "roles_signed_up": [
+      "Admissions",
+      "Other",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 8,
+    "status": "success",
+    "seconds": 116,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Universität der Künste Berlin",
+    "employees": 901,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 0,
+    "pain_hits": 2,
+    "voice_hits": 0,
+    "dropped_hits": 4,
+    "score": 75,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 75)",
+    "angle": "Reduce the number of admitted students lost between offer and enrollment by providing financial support for non-EU students, ensuring they can afford their tuition and living costs without any cost or risk to your institution.",
+    "pain_evidence": "One pain signal was found: Application deadline extensions (empty seats). No customer voice signals were found.",
+    "news_summary": "The Universität der Künste Berlin is actively engaged in various initiatives, including collaborative projects, awards, and scholarships. Recent highlights include the Designing Togetherness Challenge, the EXIST Women program, and the Max Taut Prize. The university has also been recognized for its contributions to the business plan competition and its efforts against antisemitism.",
+    "buying_committee": [
+      "Admissions",
+      "Other",
+      "Other"
+    ],
+    "score_reasons": [
+      "Three distinct roles signed up, indicating a broad interest across departments.",
+      "A pain signal showing application deadline extensions suggests a need to fill seats.",
+      "The university has a strong international student focus, as evidenced by recent posts and initiatives."
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible",
+    "email_html": "<p>Hallo,</p><p>Vielen Dank, dass Sie sich für Kredible interessieren! Ich sehe, dass Kollegen aus Ihrer Organisation ebenfalls Interesse gezeigt haben.</p><p>Kredible finanziert die Sperrkonto, Studiengebühren und Lebenshaltungskosten für zugelassene Nicht-EU-Studenten an deutschen Universitäten. Für Ihre Institution kostet es nichts: keine Gebühren, kein Umsatzanteil, kein Rückzahlungsrisiko. Die Studiengebühren werden direkt an Ihre Einrichtung gezahlt, und Sie erfahren, wann die Finanzierung eines Studenten gesichert ist.</p><p>Dies kann Ihnen helfen, weniger zugelassene Studenten zwischen Angebot und Einschreibung zu verlieren, den Talentpool zu erweitern und Absolventen anzuziehen, die in Deutschland bleiben.</p><p>Ich biete Ihnen gerne einen 20-minütigen Anruf an, um Ihre Fragen zu beantworten und mehr über Kredible zu erfahren.</p><p>Beste Grüße,<br>Ihr [Ihr Name]</p><p>Reply STOP to unsubscribe.</p>",
+    "context": {
+      "company": {
+        "name": "Universität der Künste Berlin",
+        "website": "https://www.udk-berlin.de/startseite/",
+        "linkedinUrl": "https://www.linkedin.com/school/universit%C3%A4t-der-k%C3%BCnste-berlin/",
+        "employeeCount": 901,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [],
+        "tagline": "Ort der künstlerischen Ausbildung, exzellenter Praxis und Forschung",
+        "description": "Berlin University of the Arts is one of the biggest, most diversified and traditional universities of the arts world-wide. The teaching offered at the four colleges of Fine Art, Design, Music and Performing Arts as well as at the Central Institute of Further Education encompasses the full spectrum of the arts and related academic studies in more than 40 courses. Having the right to confer doctorates and post-doctoral qualifications, Berlin University of the Arts is also one of Germany’s few art colleges with full university status.",
+        "locations": [
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "Admissions",
+        "Other",
+        "Other"
+      ],
+      "notes": [
+        "Universität der Künste Berlin",
+        "Universität der Künste Berlin",
+        "Universität der Künste Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "🍍 Designing Togetherness Challenge: eine gemeinsame Initiative von Telekom Fashion Fusion, der Universität der Künste Berlin und der Karl Hofer Gesellschaft.\n\nWie können Technologie, Mode und Design echte menschliche Begegnungen in einer zunehmend vernetzten Welt fördern?\n\nObwohl wir jederzeit und überall miteinander verbunden sind, fehlen oft die persönlichen Begegnungen, die wirklich zählen. Ei",
+          "engagement": 307
+        },
+        {
+          "text": "👏 Fünf neue Stipendiatinnen, fünf engagierte Mentor*innen und viele spannende Ideen: Willkommen, EXIST Women @UdK Berlin 2026!\n\nWir freuen uns sehr, unsere neuen EXIST Women-Stipendiatinnen Hara Shin, Cecilia Thorausch, Mirjam Bauer, Juliane Tübke und Clara Schmelter de Escobar an der UdK Berlin zu begrüßen. In den kommenden Monaten heißt es für sie: Ideen schärfen, Möglichkeiten ausloten, Netzwe",
+          "engagement": 171
+        },
+        {
+          "text": "Max Taut Preis 2026: Drei herausragende Masterarbeiten ausgezeichnet\n\nMit dem Max Taut Preis zeichnet der Studiengang Architektur der UdK Berlin seit 1995 herausragende Masterarbeiten aus. In diesem Jahr wurden drei gleichwertige Preise vergeben. Die ausgezeichneten Projekte überzeugen durch ihre konzeptionelle Stärke, gestalterische Qualität und gesellschaftliche Relevanz.\n\nHerzlichen Glückwunsch",
+          "engagement": 149
+        },
+        {
+          "text": "In dieser Woche wurde die Universität der Künste Berlin im Businessplan-Wettbewerb Berlin-Brandenburg (BPW) zur Ideenschmiede ausgezeichnet - zum vierten Mal in Folge! \n\nMit großem Stolz habe ich diesen Preis entgegen genommen, aber er gehört allen an der UdK: den Studierenden und Teams, die ihre Vorhaben durch gegenseitiges Reiben und Iterieren stetig weiterentwickeln, den Professor*innen, die si",
+          "engagement": 142
+        },
+        {
+          "text": "Ein starkes Zeichen gegen Antisemitismus\n\nGemeinsam haben UdK-Präsident Prof. Dr. Markus Hilgert und Stella Leder vom Institut für Neue Soziale Plastik gestern die Kooperationsvereinbarung zwischen der Universität der Künste Berlin und dem Institut für Neue Soziale Plastik unterzeichnet.\n\nMit der Kooperation wird die Jüdische Kunstschule künftig Kurse und Masterclasses in Räumlichkeiten der UdK Be",
+          "engagement": 122
+        },
+        {
+          "text": "Konstituierende Sitzung des Kuratoriums der Universität der Künste Berlin\n\nMit der  konstituierenden Sitzung am 24. Juni hat sich das Kuratorium der UdK Berlin erstmals zusammengefunden. Auf Grundlage des Berliner Hochschulgesetzes tritt das Kuratorium an die Stelle des bisherigen Hochschulrats.\n\nDas Gremium setzt sich aus vier Hochschulmitgliedern der UdK Berlin sowie fünf externen Mitgliedern zu",
+          "engagement": 117
+        },
+        {
+          "text": "Wie die Universität der Künste den Stadtraum Berlins mitgestaltet \n\nHeute Vormittag wurde der Universität der Künste Berlin eine besondere Ehre zuteil.\n\nIm Hof des Berliner Ensemble wurde eine Skulptur zur Erinnerung an Helene Weigel enthüllt, jener außergewöhnlichen Theaterfrau, die das Berliner Ensemble nach 1945 gemeinsam mit Bertolt Brecht geprägt, aufgebaut und über Jahrzehnte künstlerisch wi",
+          "engagement": 97
+        },
+        {
+          "text": "💐Herzlichen Glückwunsch an die Preisträger*innen des UdK Berlin Art Award 2026: Aisha Altenhofen, Tara Habibzadeh, Minu Park und Miriam Umiń.\n\nSeit 2023 würdigt der UdK Berlin Art Award herausragende Talente unter den Meisterschüler*innen der Fakultät Bildende Kunst und des Studiengangs Kunst und Medien der Fakultät Gestaltung. Der Preis umfasst einen monographischen Katalog und eine gemeinsame A",
+          "engagement": 90
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Fakultät Musik – Universität der Künste Berlin",
+          "url": "https://www.udk-berlin.de/universitaet/fakultaet-musik/",
+          "excerpt": "Fakultät Musik – Universität der Künste Berlin\n\n# Fakultät Musik\n\nDie Fakultät steht in der Tradition ihrer renommierten Vorgängerinstitutionen, die in den vergangenen 200 Jahren die Musikausbildung in Berlin auf höchstem Niveau getragen haben. Sie vertritt die Vielfalt der Musik und richtet dafür Orte der Spezialisierung sowie Orte der Begegnung ein. Das Spektrum reicht von der künstlerischen Ausbildung in Orchester- und Kammermusik, Alte Musik und zeitgenössische Musik über den künstlerisch-pädagogischen Bereich, sowie Kirchenmusik, Dirigieren, Komposition und die Tonmeister\\*innenausbildung"
+        },
+        {
+          "title": "Universität der Künste Berlin – Wikipedia",
+          "url": "https://de.wikipedia.org/wiki/Universit%C3%A4t_der_K%C3%BCnste_Berlin",
+          "excerpt": "Universität der Künste Berlin – Wikipedia\n\n[Zum Inhalt springen](https://de.wikipedia.org/wiki/Universit%C3%A4t_der_K%C3%BCnste_Berlin#bodyContent)\n\n  [![](/static/images/icons/wikipedia.png) ![Wikipedia](/static/images/mobile/copyright/wikipedia-wordmark-en.svg) ![Die freie Enzyklopädie](/static/images/mobile/copyright/wikipedia-tagline-de.svg)](https://de.wikipedia.org/wiki/Wikipedia:Hauptseite)\n\n[Suche](https://de.wikipedia.org/wiki/Spezial:Suche \"Durchsuche die Wikipedia [f]\")\n\nSuchen\n\n# Universität der Künste Berlin\n\n 28 Sprachen\n\n*   [العربية](https://ar.wikipedia.org/wiki/%D8%AC%D8%A7%D"
+        },
+        {
+          "title": "Universität der Künste – Berlin.de",
+          "url": "https://www.berlin.de/sehenswuerdigkeiten/3559803-3558930-universitaet-der-kuenste.html",
+          "excerpt": "Universität der Künste – Berlin.de\n\n[![Berlin.de](/css/berlin_de/foxtrot/images/logo_berlin_m_srgb.svg \"Link zu: Startseite Berlin.de\")](https://www.berlin.de/)\n\n[Berlin.deDas offizielle Hauptstadtportal](https://www.berlin.de/ \"Link zu: Startseite Berlin.de\")\n\nBarrierefrei\n\nÖffnen: SucheSuche\n\nÖffnen: MenüMenü\n\n_de_Aktuelle Sprache: Deutsch\n\n*   [_en_English](https://www.berlin.de/en/attractions-and-sights/3559803-3104052-universitaet-der-kuenste.en.html \"Academy of Arts\")\n\n# Universität der Künste\n\n*   ![Universität der Künste](/binaries/asset/image_assets/6911122/source/1738327584/1000x500/"
+        },
+        {
+          "title": "„So wollen wir nicht studieren“: An der Universität der Künste wächst der Frust über Kürzungen",
+          "url": "https://www.tagesspiegel.de/wissen/so-wollen-wir-nicht-studieren-an-der-universitat-der-kunste-wachst-der-frust-uber-kurzungen-15872042.html",
+          "excerpt": "„So wollen wir nicht studieren“: An der Universität der Künste wächst der Frust über Kürzungen\n\n[zum Hauptinhalt](https://www.tagesspiegel.de/wissen/so-wollen-wir-nicht-studieren-an-der-universitat-der-kunste-wachst-der-frust-uber-kurzungen-15872042.html#main-content)\n\n[Der Tagesspiegel](https://www.tagesspiegel.de/)\n\nSuche suchen\n\n[Abo](https://abo.tagesspiegel.de/?tsp_source=tagesspiegel.de&tsp_campaign=products&tsp_medium=header-link)\n\n![Schon im September 2025 gab es großen Protest an der UdK angesichts der Kürzungen bei den Hochschulen.](/images/15873663/alternates/BASE_21_9_W1000/1784822"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "Stipendium + Ausschreibung – Universität der Künste Berlin",
+          "url": "https://www.udk-berlin.de/studium/architektur/preise-und-auszeichnungen/jost-vieth-stipendium/stipendium-ausschreibung/",
+          "excerpt": "Stipendium + Ausschreibung – Universität der Künste Berlin\n\n# Jost-Vieth-Stipendium\n\n## Weiterempfehlen\n\n*   [Seite per E-Mail weiterempfehlen](mailto:?subject=Ein%20Tip%20auf%20der%20UDK-Website&body=Dieser%20Artikel%20k%C3%B6nnte%20dich%20interessieren:%20https%3A%2F%2Fwww.udk-berlin.de%2Fstudium%2Farchitektur%2Fpreise-und-auszeichnungen%2Fjost-vieth-stipendium%2Fstipendium-ausschreibung%2F)\n*  "
+        },
+        {
+          "title": "Collaborations, campaigns and designs – Universität der Künste Berlin",
+          "url": "https://www.udk-berlin.de/en/university/strategic-marketing-unit/campaigns-and-designs/",
+          "excerpt": "Collaborations, campaigns and designs – Universität der Künste Berlin\n\nFor more detailed information, please change to the German version of this website.\n\n# Collaborations, campaigns and designs\n\nUdK Berlin combines creative collaborations, innovative campaigns, and visionary designs. Together with students, alumni, and partners, interdisciplinary projects emerge that unite art, design, and socia"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "medical university",
+    "domain": "charite.de",
+    "institution_typed": "Charité – Universitätsmedizin Berlin",
+    "roles_signed_up": [
+      "International office",
+      "Finance",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 9,
+    "status": "success",
+    "seconds": 166,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Charité - Universitätsmedizin Berlin",
+    "employees": 10055,
+    "posts": 20,
+    "news": 5,
+    "roles_found": 5,
+    "pain_hits": 1,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": null,
+    "auto_email": false,
+    "to_human": true,
+    "handoff_reason": "LLM output unusable",
+    "angle": null,
+    "pain_evidence": null,
+    "news_summary": null,
+    "buying_committee": null,
+    "score_reasons": null,
+    "email_subject": null,
+    "email_html": null,
+    "context": {
+      "company": {
+        "name": "Charité - Universitätsmedizin Berlin",
+        "id": "44032",
+        "website": "jobs.charite.de",
+        "linkedinUrl": "https://www.linkedin.com/school/charite/",
+        "employeeCount": 10055,
+        "industries": [
+          {
+            "id": "14",
+            "name": "Hospitals and Health Care",
+            "urn": "urn:li:fsd_industryV2:14",
+            "title": "Hospitals and Health Care",
+            "hierarchy": "Hospitals and Health Care"
+          }
+        ],
+        "specialities": [
+          "medical research",
+          "patient care",
+          "health care"
+        ],
+        "tagline": "Offizielle Seite der Charité Universitätsmedizin Berlin",
+        "description": "Zukunft gestalten. Jeder zählt.\n\nOb internationaler Background, jung oder alt, männlich, weiblich oder divers, gehandicapt, Quereinsteigende, Tattoofans, oder oder oder – im Charité-Team ist jede und jeder willkommen!\n\nDie Charité - Universitätsmedizin Berlin ist Deutschlands größte Universitätsklinik und seit Jahren in der Top 10 der weltweit besten Krankenhäuser (Newsweek-Ranking).\n\nDieses hervorragende Ergebnis basiert auf unseren Mitarbeitenden. Sie machen die Charité zu dem, was sie ist: ein Ort, an dem Innovationsgeist gelebt wird und wo mit Respekt und Offenheit interdisziplinär gearbeitet wird.\n\nAn über 100 Kliniken und Instituten arbeiten konzernweit mehr als 25.000 Mitarbeiter:innen aus 133 Nationen. Sie behandeln komplexe Krankheitsbilder und helfen Menschen aus Deutschland und aus der ganzen Welt. Hierfür arbeiten die besten Expert:innen aus Medizin, Forschung, Lehre, Verwaltung und Service Hand in Hand zusammen, um Patientinnen und Patienten die bestmögliche Versorgung zu bieten.\n\nFaire Tarifverträge und eine gesunde Work-Life-Balance sind die Grundlage der Arbeit. Insbesondere die Entlastung der Mitarbeitenden in den Gesundheitsfachberufen erfährt hier eine kontinuierliche Optimierung.\n\nDie Charité steht für eine Kultur, die von Wertschätzung und Offenheit geprägt ist und auch den persönlichen Bedürfnissen und Wünschen der Mitarbeiter:innen gerecht wird.\n\nImpressum Charité: https://www.charite.de/service/impressum\n\nDatenschutz Charité: https://www.charite.de/ser",
+        "locations": [
+          "Berlin",
+          "Berlin",
+          "Berlin",
+          "Berlin"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Finance",
+        "Other"
+      ],
+      "notes": [
+        "Charité – Universitätsmedizin Berlin",
+        "Charité – Universitätsmedizin Berlin",
+        "Charité – Universitätsmedizin Berlin"
+      ],
+      "topPosts": [
+        {
+          "text": "Neunmal Top 10 weltweit – darunter zweimal Platz 1. 🏆\n \nIm aktuellen Ranking „World’s Best Specialized Hospitals 2027“ von Newsweek  und Statista erreicht die Charité mit ihren Fachkliniken erneut zahlreiche Spitzenplatzierungen. In der Neurologie und Nephrologie steht sie weltweit auf Platz eins. Auch Orthopädie und Deutsches Herzzentrum der Charité (DHZC) mit seiner Herzchirurgie (je Platz 4), ",
+          "engagement": 614
+        },
+        {
+          "text": "Ein Meilenstein in der Medizin: Die Charité hat einen 19-Jährigen erfolgreich mit einer CRISPR-Therapie behandelt! 🙌 \n \nAm 28. Mai hat Mohammad, der mit der Erbkrankheit Beta-Thalassämie geboren wurde, an der Charité die neuartige Gentherapie Exa-cel erhalten. Exa-cel ist das erste zugelassene Medikament weltweit, das die Genschere CRISPR nutzt, um in das Stammzell-Erbgut des Patienten einzugreif",
+          "engagement": 414
+        },
+        {
+          "text": "🫁 Mit vereinten Kräften für die Lungenmedizin der Zukunft: Die Charité – Universitätsmedizin Berlin und die Evangelische Lungenklinik gründen das Deutsche Lungenzentrum Charité ELK (DLZC ELK).\n\nDer standortübergreifende Verbund wird zu den bedeutendsten Zentren für Lungenmedizin in Europa zählen: Er vereint universitäre Spitzenmedizin, hochspezialisierte pneumologische Versorgung und exzellente F",
+          "engagement": 365
+        },
+        {
+          "text": "Eine eigene KI-Plattform für Forschung, Lehre, Krankenversorgung und Verwaltung? Mit „Clé“ geht die Charité jetzt einen weiteren Schritt in der digitalen Transformation.\n\nDie speziell für die Universitätsmedizin entwickelte Plattform ermöglicht einen eigenverantwortlichen, sicheren und datenschutzkonformen Betrieb und bietet verschiedene Modelle, Schnittstellen und vielfältige Einsatzmöglichkeiten",
+          "engagement": 249
+        },
+        {
+          "text": "Gelungener Wissenschaftstransfer zeigt sich dann besonders deutlich, wenn eine Idee aus der Forschung ihren Weg in die Patientenversorgung findet. \n\nMit der heutigen Übernahme von Recovery Cat – einer Ausgründung von Charité und Berlin Institute of Health in der Charité (BIH) – durch Resilience Care, geht eine Erfolgsgeschichte des Wissenschaftstransfers in die nächste Phase: Eine Idee aus der Cha",
+          "engagement": 242
+        },
+        {
+          "text": "Unser Gesundheitssystem muss in Katastrophen- und Bedrohungslagen extremen Belastungen standhalten. Welche Auswirkungen hat es auf die Patientenversorgung, wenn es auf einmal keinen Strom mehr gibt? Was passiert, wenn die IT-Struktur eingeschränkt ist oder die Medikamentenversorgung ausfällt? \n\nUm sich bestmöglich auf solche Szenarien vorzubereiten, wollen die Charité, das Berlin Institute of Heal",
+          "engagement": 234
+        },
+        {
+          "text": "🤝 Unser Pilotprojekt „Führungskräfte‑Shadowing“ brachte sechs Führungskräfte aus der Charité und der Schwarz Gruppe an jeweils einem Tag in die Arbeitswelt des Gegenübers.\n\nDer intensive Perspektivwechsel offenbarte überraschend viele Gemeinsamkeiten in den Führungs‑ und Management‑Ansätzen beider Branchen: Uniklinik und Handel. Durch das direkte Erleben der jeweiligen Arbeitsabläufe und den geme",
+          "engagement": 216
+        },
+        {
+          "text": "Die Tarifverhandlungen zwischen der Charité und Vereinte Dienstleistungsgewerkschaft (ver.di) um einen neuen Entlastungstarifvertrag für Pflegekräfte sind ins Stocken geraten. Nach den aktuellen Forderungen der Gewerkschaft müssten etwa 700 zusätzliche Pflegefachkräfte eingestellt werden, was Kosten in Höhe von mehr als 60 Millionen Euro nach sich ziehen würde. Gleichzeitig sieht sich die Charité ",
+          "engagement": 191
+        }
+      ],
+      "roleTitles": [
+        "Business Development and Finance",
+        "Administration, Finance, Controlling I Koordinierungsstelle I Netzwerk Universitätsmedizin (NUM)",
+        "Lecturer in International Health",
+        "Visiting Lecturer",
+        "Postdoctoral Researcher"
+      ],
+      "news": [
+        {
+          "title": "Medical Library of the Charité – Universitätsmedizin - Wikidata",
+          "url": "https://www.wikidata.org/wiki/Q28738830",
+          "excerpt": "Medical Library of the Charité – Universitätsmedizin - Wikidata\n\n[Jump to content](https://www.wikidata.org/wiki/Q28738830#bodyContent)\n\n [![](/static/images/icons/wikidatawiki.svg) ![Wikidata](/static/images/mobile/copyright/wikidatawiki-wordmark.svg)](https://www.wikidata.org/wiki/Wikidata:Main_Page)\n\n[Search](https://www.wikidata.org/wiki/Special:Search \"Search Wikidata [f]\")\n\nSearch\n\n# Medical Library of the Charité – Universitätsmedizin (Q28738830)\n\nFrom Wikidata\n\nlibrary in Germany\n\n[edit](https://www.wikidata.org/wiki/Special:SetLabelDescriptionAliases/Q28738830/en)\n\n| Language | Label "
+        },
+        {
+          "title": "Prof. Dr.  Nikolaus Wenger: Klinik für Neurologie mit Experimenteller Neurologie - Charité – Universitätsmedizin Berlin",
+          "url": "https://neurologie.charite.de/en/metas/person/person/address_detail/dr_med_univ_nikolaus_wenger_phd/",
+          "excerpt": "Prof. Dr. Nikolaus Wenger: Klinik für Neurologie mit Experimenteller Neurologie - Charité – Universitätsmedizin Berlin\n\n[Department of Neurology with Experimental Neurology](https://neurologie.charite.de/en/ \"Charité – Universitätsmedizin Berlin\") \n\n#### Meta menu:\n\nFrom here, you can access the Emergencies page, Contact Us page, Accessibility Settings, Language Selection, and Search page.\n\n*   [Go to Emergencies.](https://www.charite.de/en/clinical_center/information_for_patients_and_families/emergency_medicine_central_emergency_rooms/ \"Go to Emergencies\")\n*   [Current language selection: EN]"
+        },
+        {
+          "title": "Charité - Universitätsmedizin Berlin على X: \"Moderne Zelltherapien erzielen bereits heute bei einigen Krebserkrankungen gute Ergebnisse. Erstmalig konnten an der #CharitéBerlin nun auch einzelne Patient:innen mit schwerster rheumatoider Arthritis mit CD19-CAR-T-Zellen erfolgreich behandelt werden.… / X",
+          "url": "https://x.com/ChariteBerlin/status/2092944250925138322?lang=ar",
+          "excerpt": "Charité - Universitätsmedizin Berlin على X: \"Moderne Zelltherapien erzielen bereits heute bei einigen Krebserkrankungen gute Ergebnisse. Erstmalig konnten an der #CharitéBerlin nun auch einzelne Patient:innen mit schwerster rheumatoider Arthritis mit CD19-CAR-T-Zellen erfolgreich behandelt werden.… / X\n\n[](https://x.com/)\n\n## نشر\n\n[تسجيل الدخول](https://x.com/i/jf/onboarding/web?mode=login&redirect_after_login=%2FChariteBerlin%2Fstatus%2F2092944250925138322%3Flang%3Dar)[تسجيل](https://x.com/i/jf/onboarding/web?mode=signup&redirect_after_login=%2FChariteBerlin%2Fstatus%2F2092944250925138322%3Fl"
+        },
+        {
+          "title": "Research Group Molekulare Epidemiologie: Institut für Hygiene und Umweltmedizin - Charité – Universitätsmedizin Berlin",
+          "url": "https://hygiene.charite.de/en/forschung/arbeitsgruppen/ag_molekulare_epidemiologie/",
+          "excerpt": "Research Group Molekulare Epidemiologie: Institut für Hygiene und Umweltmedizin - Charité – Universitätsmedizin Berlin\n\n[Institute of Hygiene and Environmental Medicine](https://hygiene.charite.de/en/ \"Charité – Universitätsmedizin Berlin\") \n\n#### Meta menu:\n\nFrom here, you can access the Emergencies page, Contact Us page, Accessibility Settings, Language Selection, and Search page.\n\n*   [Go to Emergencies.](https://www.charite.de/en/clinical_center/information_for_patients_and_families/emergency_medicine_central_emergency_rooms/ \"Go to Emergencies\")\n*   [Current language selection: EN](https:"
+        },
+        {
+          "title": "Charité - Universitätsmedizin Berlin على X: \"Im Juni konnten wir den US-amerikanischen #Ebola-Patienten genesen entlassen. Jetzt haben #CharitéBerlin-Forschende seine experimentelle Behandlung wissenschaftlich aufgearbeitet. Mehr über Symptome, Viruslasten & Immunantworten in unserem Paper spotligh… / X",
+          "url": "https://x.com/ChariteBerlin/status/2092240467177906367?lang=ar",
+          "excerpt": "Charité - Universitätsmedizin Berlin على X: \"Im Juni konnten wir den US-amerikanischen #Ebola-Patienten genesen entlassen. Jetzt haben #CharitéBerlin-Forschende seine experimentelle Behandlung wissenschaftlich aufgearbeitet. Mehr über Symptome, Viruslasten & Immunantworten in unserem Paper spotligh… / X\n\n[](https://x.com/)\n\n## نشر\n\n[تسجيل الدخول](https://x.com/i/jf/onboarding/web?mode=login&redirect_after_login=%2FChariteBerlin%2Fstatus%2F2092240467177906367%3Flang%3Dar)[تسجيل](https://x.com/i/jf/onboarding/web?mode=signup&redirect_after_login=%2FChariteBerlin%2Fstatus%2F2092240467177906367%3F"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "dkNET | Diabetes Innovation Challenge [Deadline extended to Feb. 16, 2018]",
+          "url": "https://odc-stroke.charite.de/legacy-niddk/about/dknetnews/1030",
+          "excerpt": "dkNET | Diabetes Innovation Challenge \\[Deadline extended to Feb. 16, 2018\\]\n\n*   [Login](https://odc-stroke.charite.de/legacy-niddk/about/dknetnews/1030#)\n*   [Register](https://odc-stroke.charite.de/legacy-niddk/join)\n*   [](https://odc-stroke.charite.de/legacy-niddk/about/help)\n\n [![](/upload/community-logo/_190273.png) NIDDK Information Network](https://odc-stroke.charite.de/legacy-niddk)\n\n*  "
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "private, no institution typed",
+    "domain": "hertie-school.org",
+    "institution_typed": "",
+    "roles_signed_up": [
+      "Leadership",
+      "Admissions",
+      "Finance"
+    ],
+    "call_requested": true,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 10,
+    "status": "success",
+    "seconds": 110,
+    "stopped_at_threshold": false,
+    "verified": false,
+    "linkedin_name": null,
+    "employees": null,
+    "posts": 0,
+    "news": 0,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 85,
+    "auto_email": false,
+    "to_human": true,
+    "handoff_reason": "LinkedIn profile not verified",
+    "angle": "Fewer admitted students lost between offer and enrolment",
+    "pain_evidence": "none found",
+    "news_summary": "unknown",
+    "buying_committee": [
+      "Leadership",
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Mehrere unterschiedliche Rollen haben sich angemeldet (Leadership, Admissions, Finance)",
+      "Jemand hat um einen Partnership Call gebeten",
+      "Starke Fokus auf internationale Studenten"
+    ],
+    "email_subject": "Vielen Dank für Ihre Anmeldung zur Hertie School",
+    "email_html": "<p>Hallo {first_name},</p><p>Vielen Dank, dass Sie sich für Kredible interessieren! Es freut uns zu hören, dass Kollegen aus Ihrer Organisation ebenfalls an unserer Lösung interessiert sind. Kredible hilft Ihnen, verlorene Zusagestudenten zu reduzieren, ohne Kosten oder Risiken für die Universität. Wir finanzieren Studiengebühren und Lebenshaltungskosten für Nicht-EU-Studenten.</p><p>Wir bieten Ihnen gerne ein 20-Minuten-Gespräch an, um Ihre Fragen zu beantworten. Bitte lassen Sie uns wissen, ob Sie daran interessiert sind.</p><p>Mit freundlichen Grüßen,<br>Ihr Kredible-Team</p><p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": null,
+      "roles": [
+        "Leadership",
+        "Admissions",
+        "Finance"
+      ],
+      "notes": [
+        "wants partnership call"
+      ],
+      "topPosts": [],
+      "roleTitles": [],
+      "news": [],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "wrong institution typed",
+    "domain": "hwr-berlin.de",
+    "institution_typed": "Technische Universität München",
+    "roles_signed_up": [
+      "Admissions",
+      "Other",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 11,
+    "status": "success",
+    "seconds": 203,
+    "stopped_at_threshold": false,
+    "verified": false,
+    "linkedin_name": null,
+    "employees": null,
+    "posts": 0,
+    "news": 5,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 3,
+    "score": null,
+    "auto_email": false,
+    "to_human": true,
+    "handoff_reason": "LLM output unusable",
+    "angle": null,
+    "pain_evidence": null,
+    "news_summary": null,
+    "buying_committee": null,
+    "score_reasons": null,
+    "email_subject": null,
+    "email_html": null,
+    "context": {
+      "company": null,
+      "roles": [
+        "Admissions",
+        "Other",
+        "Other"
+      ],
+      "notes": [
+        "Technische Universität München",
+        "Technische Universität München",
+        "Technische Universität München"
+      ],
+      "topPosts": [],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "HWR Berlin Summer & Winter School | HWR Berlin",
+          "url": "https://www.hwr-berlin.de/en/study/international-study/hwr-berlin-summer-winter-school",
+          "excerpt": "HWR Berlin Summer & Winter School | HWR Berlin\n\n*   [Zum Menü springen](https://www.hwr-berlin.de/en/study/international-study/hwr-berlin-summer-winter-school#desktop-menu)\n*   [Zum Inhalt springen](https://www.hwr-berlin.de/en/study/international-study/hwr-berlin-summer-winter-school#middle)\n*   [Zum Seitenende springen](https://www.hwr-berlin.de/en/study/international-study/hwr-berlin-summer-winter-school#footer)\n\n![Teilnehmer\\*innen der Summer School vor dem Brandenburger Tor. ](/fileadmin/_processed_/a/a/csm_2020-08-Summer-Winter-School_b8fc6386f8.jpg \"Foto: Oana Popa-Costea\")\n\nFoto: Oana "
+        },
+        {
+          "title": "Entrepreneurship | HWR Berlin",
+          "url": "https://www.hwr-berlin.de/studium/studiengang/detail/entrepreneurship",
+          "excerpt": "Entrepreneurship | HWR Berlin\n\n*   [Zum Menü springen](https://www.hwr-berlin.de/studium/studiengang/detail/entrepreneurship#desktop-menu)\n*   [Zum Inhalt springen](https://www.hwr-berlin.de/studium/studiengang/detail/entrepreneurship#middle)\n*   [Zum Seitenende springen](https://www.hwr-berlin.de/studium/studiengang/detail/entrepreneurship#footer)\n\n# Entrepreneurship\n\n*   Studienabschluss\n    \n    Bachelor of Science (B. Sc.)\n    \n*   Studienform\n    \n    Vollzeit\n    \n*   Regelstudienzeit\n    \n    7 Semester inkl. Praxissemester\n    \n*   Studienbeginn\n    \n    Wintersemester (1.10.)\n    \n*  "
+        },
+        {
+          "title": "Mapy.com",
+          "url": "https://mapy.com/en/?source=osm&id=1015610453",
+          "excerpt": "Mapy.com"
+        },
+        {
+          "title": "Neuer Bachelorstudiengang für Gründer*innen | HWR Berlin",
+          "url": "https://www.hwr-berlin.de/presse/pressemitteilungen/pressemitteilung-detail/detail/6998-neuer-bachelorstudiengang-fuer-gruenderinnen",
+          "excerpt": "Neuer Bachelorstudiengang für Gründer\\*innen | HWR Berlin\n\n*   [Zum Menü springen](https://www.hwr-berlin.de/presse/pressemitteilungen/pressemitteilung-detail/detail/6998-neuer-bachelorstudiengang-fuer-gruenderinnen#desktop-menu)\n*   [Zum Inhalt springen](https://www.hwr-berlin.de/presse/pressemitteilungen/pressemitteilung-detail/detail/6998-neuer-bachelorstudiengang-fuer-gruenderinnen#middle)\n*   [Zum Seitenende springen](https://www.hwr-berlin.de/presse/pressemitteilungen/pressemitteilung-detail/detail/6998-neuer-bachelorstudiengang-fuer-gruenderinnen#footer)\n\n06.07.2026 — **Pressemitteilung"
+        },
+        {
+          "title": "Hochschule für Wirtschaft und Recht Berlin - HWR Berlin",
+          "url": "https://www.facebook.com/officialHWRBerlin/about/?locale=es_ES",
+          "excerpt": "Hochschule für Wirtschaft und Recht Berlin - HWR Berlin"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "threshold not reached",
+    "domain": "ash-berlin.eu",
+    "institution_typed": "Alice Salomon Hochschule Berlin",
+    "roles_signed_up": [
+      "International office",
+      "Admissions"
+    ],
+    "call_requested": false,
+    "colleagues": 2,
+    "webhook": 200,
+    "execution_id": 12,
+    "status": "success",
+    "seconds": 0,
+    "stopped_at_threshold": true,
+    "verified": null,
+    "linkedin_name": null,
+    "employees": null,
+    "posts": null,
+    "news": 0,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": null,
+    "score": null,
+    "auto_email": null,
+    "to_human": null,
+    "handoff_reason": null,
+    "angle": null,
+    "pain_evidence": null,
+    "news_summary": null,
+    "buying_committee": null,
+    "score_reasons": null,
+    "email_subject": null,
+    "email_html": null,
+    "context": {
+      "company": null,
+      "roles": null,
+      "notes": null,
+      "topPosts": null,
+      "roleTitles": null,
+      "news": null,
+      "painSignal": null,
+      "customerVoice": null
+    },
+    "node_errors": {},
+    "item_errors": {}
+  }
+]

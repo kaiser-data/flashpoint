@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "f4c061be-3feb-419c-aa5b-5872ddf79307",
+      "id": "a232e014-8780-4850-8dbb-99f0abee1edb",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         240
       ],
-      "webhookId": "dfd3e60a-253d-45ff-82df-84d655f00f36",
+      "webhookId": "0e1fea69-5cba-470a-8b5c-41afc062f7bf",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -27,7 +27,7 @@
       "notesInFlow": true
     },
     {
-      "id": "1b19de40-d648-4ad9-9c87-264466a788e7",
+      "id": "e8a2ad86-c5aa-4d7f-b4b1-2aadcb6e5bb9",
       "name": "First sign-up or critical mass?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -45,7 +45,7 @@
           },
           "conditions": [
             {
-              "id": "387655d7-11e2-4801-b679-6ef5637d3a2b",
+              "id": "d968fb3a-40d3-44f0-87a7-efa4197d46a8",
               "leftValue": "={{ [1, $json.body.threshold || 3].includes(Number($json.body.colleagues)) && Boolean($json.body.company_domain) }}",
               "operator": {
                 "type": "boolean",
@@ -63,7 +63,7 @@
       "notesInFlow": true
     },
     {
-      "id": "b9a597f6-864e-4127-8967-d56d2278ce5e",
+      "id": "aea80e2d-3fdb-44b4-b0d4-47fdcc7c6b84",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -96,7 +96,7 @@
       "notesInFlow": true
     },
     {
-      "id": "25211d2b-098b-4115-9142-7d9a4c1b6e75",
+      "id": "b874766b-d351-4b26-a611-236272c6286e",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -111,7 +111,7 @@
       "notesInFlow": true
     },
     {
-      "id": "2f115e6a-729f-42e3-a652-8caaf485590c",
+      "id": "43437e21-ff0b-477d-9c9a-22018381cb50",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -144,7 +144,7 @@
       "notesInFlow": true
     },
     {
-      "id": "dbe01b34-3a0e-40ee-9948-63647b82423d",
+      "id": "ac9013e2-5a89-4157-be72-fb04ee38b1b4",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -177,7 +177,7 @@
       "notesInFlow": true
     },
     {
-      "id": "b10b6001-4372-44c3-aedc-3c5617d937ec",
+      "id": "75429ffd-a9d3-4ca1-b1bc-796d2aa6768c",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -210,7 +210,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d6e13f37-9636-49c9-bcb2-9f4e5a1dbb54",
+      "id": "5e92fe71-15eb-45e2-be4d-e8cf4dca6529",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -243,7 +243,7 @@
       "notesInFlow": true
     },
     {
-      "id": "af743e4a-6ac2-423d-915a-30252cd4ad15",
+      "id": "30c0f6ab-d564-4180-8310-6d1d7cae7b7b",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -276,7 +276,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d4b0d6ee-34bd-472e-aa2b-8ae99788a290",
+      "id": "0be42f86-ae0d-47e0-81bc-67e5c82100ec",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -309,7 +309,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d0a120d8-2b60-483a-ba12-ed9327e2f9bd",
+      "id": "68921044-e063-4dff-b86f-fede3b01945f",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -324,7 +324,7 @@
       "notesInFlow": true
     },
     {
-      "id": "aeb54133-8017-4896-89d6-cabde2f195b0",
+      "id": "7f4da868-cc08-4b8e-8c78-a41c93419e78",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -356,7 +356,7 @@
       "notesInFlow": true
     },
     {
-      "id": "3c31a0f9-d1da-4e00-8b52-43421c3d335a",
+      "id": "416ecf18-9e77-41f4-a3f4-149b6c4563ac",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -371,7 +371,7 @@
       "notesInFlow": true
     },
     {
-      "id": "a90bb611-e9b9-401d-af41-25681d541d1e",
+      "id": "cffe49c4-c581-4e8b-a2a8-53998d3c70ab",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -389,7 +389,7 @@
           },
           "conditions": [
             {
-              "id": "85bb188e-cb36-4016-b03f-880e44a90b41",
+              "id": "8f12fdf2-04a9-40a2-b9ef-657cb3048134",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -407,7 +407,7 @@
       "notesInFlow": true
     },
     {
-      "id": "8dfb9f1c-6b2f-4f16-92d0-29ae4131dafa",
+      "id": "e5c2c36b-909f-4ab1-af39-16309c0cc299",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -437,7 +437,7 @@
       "notesInFlow": true
     },
     {
-      "id": "3088850b-e667-4f1e-81e7-9652bf6e7526",
+      "id": "03a57fff-0b15-4250-9146-b25e864c67b1",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -455,7 +455,7 @@
           },
           "conditions": [
             {
-              "id": "0aa70b7c-64ec-4215-8b23-b0c94f3357f7",
+              "id": "3174ddbe-a90a-4e38-88fb-7b7348f95936",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -473,7 +473,7 @@
       "notesInFlow": true
     },
     {
-      "id": "65ea7780-d44c-4822-b5c2-f280d2141dc6",
+      "id": "559b8ec8-f08e-4571-9565-018a0e830bbe",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -488,7 +488,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d12734ec-5dd6-4d3f-b0da-880fdf73e498",
+      "id": "04e3c67e-91b7-4b38-83e9-52e30cc5b877",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -517,7 +517,7 @@
       "notesInFlow": true
     },
     {
-      "id": "41f8e0b5-671a-4654-97ad-1c698b73a9ce",
+      "id": "8af2e06c-21b0-4a02-9ea7-638fefcbeea1",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -550,7 +550,7 @@
       "notesInFlow": true
     },
     {
-      "id": "6aa05a29-87b1-4f77-8dc4-e7b3c94c6d5d",
+      "id": "8583e119-4eac-440c-9c3a-b945159a0ceb",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -582,7 +582,7 @@
       "notesInFlow": true
     },
     {
-      "id": "9e447f8a-08dc-426c-9589-316864446e32",
+      "id": "1409abfb-0eef-479d-adff-14eadc1ef43b",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -597,7 +597,7 @@
       "notesInFlow": true
     },
     {
-      "id": "ada2f18c-70b1-4a6e-8dc3-b34871fd8c58",
+      "id": "1d1c0581-4381-40b8-aebd-fcf68d191d39",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -615,7 +615,7 @@
           },
           "conditions": [
             {
-              "id": "4ecc5326-e278-4a94-b6c8-cf6fa502842a",
+              "id": "44a62e95-e7f9-4161-b273-6f8b313e9ca3",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -624,7 +624,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "66f993eb-dc2c-471b-b2bf-b587e4f81ffe",
+              "id": "cca83f09-8090-46e4-8511-384992d0559d",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -641,7 +641,7 @@
       "notesInFlow": true
     },
     {
-      "id": "cb54fdf5-f672-4f32-853e-c7e42ae562fa",
+      "id": "0e0bb736-404f-4552-94b8-04306e9ec651",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -670,7 +670,7 @@
       "notesInFlow": true
     },
     {
-      "id": "ee0ab8c1-b95e-4c42-a554-b84f75372bfd",
+      "id": "65f90ac6-94da-4649-a6c6-9fa2fe748b53",
       "name": "Prepare log row",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -685,7 +685,7 @@
       "notesInFlow": true
     },
     {
-      "id": "a3e89f54-027d-42df-96fe-05ed3a5521e9",
+      "id": "0c028540-1458-4b2f-bd68-165a30662e18",
       "name": "Log analysis to sheet",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -725,7 +725,7 @@
       "notesInFlow": true
     },
     {
-      "id": "424c831f-6de4-477d-b26f-2a6c6ff97eb7",
+      "id": "3a993916-bcba-4156-87c2-72162100b122",
       "name": "Signal scorecard",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -740,7 +740,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d6ad89d6-152b-46c9-8224-b3119740d171",
+      "id": "966d76e1-fb45-4466-9de1-958618aacc7f",
       "name": "About Flashpoint",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -749,14 +749,14 @@
         -140
       ],
       "parameters": {
-        "content": "# Flashpoint · account signal agent\n**One sign-up is curiosity. Three from the same organisation is a flashpoint.**\n\nWhen the threshold is reached, the agent researches the organisation, scores it, writes to the people who signed up and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the **Flashpoint · Eval** workflow.\n\nInput: Apps Script on the sign-up sheet · Research: Apify · Analysis: Featherless · Output: Gmail + Google Sheets",
+        "content": "# Flashpoint · account signal agent\n**One sign-up is curiosity. Three from the same organisation is a flashpoint.**\n\nThe first sign-up starts research; critical mass escalates. Eight weighted signals become a Flashpoint score. The agent writes to the people who signed up and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the **Flashpoint · Eval** workflow.\n\nInput: Apps Script on the sign-up sheet · Research: Apify · Analysis: Featherless · Output: Gmail + Google Sheets",
         "width": 1500,
         "height": 230,
         "color": 7
       }
     },
     {
-      "id": "53268c14-1d58-4125-9b6f-f4d0305be7b7",
+      "id": "1049e0be-9ee1-48c9-abbf-5cc3922cde6b",
       "name": "1 · Trigger and threshold",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -765,14 +765,14 @@
         110
       ],
       "parameters": {
-        "content": "## 1 · Trigger and threshold\nThe sheet script posts here when the **Nth distinct person** from one e-mail domain signs up. Secured by the `x-signal-secret` header. Private e-mail domains never reach this point.",
+        "content": "## 1 · Trigger\nRuns on the **first sign-up** from an organisation and again at **critical mass**. The headcount is one signal, not the decision. Secured by `x-signal-secret`; private e-mail domains never reach this point.",
         "width": 500,
         "height": 300,
         "color": 4
       }
     },
     {
-      "id": "1844125c-ee73-4926-8f34-cb947accf6de",
+      "id": "fce7d9bf-0a6e-4eb1-aadc-65994a698f04",
       "name": "2 · Account research",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -788,7 +788,7 @@
       }
     },
     {
-      "id": "afa1ecd3-82ce-404b-8a9a-b33dc01a99b4",
+      "id": "60b649b5-bc8f-4a7e-9648-7bbca2ddf613",
       "name": "3 · AI analysis",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -797,14 +797,14 @@
         110
       ],
       "parameters": {
-        "content": "## 3 · AI analysis (Featherless)\nOff-target search hits are filtered out in code before the LLM sees them. The model extracts culture, structure, buying committee, angle, score and the e-mail. **Code, not the model, decides** what happens next.",
+        "content": "## 3 · Signals and AI analysis\n**Signal scorecard** (code): critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news → Flashpoint score 0-100. **Featherless** writes the situation, angle and e-mails for the strongest signals. **Code decides** what happens next.",
         "width": 700,
         "height": 300,
         "color": 6
       }
     },
     {
-      "id": "73b8d16f-22b8-4580-bc13-f7d7f1376d3c",
+      "id": "1b1cb345-db84-4cab-a7f9-247c7e54a706",
       "name": "4 · Act and document",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -820,7 +820,7 @@
       }
     },
     {
-      "id": "f2eb9780-4c39-4441-a426-4b9ac7356931",
+      "id": "cce020e0-8d68-40e1-b404-048bc5f24141",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -836,7 +836,7 @@
       }
     },
     {
-      "id": "21604143-0858-4ed6-8d21-8a1a83571dd8",
+      "id": "5369f7df-bc8c-4768-82b9-cd889acc3e5f",
       "name": "5 · Replies",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

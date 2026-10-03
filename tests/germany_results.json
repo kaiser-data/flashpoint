@@ -1,0 +1,1187 @@
+[
+  {
+    "case": "full buying committee",
+    "domain": "tum.de",
+    "institution_typed": "Technische Universität München",
+    "roles_signed_up": [
+      "International office",
+      "Admissions",
+      "Finance"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 13,
+    "status": "success",
+    "seconds": 170,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Technical University of Munich",
+    "employees": 11838,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 10,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Fewer admitted students lost between offer and enrolment",
+    "pain_evidence": "none found",
+    "news_summary": "TUM has achieved a top 25 ranking in the latest Times Higher Education and QS World University Rankings, reflecting its strength in research, teaching, and international collaborations. The university has also appointed Pascal Berberat as the new Executive Vice President for Academic and Student Affairs.",
+    "buying_committee": [
+      "International office",
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Three distinct roles from the buying committee have signed up (International Office, Admissions, Finance)",
+      "Strong international student focus shown in recent news and posts",
+      "Top 25 ranking in global university rankings indicates a high level of competition and need to retain top talent"
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible",
+    "email_html": "<p>Hallo {first_name},</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren. Ich freue mich, dass auch Kollegen aus Ihrer Organisation Interesse gezeigt haben.</p>\n<p>Kredible hilft TUM, dass weniger zugelassene Studierende zwischen Angebot und Einschreibung verloren gehen, indem wir Sperrkonten, Studiengebühren und Lebenshaltungskosten im ersten Jahr für nicht-EU-Studierende finanzieren, ohne Kosten oder Risiken für die Universität.</p>\n<p>Lassen Sie uns in einem 20-minütigen Gespräch mehr darüber erfahren. Gerne vereinbaren wir einen Termin.</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Reply STOP to unsubscribe.</p>",
+    "context": {
+      "company": {
+        "name": "Technical University of Munich",
+        "id": "166283",
+        "website": "https://www.tum.de/",
+        "linkedinUrl": "https://www.linkedin.com/school/technische-universitat-munchen/",
+        "employeeCount": 11838,
+        "industries": [
+          {
+            "id": "70",
+            "name": "Research Services",
+            "urn": "urn:li:fsd_industryV2:70",
+            "title": "Research Services",
+            "hierarchy": "Professional Services > Research Services"
+          }
+        ],
+        "specialities": [],
+        "tagline": "Official LinkedIn account of the Technical University of Munich",
+        "description": "Our university combines top-class facilities for cutting-edge research with unique learning opportunities for 52,000 students. Whether our researchers are investigating the origins of life, matter and the universe or looking for solutions to the major challenges for our society, people lie at the heart of our research and innovation agenda. Our goal is to create lasting value for society through excellence in education and research, the active promotion of next-generation talents and a strong entrepreneurial spirit. All of which combine to make TUM one of Europe’s leading universities. \n\n| Imprint: http://www.tum.de/legal-notice",
+        "locations": [
+          "Munich"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Admissions",
+        "Finance"
+      ],
+      "notes": [
+        "Technische Universität München",
+        "Technische Universität München",
+        "Technische Universität München"
+      ],
+      "topPosts": [
+        {
+          "text": "TUM has reached a new milestone: we are now among the world’s top 25 universities in the latest Times Higher Education Rankings, after already securing a place in the global top 25 of the QS World University Rankings! 🎉\n \nThese results reflect the strength of TUM’s research, teaching, innovation, and international collaborations. They also underscore the dedication of the entire university commun",
+          "engagement": 499
+        },
+        {
+          "text": "A soft robotic exosuit developed at TUM helps older adults stand up and walk more efficiently. In a study, 10 participants completed sit-to-stand movements faster with the suit’s assistance. Designed to be worn comfortably over regular clothing, the exosuit integrates seamlessly into daily life and could support a wide range of rehabilitation and elderly care applications.\n\n#exosuit #robotics #Ass",
+          "engagement": 279
+        },
+        {
+          "text": "Congratulations to Pascal Berberat on his appointment as TUM’s Executive Vice President for Academic and Student Affairs! 👏  He succeeds Gerhard Müller, who held the role for four terms since 2014.\n\n#ExecutiveBoard #HigherEducation #AcademicAffairs #StudentAffairs\nPascal O. Berberat,MD MME TUM Klinikum Rechts der Isar TUM School of Engineering and Design (ED)\n\n📷 A.Eckert",
+          "engagement": 195
+        },
+        {
+          "text": "The Oskar-von-Miller tower at our Campus Garching glowing against an early morning sky. 🌅 Thanks to Mariola Nicpon-Stasch for the campus photo of the month for September.\n\nIf you took a great campus photo as well, send us your #tumcampuspic to social-media@tum.de 📧\n\n#CampusPhoto #Garching #community",
+          "engagement": 154
+        },
+        {
+          "text": "A new partnership connects the TUM innovation ecosystem in Munich with NUSX in Singapore! 👏 NUS start-up teams will gain access to Munich, while UnternehmerTUM plans a presence in Singapore through TUM Venture Labs.\n\nThe partnership includes reciprocal outposts, closer investment links and joint talent programs. It will also give selected NUS students access to UnternehmerTUM initiatives such as ",
+          "engagement": 105
+        },
+        {
+          "text": "At this year’s Bits & Pretzels founders conference, TUM President Thomas F. Hofmann and LMU President Matthias Tschöp presented the ONE MUNICH strategy. Together, we are strengthening Munich’s position as a leading hub for AI, innovation, and entrepreneurial talent. 👏",
+          "engagement": 93
+        },
+        {
+          "text": "🚀 From AI to space research, cutting-edge science comes to life at the Garching Research Campus Open House on October 3, 2026.\n \nExplore fascinating research topics, discover the world’s largest AI chip, follow the traces of the Big Bang, and hear from Nobel Prize winner Reinhard Genzel, who will speak about one of the biggest mysteries of the universe: Do black holes really exist?\n \nJoin us and ",
+          "engagement": 92
+        },
+        {
+          "text": "Finding the right support can be challenging for female founders. TUM is one of 17 institutions in Munich joining forces in the new Women Entrepreneurs Alliance to make existing programs, coaching, networks and funding easier to navigate.\n\n#FemaleFounders #WomenEntrepreneurs #Entrepreneurship\nBayerisches Staatsministerium für Wirtschaft, Landesentwicklung und Energie\n\n📷 istock/.shock\ngo.tum.de/45",
+          "engagement": 83
+        }
+      ],
+      "roleTitles": [
+        "International Relations Manager; TUM School of Medicine and Health",
+        "Manager, International Relations & Alliances",
+        "Finance and project management and administration",
+        "Finance Manager",
+        "Referentin des Vizepräsidenten für Studium und Lehre (TUM Center for Study and Teaching)",
+        "Referentin der Vizepräsidentin Talent Management and Diversity",
+        "Persönliche Referentin des Vizepräsidenten TUM Campus Heilbronn",
+        "Full Professor and Chair of Digital Finance",
+        "Professor for Entrepreneurial Finance",
+        "Professor of Finance"
+      ],
+      "news": [
+        {
+          "title": "TUM: Top 10 Programs in English 🏆🇬🇧 (2026)",
+          "url": "https://www.mygermanuniversity.com/universities/TUM-Technical-University-of-Munich/top-programs/english-programs",
+          "excerpt": "TUM: Top 10 Programs in English 🏆🇬🇧 (2026)\n\n[![logo](/assets/images/logo-small.png)](https://www.mygermanuniversity.com/)\n\n*   [StudyFinder](https://www.mygermanuniversity.com/studyfinder)\n\n*   [Webinars](https://www.mygermanuniversity.com/webinars)\n*   [Webinars](https://www.mygermanuniversity.com/webinars)\n*   Login\n*   Sign Up\n\n![language](/assets/images/countries/uk.svg)ENG\n\n![language](/assets/images/countries/uk.svg)English✓\n\n![language](/assets/images/countries/germany.png)Deutsch\n\n![language](/assets/images/countries/uk.svg)ENG\n\nChoose Language\n\n![language](/assets/images/countries/"
+        },
+        {
+          "title": "Technical University of Munich (TUM) | Research profile | Nature Index",
+          "url": "https://www.nature.com/nature-index/institution-outputs/germany/technical-university-of-munich-tum/5139073734d6b65e6a002227",
+          "excerpt": "Technical University of Munich (TUM) | Research profile | Nature Index [Skip to main content](https://www.nature.com/nature-index/institution-outputs/germany/technical-university-of-munich-tum/5139073734d6b65e6a002227#main-content)\n\nAdvertisement\n\n [![Nature Index](/nature-index/dist/img/header-logo.f428d335.svg)](https://www.nature.com/nature-index/)\n\n*   Search\n*   [Log in](https://idp.nature.com/auth/personal/springernature?redirect_uri=https://www.nature.com/nature-index/institution-outputs/germany/technical-university-of-munich-tum/5139073734d6b65e6a002227)\n\n## Main Navigation\n\n*   [Home]"
+        },
+        {
+          "title": "Mapy.com",
+          "url": "https://mapy.com/en/?source=osm&id=1060148232",
+          "excerpt": "Mapy.com"
+        },
+        {
+          "title": "Home - TUM School of Social Sciences and Technology",
+          "url": "https://www.sot.tum.de/en/sot/home/",
+          "excerpt": "Home - TUM School of Social Sciences and Technology\n\n[Skip to content](https://www.sot.tum.de/en/sot/home/#content \"skip to content\")\n\n*   [de](https://www.sot.tum.de/sot/home/)\n*   **en**\n\nGoogle search\n\nMenu\n\n*   [TUM School of Social Sciences and Technology](https://www.sot.tum.de/en/sot/home/ \"Home TUM School of Social Sciences and Technology\")\n*   [Technical University of Munich](https://www.tum.de/en/ \"Home Technical University of Munich\")\n\n[![Technical University of Munich](/_assets/32ebf5255105e66824f82cb2d7e14490/Icons/Org/tum-logo.png?neu)](https://www.tum.de/en/ \"Home www.tum.de\")\n\n"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "partnership call requested",
+    "domain": "lmu.de",
+    "institution_typed": "Ludwig-Maximilians-Universität München",
+    "roles_signed_up": [
+      "International office",
+      "Leadership",
+      "Admissions"
+    ],
+    "call_requested": true,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 14,
+    "status": "success",
+    "seconds": 147,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Ludwig-Maximilians-Universität München",
+    "employees": 9463,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 10,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Partnership call requested",
+    "angle": "Reduce the number of admitted students lost between offer and enrolment",
+    "pain_evidence": "Application deadline extensions (2 hits), Admitted students struggling to fund their studies (0 hits)",
+    "news_summary": "LMU is achieving top rankings in various fields such as Communication, Political Sciences, and Physics. The university is also actively involved in research and innovation, with recent grants and awards for projects in areas like chronic inflammatory bowel disease and molecular biology. Additionally, LMU is extending application deadlines, indicating potential challenges in filling seats.",
+    "buying_committee": [
+      "International office",
+      "Leadership",
+      "Admissions"
+    ],
+    "score_reasons": [
+      "Multiple distinct roles signed up (International Office, Leadership, Admissions)",
+      "Partnership call requested",
+      "News shows a strong international student focus",
+      "Application deadline extensions indicate unfilled seats"
+    ],
+    "email_subject": "Vielen Dank für Ihr Interesse an Kredible",
+    "email_html": "<p>Hallo,</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren. Ich freue mich, dass auch Kollegen aus Ihrer Organisation Interesse gezeigt haben.</p>\n<p>Kredible finanziert die blockierten Kontofinanzierung, Studiengebühren und Lebenshaltungskosten für nicht-EU-Studierende, sodass Sie talentierte internationale Studierende anziehen und behalten können, ohne dabei Kosten oder Risiken zu tragen. Die Studiengebühren werden direkt an die Institution gezahlt, und Sie erfahren, wann die Finanzierung eines Studierenden gesichert ist.</p>\n<p>Ich würde mich freuen, Ihnen in einem 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie uns einen Termin vereinbaren!</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Reply STOP to unsubscribe.</p>",
+    "context": {
+      "company": {
+        "name": "Ludwig-Maximilians-Universität München",
+        "id": "596185",
+        "website": "http://www.lmu.de",
+        "linkedinUrl": "https://www.linkedin.com/school/lmu.muenchen/",
+        "employeeCount": 9463,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [],
+        "description": "Die LMU zählt zu den renommiertesten Universitäten Europas. Sie steht für hervorragende Forschung, die sich mit einem anspruchsvollen Lehrangebot verbindet. Knapp 53.000 Studierende, davon 17 Prozent aus dem Ausland, nutzen derzeit das breite Fächerspektrum mit 150 Angeboten und zahlreichen Kombinationsmöglichkeiten - von den Geistes- und Kulturwissenschaften über Rechts-, Wirtschafts- und Sozialwissenschaften bis hin zur Medizin und den Naturwissenschaften. \n\nDas Know-how und die kreative Intelligenz von rund 700 Professorinnen und Professoren und 3.600 wissenschaftlichen Mitarbeiterinnen und Mitarbeitern bilden die Grundlage für die hervorragende Forschungsbilanz der LMU und sorgen für ihr regelmäßig gutes Abschneiden in nationalen und internationalen Rankings. \n\nMachen Sie sich ein Bild von der LMU: www.lmu.de\n\nUnsere Netiquette sowie Datenschutzinformationen zur Nutzung der Social-Media-Auftritte der LMU finden Sie hier: \n\nhttps://www.lmu.de/de/die-lmu/struktur/zentrale-universitaetsverwaltung/kommunikation-und-presse/social-media/index.html\n\nFür die inhaltliche Konzeption und Pflege der Seiten ist die Stabsstelle Kommunikation und Presse verantwortlich.\n",
+        "locations": [
+          "München"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Leadership",
+        "Admissions"
+      ],
+      "notes": [
+        "Ludwig-Maximilians-Universität München",
+        "Ludwig-Maximilians-Universität München | wants partnership call",
+        "Ludwig-Maximilians-Universität München"
+      ],
+      "topPosts": [
+        {
+          "text": "🥇 Spitzenforschung an der LMU\nIm Shanghai Fächerranking 2026 erreicht die #LMU Spitzenpositionen in Deutschland!\n\nWir sind Platz 1 in\n🎓 Communication\n🎓 Political Sciences\n🎓 Physik\n🎓 Dentistry & Oral Sciences\n🎓 Law\n\nBesonders erfreulich: Communication gehört damit zu den Top 10 weltweit, Political Sciences und Physik zu den Top 50 weltweit. Außerdem belegt die LMU in den Bereichen KI und BWL ",
+          "engagement": 971
+        },
+        {
+          "text": "🏅 Award-winning! Olivia Merkel receives the UNIPRENEURS Award 2026!\n👩‍🔬 LMU professor and Chair of Drug Delivery Olivia Merkel has been researching novel, non-viral nanoscale RNA delivery systems for many years. Building on this research, she co-founded the spin-off rnhale in 2023. The Munich-based company (image 3: team) is developing inhalable RNA therapeutics designed to address the underlyi",
+          "engagement": 396
+        },
+        {
+          "text": "🥇 Top research at LMU\nIn the 2026 Shanghai Global Ranking of Academic Subjects, #LMU achieves top positions in Germany!\n\nWe rank No. 1 in Germany in:\n🎓 Communication\n🎓 Political Sciences\n🎓 Physics\n🎓 Dentistry & Oral Sciences\n🎓 Law\n\nA particular highlight: Communication ranks among the top 10 worldwide, while Political Sciences and Physics are among the global top 50. Furthermore, LMU ranks a",
+          "engagement": 325
+        },
+        {
+          "text": "Wissenschaft trifft Medien – ein Tag voller Austausch, Diskussionen und neuer Impulse. 🔬🎙️\nAuf Initiative von Beatrice Lugger, Vizepräsidentin der #LMUMünchen kamen gestern im alten Stammhaus des Bayerischen Rundfunks Wissenschaftlerinnen und Wissenschaftler der LMU mit Journalistinnen und Journalisten des BR - Bayerischer Rundfunk zusammen, um sich über Herausforderungen und Möglichkeiten moder",
+          "engagement": 217
+        },
+        {
+          "text": "💉 Grant for Research on Chronic Inflammatory Bowel Disease in Children 👶 LMU physician Daniel Kotlarz has received a grant through the “Rise up!” program of the nonprofit Boehringer Ingelheim Foundation.\n\nDaniel Kotlarz is the Heisenberg Professor of Precision Medicine for Pediatric Inflammatory Bowel Disease at #LMU and a group leader at the Institute of Translational Genomics at Helmholtz Muni",
+          "engagement": 200
+        },
+        {
+          "text": "🎉 Congratulations to Jonathan Bohlen on receiving the Life Sciences Bridge Award from the Aventis Foundation!\nThe #LMU molecular biologist is being recognized for his research into the molecular mechanisms underlying rare inherited #immunodeficiencies. Together with his team, he was the first to observe human ribosomes searching messenger RNA for the starting point of protein synthesis. This work",
+          "engagement": 173
+        },
+        {
+          "text": "How must German #sciencepolicy change to ensure that our universities remain internationally competitive in the future? 🎓🌐\nArmin Nassehi, Clemens Fuest, Monika Schnitzer and Matthias H. Tschöp explore this question in a joint guest contribution for the Frankfurter Allgemeine Zeitung.\n\nTheir central argument: Germany needs a strong and high-performing university system across the board — but at t",
+          "engagement": 135
+        },
+        {
+          "text": "🌍 LMU shaping the future of European collaboration in Global Health\nLMU is proud to be an active member of the European University Alliance for Global Health (EUGLOH) — a long-term partnership that brings together leading European #universities to advance #education, #research, #innovation and our shared responsibility to society.\n\n🤝 At this year’s annual meeting Vice-President Francesca Biagini",
+          "engagement": 114
+        }
+      ],
+      "roleTitles": [
+        "Director International Office",
+        "Vizepräsidentin für Kommunikation - Vice President for Communication",
+        "Hauptamtlich stellvertr. Vizepräsidentin für Wirtschafts- und Personalverwaltung",
+        "Vizepräsident",
+        "Vizepräsident für Innovation in Lehre und Lehrkräftebildung",
+        "seit 1.10.2025 Vizepräsidentin der LMU für Chancengerechtigkeit, Talentförderung und Diversität",
+        "Vizepräsidentin für die Geisteswissenschaften",
+        "Referent der Vizepräsidentin für Digitalstrategien",
+        "Persönliche Referentin des Vizepräsidenten für den Bereich der Wirtschafts- und Personalverwaltung",
+        "Advisor to the Vice President for Communications / Referent der Vizepräsidentin für Kommunikation"
+      ],
+      "news": [
+        {
+          "title": "PULSE LMU - Apps on Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.lmu.pulseapp&hl=en",
+          "excerpt": "PULSE LMU - Apps on Google Play\n\n![Icon image](https://play-lh.googleusercontent.com/irLQ94nzDP4G7O7b9J9Pf9HsnppslU97rnCcR1C1UZ_RwUCV08AcI36k8W_DDHROjM2btTCSPIdhElBpzHkiq9Y=w240-h480)![](https://play-lh.googleusercontent.com/irLQ94nzDP4G7O7b9J9Pf9HsnppslU97rnCcR1C1UZ_RwUCV08AcI36k8W_DDHROjM2btTCSPIdhElBpzHkiq9Y=w240-h480)\n\n![Icon image](https://play-lh.googleusercontent.com/irLQ94nzDP4G7O7b9J9Pf9HsnppslU97rnCcR1C1UZ_RwUCV08AcI36k8W_DDHROjM2btTCSPIdhElBpzHkiq9Y=w240-h480)\n\n# PULSE LMU\n\n[Ludwig-Maximilians-Universität München](https://play.google.com/store/apps/developer?id=Ludwig-Maximilians-Un"
+        },
+        {
+          "title": "Ludwig-Maximilians-Universität München - YouTube",
+          "url": "https://www.youtube.com/@LMU.Muenchen/playlists",
+          "excerpt": "Ludwig-Maximilians-Universität München - YouTube\n\n[](https://www.youtube.com/ \"YouTube\")[](https://www.youtube.com/ \"YouTube\")\n\n[About](https://www.youtube.com/about/)[Press](https://www.youtube.com/about/press/)[Copyright](https://www.youtube.com/about/copyright/)[Contact us](https://www.youtube.com/t/contact_us/)[Creators](https://www.youtube.com/creators/)[Advertise](https://www.youtube.com/ads/)[Developers](https://developers.google.com/youtube)[Terms](https://www.youtube.com/t/terms)[Privacy](https://www.youtube.com/t/privacy)[Policy & Safety](https://www.youtube.com/about/policies/)[How "
+        },
+        {
+          "title": "German Language Course - Summer German Language Course",
+          "url": "https://www.ssk-misu.de/en/",
+          "excerpt": "German Language Course - Summer German Language Course\n\n![Logo Ludwig Maximilians Universität München](/img/Logo_LMU.svg)\n\nGerman Language Course\n\n# Summer German Language Course\n\n**Course:** 4 - 28 August 2026  \n**Arrival:** 3 August  \n**Departure:** 29 August (until 10 a.m. at the latest) \n\n* * *\n\n### The Ludwig - Maximilians - University of Munich (LMU) welcomes guest students to its Summer German Language courses.\n\nThe summer language course is organized by the [International University Club of Munich (IUCM)](https://www.iucm.de/en/content/iucm_home) in collaboration with the International"
+        },
+        {
+          "title": "Startseite - Fakultät für Physik - LMU München",
+          "url": "https://www.physik.lmu.de/de/",
+          "excerpt": "Startseite - Fakultät für Physik - LMU München\n\n[![Logo Ludwig Maximilians Universität München](https://cms-cdn.lmu.de/assets/img/Logo_LMU.svg)](https://www.physik.lmu.de/de/)\n\nFakultät für Physik\n\n1.     ![Wendelstein Observatorium, (C) Raphael Zöller](https://cms-cdn.lmu.de/media/17-physik/wendelstein_1_1_format_s.png \"Wendelstein Observatorium, (C) Raphael Zöller\")\n2.     ![Nano-Institut (C) Christoph Hohmann (LMU/MCQST)](https://cms-cdn.lmu.de/media/17-physik/17-fakultaet-physik/photos/nano-institut_id10505_1_1_format_s.jpg \"Nano-Institut (C) Christoph Hohmann (LMU/MCQST)\")\n3.     ![](http"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "April 2025 – GERA congress 2026 Munich",
+          "url": "https://dgfe2026.fak11.lmu.de/en/2025/04/",
+          "excerpt": "April 2025 – GERA congress 2026 Munich\n\n[![GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/wp-content/uploads/sites/2/2025/02/250129_Signet_DGfE2026_minimal_110px_RGB.png)](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\n[GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\nDISRUPTIONS\n\nMonth\n\n# April 2025\n\n[Home](https://dgfe2026.fak11.lmu.de/en/samp"
+        },
+        {
+          "title": "📢 Submission Deadline Extended: Now Until April 25, 2025! – GERA congress 2026 Munich",
+          "url": "https://dgfe2026.fak11.lmu.de/en/2025/04/17/%F0%9F%93%A2-submission-deadline-extended-now-until-april-25-2025/",
+          "excerpt": "📢 Submission Deadline Extended: Now Until April 25, 2025! – GERA congress 2026 Munich\n\n[![GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/wp-content/uploads/sites/2/2025/02/250129_Signet_DGfE2026_minimal_110px_RGB.png)](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\n[GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\nDISRUPTIONS\n\n[News](https://dg"
+        },
+        {
+          "title": "The proceedings of the DGfE Congress 2024 have been published! – GERA congress 2026 Munich",
+          "url": "https://dgfe2026.fak11.lmu.de/en/2025/03/31/the-proceedings-of-the-dgfe-congress-2024-have-been-published/",
+          "excerpt": "The proceedings of the DGfE Congress 2024 have been published! – GERA congress 2026 Munich\n\n[![GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/wp-content/uploads/sites/2/2025/02/250129_Signet_DGfE2026_minimal_110px_RGB.png)](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\n[GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\nDISRUPTIONS\n\n[News](https:"
+        },
+        {
+          "title": "sabrinagrunau – GERA congress 2026 Munich",
+          "url": "https://dgfe2026.fak11.lmu.de/en/author/sabrinagrunau/",
+          "excerpt": "sabrinagrunau – GERA congress 2026 Munich\n\n[![GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/wp-content/uploads/sites/2/2025/02/250129_Signet_DGfE2026_minimal_110px_RGB.png)](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\n[GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\nDISRUPTIONS\n\n![](https://secure.gravatar.com/avatar/22573c34a610cbcd7c74357"
+        },
+        {
+          "title": "News – GERA congress 2026 Munich",
+          "url": "https://dgfe2026.fak11.lmu.de/en/category/unkategorisiert-en/news/",
+          "excerpt": "News – GERA congress 2026 Munich\n\n[![GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/wp-content/uploads/sites/2/2025/02/250129_Signet_DGfE2026_minimal_110px_RGB.png)](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\n[GERA congress 2026 Munich](https://dgfe2026.fak11.lmu.de/en/sample-page-english/)\n\nDISRUPTIONS\n\nCategory\n\n# News\n\n[Home](https://dgfe2026.fak11.lmu.de/en/sample-page-e"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "technical university, NRW",
+    "domain": "rwth-aachen.de",
+    "institution_typed": "RWTH Aachen University",
+    "roles_signed_up": [
+      "Admissions",
+      "Finance",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 15,
+    "status": "success",
+    "seconds": 181,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "RWTH Aachen University",
+    "employees": 6505,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 9,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Reduce the number of admitted students lost between offer and enrollment by ensuring they can finance their studies without any cost or risk to the university.",
+    "pain_evidence": "none found",
+    "news_summary": "RWTH Aachen University is currently celebrating its top rankings in various fields, including Chemical Engineering and Metallurgical Engineering, and has formed new partnerships, such as with Transdev GmbH, focusing on innovation in mobility technologies.",
+    "buying_committee": [
+      "Admissions",
+      "Finance",
+      "Other"
+    ],
+    "score_reasons": [
+      "Three distinct roles (Admissions, Finance, Other) have shown interest, indicating a full buying committee.",
+      "The university has a strong international student focus, as evidenced by recent news and posts.",
+      "No explicit pain signals or customer voice found, but the strong international focus suggests potential interest in solutions like Kredible."
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible",
+    "email_html": "<p>Hallo {first_name},</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren. Es freut uns zu hören, dass Kollegen aus Ihrer Organisation ebenfalls an unserer Lösung interessiert sind.</p>\n<p>Kredible hilft, die Finanzierung von Sperrkonten, Studiengebühren und Lebenshaltungskosten im ersten Jahr für zugegebene Studierende abzudecken, ohne für die Universität Kosten oder Risiken zu verursachen. Dies reduziert die Anzahl verlorener Zulassungen und erweitert den Talentpool.</p>\n<p>Wir bieten Ihnen gerne einen 20-minütigen Call an, um Ihre Fragen zu beantworten und Ihnen mehr über unsere Lösung zu erzählen.</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "RWTH Aachen University",
+        "id": "9790",
+        "website": "https://www.rwth-aachen.de/",
+        "linkedinUrl": "https://www.linkedin.com/school/rwth-aachen-university/",
+        "employeeCount": 6505,
+        "industries": [
+          {
+            "id": "70",
+            "name": "Research Services",
+            "urn": "urn:li:fsd_industryV2:70",
+            "title": "Research Services",
+            "hierarchy": "Professional Services > Research Services"
+          }
+        ],
+        "specialities": [
+          "Wissenschaft und Forschung",
+          "science and research",
+          "Technologietransfer",
+          "technology transfer",
+          "Lehre",
+          "teaching"
+        ],
+        "tagline": "Thinking the Future",
+        "description": "With 260 institutes in nine faculties, RWTH Aachen University is one of Europe’s leading institutions for science and research. Currently about 45,000 students are enrolled in over 150 academic programmes. Over 9,000 of them are international students hailing from 120 different countries.\n\nThe scientific education students receive at RWTH Aachen is firmly rooted in real-world applications. As a result, our graduates are highly sought after by businesses as trainees and for executive positions. (source: [3])\n\nJob offers can be found follwing [1] (this service is currently offered in german only, but you might want to take a look at this list [2], showing academic staff offers).\n\n---\n\nDie RWTH Aachen gehört mit ihren 260 Instituten in neun Fakultäten zu den führenden europäischen Wissenschafts- und Forschungseinrichtungen. Derzeit sind rund 45.000 Studierende in über 150 Studiengängen eingeschrieben, davon über 9.000 ausländische Studierende aus 120 Ländern. \n\nDie wissenschaftliche Ausbildung an der RWTH Aachen hat einen hohen Anwendungsbezug. Deshalb sind die Absolventinnen und Absolventen in der Wirtschaft gefragte Nachwuchs- und Führungskräfte. (Quelle: [3])\n\nUnsere Jobbörse finden Sie unter [1].\n\n[1] http://www.rwth-aachen.de/go/id/hxm/\n[2] http://www.zhv.rwth-aachen.de/mainzhv.php?scriptid=job&param=auswertung&typ=wiss\n[3] http://www.rwth-aachen.de/go/id/xql/",
+        "locations": [
+          "Aachen"
+        ]
+      },
+      "roles": [
+        "Admissions",
+        "Finance",
+        "Other"
+      ],
+      "notes": [
+        "RWTH Aachen University",
+        "RWTH Aachen University",
+        "RWTH Aachen University"
+      ],
+      "topPosts": [
+        {
+          "text": "RWTH Is Germany’s Top-Ranked University in #ChemicalEngineering 💯\n\nIn the latest ShanghaiRanking’s Global Ranking of Academic Subjects, published on September 15, 2026, RWTH ranks first among German universities in Chemical Engineering. The University also performs strongly in a number of other subjects, placing among the top three universities in Germany.\n\nRWTH ranks second in Metallurgical Engi",
+          "engagement": 713
+        },
+        {
+          "text": "RWTH Aachen University Ranks Among the top 100 Universities Worldwide\n\nRWTH ranks 90th worldwide in the prestigious THE World University Rankings. 💯 This means that the University has moved up two spots compared to the previous year. Nationwide, RWTH also achieved a higher ranking than last year, coming in fifth.\n\nThe ranking was published on September 30, 2026 by the information provider Times H",
+          "engagement": 616
+        },
+        {
+          "text": "RWTH Student Daniel Sobh as Talent of the Year\n\n“From a young age, I knew I wanted to become a doctor. In secondary school, internships introduced me to the field of dentistry—a field that brings together medicine, technological innovation, art, and technical skill. I found that combination deeply inspiring,” Daniel Sobh explains. Now 22, he has been studying dentistry at RWTH since the winter sem",
+          "engagement": 251
+        },
+        {
+          "text": "RWTH Aachen and Keio University celebrate 70 years of academic partnership\n\nSeven decades of academic collaboration, 700 student and researcher exchanges, and countless personal encounters: RWTH Aachen University and Keio University in Tokyo have celebrated the 70th anniversary of their partnership. A twelve-member delegation from Keio University and the Japanese Embassy visited Aachen on Septembe",
+          "engagement": 236
+        },
+        {
+          "text": "💡🗳️ Neuer TU9-Vorstand nimmt Arbeit auf\n \nZum 01.10.2026 übernehmen Prof. Dr. Ursula M. Staudinger, Rektorin der Technische Universität Dresden, und Prof. Jan S Hesthaven, Präsident des Karlsruher Institut für Technologie (KIT), als Präsidentin und Vizepräsident die Leitung der #TU9-Allianz. Sie folgen auf Prof. Dr. Angela Ittel, Präsidentin der Technische Universität Braunschweig, und Prof. Dr.",
+          "engagement": 153
+        },
+        {
+          "text": "Transdev GmbH and RWTH Aachen University have formed an innovation partnership \n\nThe collaboration will focus on research and technology transfer projects in rail vehicle technology, autonomous driving, electric mobility, and digital and connected mobility systems. RWTH Innovation, the University’s central technology transfer unit, coordinates the partnership. At Transdev Group, Henrik Behrens, He",
+          "engagement": 148
+        },
+        {
+          "text": "Herzlichen Glückwunsch!  😀",
+          "engagement": 113
+        },
+        {
+          "text": "Herzlichen Glückwunsch für diese tolle Leistung, Prof. Achim Kampker!  💯",
+          "engagement": 84
+        }
+      ],
+      "roleTitles": [
+        "Director International Office",
+        "International Office",
+        "Mitarbeiterin International Office",
+        "Coordinator For International Relations",
+        "Kanzler",
+        "Ständige Kanzlervertreterin für Struktur-, Finanz- und Bauangelegenheiten",
+        "Leiterin Kanzlerbüro",
+        "Deputy Chancellor for Administration and Operations | Ständiger Kanzlervertreter Organisation",
+        "International Relations Coordinator"
+      ],
+      "news": [
+        {
+          "title": "The Profile Area | BLE | RWTH Aachen University | EN",
+          "url": "https://www.ble.rwth-aachen.de/cms/ble/~bhyzme/der-profilbereich/?lidx=1",
+          "excerpt": "The Profile Area | BLE | RWTH Aachen University | EN\n\n##### Tools\n\n*   [RWTHonline](https://online.rwth-aachen.de/)\n*   [RWTHcontacts](https://rwthcontacts.rwth-aachen.de/)\n*   [RWTHmoodle](https://moodle.rwth-aachen.de/)\n*   [Intranet](https://intranet.rwth-aachen.de/en)\n\n##### Services\n\n*   [Dining Hall Menus](https://www.studierendenwerk-aachen.de/en/eating-drinking/menus.html)\n*   [RWTH Navigator](https://maps.rwth-aachen.de/navigator/?type=roadmap&lang=en)\n*   [Student Resources and Support](https://www.rwth-aachen.de/cms/root/studium/~hzvj/beratung-hilfe/?lidx=1)\n*   [Official Announceme"
+        },
+        {
+          "title": "#artificialintelligence #ict #profilearea | Profile Areas of RWTH Aachen University",
+          "url": "https://www.linkedin.com/posts/profile-areas-of-rwth-aachen-university_artificialintelligence-ict-profilearea-activity-7500553604441853952-_K16",
+          "excerpt": "#artificialintelligence #ict #profilearea | Profile Areas of RWTH Aachen University\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Skip to main content](https://www.linkedin.com/posts/profile-areas-of-rwth-aachen-university_art"
+        },
+        {
+          "title": "Researcher Profiles | University of Alberta International",
+          "url": "https://www.preview.ualberta.ca/international/global-engagement/emea/ualberta-rwth-aachen/researcher-profiles.html",
+          "excerpt": "Researcher Profiles | University of Alberta International\n\n[Skip to main content](https://www.preview.ualberta.ca/international/global-engagement/emea/ualberta-rwth-aachen/researcher-profiles.html#main)\n\n[](https://www.ualberta.ca/index.html)\n\n[University of Alberta International](https://www.preview.ualberta.ca/international/index.html)\n\nSearch Within  ualberta.ca  People  Programs  Services\n\nQuick Links\n\n*   [Email + Apps](https://apps.ualberta.ca/)\n*   [Bear Tracks](https://www.beartracks.ualberta.ca/)\n*   [eClass](https://eclass.srv.ualberta.ca/portal/)\n*   [Find a Person](https://apps.ual"
+        },
+        {
+          "title": "Rwth Aachen: Your Guide To Germany’s Tech Powerhouse - DanielWalters",
+          "url": "https://app.danielwalters.com/rwth-aachen-your-guide-to-germanys-tech-powerhouse",
+          "excerpt": "Rwth Aachen: Your Guide To Germany’s Tech Powerhouse - DanielWalters\n\n# Rwth Aachen: Your Guide To Germany’s Tech Powerhouse\n\n2026-10-03 Sophie Dubois 3604 views\n\n# Rwth Aachen: Your Guide To Germany’s Tech Powerhouse\n\nNestled in the heart of Europe’s industrial belt, RWTH Aachen University stands as a global beacon for engineering, technology, and applied research. This comprehensive guide explores how the institution fuels Germany’s innovation engine, bridging academia and industry through cutting-edge facilities and a formidable network of corporate partnerships. Within these walls, theoret"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "research university, .edu",
+    "domain": "kit.edu",
+    "institution_typed": "Karlsruher Institut für Technologie",
+    "roles_signed_up": [
+      "International office",
+      "Other",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 16,
+    "status": "success",
+    "seconds": 145,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Karlsruhe Institute of Technology (KIT)",
+    "employees": 8114,
+    "posts": 20,
+    "news": 5,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 70,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 70)",
+    "angle": "Fewer admitted students lost between offer and enrolment",
+    "pain_evidence": "none found",
+    "news_summary": "KIT has been making significant strides in research and innovation, with recent highlights including nominations for the German Future Prize, the launch of a new supercomputer HorEKA 2, and improvements in the THE World University Ranking. The institute also welcomes new students and emphasizes the importance of international collaboration and practical applications of research.",
+    "buying_committee": [
+      "International office",
+      "Other",
+      "Other"
+    ],
+    "score_reasons": [
+      "Three distinct roles from KIT have shown interest",
+      "Strong international student focus in recent news and posts",
+      "No explicit pain signals or customer voice found"
+    ],
+    "email_subject": "Vielen Dank für Ihre Anmeldung bei Kredible",
+    "email_html": "<p>Hallo {first_name},</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren! Wir freuen uns, dass auch Kollegen aus Ihrer Organisation sich angemeldet haben.</p>\n<p>Kredible hilft KIT, weniger zugelassene Studierende zwischen Zusage und Einschreibung zu verlieren, den Talentpool zu erweitern und Absolventen zu fördern, die in Deutschland bleiben. Alles das ohne Kosten oder Risiken für die Universität.</p>\n<p>Lassen Sie uns in einem 20-Minuten-Gespräch mehr darüber erfahren.</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "Karlsruhe Institute of Technology (KIT)",
+        "id": "15093461",
+        "website": "www.kit.edu",
+        "linkedinUrl": "https://www.linkedin.com/school/kit/",
+        "employeeCount": 8114,
+        "industries": [
+          {
+            "id": "68",
+            "name": "Higher Education",
+            "urn": "urn:li:fsd_industryV2:68",
+            "title": "Higher Education",
+            "hierarchy": "Education > Higher Education"
+          }
+        ],
+        "specialities": [
+          "Forschung",
+          "Lehre",
+          "Innovation",
+          "Energie",
+          "Mobilität",
+          "Information",
+          "Transfer"
+        ],
+        "tagline": "KIT – The University in the Helmholtz Association",
+        "description": "KIT – Science for Impact.\n\nIn close partnership with society, KIT develops solutions for urgent challenges – from climate change, energy transition and sustainable use of natural resources to artificial intelligence, sovereignty and an aging population. As \"The University in the Helmholtz Association\", KIT unites scientific excellence from insight to application-driven research under one roof – and is thus in a unique position to drive this transformation. As a University of Excellence, KIT offers its more than 10,000 employees and 22,800 students outstanding opportunities to shape a sustainable and resilient future. \n\nLegals: https://www.kit.edu/legals.php\nPrivacy Policy: https://www.kit.edu/privacypolicy.php",
+        "locations": [
+          "Karlsruhe",
+          "Eggenstein-Leopoldshafen"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Other",
+        "Other"
+      ],
+      "notes": [
+        "Karlsruher Institut für Technologie",
+        "Karlsruher Institut für Technologie",
+        "Karlsruher Institut für Technologie"
+      ],
+      "topPosts": [
+        {
+          "text": "𝗠𝗮𝗷𝗼𝗿 𝗛𝗼𝗻𝗼𝗿: 𝗥𝗲𝘀𝗲𝗮𝗿𝗰𝗵𝗲𝗿𝘀 𝗳𝗿𝗼𝗺 𝗞𝗜𝗧 𝗮𝗻𝗱 𝗧𝘄𝗼 𝗼𝗳 𝗜𝘁𝘀 𝗦𝗽𝗶𝗻-𝗢𝗳𝗳𝘀 𝗡𝗼𝗺𝗶𝗻𝗮𝘁𝗲𝗱 𝗳𝗼𝗿 𝘁𝗵𝗲 𝗚𝗲𝗿𝗺𝗮𝗻 𝗙𝘂𝘁𝘂𝗿𝗲 𝗣𝗿𝗶𝘇𝗲\nResearchers from #KITKarlsruhe and two of its spin-off companies have been nominated for the Deutscher Zukunftspreis. They are one of only three remaining teams shortlisted for the award, which is presented by the Federal Pr",
+          "engagement": 502
+        },
+        {
+          "text": "𝗞𝗜𝗧 𝗣𝘂𝘁𝘀 𝗛𝗼𝗿𝗲𝗞𝗮 𝟮 𝗛𝗶𝗴𝗵-𝗣𝗲𝗿𝗳𝗼𝗿𝗺𝗮𝗻𝗰𝗲 𝗖𝗼𝗺𝗽𝘂𝘁𝗲𝗿 𝗶𝗻𝘁𝗼 𝗢𝗽𝗲𝗿𝗮𝘁𝗶𝗼𝗻: 𝗡𝗲𝘄 𝗦𝘂𝗽𝗲𝗿𝗰𝗼𝗺𝗽𝘂𝘁𝗲𝗿 𝗳𝗼𝗿 𝗥𝗲𝘀𝗲𝗮𝗿𝗰𝗵 𝗼𝗻 𝗖𝗹𝗶𝗺𝗮𝘁𝗲, 𝗛𝗲𝗮𝗹𝘁𝗵, 𝗠𝗮𝘁𝗲𝗿𝗶𝗮𝗹𝘀, 𝗮𝗻𝗱 𝗔𝗿𝘁𝗶𝗳𝗶𝗰𝗶𝗮𝗹 𝗜𝗻𝘁𝗲𝗹𝗹𝗶𝗴𝗲𝗻𝗰𝗲\nMany pressing challenges of the future can now only be addressed with the help of high-performance computing. Today (Septemb",
+          "engagement": 314
+        },
+        {
+          "text": "𝗨𝗡𝗜𝗣𝗥𝗘𝗡𝗘𝗨𝗥𝗦 𝗛𝗼𝗻𝗼𝗿𝘀 𝗦𝘁𝗲𝗳𝗮𝗻 𝗕𝗿𝗮̈𝘀𝗲\nTo ensure that scientific findings are translated into practical applications as quickly as possible, academic spin-offs play a crucial role. In recognition of his longstanding commitment to start-up creation and entrepreneurship, Professor Stefan Braese of #KITKarlsruhe's Institute of Biological and Chemical Systems – Functional Molecul",
+          "engagement": 255
+        },
+        {
+          "text": "For many young people, a new chapter is beginning these days as the 2026/27 winter semester gets underway. We are delighted to welcome our new students to #KITKarlsruhe and wish you a successful start filled with curiosity, exciting encounters, and new perspectives. Welcome @ KIT! \n\nTogether, we create impact: Here, you are part of an international community, where you can build connections and sh",
+          "engagement": 198
+        },
+        {
+          "text": "𝗡𝗲𝘄 𝗧𝗨𝟵 𝗘𝘅𝗲𝗰𝘂𝘁𝗶𝘃𝗲 𝗕𝗼𝗮𝗿𝗱 𝗧𝗮𝗸𝗲𝘀 𝗢𝗳𝗳𝗶𝗰𝗲\nAs of October 1, 2026, Prof. Dr. Ursula M. Staudinger, Rector of TU Dresden, and Prof. Jan S Hesthaven, President of #KITKarlsruhe, have assumed leadership of the #TU9 Alliance. The psychologist and the mathematician succeed Prof. Dr. Angela Ittel, President of TU Braunschweig, and Prof. Dr.-Ing. Peter Middendorf, Rector of Univer",
+          "engagement": 147
+        },
+        {
+          "text": "[DE/EN] Künstliche Herzklappen werden dringend benötigt. Allein in Deutschland kommen jedes Jahr tausende Babys mit Fehlbildungen der Herzklappen zur Welt 🫀\n\nBisher stammen Herzklappen-Transplantate meist von Schweinen. Der große Nachteil: Im Körper des Empfängers oder der Empfängerin wachsen sie nicht mit.\n\nDie Herzklappen aus dem #KITKarlsruhe verwenden zur Herstellung im 3D-Drucker Stammzellen",
+          "engagement": 134
+        },
+        {
+          "text": "#𝟵𝟵𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀: 𝗜𝗻𝘁𝗲𝗹𝗹𝗶𝗴𝗲𝗻𝘁𝗹𝘆 𝗖𝗼𝘂𝗽𝗹𝗶𝗻𝗴 𝗮𝗻𝗱 𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝗮 𝗖𝗼𝗺𝗯𝗶𝗻𝗮𝘁𝗶𝗼𝗻 𝗼𝗳 𝗘𝗹𝗲𝗰𝘁𝗿𝗶𝗰𝗶𝘁𝘆, 𝗛𝗲𝗮𝘁, 𝗛𝘆𝗱𝗿𝗼𝗴𝗲𝗻, 𝗮𝗻𝗱 𝗠𝗼𝗯𝗶𝗹𝗶𝘁𝘆\nHow can electricity, heating and cooling, hydrogen, energy storage, and mobility be coupled intelligently? #KITKarlsruhe is investigating this in the SEKO project, which is conducted in the Energy Lab 2.0",
+          "engagement": 118
+        },
+        {
+          "text": "#KITKarlsruhe has shown significant improvement in the THE World University Ranking 2027. Compared with the previous year, the University in the Helmholtz Association climbed 23 places to 143rd place worldwide. Published by the British academic publisher Times Higher Education (THE), the ranking assesses universities across several dimensions, including teaching, research, international outlook, a",
+          "engagement": 115
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "KIT - Technology Transfer - Technology Transfer at KIT - Media and downloads - News-Archive",
+          "url": "https://www.techtransfer.kit.edu/english/1435.php",
+          "excerpt": "KIT - Technology Transfer - Technology Transfer at KIT - Media and downloads - News-Archive\n\n[](https://www.kit.edu/english/ \"KIT-Homepage\")\n\n[Technology Transfer](https://www.techtransfer.kit.edu/english/index.php)\n\n*   [skip navigation](https://www.techtransfer.kit.edu/english/1435.php#main_content)\n*   [Home](https://www.techtransfer.kit.edu/english/index.php \"startpage\")\n*   [Legals](https://www.techtransfer.kit.edu/english/legals.php)\n*   [Privacy Policy](https://www.techtransfer.kit.edu/english/privacypolicy.php)\n*   [Accessibility](https://www.kit.edu/redirect.php?page=barriere&lang=ENG"
+        },
+        {
+          "title": "Instagram",
+          "url": "https://www.instagram.com/p/Db0MlwbiFZo/",
+          "excerpt": "Instagram  \n\n[\n\n](https://www.instagram.com/)\n\n[Log In](https://www.instagram.com/accounts/login/?next=%2Fp%2FDb0MlwbiFZo%2F&source=desktop_nav)\n\n[Sign Up](https://www.instagram.com/accounts/emailsignup/)\n\n![Photo by Amratpal A Vision on August 09, 2026. May be an image of one or more people, barong, wedding and text.](https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/768615093_17990564037035904_4449450910909986283_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=Mzk1OTg0NTI1NTY1OTk3NTg4Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjM4NC5"
+        },
+        {
+          "title": "#kitkarlsruhe | Karlsruhe Institute of Technology (KIT)",
+          "url": "https://www.linkedin.com/posts/kit_kitkarlsruhe-activity-7478349797809217537-KPbf",
+          "excerpt": "#kitkarlsruhe | Karlsruhe Institute of Technology (KIT)\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Skip to main content](https://www.linkedin.com/posts/kit_kitkarlsruhe-activity-7478349797809217537-KPbf#main-content)\n\n# Kar"
+        },
+        {
+          "title": "When the Lab Conducts Its Own Research: Self-driving Labs at KIT | Karlsruhe Institute of Technology (KIT)",
+          "url": "https://www.linkedin.com/posts/kit_when-the-lab-conducts-its-own-research-self-driving-activity-7482695301087158272-VRt1",
+          "excerpt": "When the Lab Conducts Its Own Research: Self-driving Labs at KIT | Karlsruhe Institute of Technology (KIT)\n\n  \n\nAgree & Join LinkedIn\n\nBy clicking Continue to join or sign in, you agree to LinkedIn’s [User Agreement](https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](https://www.linkedin.com/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](https://www.linkedin.com/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy).\n\n[Skip to main content](https://www.linkedin.com/posts/kit_when-the-lab-con"
+        },
+        {
+          "title": "KIT - INTL - About us - Organigram",
+          "url": "https://www.intl.kit.edu/ia/3760_21978.php",
+          "excerpt": "KIT - INTL - About us - Organigram\n\n[](https://www.kit.edu/english/ \"KIT-Homepage\")\n\n[International Affairs](https://www.intl.kit.edu/english/index.php)\n\n*   [skip navigation](https://www.intl.kit.edu/ia/3760_21978.php#main_content)\n*   [Home](https://www.intl.kit.edu/english/index.php \"startpage\")\n*   [Legals](https://www.intl.kit.edu/english/2645.php)\n*   [Data Protection](https://www.intl.kit.edu/english/datenschutz.php)\n*   [KIT](https://www.kit.edu/english/ \"KIT-Homepage\")\n\n*   [de](https://www.intl.kit.edu/intl/3760_21978.php)\n\n  search\n\n[search](https://www.intl.kit.edu/ia/3760_21978.ph"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "business focus",
+    "domain": "uni-mannheim.de",
+    "institution_typed": "Universität Mannheim",
+    "roles_signed_up": [
+      "Leadership",
+      "Finance",
+      "Admissions"
+    ],
+    "call_requested": true,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 17,
+    "status": "success",
+    "seconds": 105,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "University of Mannheim",
+    "employees": 2106,
+    "posts": 20,
+    "news": 3,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": 10,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Partnership call requested",
+    "angle": "Reduce the number of admitted students lost between offer and enrolment, ensuring a wider talent pool and better retention of international students.",
+    "pain_evidence": "none found",
+    "news_summary": "The University of Mannheim continues to excel in global rankings, particularly in the Social Sciences and Economics. Recent activities include a campus cleanup event, a lecture by Isabel Schnabel on monetary policy, and an exhibition on environmental issues.",
+    "buying_committee": [
+      "Leadership",
+      "Finance",
+      "Admissions"
+    ],
+    "score_reasons": [
+      "Three distinct roles (Leadership, Finance, Admissions) have shown interest, indicating a full buying committee.",
+      "A partnership call has been requested, showing high engagement.",
+      "The university has a strong international student focus, as evidenced by recent posts and rankings."
+    ],
+    "email_subject": "Thank You for Your Interest in Kredible",
+    "email_html": "<p>Hallo {first_name},</p><p>Vielen Dank für Ihr Interesse an Kredible. Es freut uns zu hören, dass Kollegen aus Ihrer Organisation ebenfalls an einer Partnerschaft interessiert sind. Kredible finanziert die Sperrkonten, Studiengebühren und Lebenshaltungskosten des ersten Studienjahres für zugelassene Nicht-EU-Studenten, ohne Kosten oder Risiken für die Universität. Dies reduziert die Anzahl von verlorenen Zulassungen und erweitert den Talentpool. Wir bieten Ihnen gerne einen 20-minütigen Anruf an, um die Details zu besprechen.</p><p>Beste Grüße,<br>[Your Name]</p><p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "University of Mannheim",
+        "id": "14750",
+        "website": "http://www.uni-mannheim.de",
+        "linkedinUrl": "https://www.linkedin.com/school/university-of-mannheim/",
+        "employeeCount": 2106,
+        "industries": [
+          {
+            "id": "70",
+            "name": "Research Services",
+            "urn": "urn:li:fsd_industryV2:70",
+            "title": "Research Services",
+            "hierarchy": "Professional Services > Research Services"
+          }
+        ],
+        "specialities": [
+          "Business Administration",
+          "Economics",
+          "Social Sciences"
+        ],
+        "tagline": "A Leading Institution in the Economic and Social Sciences ",
+        "description": "For generations, the University of Mannheim has been preparing students to take on leadership roles in business, academia, and society. One of the university’s strengths in this task is its profile, which is characterized by the economic and social sciences. It is in these fields that the University of Mannheim has repeatedly been ranked as one of the top 20 European research institutions. Staff members at six schools and departments teach and carry out research in Business Administration, Economics, the Humanities, Social Sciences, Law, and Business Informatics and Mathematics.\n\nThe University of Mannheim's campus is located in the city center of Mannheim and mainly centers around its main campus – the Mannheim Palace (completed in 1760). The university has around 12,000 full-time students, 200 professors, 840 academic and 570 non-academic staff and a total income of more than €123 million in 2018. It is organized into 6 schools.",
+        "locations": [
+          "Mannheim"
+        ]
+      },
+      "roles": [
+        "Leadership",
+        "Finance",
+        "Admissions"
+      ],
+      "notes": [
+        "Universität Mannheim",
+        "Universität Mannheim | wants partnership call",
+        "Universität Mannheim"
+      ],
+      "topPosts": [
+        {
+          "text": "In the latest “Global Ranking of Academic Subjects” (GRAS) by the Shanghai Ranking, the University of Mannheim has once again performed very well this year! 🎉\n \nIn the Social Sciences and in Economics, we are once again among the leading German universities and rank among the top ten in Germany in nine subjects. \n \nMore information is available online: https://lnkd.in/ej2Pxkgv",
+          "engagement": 765
+        },
+        {
+          "text": "“What I value most about my time at the University of Mannheim, and continue to benefit from today, is the way it taught me to think systemically,” says international #alumnaofthemonth Yi Yin from Chongqing in China. The 32-year-old works as a Communications Manager at Roche. \n\nYin studied the master’s program in Literature, Media and Culture in the Modern Era. “The combination of humanities, soci",
+          "engagement": 176
+        },
+        {
+          "text": "Why do people cling to conspiracy theories—even when they can have negative consequences for the individual and for society? \n\nA new research group funded by the Deutsche Forschungsgemeinschaft (DFG) - German Research Foundation is investigating the functions that conspiracy theories can serve for individuals, groups, and societies. Social psychologist Dr. Lotte Pummerer from the University of Man",
+          "engagement": 149
+        },
+        {
+          "text": "50 volunteers, more than 30 trash bags, and plenty of odd finds: We really cleaned things up during this year’s campus cleanup event.\n\nStudents, staff, and members of the local community as well as President Prof. Dr. Thomas Fetzer and the four Vice Presidents pitched in with grabbers, gloves, and trash bags. Along with countless beer coasters and cigarette butts, the volunteers discovered items s",
+          "engagement": 119
+        },
+        {
+          "text": "Isabel Schnabel at the University of Mannheim: The economist, who has been a member of the Executive Board of the Europäische Zentralbank since 2020 and will be joining the International Monetary Fund in January, will give a public lecture (in German) on the current challenges facing monetary policy. Anyone interested is cordially invited to attend.\n\nWhen? 14 October 2026 at 6 p.m.\nWhere? The Univ",
+          "engagement": 117
+        },
+        {
+          "text": "The Mannheim Business School at the University of Mannheim is committed to continuity at the top: On 24 September, Joachim Lutz was unanimously reelected as dean for another six years. His second term of office begins on 1 October 2026. \n\nRead more here: https://lnkd.in/eupkgWsE\n\nPhoto: Alexander Münch",
+          "engagement": 105
+        },
+        {
+          "text": "Until 15 October, the exhibition “Trash People: 30 Years Around the World,” featuring sculptures by performance artist HA Schult, is on view at the University of Mannheim. \n\nCome by and let the life-size sculptures—which invite us to reflect on our consumer behavior and our treatment of the environment—make an impression on you! The exhibition in the Ostflügel is open to the public during the univ",
+          "engagement": 105
+        },
+        {
+          "text": "Interview series „Women in Research – Success Stories @UniMA”\n\nMeet Katja Dlouhy, Assistant Professor at Nova School of Business and Economics in Lisbon, and her path into research, challenges, and what success really means in academia.\n  \n🎤 What is your main research topic?\n💬 My main research interests are career mobility and career success, with a focus on organizational and institutional fact",
+          "engagement": 91
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Mapy.com",
+          "url": "https://mapy.com/en/?source=osm&id=11574360",
+          "excerpt": "Mapy.com"
+        },
+        {
+          "title": "Facebook",
+          "url": "https://www.facebook.com/fb-answers/mannheim-university-germany-reviews/",
+          "excerpt": "Facebook"
+        },
+        {
+          "title": "University of Mannheim",
+          "url": "https://lv-lv.facebook.com/pages/University-of-Mannheim/107591549264327",
+          "excerpt": "University of Mannheim"
+        }
+      ],
+      "painSignal": [],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "east Germany",
+    "domain": "tu-dresden.de",
+    "institution_typed": "Technische Universität Dresden",
+    "roles_signed_up": [
+      "International office",
+      "Admissions",
+      "Other"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 18,
+    "status": "success",
+    "seconds": 234,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "Technische Universität Dresden",
+    "employees": 6316,
+    "posts": 20,
+    "news": 5,
+    "roles_found": 0,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Reduce the number of admitted students lost between offer and enrollment by providing financial solutions for non-EU students.",
+    "pain_evidence": "Application deadline extensions (5 hits), no mentions of admitted students struggling to fund their studies.",
+    "news_summary": "TU Dresden has recently appointed new professors, received prestigious awards, and extended application deadlines for various programs. The university is also focusing on expanding its international student base and enhancing its research capabilities.",
+    "buying_committee": [
+      "International office",
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Multiple application deadline extensions indicate unfilled seats.",
+      "Three distinct roles (International Office, Admissions, Other) have signed up.",
+      "The current semester has just started, and admitted students without funding are missing the start."
+    ],
+    "email_subject": "Vielen Dank für Ihre Interesse an Kredible",
+    "email_html": "<p>Hallo {first_name},</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren. Ich habe bemerkt, dass Kollegen aus Ihrer Organisation ebenfalls registriert sind. Kredible kann helfen, die Anzahl der zugelassenen Studierenden zu erhöhen, die tatsächlich einschreiben, indem wir die blockierten Konten, Studiengebühren und Lebenshaltungskosten für nicht-EU-Studierende finanzieren. Dies kostet die Universität nichts und trägt dazu bei, dass mehr talentierte Studierende in Deutschland bleiben.</p>\n<p>Ich würde mich freuen, Ihnen in einem 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie es mich wissen, wann es Ihnen passt.</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "Technische Universität Dresden",
+        "id": "12236",
+        "website": "http://tu-dresden.de",
+        "linkedinUrl": "https://www.linkedin.com/school/tu-dresden/",
+        "employeeCount": 6316,
+        "industries": [
+          {
+            "id": "3233",
+            "name": "Research",
+            "urn": "urn:li:fsd_industryV2:3233",
+            "title": "Research",
+            "hierarchy": null
+          }
+        ],
+        "specialities": [
+          "Chemistry",
+          "Mathemaatics",
+          "Biology",
+          "Psychology",
+          "IT",
+          "Physics",
+          "Engineering",
+          "Mechanical Sciences",
+          "Civil Engineering",
+          "Environmental Engineering",
+          "Education",
+          "Humanities",
+          "Social Sciences",
+          "History",
+          "Architecture",
+          "Traffic Science",
+          "Geosciences",
+          "Hydrosciences",
+          "Medicine",
+          "Cell Biology"
+        ],
+        "tagline": "TUD | The Collaborative University\ninventive. transformative. engaged.",
+        "description": "TUD Dresden University of Technology, as a University of Excellence, is one of the leading and most dynamic research institutions in Germany. With 29,000 students and 8,400 employees, over 120 degree programs, and 17 faculties, it is one of Germany's largest technically-oriented universities. As The Collaborative University, TUD embraces cooperation across disciplinary, organizational, and national boundaries—in close exchange with science, business, and society. TUD stands for a self-image that combines academic excellence with innovative strength, and regional responsibility with a global orientation—collaborative. inventive. transformative. engaged.\n\nIf you are looking for a job at TU Dresden, please have a look at our job offers: https://tu-dresden.de/karriere",
+        "locations": [
+          "Dresden"
+        ]
+      },
+      "roles": [
+        "International office",
+        "Admissions",
+        "Other"
+      ],
+      "notes": [
+        "Technische Universität Dresden",
+        "Technische Universität Dresden",
+        "Technische Universität Dresden"
+      ],
+      "topPosts": [
+        {
+          "text": "Outstanding contributions to computer science: Wolfgang Lehner appointed Fellow of the German Informatics Society 💻\n\nProf. Wolfgang Lehner, Chair of Databases at the Faculty of Computer Science of TUD Dresden University of Technology, has been named a Fellow of the Gesellschaft für Informatik e.V. (German Informatics Society, GI). It is one of the highest honors awarded by the GI, the largest pro",
+          "engagement": 377
+        },
+        {
+          "text": "Prestigious UNIPRENEURS 2026 Founder’s Award for Prof. Frank Fitzek of TUD 🏆\n\nA high honor for technology transfer at the Technical University of Dresden (TUD): Prof. Frank H. P. Fitzek, holder of the Deutsche Telekom Chair of Communication Networks at TUD, was awarded the prestigious UNIPRENEURS 2026 Prize. The award honors Prof. Fitzek’s significant contributions to the transfer of innovations ",
+          "engagement": 261
+        },
+        {
+          "text": "Neuer TU9-Vorstand: TUD-Rektorin Staudinger übernimmt Präsidentschaft der Allianz führender Technischer Universitäten in Deutschland\n\nHeute, am 1. Oktober 2026, hat Prof.in Ursula M. Staudinger, Rektorin der Technischen Universität Dresden (TUD), als Präsidentin die Leitung der TU9 – German Universities of Technology-Allianz übernommen. Neuer Vizepräsident ist Prof. Jan S Hesthaven, Präsident des ",
+          "engagement": 247
+        },
+        {
+          "text": "New Science and Conference Center: Groundbreaking Ceremony on Grillenburg Castle Island 🪏\n\nIn the presence of Michael Kretschmer, Minister President of Freistaat Sachsen, Prof. Ursula M. Staudinger, Rector of TUD Dresden University of Technology, and Jan Gerken, Chancellor of TUD, the groundbreaking ceremony for a modern science and conference center on Grillenburg Castle Island was held on today",
+          "engagement": 234
+        },
+        {
+          "text": "Welcome to TUD: Introducing our newly appointed professors 👋\n\nIn September, new professors have joined TUD Dresden University of Technology. Among the new appointees are Prof. Carolin Victoria Schneider in the TUD | Faculty of Medicine, jointly appointed by TUD and DKFZ Deutsches Krebsforschungszentrum, as well as Prof. Philipp Lorenz-Spreen, who was appointed by the TUD | School of Humanities an",
+          "engagement": 193
+        },
+        {
+          "text": "TUD Family Festival on September 17: A celebration for everyone who loves family 🫶\n\nTUD invites students and staff to a lively family festival in the courtyard of the Fritz-Foerster-Building on Thursday, September 17, from 3:00 p.m. to 7:00 p.m.\n\nLook forward to:\n🔹 science which comes to life in a playful way with our Clusters of Excellence CeTI and ctd.qmat\n🔹 the band “Zugabe,” the interactive",
+          "engagement": 143
+        },
+        {
+          "text": "TUD Junior Professor Dorit Brixius receives the German L’Oréal UNESCO ‘For Women in Science’ Award 🏆\n\nDorit Brixius, Junior Professor of the History of Botany and Horticulture at TUD Dresden University of Technology, has been awarded the German L'Oréal UNESCO ‘For Women in Science’ Award. The prize, endowed with 25,000 euros, recognizes outstanding scientific achievements by early-career female r",
+          "engagement": 142
+        },
+        {
+          "text": "Die Exzellenzstrategie wirkt – auch an der Technischen Universität Dresden (TUD): Philipp Lorenz-Spreen ist neuberufener Professor für Computational Social Science an der TUD. Im Video beschreibt er, wie die Exzellenzförderung Karrierewege öffnet und Forschung zur Auswirkung von KI auf Demokratie und politische Systeme am Center Synergy of Systems (SynoSys) ermöglicht.\n\nDie Exzellenzstrategie (ExS",
+          "engagement": 139
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "TU Dresden - Wikimedia Commons",
+          "url": "https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-hk",
+          "excerpt": "TU Dresden - Wikimedia Commons\n\n[跳至內容](https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-hk#bodyContent)\n\n [![](/static/images/icons/commonswiki.svg) ![Wikimedia Commons](/static/images/mobile/copyright/commonswiki-wordmark.svg)](https://commons.wikimedia.org/wiki/%E9%A6%96%E9%A0%81)\n\n[搜尋](https://commons.wikimedia.org/wiki/Special:MediaSearch \"搜尋 Wikimedia Commons​[f]\")\n\n搜尋\n\n# TU Dresden\n\n出自Wikimedia Commons\n\n[![Shotwell logo](https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Gnome-emblem-photos.svg/40px-Gnome-emblem-photos.svg.png?utm_source=commons.wikimedia.org&utm_campaign=p"
+        },
+        {
+          "title": "Technische Universität Dresden",
+          "url": "https://nb-no.facebook.com/pages/Technische-Universit%C3%A4t-Dresden/248803085583921",
+          "excerpt": "Technische Universität Dresden"
+        },
+        {
+          "title": "TU Dresden - Wikimedia Commons",
+          "url": "https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-tw",
+          "excerpt": "TU Dresden - Wikimedia Commons\n\n[跳至內容](https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-tw#bodyContent)\n\n [![](/static/images/icons/commonswiki.svg) ![Wikimedia Commons](/static/images/mobile/copyright/commonswiki-wordmark.svg)](https://commons.wikimedia.org/wiki/%E9%A6%96%E9%A1%B5)\n\n[搜尋](https://commons.wikimedia.org/wiki/Special:MediaSearch \"在Wikimedia Commons搜尋​[f]\")\n\n搜尋\n\n# TU Dresden\n\n出自Wikimedia Commons\n\n[![Shotwell logo](https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Gnome-emblem-photos.svg/40px-Gnome-emblem-photos.svg.png?utm_source=commons.wikimedia.org&utm_campaign=p"
+        },
+        {
+          "title": "TU Dresden - Wikimedia Commons",
+          "url": "https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-cn",
+          "excerpt": "TU Dresden - Wikimedia Commons\n\n[跳转到内容](https://commons.wikimedia.org/wiki/TU_Dresden?uselang=zh-cn#bodyContent)\n\n [![](/static/images/icons/commonswiki.svg) ![Wikimedia Commons](/static/images/mobile/copyright/commonswiki-wordmark.svg)](https://commons.wikimedia.org/wiki/%E9%A6%96%E9%A1%B5)\n\n[搜索](https://commons.wikimedia.org/wiki/Special:MediaSearch \"搜索Wikimedia Commons内容​[f]\")\n\n搜索\n\n# TU Dresden\n\n来自Wikimedia Commons\n\n[![Shotwell logo](https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Gnome-emblem-photos.svg/40px-Gnome-emblem-photos.svg.png?utm_source=commons.wikimedia.org&utm_campaign"
+        },
+        {
+          "title": "Technical University of Dresden | EduPath Global",
+          "url": "https://joinedupath.com/global/universities/technical-university-of-dresden",
+          "excerpt": "Technical University of Dresden | EduPath Global\n\n![Technical University of Dresden campus](https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/TU-Dresden-Georg-Schumann-Bau.jpg/1280px-TU-Dresden-Georg-Schumann-Bau.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail)\n\n![Technical University of Dresden logo](https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Logo_TU_Dresden.svg/1280px-Logo_TU_Dresden.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail)\n\nGlobal rank #212\n\n# Technical University of Dresden\n\nDresden, German"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "[DL] EARLY REGISTRATION DEADLINE EXTENDED: 4th ICCMA (ONLINE)",
+          "url": "https://mailman.zih.tu-dresden.de/groups/public/dl/2026/007033.html",
+          "excerpt": "\\[DL\\] EARLY REGISTRATION DEADLINE EXTENDED: 4th ICCMA (ONLINE)\n\n# \\[DL\\] EARLY REGISTRATION DEADLINE EXTENDED: 4th ICCMA (ONLINE)\n\n**Tuncer Acar** [ozlem.acar at selcuk.edu.tr](mailto:dl%40groups.tu-dresden.de?Subject=Re%3A%20%5BDL%5D%20EARLY%20REGISTRATION%20DEADLINE%20EXTENDED%3A%204th%20ICCMA%20%28ONLINE%29&In-Reply-To=%3C20260506095044.A9EC0205EAB938%40eposta.selcuk.edu.tr%3E \"[DL] EARLY REGI"
+        },
+        {
+          "title": "[DL] JELIA 2025 - FINAL CfP - DEADLINE EXTENDED",
+          "url": "https://mailman.zih.tu-dresden.de/groups/public/dl/2025/006683.html",
+          "excerpt": "\\[DL\\] JELIA 2025 - FINAL CfP - DEADLINE EXTENDED\n\n# \\[DL\\] JELIA 2025 - FINAL CfP - DEADLINE EXTENDED\n\n**giovanni.casini** [giovanni.casini at isti.cnr.it](mailto:dl%40groups.tu-dresden.de?Subject=Re%3A%20%5BDL%5D%20JELIA%202025%20-%20FINAL%20CfP%20-%20DEADLINE%20EXTENDED&In-Reply-To=%3C475dab0091111129c385651cf1542eab%40isti.cnr.it%3E \"[DL] JELIA 2025 - FINAL CfP - DEADLINE EXTENDED\")  \n_Thu May"
+        },
+        {
+          "title": "[DL] [CFP-KGSWC 2026]📢 KGSWC 2026 – Paper Submission Deadline Extended!",
+          "url": "https://mailman.zih.tu-dresden.de/groups/public/dl/2026/007087.html",
+          "excerpt": "\\[DL\\] \\[CFP-KGSWC 2026\\]📢 KGSWC 2026 – Paper Submission Deadline Extended!\n\n# \\[DL\\] \\[CFP-KGSWC 2026\\]📢 KGSWC 2026 – Paper Submission Deadline Extended!\n\n**Dr. Sanju Tiwari** [sanju.tiwari.2007 at gmail.com](mailto:dl%40groups.tu-dresden.de?Subject=Re%3A%20%5BDL%5D%20%3D%3Futf-8%3Fb%3FW0NGUC1LR1NXQyAyMDI2XfCfk6IgS0dTV0MgMjAyNiDigJMg%3F%3D%0A%09%3D%3Futf-8%3Fq%3FPaper_Submission_Deadline_Extend"
+        },
+        {
+          "title": "Application deadline extended! - StuFoExpo 2025 — \"Friedrich List\" Faculty of Transport and Traffic Sciences — TU Dresden",
+          "url": "https://tu-dresden.de/bu/verkehr/studium/studium-news/application-deadline-extended-stufoexpo-2025?set_language=en",
+          "excerpt": "Application deadline extended! - StuFoExpo 2025 — \"Friedrich List\" Faculty of Transport and Traffic Sciences — TU Dresden\n\n*   [Skip to main navigation](https://tu-dresden.de/b/studium/studium-news/application-deadline-extended-stufoexpo-2025?set_language=en#navigation-panel) [Skip to main navigation](https://tu-dresden.de/b/studium/studium-news/application-deadline-extended-stufoexpo-2025?set_lan"
+        },
+        {
+          "title": "Registration deadline extended: Register by June 15 for ALSO - Alternative Lehramtspraktikum in the 2026/27 school year — Studies — TU Dresden",
+          "url": "https://tu-dresden.de/studium/im-studium/news-im-studium/einschreiben-fuer-also-alternatives-lehramtspraktikum-im-schuljahr-2026-27-bis-15-juni?set_language=en",
+          "excerpt": "Registration deadline extended: Register by June 15 for ALSO - Alternative Lehramtspraktikum in the 2026/27 school year — Studies — TU Dresden\n\n*   [Skip to main navigation](https://tu-dresden.de/studium/im-studium/news-im-studium/einschreiben-fuer-also-alternatives-lehramtspraktikum-im-schuljahr-2026-27-bis-15-juni?set_language=en#navigation-panel) [Skip to main navigation](https://tu-dresden.de/"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "large city university",
+    "domain": "uni-hamburg.de",
+    "institution_typed": "Universität Hamburg",
+    "roles_signed_up": [
+      "Admissions",
+      "Admissions",
+      "Finance"
+    ],
+    "call_requested": false,
+    "colleagues": 3,
+    "webhook": 200,
+    "execution_id": 19,
+    "status": "success",
+    "seconds": 113,
+    "stopped_at_threshold": false,
+    "verified": true,
+    "linkedin_name": "University of Hamburg",
+    "employees": 5772,
+    "posts": 20,
+    "news": 4,
+    "roles_found": 0,
+    "pain_hits": 5,
+    "voice_hits": 0,
+    "dropped_hits": 5,
+    "score": 85,
+    "auto_email": true,
+    "to_human": true,
+    "handoff_reason": "Hot lead (score 85)",
+    "angle": "Weniger eingetretene Studierende verpassen den Start des Semesters dank sichergestellter Finanzierung.",
+    "pain_evidence": "3 Signale zeigen, dass die Universität Hamburg Anmeldefristen verlängert hat, was auf unbesetzte Plätze hinweist. Es wurden 5 Seiten auf ihrer Website gefunden, die dies bestätigen.",
+    "news_summary": "Die Universität Hamburg hat sich im Times Higher Education World University Ranking verbessert und gehört nun zu den Top 10 in Deutschland. Sie hat kürzlich die EQUIS-Akkreditierung für ihre Wirtschaftswissenschaftliche Fakultät erneuert und veranstaltet das EUGLOH Annual Summit 2026.",
+    "buying_committee": [
+      "Admissions",
+      "Finance"
+    ],
+    "score_reasons": [
+      "Erweiterte Anmeldefristen (unbesetzte Plätze)",
+      "Wintersemester 2026/27 begonnen, aber eingetretene Studierende ohne Finanzierung verpassen den Start",
+      "3 Kollegen aus 2 unterschiedlichen Rollen (Admissions, Finance) haben sich angemeldet"
+    ],
+    "email_subject": "Vielen Dank für Ihre Anmeldung bei Kredible",
+    "email_html": "<p>Hallo {first_name},</p>\n<p>Vielen Dank, dass Sie sich für Kredible interessieren! Ich sehe, dass auch Kollegen von Ihnen aus der Universität Hamburg sich angemeldet haben. Kredible finanziert die Sperrkonten, Studiengebühren und Lebenshaltungskosten für nicht-EU-Studierende, sodass Sie weniger eingetretene Studierende verlieren und einen breiteren Talentpool anziehen, ohne dass die Universität Kosten oder Risiken trägt.</p>\n<p>Ich würde mich freuen, Ihnen in einem 20-minütigen Gespräch mehr darüber zu erzählen. Lassen Sie mich wissen, wann es Ihnen passt!</p>\n<p>Beste Grüße,<br>[Your Name]</p>\n<p>Antworten Sie mit STOP, um sich abzumelden.</p>",
+    "context": {
+      "company": {
+        "name": "University of Hamburg",
+        "id": "13488",
+        "website": "http://www.uni-hamburg.de/",
+        "linkedinUrl": "https://www.linkedin.com/school/unihamburg/",
+        "employeeCount": 5772,
+        "industries": [
+          {
+            "id": "70",
+            "name": "Research Services",
+            "urn": "urn:li:fsd_industryV2:70",
+            "title": "Research Services",
+            "hierarchy": "Professional Services > Research Services"
+          }
+        ],
+        "specialities": [
+          "Research and teaching in various fields"
+        ],
+        "tagline": "DER FORSCHUNG I DER LEHRE I DER BILDUNG",
+        "description": "With about 44,000 students, the University of Hamburg is one of Germany's largest universities. Approximately 650 of the 3,990 academic staff are full professors. About 120 professors work in the Faculty of Medicine or at the University Clinic Hamburg-Eppendorf (UKE), about 530 work in the other faculties. These are supported by about 5,820 employees working in technical support, libraries, laboratories, health care and administration, with about 3,830 people at the UKE and about 1,990 in the other faculties or the administration. The university is comprised of 150 different buildings throughout the city although its main campus is located in Von-Melle-Park and the surrounding district of Eimsbüttel.\n\nFollow us on our other channels as well. You can find the University of Hamburg on:\nFacebook: facebook.com/unihamburg\nInstagram: instagram.com/unihamburg\nBluesky: bsky.app/profile/uni-hamburg.de\nYouTube: youtube.com/unihamburg \n\nRegister here for the University of Hamburg alumni network: uni-hamburg.de/alumni\n____________________________________\n\nOfficial LinkedIn page of the University of Hamburg | Legal notice: uhh.de/impressum\n\nUniversity of Hamburg\nMittelweg 177\n20148 Hamburg\nGermany\nTel.: +49 40 42838-0\n\nEditorial Responsibility in accordance with §5 TMG und § 55 Abs. 2 RStV:\nDepartment 2: Communication and Marketing\nKatrin Greve\nTel.: +49 40 2395-22968\nE-Mail: medien@uni-hamburg.de\nRechtsform und gesetzliche Vertretung\n\nLegal form and representation\nUniversity of Hamburg i",
+        "locations": [
+          "Hamburg"
+        ]
+      },
+      "roles": [
+        "Admissions",
+        "Admissions",
+        "Finance"
+      ],
+      "notes": [
+        "Universität Hamburg",
+        "Universität Hamburg",
+        "Universität Hamburg"
+      ],
+      "topPosts": [
+        {
+          "text": "Top 10 in Deutschland 👏 Die Uni Hamburg gehört im Times Higher Education World University Ranking erstmals zu den besten zehn Universitäten in Deutschland.\n \nIm diesjährigen Ranking konnte sich die Universität Hamburg in allen Indikatoren verbessern. Insbesondere in der Forschungsqualität steigerte sich die UHH um 0,7 Punkte und ist nun mit 87,8 Punkten auf Rang 8 in Deutschland (vergangenes Jahr",
+          "engagement": 614
+        },
+        {
+          "text": "That’s a wrap! 👏  \n \nTwo days, around 300 participants, countless conversations and new connections: Here are some impressions from the EUGLOH Annual Summit 2026 at the University of Hamburg.\n \nA huge thank you to everyone who joined us – our colleagues from the EUGLOH member universities as well as our partners from across the city and beyond – and to everyone who contributed to the program. It ",
+          "engagement": 233
+        },
+        {
+          "text": "Welcome to Hamburg, EUGLOH! 🌍\n\nThis week, the University of Hamburg will host around 300 participants for the EUGLOH Annual Summit 2026, bringing colleagues from across the EUGLOH Alliance and partners in Hamburg together.\n\nUnder the motto “Science and the City: Exploring Pathways for Global Health Innovation,” participants will discuss the future of collaboration in research, education and knowl",
+          "engagement": 227
+        },
+        {
+          "text": "160 Vorträge, kostenlos und frei zugänglich: Am 12. Oktober starten wieder die Öffentlichen Vorlesungen der Uni Hamburg! 💬\n\nAuch dieses Wintersemester werden die großen Fragen unserer Zeit zu diskutiert: Themen sind etwa Krieg und Frieden, gesellschaftlicher Wandel und Zusammenhalt.\n\n🌈 Ein weiterer Schwerpunkt liegt auf Rassismus, Diskriminierung und gesellschaftlicher Vielfalt. Die Ringvorlesun",
+          "engagement": 154
+        },
+        {
+          "text": "University of Hamburg Business School: EQUIS Accreditation Renewed ✨\n \nWe’re proud to share that the University of Hamburg Business School has successfully renewed its prestigious EQUIS accreditation—a recognition of our commitment to excellence in research and education. The accreditation is one of two leading, international accreditations for business schools.\n \n🔍 External Review & Decision\nAs ",
+          "engagement": 133
+        },
+        {
+          "text": "Wenn ein Krankenhaus übernommen wird, ändert sich dann die Versorgungsqualität? 🏥\n\n🫀 Forschung zeigt: In solchen Krankenhäusern sinkt die Sterblichkeit nach der Behandlung mit Herzinfarkt, nicht aber nach Schlaganfällen. Warum das?\n\n🤝 „Herzinfarktversorgung hängt stark von gut standardisierter Infrastruktur ab – ein Herzkatheterlabor wirkt vergleichsweise schnell. Schlaganfallversorgung braucht",
+          "engagement": 128
+        },
+        {
+          "text": "Das war der Tag der Wissenssicherheit! 🔐\n\nWie forschen wir, wenn sich Politik und Gesellschaft ständig verändern? Wie bleibt die Wissenschaft offen, ohne sich in Gefahr zu bringen? Und wie schützt die Uni Hamburg ihr Wissen ganz konkret?\n\n💡 Um diese Fragen ging es am 23. September an der Uni Hamburg. Nach der Begrüßung durch Vizepräsident Tilo Böhmann und einem Impulsvortrag von der Direktorin d",
+          "engagement": 85
+        },
+        {
+          "text": "Most researchers are trained to ask what is scientifically true, not what problem it solves for someone else. 🔍\n\nThat's often where promising research gets stuck. The leap from lab to market, customer and business thinking feels far removed from everyday academic work.\n\nThat's exactly the gap iF Pioneers Idea Lab is built to close. And we're opening applications now in collaboration with Startup ",
+          "engagement": 71
+        }
+      ],
+      "roleTitles": [],
+      "news": [
+        {
+          "title": "Google Maps",
+          "url": "https://www.google.com/maps/search/university/@53.553,9.96548,15z",
+          "excerpt": "Google Maps"
+        },
+        {
+          "title": "Top Universities in Hamburg for International Students",
+          "url": "https://www.expatrio.com/about-germany/top-universities-in-hamburg-for-international-students",
+          "excerpt": "Top Universities in Hamburg for International Students\n\n[Skip to content](https://www.expatrio.com/about-germany/top-universities-in-hamburg-for-international-students#main-content)\n\n[**News just in: Get your free Expatrio Bank Account with the Value Package.**](https://www.expatrio.com/xp/?hsLang=en#/exploration-redirect?package=VALUE_PACKAGE)\n\n[Help Center](https://help.expatrio.com/hc/en-us) [Careers](https://www.expatrio.com/careers?hsLang=en) [Partners](https://www.expatrio.com/partner/#/login) [Log In](https://www.expatrio.com/xp/#/login)\n\n[![expatrio-logo-color](https://www.expatrio.com"
+        },
+        {
+          "title": "Degree Programs : UHH : University of Hamburg",
+          "url": "https://www.uni-hamburg.de/en/campuscenter/studienangebot.html",
+          "excerpt": "Degree Programs : UHH : University of Hamburg\n\n*   [Zur Metanavigation](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#meta)\n*   [Zur Hauptnavigation](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#nav)\n*   [Zur Suche](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#suche)\n*   [Zum Inhalt](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#inhalt)\n*   [Zur Subnavigation](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#subnav)\n*   [Zum Seitenfuß](https://www.uni-hamburg.de/en/campuscenter/studienangebot.html#fuss)\n\n[![Uni"
+        },
+        {
+          "title": "Mapy.com",
+          "url": "https://mapy.com/en/?source=osm&id=1056204516",
+          "excerpt": "Mapy.com"
+        }
+      ],
+      "painSignal": [
+        {
+          "title": "J. P. Gumbert Dissertation Award 2022: Deadline Extended : CSMC : University of Hamburg",
+          "url": "https://www.csmc.uni-hamburg.de/news/2022-02-01-gumbert-award-deadline-extended.html",
+          "excerpt": "J. P. Gumbert Dissertation Award 2022: Deadline Extended : CSMC : University of Hamburg\n\n*   [Zur Metanavigation](https://www.csmc.uni-hamburg.de/news/2022-02-01-gumbert-award-deadline-extended.html#meta)\n*   [Zur Hauptnavigation](https://www.csmc.uni-hamburg.de/news/2022-02-01-gumbert-award-deadline-extended.html#nav)\n*   [Zur Suche](https://www.csmc.uni-hamburg.de/news/2022-02-01-gumbert-award-d"
+        },
+        {
+          "title": "Orientierungspraktikum im Ausland: Bewerbungsfrist verlängert bis 05.07.! : Fakultät für Erziehungswissenschaft : Universität Hamburg",
+          "url": "https://www.ew.uni-hamburg.de/internationales/aktuelles-intern/2026/dicot-bewerbungsphase-ankuendigung.html",
+          "excerpt": "Orientierungspraktikum im Ausland: Bewerbungsfrist verlängert bis 05.07.! : Fakultät für Erziehungswissenschaft : Universität Hamburg\n\n*   [Zur Metanavigation](https://www.ew.uni-hamburg.de/internationales/aktuelles-intern/2026/dicot-bewerbungsphase-ankuendigung.html#meta)\n*   [Zur Hauptnavigation](https://www.ew.uni-hamburg.de/internationales/aktuelles-intern/2026/dicot-bewerbungsphase-ankuendigu"
+        },
+        {
+          "title": "Call for Applications: Postdoc Position - DEADLINE EXTENDED : MCAS : University of Hamburg",
+          "url": "https://www.maimonides-centre.uni-hamburg.de/news-container/jobs/2021-research-associate.html",
+          "excerpt": "Call for Applications: Postdoc Position - DEADLINE EXTENDED : MCAS : University of Hamburg\n\n*   [Zur Metanavigation](https://www.maimonides-centre.uni-hamburg.de/news-container/jobs/2021-research-associate.html#meta)\n*   [Zur Hauptnavigation](https://www.maimonides-centre.uni-hamburg.de/news-container/jobs/2021-research-associate.html#nav)\n*   [Zur Suche](https://www.maimonides-centre.uni-hamburg."
+        },
+        {
+          "title": "\"Intercontinental Teacher Education\" (ITE): Bewerbungsfrist verlängert bis 19.07! : internationales_alt : Universität Hamburg",
+          "url": "https://www.ew.uni-hamburg.de/internationales/internationales_alt/aktuelles/ite-bewerbungsphase-ankuendigung.html",
+          "excerpt": "\"Intercontinental Teacher Education\" (ITE): Bewerbungsfrist verlängert bis 19.07! : internationales\\_alt : Universität Hamburg\n\n*   [Zur Metanavigation](https://www.ew.uni-hamburg.de/internationales/internationales_alt/aktuelles/ite-bewerbungsphase-ankuendigung.html#meta)\n*   [Zur Hauptnavigation](https://www.ew.uni-hamburg.de/internationales/internationales_alt/aktuelles/ite-bewerbungsphase-ankue"
+        },
+        {
+          "title": "Bewerbungsfrist verlängert: Ausschreibung Wissenschaftliche:r Mitarbeiter:in Nonprofit Management : Professur für BWL, insb. Management von Öffentlichen, Privat",
+          "url": "https://www.wiso.uni-hamburg.de/fachbereich-sozoek/professuren/boenigk/ueber-uns/aktuelles/2024/2024-04-ausschreibung-wimi-npo.html",
+          "excerpt": "Bewerbungsfrist verlängert: Ausschreibung Wissenschaftliche:r Mitarbeiter:in Nonprofit Management : Professur für BWL, insb. Management von Öffentlichen, Privaten & Nonprofit Organisationen : Universität Hamburg\n\n*   [Zur Metanavigation](https://www.wiso.uni-hamburg.de/fachbereich-sozoek/professuren/boenigk/ueber-uns/aktuelles/2024/2024-04-ausschreibung-wimi-npo.html#meta)\n*   [Zur Hauptnavigation"
+        }
+      ],
+      "customerVoice": []
+    },
+    "node_errors": {},
+    "item_errors": {}
+  },
+  {
+    "case": "threshold not reached",
+    "domain": "uni-heidelberg.de",
+    "institution_typed": "Universität Heidelberg",
+    "roles_signed_up": [
+      "International office",
+      "Finance"
+    ],
+    "call_requested": false,
+    "colleagues": 2,
+    "webhook": 200,
+    "execution_id": 20,
+    "status": "success",
+    "seconds": 0,
+    "stopped_at_threshold": true,
+    "verified": null,
+    "linkedin_name": null,
+    "employees": null,
+    "posts": null,
+    "news": 0,
+    "roles_found": 0,
+    "pain_hits": 0,
+    "voice_hits": 0,
+    "dropped_hits": null,
+    "score": null,
+    "auto_email": null,
+    "to_human": null,
+    "handoff_reason": null,
+    "angle": null,
+    "pain_evidence": null,
+    "news_summary": null,
+    "buying_committee": null,
+    "score_reasons": null,
+    "email_subject": null,
+    "email_html": null,
+    "context": {
+      "company": null,
+      "roles": null,
+      "notes": null,
+      "topPosts": null,
+      "roleTitles": null,
+      "news": null,
+      "painSignal": null,
+      "customerVoice": null
+    },
+    "node_errors": {},
+    "item_errors": {}
+  }
+]
