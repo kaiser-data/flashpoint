@@ -2,7 +2,7 @@
   "name": "Flashpoint · Eval (LLM as a judge)",
   "nodes": [
     {
-      "id": "5791dbd9-8c33-48d9-aa3b-6a6a655531f5",
+      "id": "af001fe4-e348-4617-a773-82f5432173ff",
       "name": "Run evaluation now",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -13,7 +13,7 @@
       "parameters": {}
     },
     {
-      "id": "2af4bbc5-e912-44a3-8d4a-abbeea4de610",
+      "id": "a52e2466-a045-4e62-a442-892731a98e3f",
       "name": "Every day at 18:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -32,7 +32,7 @@
       }
     },
     {
-      "id": "a98644fd-6735-4a32-a1d4-a1c6f3f1db0f",
+      "id": "d50e6bb2-2eca-4ce8-8727-22137699a644",
       "name": "Read analyses",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -66,7 +66,7 @@
       "onError": "continueRegularOutput"
     },
     {
-      "id": "e1aafe48-1d87-44d4-8888-6c3d3de78588",
+      "id": "63b2748a-d42c-45f8-ab75-139075c1d2cc",
       "name": "Read evals",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -100,7 +100,7 @@
       "onError": "continueRegularOutput"
     },
     {
-      "id": "41af534e-55da-4114-9f37-f73ad02bcee1",
+      "id": "14bdc0c3-6ea8-4d41-ac2b-6b1eb8076852",
       "name": "Select unjudged",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -113,7 +113,7 @@
       }
     },
     {
-      "id": "7649aac2-edf2-414d-a9f8-27e35a3162f3",
+      "id": "bdd31faa-764d-45d6-9c5c-dc2f2f6925b8",
       "name": "Rule checks",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -129,7 +129,7 @@
       "notesInFlow": true
     },
     {
-      "id": "7543f4c7-b84e-4975-808f-46835d702a3f",
+      "id": "c0f57b14-6401-4348-8bcc-f6f1d40ed0d5",
       "name": "LLM judge",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -166,7 +166,7 @@
       "notesInFlow": true
     },
     {
-      "id": "bab0e203-e035-4b99-9290-d6a9971d9d53",
+      "id": "54d43ed2-6fd0-4076-8786-b4c9eb1ec9c8",
       "name": "Parse verdict",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -180,7 +180,7 @@
       }
     },
     {
-      "id": "6a0b7617-edfe-4b4e-a706-38df43794684",
+      "id": "6b9b63fe-0efe-4a7a-9b37-b5ea64c955fc",
       "name": "Write to Evals tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -218,7 +218,7 @@
       "onError": "continueRegularOutput"
     },
     {
-      "id": "a46a89c0-8230-485f-9d00-6d5dd792b286",
+      "id": "1ecfa5ec-7e87-4123-8c54-8c554935143a",
       "name": "Build report",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -232,7 +232,7 @@
       "executeOnce": true
     },
     {
-      "id": "cb75e1e6-f873-42aa-b137-919fa7f1bea0",
+      "id": "a6c8f9d9-d137-4df1-bb91-182045632a6c",
       "name": "Anything judged?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -250,7 +250,7 @@
           },
           "conditions": [
             {
-              "id": "330d9c73-3d67-4778-8ae7-883d68916fde",
+              "id": "a7e0ae71-85db-4107-b091-c70b2f723494",
               "leftValue": "={{ $json.skip }}",
               "rightValue": "",
               "operator": {
@@ -266,7 +266,7 @@
       }
     },
     {
-      "id": "144e764b-cda2-4c8b-b4c1-33a92c71e5e1",
+      "id": "c1df185c-d29e-4bdb-ac36-e99ebc0f8dd2",
       "name": "E-mail eval team",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -293,7 +293,7 @@
       }
     },
     {
-      "id": "97aaef44-399c-4028-8fa0-7064ebcedfb1",
+      "id": "b005634d-baf6-4d9b-996f-008e2f3691e7",
       "name": "About Eval",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -309,7 +309,7 @@
       }
     },
     {
-      "id": "593d14c4-064c-4550-ae61-b7b4304fdfe6",
+      "id": "28fc6ab0-fbdc-46c1-b1eb-a55437fae3c2",
       "name": "1 · Load",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -325,7 +325,7 @@
       }
     },
     {
-      "id": "5c317266-0445-4599-9abf-02db18aece4e",
+      "id": "bd27348d-26c5-407f-8621-29c5410585b9",
       "name": "2 · Grade",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -341,7 +341,7 @@
       }
     },
     {
-      "id": "c4db1e2e-6463-4d5d-b735-e464fa9a912f",
+      "id": "e0b2900d-5897-4faf-aba4-d187ccd98824",
       "name": "3 · Report",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

@@ -8,7 +8,7 @@ import json, os, uuid
 # ============================ CONFIG: change only this block per use case ============================
 WORKFLOW_NAME = "Flashpoint · Kredible (universities)"
 WEBHOOK_PATH = "critical-mass"
-SALES_EMAIL = os.environ.get("SALES_EMAIL") or "sales@example.com"                  # receives briefings and hot replies
+SALES_EMAIL = ",".join(x.strip() for x in [os.environ.get("SALES_EMAIL") or "sales@example.com", *os.environ.get("SALES_TEAM", "").split(",")] if x.strip())                  # receives briefings and hot replies
 FEATHERLESS_MODEL = os.environ.get("FEATHERLESS_MODEL") or "Qwen/Qwen2.5-72B-Instruct"     # exact id from the Featherless model catalogue
 THRESHOLD = 3                                       # same value as THRESHOLD in the Apps Script
 HOT_SCORE = 70                                      # hand to a human at or above this score
