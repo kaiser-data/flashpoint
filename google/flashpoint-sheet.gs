@@ -1,5 +1,5 @@
 /**
- * Groundswell: watches a Google Sheet and sends a company to n8n
+ * Flashpoint: watches a Google Sheet and sends a company to n8n
  * when THRESHOLD different people from the same e-mail domain have signed up.
  *
  * Works for rows from any source: Google Form, Lovable/Zapier via API, manual entry.
@@ -12,7 +12,7 @@
  * Run installTriggers() once.
  */
 
-const STATUS_HEADER = 'Groundswell status';
+const STATUS_HEADER = 'Flashpoint status';
 const FREEMAIL = new Set(['gmail.com', 'googlemail.com', 'gmx.de', 'gmx.net', 'web.de', 'yahoo.com', 'yahoo.de',
   'outlook.com', 'outlook.de', 'hotmail.com', 'hotmail.de', 'live.com', 'icloud.com', 'me.com', 't-online.de',
   'posteo.de', 'mailbox.org', 'proton.me', 'protonmail.com', 'aol.com', 'freenet.de']);

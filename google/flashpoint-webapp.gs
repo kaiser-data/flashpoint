@@ -1,5 +1,5 @@
 /**
- * Groundswell: landing page form -> Google Sheet -> n8n
+ * Flashpoint: landing page form -> Google Sheet -> n8n
  * Script Properties: N8N_WEBHOOK_URL, N8N_SECRET, THRESHOLD (e.g. 5), FORM_TOKEN (optional)
  */
 const SHEET_NAME = 'Signups';
