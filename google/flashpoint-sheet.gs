@@ -18,6 +18,20 @@ const FREEMAIL = new Set(['gmail.com', 'googlemail.com', 'gmx.de', 'gmx.net', 'w
   'posteo.de', 'mailbox.org', 'proton.me', 'protonmail.com', 'aol.com', 'freenet.de']);
 const MULTI = new Set(['co.uk', 'com.au', 'co.at', 'ac.uk']);
 
+// Run this first: shows which properties are set (never their values) and which columns were recognised.
+function checkSetup() {
+  const props = PropertiesService.getScriptProperties();
+  ['SHEET_ID', 'N8N_WEBHOOK_URL', 'N8N_SECRET', 'THRESHOLD', 'SHEET_NAME'].forEach(k =>
+    console.log(k + ': ' + (props.getProperty(k) ? 'set' : (k === 'SHEET_NAME' ? 'not set (uses first tab)' : 'MISSING'))));
+  const sheet = openSheet_();
+  console.log('Spreadsheet: ' + sheet.getParent().getName() + ' / tab: ' + sheet.getName() + ' / rows: ' + Math.max(sheet.getLastRow() - 1, 0));
+  const header = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0].map(String);
+  const find = (re) => { const i = header.findIndex(h => h !== STATUS_HEADER && re.test(h)); return i === -1 ? '(not found)' : '"' + header[i] + '"'; };
+  console.log('E-mail column: ' + find(/mail/i) + '  <- required');
+  console.log('Role: ' + find(/role|rolle|position|function/i) + ' | Organisation: ' + find(/institution|university|universität|hochschule|company|firma|organi[sz]ation/i));
+  console.log('Call request: ' + find(/partner|call|meeting|termin|demo/i) + ' | Consent: ' + find(/consent|einwilligung|agree|zustimm|datenschutz/i) + ' | City: ' + find(/city|stadt|location|standort|\bort\b/i));
+}
+
 function installTriggers() {
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
   const ss = openSheet_().getParent();
