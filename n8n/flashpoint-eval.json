@@ -1,0 +1,480 @@
+{
+  "name": "Flashpoint · Eval (LLM as a judge)",
+  "nodes": [
+    {
+      "id": "5791dbd9-8c33-48d9-aa3b-6a6a655531f5",
+      "name": "Run evaluation now",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "2af4bbc5-e912-44a3-8d4a-abbeea4de610",
+      "name": "Every day at 18:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        420
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "a98644fd-6735-4a32-a1d4-a1c6f3f1db0f",
+      "name": "Read analyses",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Analyses"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "e1aafe48-1d87-44d4-8888-6c3d3de78588",
+      "name": "Read evals",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Evals"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "41af534e-55da-4114-9f37-f73ad02bcee1",
+      "name": "Select unjudged",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\n// Analyses that have not been judged yet (max 20 per run to stay inside the model's concurrency).\nconst judged = new Set($('Read evals').all().map(i => String(i.json.analysis_id || '')).filter(Boolean));\nreturn $('Read analyses').all().map(i => i.json)\n  .filter(r => r.analysis_id && !judged.has(String(r.analysis_id)))\n  .slice(0, 20).map(r => ({ json: r }));\n"
+      }
+    },
+    {
+      "id": "7649aac2-edf2-414d-a9f8-27e35a3162f3",
+      "name": "Rule checks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\n// Deterministic checks. No model involved, so these are the hard floor of quality.\nconst r = $input.item.json;\nconst email = String(r.email_html || '');\nconst urls = String(r.evidence_urls || '').split(/\\s+/).filter(Boolean);\nconst score = Number(r.score);\nconst checks = {\n  stop_line_present: /STOP/.test(email) || email === '',\n  no_email_addresses_in_text: !/[\\w.+-]+@[\\w-]+\\.[\\w.]+/.test(email),\n  email_length_ok: email === '' || (email.length >= 300 && email.length <= 4000),\n  score_in_range: Number.isFinite(score) && score >= 0 && score <= 100,\n  high_score_has_reasons: !(score >= 70) || String(r.score_reasons || '').split('|').filter(s => s.trim()).length >= 2,\n  pain_claim_has_evidence: !/\\b[1-9]\\d* hits?\\b/i.test(String(r.pain_evidence || '')) || urls.some(u => u.includes(String(r.domain)) || u.includes('reddit.com')),\n  auto_email_only_if_verified: !String(r.decision).includes('auto-email') || r.linkedin_verified === 'yes',\n};\nconst failures = Object.entries(checks).filter(([, ok]) => !ok).map(([k]) => k);\nreturn { json: { ...r, rule_failures: failures, rule_checks_passed: Object.keys(checks).length - failures.length,\n                 rule_checks_total: Object.keys(checks).length } };\n"
+      },
+      "notes": "7 deterministic checks: STOP line, no e-mail addresses, evidence behind claims ...",
+      "notesInFlow": true
+    },
+    {
+      "id": "7543f4c7-b84e-4975-808f-46835d702a3f",
+      "name": "LLM judge",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.featherless.ai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'deepseek-ai/DeepSeek-V3-0324', temperature: 0, max_tokens: 700, messages: [{ role: 'system', content: \"You are a strict evaluator of B2B sales research produced by an AI agent. You get the CONTEXT the agent saw and the ANALYSIS it wrote. Grade each criterion from 1 (bad) to 5 (excellent): groundedness (every claim in the analysis is supported by the CONTEXT; invented facts or counts are a 1), relevance (the analysis is about this organisation and this product, not something else), actionability (a salesperson knows what to do next), email_quality (clear, specific, polite, right language, not pushy), compliance (no personal data of third parties, contains an unsubscribe line, no false promises), calibration (the 0-100 score matches the evidence; a high score with weak evidence is a 1). Return ONLY JSON: {\\\"groundedness\\\":int,\\\"relevance\\\":int,\\\"actionability\\\":int,\\\"email_quality\\\":int,\\\"compliance\\\":int,\\\"calibration\\\":int,\\\"issues\\\":string[],\\\"comment\\\":string}.\" }, { role: 'user', content: 'CONTEXT:\\n' + String($json.context_json).slice(0, 14000) + '\\n\\nANALYSIS:\\n' + JSON.stringify({ domain: $json.domain, organisation: $json.organisation, score: $json.score, decision: $json.decision, angle: $json.angle, news_summary: $json.news_summary, pain_evidence: $json.pain_evidence, culture: $json.culture, structure: $json.structure, buying_committee: $json.buying_committee, score_reasons: $json.score_reasons, email_subject: $json.email_subject, email_html: $json.email_html }) }] }) }}",
+        "options": {
+          "timeout": 180000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Featherless (Authorization: Bearer <key>)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "Judge model: deepseek-ai/DeepSeek-V3-0324",
+      "notesInFlow": true
+    },
+    {
+      "id": "bab0e203-e035-4b99-9290-d6a9971d9d53",
+      "name": "Parse verdict",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\n// Combine the judge's grades with the rule checks into one verdict per analysis.\nconst row = $('Rule checks').item.json;\nconst raw = $input.item.json.choices?.[0]?.message?.content ?? '';\nlet j = null;\ntry { j = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)); } catch (e) {}\nconst dims = ['groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration'];\nconst g = Object.fromEntries(dims.map(k => [k, j && Number.isFinite(+j[k]) ? Math.max(1, Math.min(5, +j[k])) : null]));\nconst vals = dims.map(k => g[k]).filter(v => v !== null);\nconst overall = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length * 10) / 10 : null;\nconst verdict = !j ? 'judge-error'\n  : (row.rule_failures.length === 0 && overall >= 3.5 && g.groundedness >= 3 && g.compliance >= 4) ? 'pass' : 'fail';\nreturn { json: {\n  analysis_id: row.analysis_id, judged_at: new Date().toISOString(), domain: row.domain, judge_model: 'deepseek-ai/DeepSeek-V3-0324',\n  ...g, llm_overall: overall ?? '',\n  rule_checks_passed: row.rule_checks_passed + '/' + row.rule_checks_total, rule_failures: row.rule_failures.join(', '),\n  verdict, issues: (j?.issues || []).join(' | '), judge_comment: j?.comment ?? raw.slice(0, 300),\n}};\n"
+      }
+    },
+    {
+      "id": "6a0b7617-edfe-4b4e-a706-38df43794684",
+      "name": "Write to Evals tab",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1820,
+        200
+      ],
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Evals"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "a46a89c0-8230-485f-9d00-6d5dd792b286",
+      "name": "Build report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1820,
+        420
+      ],
+      "parameters": {
+        "jsCode": "\n// One summary e-mail for the eval team.\nconst rows = $('Parse verdict').all().map(i => i.json);\nif (!rows.length) return [{ json: { skip: true } }];\nconst dims = ['groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration'];\nconst avg = (k) => { const v = rows.map(r => +r[k]).filter(Number.isFinite); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(1) : 'n/a'; };\nconst pass = rows.filter(r => r.verdict === 'pass').length;\nconst fails = {};\nrows.forEach(r => String(r.rule_failures || '').split(', ').filter(Boolean).forEach(f => fails[f] = (fails[f] || 0) + 1));\nconst worst = [...rows].sort((a, b) => (+a.llm_overall || 0) - (+b.llm_overall || 0)).slice(0, 3);\nconst html = `\n<h2>Flashpoint eval: ${pass}/${rows.length} analyses passed</h2>\n<p>Judge: deepseek-ai/DeepSeek-V3-0324 (a different model family from the analyst). Pass = all rule checks green, average grade at least 3.5, groundedness at least 3, compliance at least 4.</p>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse\">\n<tr><th>Criterion</th><th>Average (1-5)</th></tr>\n${dims.map(k => `<tr><td>${k}</td><td>${avg(k)}</td></tr>`).join('')}\n</table>\n<h3>Rule check failures</h3>\n<ul>${Object.entries(fails).map(([k, v]) => `<li>${k}: ${v}</li>`).join('') || '<li>none</li>'}</ul>\n<h3>Weakest analyses</h3>\n<ul>${worst.map(r => `<li><b>${r.domain}</b> (${r.llm_overall}, ${r.verdict}): ${r.issues || r.judge_comment}</li>`).join('')}</ul>\n<p>All rows are in the <b>Evals</b> tab of the sign-up sheet.</p>`;\nreturn [{ json: { subject: `Flashpoint eval: ${pass}/${rows.length} passed`, html } }];\n"
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "cb75e1e6-f873-42aa-b137-919fa7f1bea0",
+      "name": "Anything judged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2040,
+        420
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "330d9c73-3d67-4778-8ae7-883d68916fde",
+              "leftValue": "={{ $json.skip }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "notTrue",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "144e764b-cda2-4c8b-b4c1-33a92c71e5e1",
+      "name": "E-mail eval team",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2260,
+        400
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "eval-team@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail (set me)"
+        }
+      }
+    },
+    {
+      "id": "97aaef44-399c-4028-8fa0-7064ebcedfb1",
+      "name": "About Eval",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -300
+      ],
+      "parameters": {
+        "content": "# Flashpoint · Eval (LLM as a judge)\nChecks how well the agent performs. Every analysis logged by the main workflow is graded twice: by **7 hard rule checks** in code and by a **judge model from a different model family**, so the analyst never grades itself. Results go to the **Evals** tab and a summary e-mail.",
+        "width": 1240,
+        "height": 240,
+        "color": 7
+      }
+    },
+    {
+      "id": "593d14c4-064c-4550-ae61-b7b4304fdfe6",
+      "name": "1 · Load",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        80
+      ],
+      "parameters": {
+        "content": "## 1 · Load\nRuns daily at 18:00 or on demand. Reads the **Analyses** and **Evals** tabs and keeps only analyses that were not judged yet.",
+        "width": 1000,
+        "height": 460,
+        "color": 4
+      }
+    },
+    {
+      "id": "5c317266-0445-4599-9abf-02db18aece4e",
+      "name": "2 · Grade",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        80
+      ],
+      "parameters": {
+        "content": "## 2 · Grade\n**Rule checks** (no model): unsubscribe line, no e-mail addresses, evidence behind claims, score range, reasons for high scores, auto e-mail only when verified.\n**LLM judge**: groundedness, relevance, actionability, e-mail quality, compliance, calibration (1-5).",
+        "width": 680,
+        "height": 460,
+        "color": 6
+      }
+    },
+    {
+      "id": "c4db1e2e-6463-4d5d-b735-e464fa9a912f",
+      "name": "3 · Report",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        80
+      ],
+      "parameters": {
+        "content": "## 3 · Report\nPass = all rules green, average at least 3.5, groundedness at least 3, compliance at least 4. Rows go to **Evals**; the team gets averages, rule failures and the three weakest analyses.",
+        "width": 720,
+        "height": 460,
+        "color": 2
+      }
+    }
+  ],
+  "connections": {
+    "Run evaluation now": {
+      "main": [
+        [
+          {
+            "node": "Read analyses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every day at 18:00": {
+      "main": [
+        [
+          {
+            "node": "Read analyses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read analyses": {
+      "main": [
+        [
+          {
+            "node": "Read evals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read evals": {
+      "main": [
+        [
+          {
+            "node": "Select unjudged",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select unjudged": {
+      "main": [
+        [
+          {
+            "node": "Rule checks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rule checks": {
+      "main": [
+        [
+          {
+            "node": "LLM judge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM judge": {
+      "main": [
+        [
+          {
+            "node": "Parse verdict",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse verdict": {
+      "main": [
+        [
+          {
+            "node": "Write to Evals tab",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build report": {
+      "main": [
+        [
+          {
+            "node": "Anything judged?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anything judged?": {
+      "main": [
+        [
+          {
+            "node": "E-mail eval team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

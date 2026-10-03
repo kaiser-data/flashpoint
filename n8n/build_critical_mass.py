@@ -6,7 +6,7 @@ Edit the constants, run `python3 build_agent.py`, import the JSON into n8n."""
 import json, os, uuid
 
 # ============================ CONFIG: change only this block per use case ============================
-WORKFLOW_NAME = "Critical Mass · Kredible universities"
+WORKFLOW_NAME = "Flashpoint · Kredible (universities)"
 WEBHOOK_PATH = "critical-mass"
 SALES_EMAIL = os.environ.get("SALES_EMAIL") or "sales@example.com"                  # receives briefings and hot replies
 FEATHERLESS_MODEL = os.environ.get("FEATHERLESS_MODEL") or "Qwen/Qwen2.5-72B-Instruct"     # exact id from the Featherless model catalogue
@@ -81,7 +81,7 @@ return [{ json: {
   colleague_emails: signup.colleague_emails,
   verified: Boolean(match),
   company: match ? {
-    name: match.name, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,
+    name: match.name, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,
     industries: match.industries, specialities: match.specialities, tagline: match.tagline,
     description: String(match.description || '').slice(0, 1500),
     locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),
@@ -103,11 +103,17 @@ const news = $('Latest news').all().map(i => i.json).filter(n => n && n.metadata
   .map(n => ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);
 const site = $('Website').all().map(i => i.json).find(w => w && w.markdown);
 const website = site ? String(site.markdown).slice(0, 2000) : null;
-const hits = (n) => $(n).all().map(i => i.json).filter(h => h && h.metadata && h.markdown)
-  .map(h => ({ title: h.metadata.title, url: h.metadata.url, excerpt: String(h.markdown).replace(/u\/[A-Za-z0-9_-]+/g, '').slice(0, 400) })).slice(0, 5);
-const painSignal = hits('Pain signal');
-const customerVoice = hits('Customer voice');
-return [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, postsAnalysed: posts.length } }];
+// Search engines sometimes ignore site: filters. Keep only hits that are really about this account.
+const domainRoot = String(base.domain || '').split('.')[0].replace(/-/g, ' ').toLowerCase();
+const names = [String(base.company?.name || '').toLowerCase(), domainRoot].filter(x => x.length > 2);
+const mentions = (h) => names.some(n => (String(h.metadata.title) + ' ' + String(h.markdown)).toLowerCase().includes(n));
+const hits = (n, keep) => $(n).all().map(i => i.json).filter(h => h && h.metadata && h.markdown && keep(h))
+  .map(h => ({ title: String(h.metadata.title).slice(0, 160), url: h.metadata.url,
+               excerpt: String(h.markdown).replace(/u\/[A-Za-z0-9_-]+/g, '').replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, '[e-mail]').slice(0, 400) })).slice(0, 5);
+const painSignal = hits('Pain signal', h => String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || '#none#').replace(/^https?:\/\/(www\.)?/, '').split('/')[0]));
+const customerVoice = hits('Customer voice', h => /reddit\.com/.test(h.metadata.url) && mentions(h));
+const droppedHits = $('Pain signal').all().length + $('Customer voice').all().length - painSignal.length - customerVoice.length;
+return [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];
 '''
 
 analysis_system = (
@@ -187,7 +193,7 @@ nodes = [
         "={{ JSON.stringify({ targetUrls: $json.company ? [$json.company.linkedinUrl] : [], maxPosts: 20 }) }}", [880, 200],
         "$1.50 / 1k posts. Engagement per post; commenters are not stored."),
   apify("Decision-maker roles", "harvestapi/linkedin-company-employees",
-        "={{ JSON.stringify({ profileScraperMode: 'Short ($1.5 per 1k)', maxItems: 15, companies: $('Verify company match').first().json.company ? [$('Verify company match').first().json.company.linkedinUrl] : [], jobTitles: " + json.dumps(DECISION_ROLES).replace('\"', "'") + " }) }}",
+        "={{ JSON.stringify({ profileScraperMode: 'Short ($4 per 1k)', maxItems: 15, companies: $('Verify company match').first().json.company ? [$('Verify company match').first().json.company.linkedinUrl] : [], jobTitles: " + json.dumps(DECISION_ROLES).replace('\"', "'") + " }) }}",
         [1100, 200], "Only job titles reach the LLM (buying committee as roles). Check the exact profileScraperMode value in the actor input."),
   apify("Latest news", "apify/rag-web-browser",
         "={{ JSON.stringify({ query: '\"' + ($('Verify company match').first().json.company?.name || $('Verify company match').first().json.domain) + '\" after:' + new Date(Date.now() - " + str(NEWS_DAYS) + " * 864e5).toISOString().slice(0, 10), maxResults: 5, scrapingTool: 'raw-http', outputFormats: ['markdown'] }) }}",

@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "4c62c224-5202-42b9-9b08-ce25b6a55d6d",
+      "id": "669f9b58-2279-4f2a-914b-b28e796eec8a",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         300
       ],
-      "webhookId": "40a52cf2-8ddf-422a-812c-dd0732a7dffb",
+      "webhookId": "aa3ee235-9a4b-4a97-9066-f807afb07d5b",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -26,12 +26,12 @@
       }
     },
     {
-      "id": "707cb2b4-0895-432a-92b6-c2ba19a0a4f7",
+      "id": "e3d2f879-921e-4e8c-81c6-29f736a42069",
       "name": "Exactly 3 colleagues?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        220,
+        240,
         300
       ],
       "parameters": {
@@ -44,7 +44,7 @@
           },
           "conditions": [
             {
-              "id": "c96e3c19-0cb8-45be-9954-e1b12b75fc49",
+              "id": "2539c534-af67-4cac-a330-179667fe21e4",
               "leftValue": "={{ $json.body.colleagues }}",
               "operator": {
                 "type": "number",
@@ -53,7 +53,7 @@
               "rightValue": 3
             },
             {
-              "id": "679a8ccf-079b-4de1-821c-916774126b14",
+              "id": "d9aa608b-73b8-4135-a189-ee5520da7399",
               "leftValue": "={{ $json.body.company_domain }}",
               "operator": {
                 "type": "string",
@@ -66,15 +66,17 @@
           "combinator": "and"
         },
         "options": {}
-      }
+      },
+      "notes": "Fires once per organisation, on the exact threshold sign-up.",
+      "notesInFlow": true
     },
     {
-      "id": "4d240df9-6412-40cf-a9a1-81063f18e009",
+      "id": "82148c3e-f01d-486a-9848-8554a325fad3",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        440,
+        560,
         300
       ],
       "credentials": {
@@ -101,26 +103,28 @@
       }
     },
     {
-      "id": "98bb8764-c1d5-4809-b503-82e905933d81",
+      "id": "1846218e-2b17-43d3-bace-4e3d9d173105",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        660,
+        780,
         300
       ],
       "parameters": {
         "jsCode": "\n// Accept the LinkedIn match only if its website is the sign-up domain. Otherwise abstain.\nconst signup = $('Form sign-up').first().json.body;\nconst items = $input.all().map(i => i.json).filter(c => c && c.name);\nconst institution = String((signup.notes || [])[0] || '').split(' | ')[0].toLowerCase().trim();\nconst match = items.find(c => String(c.website || '').toLowerCase().includes(signup.company_domain))\n  || (institution ? items.find(c => String(c.name || '').toLowerCase() === institution) : undefined);\nreturn [{ json: {\n  domain: signup.company_domain, city: signup.city, colleagues: signup.colleagues,\n  roles: signup.roles || [], notes: signup.notes || [],\n  partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),\n  colleague_emails: signup.colleague_emails,\n  verified: Boolean(match),\n  company: match ? {\n    name: match.name, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,\n    industries: match.industries, specialities: match.specialities, tagline: match.tagline,\n    description: String(match.description || '').slice(0, 1500),\n    locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),\n  } : null,\n}}];\n"
-      }
+      },
+      "notes": "Abstains if the LinkedIn page is not this organisation.",
+      "notesInFlow": true
     },
     {
-      "id": "81b27dbd-b12a-4f0c-b4e7-bbbf56eb865c",
+      "id": "7ca042d3-28c8-48fb-9134-ed6eab8040ca",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        880,
-        200
+        1000,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -146,13 +150,13 @@
       }
     },
     {
-      "id": "9bd5913f-6170-472a-a0d4-8e555c719253",
+      "id": "6f06f3b0-ad6e-49e1-bacb-0c666add2be2",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1100,
-        200
+        1220,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -178,13 +182,13 @@
       }
     },
     {
-      "id": "d737b3fe-d37e-450d-82ab-ac1528056b30",
+      "id": "916f838d-d628-4cdc-9fc2-1ad2a58bb155",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1320,
-        120
+        1440,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -210,13 +214,13 @@
       }
     },
     {
-      "id": "19eb8afe-8052-43e2-84aa-e12b6c1334ca",
+      "id": "748b8013-28a9-4a35-ae9b-e2335e2edbe8",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1540,
-        120
+        1660,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -242,13 +246,13 @@
       }
     },
     {
-      "id": "fb9c58c6-c08d-4a42-9319-17b8926f7fa0",
+      "id": "d21923d0-9840-4292-9312-9480c355652a",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1760,
-        120
+        1880,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -259,7 +263,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "Application deadline extensions (empty seats)",
+      "notes": "Signal nobody uses: public evidence of the pain on the org's own site.",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -271,16 +275,17 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "3d2ab715-1dd3-4a60-98a6-e2c633cd83db",
+      "id": "61105b0e-ba60-4bca-996a-0eb3838d88c6",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1980,
-        120
+        2100,
+        300
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -291,7 +296,7 @@
       "onError": "continueRegularOutput",
       "alwaysOutputData": true,
       "executeOnce": true,
-      "notes": "Admitted students struggling to fund their studies (Reddit). Only counts and short excerpts reach the LLM; no usernames.",
+      "notes": "What the org's own customers say publicly (usernames removed).",
       "parameters": {
         "method": "POST",
         "url": "https://api.apify.com/v2/acts/apify~rag-web-browser/run-sync-get-dataset-items",
@@ -303,15 +308,16 @@
         "options": {
           "timeout": 300000
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "c2210cfc-6514-471f-802e-0cff3d9803ed",
+      "id": "1726c52c-2c06-451d-8f8e-f0bc0f56bada",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1760,
+        2420,
         300
       ],
       "parameters": {
@@ -319,12 +325,12 @@
       }
     },
     {
-      "id": "53a02a3f-02fa-4608-bdc5-5f9ac090fbb9",
+      "id": "87b65182-b030-4470-a649-2523aa159cb5",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1540,
+        2640,
         300
       ],
       "credentials": {
@@ -349,26 +355,28 @@
       }
     },
     {
-      "id": "6b7a4e10-92b4-4720-a3b3-dcd6b1b41434",
+      "id": "061cbf01-7947-491f-9287-c4b34c0baf4e",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1760,
+        2860,
         300
       ],
       "parameters": {
         "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : null } }];\n"
-      }
+      },
+      "notes": "Code decides: auto-send, hand to a human, or both.",
+      "notesInFlow": true
     },
     {
-      "id": "626d130d-a837-4813-a6d9-029c23336d5a",
+      "id": "3d521b8a-5f6c-4eba-9c33-b6df0fb952c2",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1980,
-        200
+        3200,
+        140
       ],
       "parameters": {
         "conditions": {
@@ -380,7 +388,7 @@
           },
           "conditions": [
             {
-              "id": "79e040cf-77d5-472f-b847-b1eb782478e8",
+              "id": "1f584447-6134-4f2a-94ab-438190927f2d",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -396,13 +404,13 @@
       }
     },
     {
-      "id": "198e4c51-e039-48af-aaa0-7f84b16cab40",
+      "id": "c7a5df0f-487a-4169-9a57-c9497b15de6c",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        2200,
-        180
+        3440,
+        140
       ],
       "credentials": {
         "gmailOAuth2": {
@@ -410,7 +418,7 @@
           "name": "Gmail (set me)"
         }
       },
-      "notes": "Recipients are the people who signed up (consent). BCC so nobody sees colleagues' addresses.",
+      "notes": "Only consented sign-ups, in BCC.",
       "parameters": {
         "resource": "message",
         "operation": "send",
@@ -422,16 +430,17 @@
           "appendAttribution": false,
           "bccList": "={{ $json.colleague_emails.join(',') }}"
         }
-      }
+      },
+      "notesInFlow": true
     },
     {
-      "id": "71296afc-a72a-4056-9807-2f3a1c6d15cf",
+      "id": "2912af2c-fbb4-492e-ba5d-de63951d9fe8",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1980,
-        420
+        3200,
+        360
       ],
       "parameters": {
         "conditions": {
@@ -443,7 +452,7 @@
           },
           "conditions": [
             {
-              "id": "133fb48c-7db7-4225-a877-b01aaa58fdeb",
+              "id": "ce87a09a-2860-484b-b705-42bceb1c66c7",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -459,26 +468,26 @@
       }
     },
     {
-      "id": "0b8294cb-598f-40ae-a7db-cd6da23da686",
+      "id": "49526304-b5b2-4533-9e94-b73357b4fb08",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2200,
-        420
+        3440,
+        360
       ],
       "parameters": {
         "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Account-level briefing. Subscriber addresses are not included.</p>`;\nreturn [{ json: { subject: `[${d.score ?? \"review\"}] Critical mass: ${d.colleagues} people at ${d.domain}`, html } }];\n"
       }
     },
     {
-      "id": "235354b3-1b5d-40a7-ae71-620fec342122",
+      "id": "2a55781c-6b04-49ac-a197-b7125767a8d9",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        2420,
-        420
+        3680,
+        360
       ],
       "credentials": {
         "gmailOAuth2": {
@@ -499,13 +508,13 @@
       }
     },
     {
-      "id": "b244d4fa-e1d5-4ed5-be6e-fe480ff15915",
+      "id": "0e9303d5-9760-4e65-9c63-05c0fbaec554",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
       "position": [
         0,
-        760
+        1060
       ],
       "credentials": {
         "gmailOAuth2": {
@@ -530,13 +539,13 @@
       }
     },
     {
-      "id": "7555dcee-a768-443f-8fdc-1797337ca94d",
+      "id": "fe1264f3-8209-44a8-96b4-65facb3c4439",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        220,
-        760
+        240,
+        1060
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -560,26 +569,26 @@
       }
     },
     {
-      "id": "6e2946a4-5c2b-4c78-b826-9b35f1ed86e5",
+      "id": "6334b577-d8c0-4c83-894f-b5b680743b70",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        440,
-        760
+        480,
+        1060
       ],
       "parameters": {
         "jsCode": "\nconst mail = $('Reply received').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet r = null;\ntry { r = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst label = r?.label ?? \"question\"; // unclear replies go to a human\nreturn [{ json: { label, summary: r?.summary ?? \"Could not classify\", from: mail.from?.text ?? mail.from, subject: mail.subject,\n                  html: `<p><b>${label.toUpperCase()}</b> reply from ${mail.from?.text ?? \"\"}</p><p>${r?.summary ?? \"\"}</p><blockquote>${String(mail.text || mail.snippet || \"\").slice(0, 2000)}</blockquote>` } }];\n"
       }
     },
     {
-      "id": "d33e209b-20e4-488b-9d9c-1058d5a3a8b5",
+      "id": "842d87db-6452-477d-96f1-fdbe8212604d",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        660,
-        760
+        720,
+        1060
       ],
       "parameters": {
         "conditions": {
@@ -591,7 +600,7 @@
           },
           "conditions": [
             {
-              "id": "ef3203fa-5f21-4b77-9a86-8e3d3a1307b4",
+              "id": "6f338446-c69b-463d-b36d-59638bc58802",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -600,7 +609,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "4e0ea8a6-1f73-4fac-8dbe-ba764fe158f9",
+              "id": "c4090822-086d-4b71-8509-b81d898ede5d",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -615,13 +624,13 @@
       }
     },
     {
-      "id": "e969149b-44a5-4a5c-ab3f-51e48fb9a3ba",
+      "id": "56cdab9f-ae7f-4bd5-bc9a-285f3debe572",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        880,
-        740
+        960,
+        1060
       ],
       "credentials": {
         "gmailOAuth2": {
@@ -639,6 +648,155 @@
         "options": {
           "appendAttribution": false
         }
+      }
+    },
+    {
+      "id": "2a9bfa67-17c7-40ac-b44d-98dd181b9e1f",
+      "name": "Prepare log row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3200,
+        580
+      ],
+      "parameters": {
+        "jsCode": "\n// One flat row per analysis for the \"Analyses\" tab. The eval workflow reads these rows.\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst join = (x) => Array.isArray(x) ? x.join(' | ') : (x ?? '');\nconst evidence = [...(d.painSignal || []), ...(d.customerVoice || []), ...(d.news || [])].map(h => h.url).filter(Boolean);\nconst context = { company: d.company, roles_signed_up: d.roles, notes: d.notes, top_posts: (d.topPosts || []).slice(0, 5),\n  people_roles: d.roleTitles, news: d.news, pain_signal: d.painSignal, customer_voice: d.customerVoice,\n  website_excerpt: String(d.website || '').slice(0, 1500) };\nreturn [{ json: {\n  analysis_id: $execution.id + '-' + d.domain,\n  logged_at: new Date().toISOString(),\n  domain: d.domain,\n  organisation: d.company?.name ?? '',\n  linkedin_verified: d.verified ? 'yes' : 'no',\n  colleagues: d.colleagues,\n  roles: join(d.roles),\n  score: d.score ?? '',\n  decision: [d.autoSend ? 'auto-email' : null, d.handToHuman ? 'human' : null].filter(Boolean).join(' + ') || 'none',\n  handoff_reason: d.handoffReason ?? '',\n  angle: a.angle ?? '', news_summary: a.news_summary ?? '', pain_evidence: a.pain_evidence ?? '',\n  culture: a.culture ?? '', structure: a.structure ?? '',\n  buying_committee: join(a.buying_committee), score_reasons: join(a.score_reasons),\n  email_subject: a.champion_email_subject ?? '', email_html: String(a.champion_email_html ?? '').slice(0, 8000),\n  evidence_urls: evidence.join(' '), dropped_hits: d.droppedHits ?? 0,\n  context_json: JSON.stringify(context).slice(0, 20000),\n  model: 'Qwen/Qwen2.5-72B-Instruct',\n}}];\n"
+      }
+    },
+    {
+      "id": "f3cf646d-1510-405b-a8ac-9f98661c4e45",
+      "name": "Log analysis to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3440,
+        580
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets (set me)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Analyses"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "notes": "Every analysis is documented for the eval team.",
+      "notesInFlow": true
+    },
+    {
+      "id": "0d0a7127-07f1-4fab-b9fc-e093d39e2347",
+      "name": "About Flashpoint",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -380
+      ],
+      "parameters": {
+        "content": "# Flashpoint · account signal agent\n**One sign-up is curiosity. Three from the same organisation is a flashpoint.**\n\nWhen the threshold is reached, the agent researches the organisation, scores it, writes to the people who signed up and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the **Flashpoint · Eval** workflow.\n\nInput: Apps Script on the sign-up sheet · Research: Apify · Analysis: Featherless · Output: Gmail + Google Sheets",
+        "width": 1560,
+        "height": 300,
+        "color": 7
+      }
+    },
+    {
+      "id": "38bed20d-774f-448c-adee-edf92747e746",
+      "name": "1 · Trigger and threshold",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        120
+      ],
+      "parameters": {
+        "content": "## 1 · Trigger and threshold\nThe sheet script posts here when the **Nth distinct person** from one e-mail domain signs up. Secured by the `x-signal-secret` header. Private e-mail domains never reach this point.",
+        "width": 520,
+        "height": 400,
+        "color": 4
+      }
+    },
+    {
+      "id": "72e06fc7-0759-4eef-a9d5-b34ac66db407",
+      "name": "2 · Account research",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        120
+      ],
+      "parameters": {
+        "content": "## 2 · Account research (Apify)\nLinkedIn profile, posts and decision-maker roles, latest news, the website, and two signals nobody uses: **pain on the org's own site** and **its customers' public voice**. Each step runs once and fails soft: a missing source never stops the run.",
+        "width": 1820,
+        "height": 400,
+        "color": 5
+      }
+    },
+    {
+      "id": "e6e178b6-94a6-4c95-85be-465950423658",
+      "name": "3 · AI analysis",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        120
+      ],
+      "parameters": {
+        "content": "## 3 · AI analysis (Featherless)\nOff-target search hits are filtered out in code before the LLM sees them. The model extracts culture, structure, buying committee, angle, score and the e-mail. **Code, not the model, decides** what happens next.",
+        "width": 720,
+        "height": 400,
+        "color": 6
+      }
+    },
+    {
+      "id": "544fb6d2-0539-48aa-950a-c304b0453f1b",
+      "name": "4 · Act and document",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        -40
+      ],
+      "parameters": {
+        "content": "## 4 · Act and document\n**Auto e-mail** only to consented sign-ups (BCC) when LinkedIn is verified.\n**Human hand-off** when a call was requested, the score is high or anything is uncertain.\n**Log** every analysis to the sheet for the eval team.",
+        "width": 820,
+        "height": 820,
+        "color": 2
+      }
+    },
+    {
+      "id": "2da88c8d-1db7-4237-9c54-a00a1d343e73",
+      "name": "5 · Replies",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        880
+      ],
+      "parameters": {
+        "content": "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to a human. STOP is respected.",
+        "width": 1260,
+        "height": 380,
+        "color": 3
       }
     }
   ],
@@ -787,6 +945,11 @@
             "node": "Hand to a human?",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Prepare log row",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -862,6 +1025,17 @@
         [
           {
             "node": "Hand reply to a human",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare log row": {
+      "main": [
+        [
+          {
+            "node": "Log analysis to sheet",
             "type": "main",
             "index": 0
           }

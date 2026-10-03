@@ -9,7 +9,7 @@
  *   N8N_WEBHOOK_URL  production URL of the n8n webhook
  *   N8N_SECRET       same value as the n8n Header Auth credential "x-signal-secret"
  *   THRESHOLD        e.g. 3 (2 for testing)
- * Run installTriggers() once.
+ * Run checkSetup() first, then installTriggers() once (it also creates the Analyses and Evals tabs).
  */
 
 const STATUS_HEADER = 'Flashpoint status';
@@ -17,6 +17,24 @@ const FREEMAIL = new Set(['gmail.com', 'googlemail.com', 'gmx.de', 'gmx.net', 'w
   'outlook.com', 'outlook.de', 'hotmail.com', 'hotmail.de', 'live.com', 'icloud.com', 'me.com', 't-online.de',
   'posteo.de', 'mailbox.org', 'proton.me', 'protonmail.com', 'aol.com', 'freenet.de']);
 const MULTI = new Set(['co.uk', 'com.au', 'co.at', 'ac.uk']);
+
+// Tabs the n8n workflows write to. Headers must match n8n/flashpoint.py.
+const LOG_TABS = {
+  Analyses: ['analysis_id', 'logged_at', 'domain', 'organisation', 'linkedin_verified', 'colleagues', 'roles', 'score', 'decision', 'handoff_reason', 'angle', 'news_summary', 'pain_evidence', 'culture', 'structure', 'buying_committee', 'score_reasons', 'email_subject', 'email_html', 'evidence_urls', 'dropped_hits', 'context_json', 'model'],
+  Evals: ['analysis_id', 'judged_at', 'domain', 'judge_model', 'groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration', 'llm_overall', 'rule_checks_passed', 'rule_failures', 'verdict', 'issues', 'judge_comment'],
+};
+
+function setupTabs() {
+  const ss = openSheet_().getParent();
+  Object.entries(LOG_TABS).forEach(([name, headers]) => {
+    const tab = ss.getSheetByName(name) || ss.insertSheet(name);
+    if (tab.getLastRow() === 0) {
+      tab.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
+      tab.setFrozenRows(1);
+    }
+    console.log('Tab ' + name + ': ready');
+  });
+}
 
 // Run this first: shows which properties are set (never their values) and which columns were recognised.
 function checkSetup() {
@@ -33,6 +51,7 @@ function checkSetup() {
 }
 
 function installTriggers() {
+  setupTabs();
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
   const ss = openSheet_().getParent();
   ScriptApp.newTrigger('processNewRows').forSpreadsheet(ss).onFormSubmit().create(); // instant for Google Forms
