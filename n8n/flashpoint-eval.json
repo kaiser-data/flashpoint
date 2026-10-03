@@ -2,26 +2,26 @@
   "name": "Flashpoint · Eval (LLM as a judge)",
   "nodes": [
     {
-      "id": "8f581e33-b9d0-4bf8-af2c-88f078283054",
+      "id": "bf924f92-bdae-4213-83c9-eacae4aadb20",
       "name": "Run evaluation now",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
         0,
-        200
+        160
       ],
       "parameters": {},
       "notes": "Start the evaluation by hand.\n[Manual Trigger]",
       "notesInFlow": true
     },
     {
-      "id": "c5f7a3ce-3001-4cdf-9bba-deffc650c226",
+      "id": "098f385d-04a8-4eda-9ba8-133c4f6f28ff",
       "name": "Every day at 18:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
         0,
-        420
+        320
       ],
       "parameters": {
         "rule": {
@@ -36,13 +36,13 @@
       "notesInFlow": true
     },
     {
-      "id": "d65a65e0-5721-43dc-8e3b-c1e98dd6ce3e",
+      "id": "d2fb98dd-af2c-4be5-8812-8a1da0ac751b",
       "name": "Read analyses",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        300,
-        300
+        260,
+        240
       ],
       "parameters": {
         "resource": "sheet",
@@ -72,13 +72,13 @@
       "notesInFlow": true
     },
     {
-      "id": "cfab71b2-5f13-40d2-ae86-fbb15429230e",
+      "id": "40065ac1-87d7-4266-a708-49c1f4ccf6de",
       "name": "Read evals",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        520,
-        300
+        470,
+        240
       ],
       "parameters": {
         "resource": "sheet",
@@ -108,13 +108,13 @@
       "notesInFlow": true
     },
     {
-      "id": "950f3400-b92e-46ef-be49-430cc44e80e6",
+      "id": "88f0e56e-2618-406e-8222-91af6241ccb7",
       "name": "Select unjudged",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        740,
-        300
+        680,
+        240
       ],
       "parameters": {
         "jsCode": "\n// Analyses that have not been judged yet (max 20 per run to stay inside the model's concurrency).\nconst judged = new Set($('Read evals').all().map(i => String(i.json.analysis_id || '')).filter(Boolean));\nreturn $('Read analyses').all().map(i => i.json)\n  .filter(r => r.analysis_id && !judged.has(String(r.analysis_id)))\n  .slice(0, 20).map(r => ({ json: r }));\n"
@@ -123,13 +123,13 @@
       "notesInFlow": true
     },
     {
-      "id": "397d5a61-229b-43db-826b-5eb5dc173cbd",
+      "id": "7d4da9bb-9a2b-4e00-8c1c-5b41165290a6",
       "name": "Rule checks",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1060,
-        300
+        960,
+        240
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -139,13 +139,13 @@
       "notesInFlow": true
     },
     {
-      "id": "2e0cbb75-2222-4e03-96e0-fcf988610082",
+      "id": "17dd1be7-1b60-49f2-9416-9c665928e1c0",
       "name": "LLM judge",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1280,
-        300
+        1170,
+        240
       ],
       "parameters": {
         "method": "POST",
@@ -176,13 +176,13 @@
       "notesInFlow": true
     },
     {
-      "id": "16217009-d6b9-4c52-8c7e-9e51dbee6c70",
+      "id": "49517df8-e660-4b84-9dbe-31182b3ebb2e",
       "name": "Parse verdict",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1500,
-        300
+        1380,
+        240
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -192,13 +192,13 @@
       "notesInFlow": true
     },
     {
-      "id": "583e98ef-01ea-41c2-a532-386977b12bac",
+      "id": "f1fd3d61-d6cb-4268-871e-8793eb5e055a",
       "name": "Write to Evals tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        1820,
-        200
+        1680,
+        160
       ],
       "parameters": {
         "resource": "sheet",
@@ -232,13 +232,13 @@
       "notesInFlow": true
     },
     {
-      "id": "ae34fbff-6330-445b-8493-1da08f00fa1d",
+      "id": "4cb1336b-2840-4d71-bdb6-7c6c60d0253a",
       "name": "Build report",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1820,
-        420
+        1680,
+        320
       ],
       "parameters": {
         "jsCode": "\n// One summary e-mail for the eval team.\nconst rows = $('Parse verdict').all().map(i => i.json);\nif (!rows.length) return [{ json: { skip: true } }];\nconst dims = ['groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration'];\nconst avg = (k) => { const v = rows.map(r => +r[k]).filter(Number.isFinite); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(1) : 'n/a'; };\nconst pass = rows.filter(r => r.verdict === 'pass').length;\nconst fails = {};\nrows.forEach(r => String(r.rule_failures || '').split(', ').filter(Boolean).forEach(f => fails[f] = (fails[f] || 0) + 1));\nconst worst = [...rows].sort((a, b) => (+a.llm_overall || 0) - (+b.llm_overall || 0)).slice(0, 3);\nconst html = `\n<h2>Flashpoint eval: ${pass}/${rows.length} analyses passed</h2>\n<p>Judge: deepseek-ai/DeepSeek-V3-0324 (a different model family from the analyst). Pass = all rule checks green, average grade at least 3.5, groundedness at least 3, compliance at least 4.</p>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse\">\n<tr><th>Criterion</th><th>Average (1-5)</th></tr>\n${dims.map(k => `<tr><td>${k}</td><td>${avg(k)}</td></tr>`).join('')}\n</table>\n<h3>Rule check failures</h3>\n<ul>${Object.entries(fails).map(([k, v]) => `<li>${k}: ${v}</li>`).join('') || '<li>none</li>'}</ul>\n<h3>Weakest analyses</h3>\n<ul>${worst.map(r => `<li><b>${r.domain}</b> (${r.llm_overall}, ${r.verdict}): ${r.issues || r.judge_comment}</li>`).join('')}</ul>\n<p>All rows are in the <b>Evals</b> tab of the sign-up sheet.</p>`;\nreturn [{ json: { subject: `Flashpoint eval: ${pass}/${rows.length} passed`, html } }];\n"
@@ -248,13 +248,13 @@
       "notesInFlow": true
     },
     {
-      "id": "ce95f6ff-ba00-4497-8c68-15548ea5907d",
+      "id": "a0bea6b8-7142-41ae-ad20-9d87564d6553",
       "name": "Anything judged?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2040,
-        420
+        1890,
+        320
       ],
       "parameters": {
         "conditions": {
@@ -266,7 +266,7 @@
           },
           "conditions": [
             {
-              "id": "3d114e0f-fa3b-4e4a-afef-afe276c33412",
+              "id": "efe3751e-bd26-440d-94bc-cb837cb920ac",
               "leftValue": "={{ $json.skip }}",
               "rightValue": "",
               "operator": {
@@ -284,13 +284,13 @@
       "notesInFlow": true
     },
     {
-      "id": "ac0a47b7-65e6-402f-ab72-980a6e42a082",
+      "id": "3b266202-11b7-4c44-a0cf-78b4a493b580",
       "name": "E-mail eval team",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        2260,
-        400
+        2100,
+        320
       ],
       "parameters": {
         "resource": "message",
@@ -313,82 +313,82 @@
       "notesInFlow": true
     },
     {
-      "id": "af7fe76d-2662-4f2a-b1de-2b2fc44a62d2",
+      "id": "cc6b6263-3f8a-462c-8fb4-aa46b2daa2cc",
       "name": "About Eval",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         -60,
-        -300
+        -150
       ],
       "parameters": {
         "content": "# Flashpoint · Eval (LLM as a judge)\nChecks how well the agent performs. Every analysis logged by the main workflow is graded twice: by **7 hard rule checks** in code and by a **judge model from a different model family**, so the analyst never grades itself. Results go to the **Evals** tab and a summary e-mail.",
         "width": 1240,
-        "height": 240,
+        "height": 200,
         "color": 7
       }
     },
     {
-      "id": "9419fb33-6965-487f-8069-cc7c17316d6c",
+      "id": "7366b9e7-57d6-45b9-8d20-a6f0e44e513b",
       "name": "1 · Load",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         -60,
-        80
+        70
       ],
       "parameters": {
         "content": "## 1 · Load\nRuns daily at 18:00 or on demand. Reads the **Analyses** and **Evals** tabs and keeps only analyses that were not judged yet.",
-        "width": 1000,
-        "height": 460,
+        "width": 920,
+        "height": 400,
         "color": 4
       }
     },
     {
-      "id": "d2eb5c63-c35b-4932-82d3-41db2f960458",
+      "id": "40ac2c61-c831-4d68-9c7c-4c5778a24485",
       "name": "2 · Grade",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1000,
-        80
+        880,
+        70
       ],
       "parameters": {
         "content": "## 2 · Grade\n**Rule checks** (no model): unsubscribe line, no e-mail addresses, evidence behind claims, score range, reasons for high scores, auto e-mail only when verified.\n**LLM judge**: groundedness, relevance, actionability, e-mail quality, compliance, calibration (1-5).",
         "width": 680,
-        "height": 460,
+        "height": 400,
         "color": 6
       }
     },
     {
-      "id": "6fbc455c-3762-4ea9-969e-7cefc6977217",
+      "id": "cf5f091c-6018-4b75-ab89-7b775d0a677b",
       "name": "3 · Report",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1740,
-        80
+        1580,
+        70
       ],
       "parameters": {
         "content": "## 3 · Report\nPass = all rules green, average at least 3.5, groundedness at least 3, compliance at least 4. Rows go to **Evals**; the team gets averages, rule failures and the three weakest analyses.",
         "width": 720,
-        "height": 460,
+        "height": 400,
         "color": 2
       }
     },
     {
-      "id": "5be5b57c-1330-4870-ae51-2e9f3a85e9f4",
+      "id": "18a4fc5e-6277-4eb7-85d1-5a13e5a2befa",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
-        620
+        2340,
+        -150
       ],
       "parameters": {
         "content": "# Legend · Flashpoint eval workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Load\n- **Run evaluation now**: Start the evaluation by hand. *(Manual Trigger, free)*\n- **Every day at 18:00**: Runs the evaluation every evening. *(Schedule Trigger, free)*\n- **Read analyses**: All analyses the main workflow logged. *(Google Sheets, free)*\n- **Read evals**: All analyses that were already judged. *(Google Sheets, free)*\n- **Select unjudged**: Keeps only analyses without a verdict, at most 20 per run. *(Code, free)*\n\n### 2 Grade\n- **Rule checks**: 7 deterministic checks: STOP line, no e-mail addresses, e-mail length, score range, reasons for high scores, evidence behind pain claims, auto e-mail only when verified. *(Code, free)*\n- **LLM judge**: A different model family grades 6 criteria from 1 to 5: groundedness, relevance, actionability, e-mail quality, compliance, calibration. *(Featherless DeepSeek-V3, flat plan)*\n- **Parse verdict**: Combines rules and grades into pass / fail / judge-error. *(Code, free)*\n\n### 3 Report\n- **Write to Evals tab**: Appends one row per judged analysis to the Evals tab. *(Google Sheets, free)*\n- **Build report**: Averages per criterion, rule failures and the three weakest analyses. *(Code, free)*\n- **Anything judged?**: Skips the e-mail when nothing new was judged. *(n8n IF, free)*\n- **E-mail eval team**: Sends the report to the eval team. *(Gmail, free)*",
-        "width": 2520,
-        "height": 620,
+        "width": 760,
+        "height": 760,
         "color": 7
       }
     }

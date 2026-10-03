@@ -52,6 +52,51 @@ function checkSetup() {
   console.log('Call request: ' + find(/partner|call|meeting|termin|demo/i) + ' | Consent: ' + find(/consent|einwilligung|agree|zustimm|datenschutz/i) + ' | City: ' + find(/city|stadt|location|standort|\bort\b/i));
 }
 
+// Web-app endpoint for the landing page form (Deploy → Web app, execute as me, access: anyone).
+// Appends the sign-up as a row, then processes the sheet right away. Body: JSON sent as text/plain.
+const FORM_HEADERS = ['Timestamp', 'Name', 'Work email', 'University or institution', 'Role', 'Partnership call', 'Source'];
+
+function doPost(e) {
+  const out = (o) => ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+  let data = {};
+  try { data = JSON.parse((e && e.postData && e.postData.contents) || '{}'); } catch (err) { return out({ status: 'error', message: 'Invalid request' }); }
+  if (data.website) return out({ status: 'ok' }); // honeypot: bots fill it, people don't
+  const token = PropertiesService.getScriptProperties().getProperty('FORM_TOKEN');
+  if (token && data.token !== token) return out({ status: 'error', message: 'Invalid request' });
+  const email = String(data.email || '').trim().toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(email)) return out({ status: 'error', message: 'Please enter a valid work e-mail.' });
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const sheet = openSheet_();
+    if (sheet.getLastRow() === 0) sheet.appendRow(FORM_HEADERS);
+    const header = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(String);
+    const value = {
+      timestamp: new Date(),
+      name: String(data.name || '').slice(0, 120),
+      email: email,
+      org: String(data.institution || data.organisation || data.company || '').slice(0, 160),
+      role: String(data.role || '').slice(0, 80),
+      call: data.partner === true || data.partner === 'on' || data.partner === 'yes' ? 'yes' : 'no',
+      source: String(data.source || 'landing-page').slice(0, 60),
+    };
+    const pick = (h) => /time|zeit|date/i.test(h) ? value.timestamp
+      : /mail/i.test(h) ? value.email
+      : /institution|university|universität|hochschule|company|firma|organi[sz]ation/i.test(h) ? value.org
+      : /role|rolle|position|function/i.test(h) ? value.role
+      : /partner|call|meeting|termin|demo/i.test(h) ? value.call
+      : /source|quelle/i.test(h) ? value.source
+      : /name/i.test(h) ? value.name
+      : h === STATUS_HEADER ? '' : '';
+    sheet.appendRow(header.map(pick));
+  } finally {
+    lock.releaseLock();
+  }
+  try { processNewRows(); } catch (err) { console.error(err); } // the 1-minute trigger retries if this fails
+  return out({ status: 'ok' });
+}
+
 function installTriggers() {
   setupTabs();
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));

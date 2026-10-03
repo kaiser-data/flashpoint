@@ -46,16 +46,16 @@ def connect(wf, a, b, out=0):
 
 # ------------------------------------------------------------------ main workflow
 LAYOUT = {
-    "Form sign-up": (0, 300), "Exactly 3 colleagues?": (240, 300),
-    "LinkedIn company": (560, 300), "Verify company match": (780, 300), "LinkedIn posts": (1000, 300),
-    "Decision-maker roles": (1220, 300), "Latest news": (1440, 300), "Website": (1660, 300),
-    "Pain signal": (1880, 300), "Customer voice": (2100, 300),
-    "Build context": (2420, 300), "Featherless analysis": (2640, 300), "Parse analysis": (2860, 300),
-    "Send automatically?": (3200, 140), "Agent e-mails the sign-ups": (3440, 140),
-    "Hand to a human?": (3200, 360), "Write briefing": (3440, 360), "Briefing to sales": (3680, 360),
-    "Prepare log row": (3200, 580), "Log analysis to sheet": (3440, 580),
-    "Reply received": (0, 1060), "Classify reply": (240, 1060), "Parse reply": (480, 1060),
-    "Interested or question?": (720, 1060), "Hand reply to a human": (960, 1060),
+    "Form sign-up": (0, 240), "Exactly 3 colleagues?": (220, 240),
+    "LinkedIn company": (520, 240), "Verify company match": (730, 240), "LinkedIn posts": (940, 240),
+    "Decision-maker roles": (1150, 240), "Latest news": (1360, 240), "Website": (1570, 240),
+    "Pain signal": (1780, 240), "Customer voice": (1990, 240),
+    "Build context": (2290, 240), "Featherless analysis": (2500, 240), "Parse analysis": (2710, 240),
+    "Send automatically?": (3020, 120), "Agent e-mails the sign-ups": (3240, 120),
+    "Hand to a human?": (3020, 280), "Write briefing": (3240, 280), "Briefing to sales": (3460, 280),
+    "Prepare log row": (3020, 440), "Log analysis to sheet": (3240, 440),
+    "Reply received": (0, 640), "Classify reply": (220, 640), "Parse reply": (440, 640),
+    "Interested or question?": (660, 640), "Hand reply to a human": (880, 640),
 }
 NOTES = {
     "Exactly 3 colleagues?": "Fires once per organisation, on the exact threshold sign-up.",
@@ -124,30 +124,30 @@ def build_main():
             n["notes"], n["notesInFlow"] = f"{what}\n[{api} · {cost}]", True
 
     wf["nodes"] += [
-        sticky("About Flashpoint", -60, -380, 1560, 300, 7,
+        sticky("About Flashpoint", -60, -140, 1500, 230, 7,
                "# Flashpoint · account signal agent\n"
                "**One sign-up is curiosity. Three from the same organisation is a flashpoint.**\n\n"
                "When the threshold is reached, the agent researches the organisation, scores it, writes to the people who signed up "
                "and hands hot accounts to a human. Every analysis is logged to the **Analyses** tab and judged by the "
                "**Flashpoint · Eval** workflow.\n\n"
                "Input: Apps Script on the sign-up sheet · Research: Apify · Analysis: Featherless · Output: Gmail + Google Sheets"),
-        sticky("1 · Trigger and threshold", -60, 120, 520, 400, 4,
+        sticky("1 · Trigger and threshold", -60, 110, 500, 300, 4,
                "## 1 · Trigger and threshold\nThe sheet script posts here when the **Nth distinct person** from one e-mail "
                "domain signs up. Secured by the `x-signal-secret` header. Private e-mail domains never reach this point."),
-        sticky("2 · Account research", 480, 120, 1820, 400, 5,
+        sticky("2 · Account research", 460, 110, 1740, 300, 5,
                "## 2 · Account research (Apify)\nLinkedIn profile, posts and decision-maker roles, latest news, the website, "
                "and two signals nobody uses: **pain on the org's own site** and **its customers' public voice**. "
                "Each step runs once and fails soft: a missing source never stops the run."),
-        sticky("3 · AI analysis", 2340, 120, 720, 400, 6,
+        sticky("3 · AI analysis", 2220, 110, 700, 300, 6,
                "## 3 · AI analysis (Featherless)\nOff-target search hits are filtered out in code before the LLM sees them. "
                "The model extracts culture, structure, buying committee, angle, score and the e-mail. "
                "**Code, not the model, decides** what happens next."),
-        sticky("4 · Act and document", 3120, -40, 820, 820, 2,
+        sticky("4 · Act and document", 2940, -20, 720, 560, 2,
                "## 4 · Act and document\n**Auto e-mail** only to consented sign-ups (BCC) when LinkedIn is verified.\n"
                "**Human hand-off** when a call was requested, the score is high or anything is uncertain.\n"
                "**Log** every analysis to the sheet for the eval team."),
-        sticky("Legend", 1320, 880, 2620, 1180, 7, legend(MAIN_DOCS, "Flashpoint main workflow")),
-        sticky("5 · Replies", -60, 880, 1260, 380, 3,
+        sticky("Legend", 3700, -140, 820, 1020, 7, legend(MAIN_DOCS, "Flashpoint main workflow")),
+        sticky("5 · Replies", -60, 510, 1160, 280, 3,
                "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to "
                "a human. STOP is respected."),
     ]
@@ -257,48 +257,48 @@ def build_eval():
                                      "sheetName": rl_name(tab), "options": {}},
                                     credentials=SHEETS, executeOnce=True, alwaysOutputData=True, onError="continueRegularOutput")
     nodes = [
-        n("Run evaluation now", "n8n-nodes-base.manualTrigger", 1, (0, 200), {}),
-        n("Every day at 18:00", "n8n-nodes-base.scheduleTrigger", 1.2, (0, 420), {"rule": {"interval": [{"triggerAtHour": 18}]}}),
-        read("Read analyses", "Analyses", (300, 300)),
-        read("Read evals", "Evals", (520, 300)),
-        n("Select unjudged", "n8n-nodes-base.code", 2, (740, 300), {"jsCode": select_js}),
-        n("Rule checks", "n8n-nodes-base.code", 2, (1060, 300), {"mode": "runOnceForEachItem", "jsCode": rules_js},
+        n("Run evaluation now", "n8n-nodes-base.manualTrigger", 1, (0, 160), {}),
+        n("Every day at 18:00", "n8n-nodes-base.scheduleTrigger", 1.2, (0, 320), {"rule": {"interval": [{"triggerAtHour": 18}]}}),
+        read("Read analyses", "Analyses", (260, 240)),
+        read("Read evals", "Evals", (470, 240)),
+        n("Select unjudged", "n8n-nodes-base.code", 2, (680, 240), {"jsCode": select_js}),
+        n("Rule checks", "n8n-nodes-base.code", 2, (960, 240), {"mode": "runOnceForEachItem", "jsCode": rules_js},
           notes="7 deterministic checks: STOP line, no e-mail addresses, evidence behind claims ...", notesInFlow=True),
-        n("LLM judge", "n8n-nodes-base.httpRequest", 4.2, (1280, 300),
+        n("LLM judge", "n8n-nodes-base.httpRequest", 4.2, (1170, 240),
           {"method": "POST", "url": "https://api.featherless.ai/v1/chat/completions",
            "authentication": "genericCredentialType", "genericAuthType": "httpHeaderAuth",
            "sendBody": True, "specifyBody": "json", "jsonBody": judge_body,
            "options": {"timeout": 180000, "batching": {"batch": {"batchSize": 1, "batchInterval": 500}}}},
           credentials=FL_AUTH, onError="continueRegularOutput",
           notes=f"Judge model: {JUDGE_MODEL}", notesInFlow=True),
-        n("Parse verdict", "n8n-nodes-base.code", 2, (1500, 300),
+        n("Parse verdict", "n8n-nodes-base.code", 2, (1380, 240),
           {"mode": "runOnceForEachItem", "jsCode": verdict_js.replace("JUDGE_PLACEHOLDER", JUDGE_MODEL)}),
-        n("Write to Evals tab", "n8n-nodes-base.googleSheets", 4.5, (1820, 200),
+        n("Write to Evals tab", "n8n-nodes-base.googleSheets", 4.5, (1680, 160),
           {"resource": "sheet", "operation": "append", "documentId": rl_id(SHEET_ID), "sheetName": rl_name("Evals"),
            "columns": {"mappingMode": "autoMapInputData", "value": {}, "matchingColumns": [], "schema": []}, "options": {}},
           credentials=SHEETS, onError="continueRegularOutput"),
-        n("Build report", "n8n-nodes-base.code", 2, (1820, 420), {"jsCode": report_js.replace("JUDGE_PLACEHOLDER", JUDGE_MODEL)}),
-        n("Anything judged?", "n8n-nodes-base.if", 2.2, (2040, 420),
+        n("Build report", "n8n-nodes-base.code", 2, (1680, 320), {"jsCode": report_js.replace("JUDGE_PLACEHOLDER", JUDGE_MODEL)}),
+        n("Anything judged?", "n8n-nodes-base.if", 2.2, (1890, 320),
           {"conditions": {"options": {"caseSensitive": True, "leftValue": "", "typeValidation": "loose", "version": 2},
                           "conditions": [{"id": uid(), "leftValue": "={{ $json.skip }}", "rightValue": "",
                                           "operator": {"type": "boolean", "operation": "notTrue", "singleValue": True}}],
                           "combinator": "and"}, "options": {}}),
-        n("E-mail eval team", "n8n-nodes-base.gmail", 2.1, (2260, 400),
+        n("E-mail eval team", "n8n-nodes-base.gmail", 2.1, (2100, 320),
           {"resource": "message", "operation": "send", "sendTo": EVAL_EMAIL, "subject": "={{ $json.subject }}",
            "emailType": "html", "message": "={{ $json.html }}", "options": {"appendAttribution": False}},
           credentials=GMAIL),
-        sticky("About Eval", -60, -300, 1240, 240, 7,
+        sticky("About Eval", -60, -150, 1240, 200, 7,
                "# Flashpoint · Eval (LLM as a judge)\nChecks how well the agent performs. Every analysis logged by the main "
                "workflow is graded twice: by **7 hard rule checks** in code and by a **judge model from a different model "
                "family**, so the analyst never grades itself. Results go to the **Evals** tab and a summary e-mail."),
-        sticky("1 · Load", -60, 80, 1000, 460, 4,
+        sticky("1 · Load", -60, 70, 920, 400, 4,
                "## 1 · Load\nRuns daily at 18:00 or on demand. Reads the **Analyses** and **Evals** tabs and keeps only analyses "
                "that were not judged yet."),
-        sticky("2 · Grade", 1000, 80, 680, 460, 6,
+        sticky("2 · Grade", 880, 70, 680, 400, 6,
                "## 2 · Grade\n**Rule checks** (no model): unsubscribe line, no e-mail addresses, evidence behind claims, "
                "score range, reasons for high scores, auto e-mail only when verified.\n**LLM judge**: groundedness, relevance, "
                "actionability, e-mail quality, compliance, calibration (1-5)."),
-        sticky("3 · Report", 1740, 80, 720, 460, 2,
+        sticky("3 · Report", 1580, 70, 720, 400, 2,
                "## 3 · Report\nPass = all rules green, average at least 3.5, groundedness at least 3, compliance at least 4. "
                "Rows go to **Evals**; the team gets averages, rule failures and the three weakest analyses."),
     ]
@@ -313,7 +313,7 @@ def build_eval():
         if node["name"] in EVAL_DOCS:
             ph, what, api, cost = EVAL_DOCS[node["name"]]
             node["notes"], node["notesInFlow"] = f"{what}\n[{api}]", True
-    wf["nodes"].append(sticky("Legend", -60, 620, 2520, 620, 7, legend(EVAL_DOCS, "Flashpoint eval workflow")))
+    wf["nodes"].append(sticky("Legend", 2340, -150, 760, 760, 7, legend(EVAL_DOCS, "Flashpoint eval workflow")))
     connect(wf, "Build report", "Anything judged?")
     connect(wf, "Anything judged?", "E-mail eval team")
     return wf
@@ -330,24 +330,24 @@ def build_watch():
             ph, what, api, cost = W.DOCS[node["name"]]
             node["notes"], node["notesInFlow"] = f"{what}\n[{api} · {cost}]", True
     wf["nodes"] += [
-        sticky("About Signal Watch", -60, -360, 1500, 300, 7,
+        sticky("About Signal Watch", -60, -170, 1400, 230, 7,
                "# Flashpoint · Signal Watch\n**Funding released, budgets frozen, rules changed: react the same day.**\n\n"
                "Three times a day the watch searches the news, rates every new hit, saves all of it, and e-mails sales when a "
                "signal is strong, with the affected accounts and their contacts. It learns which searches work: every search "
                "has a precision score, dead ones are retired, and new ones are proposed from strong signals."),
-        sticky("1 · Collect", -60, 80, 1380, 460, 4,
+        sticky("1 · Collect", -60, 80, 1300, 360, 4,
                "## 1 · Collect\nMon–Fri 08:00 · 12:00 · 15:00. Searches come from the **Watch queries** tab (editable) plus defaults. "
                "Only hits from the last 3 days that were never seen before go on."),
-        sticky("2 · Rate", 1380, 80, 440, 460, 6,
+        sticky("2 · Rate", 1260, 80, 440, 360, 6,
                "## 2 · Rate\nEach hit is rated 0-100 with event type, region, urgency and an action. "
                "Hits sales marked useful or not are shown to the model as examples."),
-        sticky("3 · Save and learn", 1860, -60, 440, 520, 5,
+        sticky("3 · Save and learn", 1720, 80, 480, 360, 5,
                "## 3 · Save and learn\nEvery rated hit goes to **Signals** (the knowledge base). Search stats go to "
                "**Watch queries**: precision per search, dead searches retired, learned searches added."),
-        sticky("4 · Alert", 1860, 460, 1100, 300, 2,
+        sticky("4 · Alert", 1720, 460, 1000, 260, 2,
                "## 4 · Alert\nSignals rated 60+ are matched to known accounts by region and sector; sales gets one digest "
                "with the action and the saved decision makers."),
-        sticky("Legend", -60, 820, 3020, 760, 7, legend(W.DOCS, "Flashpoint Signal Watch")),
+        sticky("Legend", 2740, -170, 800, 1080, 7, legend(W.DOCS, "Flashpoint Signal Watch")),
     ]
     return wf
 

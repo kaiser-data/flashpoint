@@ -2,13 +2,13 @@
   "name": "Flashpoint · Signal Watch (3× daily)",
   "nodes": [
     {
-      "id": "7ff846db-5a57-48de-93d8-efe9d4a1283b",
+      "id": "65670eb0-defe-4cfc-9db7-b80de7b457ff",
       "name": "Morning, noon, afternoon",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
         0,
-        200
+        170
       ],
       "parameters": {
         "rule": {
@@ -24,26 +24,26 @@
       "notesInFlow": true
     },
     {
-      "id": "78352de3-79be-474a-a542-9c833fef3b42",
+      "id": "a3187496-7848-429c-8cf9-eded807dd98a",
       "name": "Check now",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
         0,
-        400
+        330
       ],
       "parameters": {},
       "notes": "Run the watch by hand.\n[Manual Trigger · free]",
       "notesInFlow": true
     },
     {
-      "id": "d20c5825-600f-46ce-9905-263b500d4ebb",
+      "id": "93825fc6-5655-4f23-b88b-de0eb2fad209",
       "name": "Read watch queries",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        260,
-        300
+        230,
+        250
       ],
       "parameters": {
         "resource": "sheet",
@@ -73,13 +73,13 @@
       "notesInFlow": true
     },
     {
-      "id": "a4f9c41c-cf05-4b91-8e72-a6c31740fa10",
+      "id": "0d98eb72-17e2-4fd3-861b-eff350577ab8",
       "name": "Read signals",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        480,
-        300
+        440,
+        250
       ],
       "parameters": {
         "resource": "sheet",
@@ -109,13 +109,13 @@
       "notesInFlow": true
     },
     {
-      "id": "9179c121-89b0-45e3-a798-e93925b4d43b",
+      "id": "fec259d7-5a73-4c40-bd90-e819544b12f9",
       "name": "Plan searches",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        700,
-        300
+        650,
+        250
       ],
       "parameters": {
         "jsCode": "\n// Active searches = the Watch queries tab plus any default not yet in it. Paused and retired ones are skipped.\nconst DEFAULTS = [\"Haushaltssperre Hochschulen\", \"Haushaltssperre aufgehoben Wissenschaft\", \"Landeshaushalt Hochschulen beschlossen\", \"Zukunftsvertrag Studium und Lehre Mittel\", \"DAAD Förderprogramm Ausschreibung internationale Studierende\", \"Sperrkonto Betrag Studienvisum Erhöhung\", \"Studiengebühren Nicht-EU Studierende\", \"Fachkräfteeinwanderungsgesetz Studierende Visum\", \"internationale Studierende Einschreibung Rückgang\", \"Visa Terminvergabe Studierende Botschaft Wartezeit\"];\nconst rows = $('Read watch queries').all().map(i => i.json).filter(r => r.query);\nconst known = new Set(rows.map(r => String(r.query).trim().toLowerCase()));\nconst all = rows.concat(DEFAULTS.filter(q => !known.has(q.toLowerCase())).map(q => ({ query: q, status: 'active', origin: 'default' })));\nconst since = new Date(Date.now() - 3 * 864e5).toISOString().slice(0, 10);\nreturn all.filter(r => !r.status || r.status === 'active').slice(0, 25)\n  .map(r => ({ json: { query: String(r.query).trim(), origin: r.origin || 'manual', search: String(r.query).trim() + ' after:' + since } }));\n"
@@ -125,13 +125,13 @@
       "notesInFlow": true
     },
     {
-      "id": "3cff01b6-09ce-4ec4-96ac-91f8293733e2",
+      "id": "103908b4-020d-45ce-a080-2b141bfb3a7e",
       "name": "Search the web",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        960,
-        300
+        860,
+        250
       ],
       "parameters": {
         "method": "POST",
@@ -169,13 +169,13 @@
       "notesInFlow": true
     },
     {
-      "id": "d571c8be-8d08-46ae-906c-e0e847347b4d",
+      "id": "d92e1c22-d494-4944-b1ff-c7919047e360",
       "name": "New hits only",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1180,
-        300
+        1070,
+        250
       ],
       "parameters": {
         "jsCode": "\n// Pair each search with its result (one response per search), drop hits already in the Signals tab.\nconst plans = $('Plan searches').all().map(i => i.json);\nconst seen = new Set($('Read signals').all().map(i => String(i.json.url || '')).filter(Boolean));\nconst examples = $('Read signals').all().map(i => i.json)\n  .filter(r => /^(yes|no)$/i.test(String(r.useful || '').trim())).slice(-6)\n  .map(r => ({ title: r.title, summary: r.summary, sales_said_useful: /yes/i.test(r.useful) }));\nconst out = [];\n$input.all().forEach((item, idx) => {\n  let hits = [];\n  try { hits = JSON.parse(item.json.data || '[]'); } catch (e) {}\n  (Array.isArray(hits) ? hits : []).forEach(h => {\n    const url = h?.metadata?.url;\n    if (!url || seen.has(url)) return;\n    seen.add(url);\n    out.push({ json: { query: plans[idx]?.query, query_origin: plans[idx]?.origin, url,\n      title: String(h.metadata.title || '').slice(0, 200),\n      excerpt: String(h.markdown || h.text || '').replace(/[\\w.+-]+@[\\w-]+\\.[\\w.]+/g, '[e-mail]').replace(/\\s+/g, ' ').slice(0, 1200),\n      examples } });\n  });\n});\nreturn out.slice(0, 30);\n"
@@ -185,13 +185,13 @@
       "notesInFlow": true
     },
     {
-      "id": "0c2cf7a2-5bf6-40e7-866b-05b3b1e32608",
+      "id": "d2a087b7-52a9-43a4-befc-57841c05c3a1",
       "name": "Rate signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1440,
-        300
+        1300,
+        250
       ],
       "parameters": {
         "method": "POST",
@@ -222,13 +222,13 @@
       "notesInFlow": true
     },
     {
-      "id": "6a4c8132-08d8-416a-864d-2f5465b96a7e",
+      "id": "845f1b4e-3342-4cfc-93e5-5b2fa1c514aa",
       "name": "Rate signal output",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1660,
-        300
+        1510,
+        250
       ],
       "parameters": {
         "mode": "runOnceForEachItem",
@@ -238,13 +238,13 @@
       "notesInFlow": true
     },
     {
-      "id": "596da7ff-4ec9-4c75-9e5e-58a792c565c3",
+      "id": "3de43338-66bf-414f-86a6-2da60a912b5b",
       "name": "Signal rows",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1900,
-        120
+        1760,
+        170
       ],
       "parameters": {
         "jsCode": "\nconst cols = [\"signal_id\", \"found_at\", \"query\", \"query_origin\", \"title\", \"url\", \"excerpt\", \"event_type\", \"region\", \"sector\", \"relevance\", \"urgency\", \"action\", \"summary\", \"affected_accounts\", \"useful\"];\nreturn $('Rate signal output').all().map(i => ({ json: Object.fromEntries(cols.map(c => [c, i.json[c] ?? ''])) }));\n"
@@ -254,13 +254,13 @@
       "notesInFlow": true
     },
     {
-      "id": "bf6354f7-da30-44e3-a6d9-e0544116b38e",
+      "id": "4647638f-3a9c-40f7-a3ae-8321ad6c6792",
       "name": "Save to Signals tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2120,
-        120
+        1970,
+        170
       ],
       "parameters": {
         "resource": "sheet",
@@ -294,13 +294,13 @@
       "notesInFlow": true
     },
     {
-      "id": "7f180020-1dc5-45df-8775-1f4e05b172b3",
+      "id": "b55710ca-c2f3-422d-9c57-9754d92d9a84",
       "name": "Learn searches",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1900,
-        300
+        1760,
+        330
       ],
       "parameters": {
         "jsCode": "\n// Self-learning: update every search's stats from the full history, retire searches that never find anything\n// relevant, and add searches the model proposed from strong signals.\nconst now = new Date().toISOString();\nconst history = $('Read signals').all().map(i => i.json).concat($('Rate signal output').all().map(i => i.json));\nconst planned = $('Plan searches').all().map(i => i.json);\nconst tab = $('Read watch queries').all().map(i => i.json).filter(r => r.query);\nconst rows = new Map(tab.map(r => [String(r.query).trim().toLowerCase(), { ...r }]));\nplanned.forEach(p => {\n  const k = p.query.toLowerCase();\n  const r = rows.get(k) || { query: p.query, status: 'active', origin: p.origin, added_at: now, runs: 0 };\n  r.runs = Number(r.runs || 0) + 1;\n  r.last_run = now;\n  rows.set(k, r);\n});\nrows.forEach((r, k) => {\n  const mine = history.filter(h => String(h.query || '').toLowerCase() === k);\n  r.hits = mine.length;\n  r.relevant_hits = mine.filter(h => Number(h.relevance) >= 60).length;\n  r.precision = r.hits ? Math.round(r.relevant_hits / r.hits * 100) + '%' : '';\n  if (r.status === 'active' && Number(r.runs) >= 6 && r.relevant_hits === 0) {\n    r.status = 'retired'; r.note = 'no relevant hit in ' + r.runs + ' runs';\n  }\n});\nconst active = [...rows.values()].filter(r => r.status === 'active').length;\nlet room = 25 - active;\n$('Rate signal output').all().map(i => i.json).filter(s => s.relevance >= 60)\n  .flatMap(s => (s._new_queries || []).map(q => ({ q: String(q).trim(), from: s.signal_id })))\n  .forEach(({ q, from }) => {\n    const k = q.toLowerCase();\n    if (!q || q.length > 80 || rows.has(k) || room <= 0) return;\n    rows.set(k, { query: q, status: 'active', origin: 'learned', added_at: now, runs: 0, hits: 0, relevant_hits: 0,\n                  precision: '', last_run: '', note: 'proposed from signal ' + from });\n    room--;\n  });\nconst cols = [\"query\", \"status\", \"origin\", \"added_at\", \"runs\", \"hits\", \"relevant_hits\", \"precision\", \"last_run\", \"note\"];\nreturn [...rows.values()].map(r => ({ json: Object.fromEntries(cols.map(c => [c, r[c] ?? ''])) }));\n"
@@ -310,13 +310,13 @@
       "notesInFlow": true
     },
     {
-      "id": "10d155ac-a1ae-45b1-a4ed-dd3c82d4a096",
+      "id": "31502763-65bc-4f61-9b07-c5686c518182",
       "name": "Update Watch queries tab",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2120,
-        300
+        1970,
+        330
       ],
       "parameters": {
         "resource": "sheet",
@@ -352,13 +352,13 @@
       "notesInFlow": true
     },
     {
-      "id": "4b3b9433-89f5-43a6-902e-85961af6323b",
+      "id": "5cb7051c-81d8-4596-b645-5331ca6bf53b",
       "name": "Read analyses",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        1900,
-        500
+        1760,
+        580
       ],
       "parameters": {
         "resource": "sheet",
@@ -388,13 +388,13 @@
       "notesInFlow": true
     },
     {
-      "id": "b916dbcc-c68e-41c7-8a84-8981ecf2254c",
+      "id": "c1b4ee7a-36ba-422d-848a-9474df0728d0",
       "name": "Strong signals",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2120,
-        500
+        1970,
+        580
       ],
       "parameters": {
         "jsCode": "\n// Strong signals only. Accounts come from the Analyses tab, with their saved contact lists.\nconst strong = $('Rate signal output').all().map(i => i.json).filter(s => s.relevance >= 60)\n  .sort((a, b) => b.relevance - a.relevance).slice(0, 10);\nif (!strong.length) return [];\nconst accounts = [];\nconst seen = new Set();\n$('Read analyses').all().map(i => i.json).reverse().forEach(a => {\n  if (!a.domain || seen.has(a.domain)) return;\n  seen.add(a.domain);\n  accounts.push({ domain: a.domain, organisation: a.organisation, locations: a.locations || '', score: a.score, contacts: a.contacts || '' });\n});\nreturn [{ json: { strong, accounts } }];\n"
@@ -404,13 +404,13 @@
       "notesInFlow": true
     },
     {
-      "id": "4f8fb325-fba8-43e8-bff3-a4779616bb5e",
+      "id": "ea5b0005-3169-45c1-84b9-20173cfa2530",
       "name": "Match to accounts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2340,
-        500
+        2180,
+        580
       ],
       "parameters": {
         "method": "POST",
@@ -435,13 +435,13 @@
       "notesInFlow": true
     },
     {
-      "id": "a4fbbe8a-7d09-4d12-b28a-9dc9a356a469",
+      "id": "7e440e42-d7c0-4904-aa0a-f25cc3302f19",
       "name": "Write digest",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2560,
-        500
+        2390,
+        580
       ],
       "parameters": {
         "jsCode": "\n// Sales digest: each strong signal with its action and the affected accounts, including saved contacts.\nconst { strong, accounts } = $('Strong signals').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? '';\nlet m = { matches: [] };\ntry { m = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)); } catch (e) {}\nconst byId = Object.fromEntries((m.matches || []).map(x => [x.signal_id, x]));\nconst acc = Object.fromEntries(accounts.map(a => [a.domain, a]));\nconst label = { funding_released: '🟢 Funding released', funding_frozen: '⛔ Funding frozen', regulation_change: '⚖️ Regulation',\n                market_trend: '📈 Market trend', deadline_extension: '📅 Deadline extension', other: 'Other' };\nconst blocks = strong.map(s => {\n  const hit = byId[s.signal_id] || { domains: [], why: '' };\n  const affected = (hit.domains || []).filter(d => acc[d]).map(d => {\n    const a = acc[d];\n    const people = String(a.contacts || '').split('\\n').filter(Boolean).slice(0, 3)\n      .map(line => { const [prio, name, title, url] = line.split(' · '); return `<li>${prio} · <a href=\"${url}\">${name}</a> · ${title}</li>`; }).join('');\n    return `<li><b>${a.organisation || d}</b> (score ${a.score})<ul>${people || '<li>no saved contacts</li>'}</ul></li>`;\n  }).join('');\n  return `<div style=\"border-left:4px solid #c2410c;padding:8px 14px;margin:14px 0\">\n<p style=\"margin:0\"><b>${label[s.event_type] || s.event_type}</b> · relevance ${s.relevance} · ${s.urgency} · ${s.region}</p>\n<p style=\"margin:6px 0\"><a href=\"${s.url}\">${s.title}</a></p>\n<p style=\"margin:6px 0\">${s.summary}</p>\n<p style=\"margin:6px 0\"><b>Action:</b> ${s.action}</p>\n${affected ? `<p style=\"margin:6px 0\"><b>Affected accounts</b> ${hit.why ? '· ' + hit.why : ''}</p><ul>${affected}</ul>` : '<p style=\"margin:6px 0;color:#666\">No known account affected yet.</p>'}\n</div>`;\n}).join('');\nconst html = `<h2>Flashpoint signal watch: ${strong.length} new signal${strong.length > 1 ? 's' : ''}</h2>${blocks}\n<p style=\"color:#666\">All rated hits are saved in the <b>Signals</b> tab. Mark a row's <b>useful</b> column yes or no: the next ratings learn from it.\nSearches and their precision are in <b>Watch queries</b>; new searches proposed from strong signals are added automatically.</p>`;\nconst top = strong[0];\nreturn [{ json: { subject: `[Signal ${top.relevance}] ${label[top.event_type] || top.event_type}: ${top.title}`.slice(0, 150), html,\n  affected: Object.fromEntries(strong.map(s => [s.signal_id, (byId[s.signal_id]?.domains || []).join(', ')])) } }];\n"
@@ -450,13 +450,13 @@
       "notesInFlow": true
     },
     {
-      "id": "4ff6f539-d15e-41db-a14b-ca7a3559e5af",
+      "id": "c37bc291-49de-49f3-bd6a-06e76be42ce7",
       "name": "E-mail sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        2780,
-        500
+        2600,
+        580
       ],
       "parameters": {
         "resource": "message",
@@ -479,23 +479,23 @@
       "notesInFlow": true
     },
     {
-      "id": "37d88527-b36e-4d0d-a57e-e7eee3570970",
+      "id": "ddc7245b-8328-4c87-9e30-092985069c29",
       "name": "About Signal Watch",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         -60,
-        -360
+        -170
       ],
       "parameters": {
         "content": "# Flashpoint · Signal Watch\n**Funding released, budgets frozen, rules changed: react the same day.**\n\nThree times a day the watch searches the news, rates every new hit, saves all of it, and e-mails sales when a signal is strong, with the affected accounts and their contacts. It learns which searches work: every search has a precision score, dead ones are retired, and new ones are proposed from strong signals.",
-        "width": 1500,
-        "height": 300,
+        "width": 1400,
+        "height": 230,
         "color": 7
       }
     },
     {
-      "id": "840c5c75-a4ef-4edd-8439-264c2f14e2ab",
+      "id": "d2a603d3-0d17-4aca-94c0-4ec3ebd268b1",
       "name": "1 · Collect",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -505,72 +505,72 @@
       ],
       "parameters": {
         "content": "## 1 · Collect\nMon–Fri 08:00 · 12:00 · 15:00. Searches come from the **Watch queries** tab (editable) plus defaults. Only hits from the last 3 days that were never seen before go on.",
-        "width": 1380,
-        "height": 460,
+        "width": 1300,
+        "height": 360,
         "color": 4
       }
     },
     {
-      "id": "08d731e9-963a-4ac9-8e1a-396f650f544c",
+      "id": "1d0d22e9-a17c-473d-b70c-665a5be7f31d",
       "name": "2 · Rate",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1380,
+        1260,
         80
       ],
       "parameters": {
         "content": "## 2 · Rate\nEach hit is rated 0-100 with event type, region, urgency and an action. Hits sales marked useful or not are shown to the model as examples.",
         "width": 440,
-        "height": 460,
+        "height": 360,
         "color": 6
       }
     },
     {
-      "id": "10e3520c-74e0-4613-916a-144dc52e1416",
+      "id": "28d33694-cbc9-43e0-bace-d069f7bb6683",
       "name": "3 · Save and learn",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1860,
-        -60
+        1720,
+        80
       ],
       "parameters": {
         "content": "## 3 · Save and learn\nEvery rated hit goes to **Signals** (the knowledge base). Search stats go to **Watch queries**: precision per search, dead searches retired, learned searches added.",
-        "width": 440,
-        "height": 520,
+        "width": 480,
+        "height": 360,
         "color": 5
       }
     },
     {
-      "id": "ca33480b-9f0a-43ac-8c92-f3daca0e21b2",
+      "id": "5c108da7-0729-4583-a251-b1ddf24c5276",
       "name": "4 · Alert",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1860,
+        1720,
         460
       ],
       "parameters": {
         "content": "## 4 · Alert\nSignals rated 60+ are matched to known accounts by region and sector; sales gets one digest with the action and the saved decision makers.",
-        "width": 1100,
-        "height": 300,
+        "width": 1000,
+        "height": 260,
         "color": 2
       }
     },
     {
-      "id": "3d5782db-b714-4c47-ae5d-ef68dc16aac6",
+      "id": "d6f67a17-d5d2-4854-8384-746312ef525b",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
-        820
+        2740,
+        -170
       ],
       "parameters": {
         "content": "# Legend · Flashpoint Signal Watch\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Collect\n- **Morning, noon, afternoon**: Runs Mon–Fri at 08:00, 12:00 and 15:00 Berlin time. *(Schedule Trigger, free)*\n- **Check now**: Run the watch by hand. *(Manual Trigger, free)*\n- **Read watch queries**: The searches to run, with their stats. Editable by anyone. *(Google Sheets, free)*\n- **Read signals**: Every hit seen before, so nothing is rated twice, plus sales feedback. *(Google Sheets, free)*\n- **Plan searches**: Active searches plus defaults, limited to the last 3 days. *(Code, free)*\n- **Search the web**: Google search with page text for each query, 5 results each. *(Apify apify/rag-web-browser, ~$0.01 per search)*\n- **New hits only**: Drops already-known URLs, strips e-mail addresses, adds sales feedback as examples. *(Code, free)*\n\n### 2 Rate\n- **Rate signal**: Rates each hit: event type, region, relevance 0-100, urgency, action for sales, new search ideas. *(Featherless Qwen2.5-72B, flat plan)*\n- **Rate signal output**: Turns each rating into a Signals row. Unparseable ratings are kept with relevance 0. *(Code, free)*\n\n### 3 Save and learn\n- **Signal rows**: Keeps only the Signals columns. *(Code, free)*\n- **Save to Signals tab**: Saves every rated hit: the growing knowledge base. *(Google Sheets, free)*\n- **Learn searches**: Updates runs, hits and precision per search, retires dead searches, adds learned ones. *(Code, free)*\n- **Update Watch queries tab**: Writes the search stats back, matched on the query text. *(Google Sheets, free)*\n\n### 4 Alert\n- **Read analyses**: Known accounts with their locations and saved contact lists. *(Google Sheets, free)*\n- **Strong signals**: Keeps signals rated 60 or higher. Stops quietly if there are none. *(Code, free)*\n- **Match to accounts**: Finds which accounts each strong signal affects (region, sector, federal). *(Featherless Qwen2.5-72B, flat plan)*\n- **Write digest**: One e-mail: signal, action, affected accounts and their contacts. *(Code, free)*\n- **E-mail sales**: Sends the digest to the sales team. *(Gmail, free)*",
-        "width": 3020,
-        "height": 760,
+        "width": 800,
+        "height": 1080,
         "color": 7
       }
     }
