@@ -7,3 +7,4 @@ node_modules/
 .DS_Store
 n8n/__pycache__/
 research/*.err
+tests/node_modules/

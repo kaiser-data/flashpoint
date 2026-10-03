@@ -151,6 +151,10 @@ def build_main():
                "## 5 · Replies\nUnread replies to the agent's e-mail are classified. Interested replies and questions go to "
                "a human. STOP is respected."),
     ]
+    if os.environ.get("TEST_MODE"):
+        # Test runs use fake sign-up addresses: never e-mail them. Sales still gets the briefing.
+        for node in wf["nodes"]:
+            if node["name"] == "Agent e-mails the sign-ups": node["disabled"] = True
     wf["name"] = "Flashpoint · Kredible (universities)"
     return wf
 

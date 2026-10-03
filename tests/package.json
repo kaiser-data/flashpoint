@@ -1,0 +1,12 @@
+{
+  "name": "flashpoint-tests",
+  "private": true,
+  "scripts": {
+    "fill": "node fill-form.js",
+    "fill:dry": "node fill-form.js --dry",
+    "fill:demo": "node fill-form.js --headed --slow 120 --unis tu-berlin.de --per 3"
+  },
+  "devDependencies": {
+    "playwright": "1.60.0"
+  }
+}
