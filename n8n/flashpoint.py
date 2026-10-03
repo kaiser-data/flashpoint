@@ -11,6 +11,7 @@ credential is missing are disabled so the workflow can still be activated.
 import json, os, subprocess, sys, urllib.error, urllib.request, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from node_docs import MAIN as MAIN_DOCS, EVAL as EVAL_DOCS, legend
+import watch as W
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SHEET_ID = os.environ.get("SHEET_ID") or "1Ev5RSeKo1slDfSgWdic-gZuwFynjbpAdi4__cpOi0rU"
@@ -18,9 +19,9 @@ JUDGE_MODEL = os.environ.get("JUDGE_MODEL") or "deepseek-ai/DeepSeek-V3-0324"   
 EVAL_EMAIL = os.environ.get("EVAL_EMAIL") or os.environ.get("SALES_EMAIL") or "eval-team@example.com"
 EVAL_NAME = "Flashpoint · Eval (LLM as a judge)"
 
-ANALYSES_HEADERS = ["analysis_id", "logged_at", "domain", "organisation", "linkedin_verified", "colleagues", "roles", "score",
+ANALYSES_HEADERS = ["analysis_id", "logged_at", "domain", "organisation", "locations", "linkedin_verified", "colleagues", "roles", "score",
                     "decision", "handoff_reason", "angle", "news_summary", "pain_evidence", "culture", "structure",
-                    "buying_committee", "score_reasons", "email_subject", "email_html", "evidence_urls", "dropped_hits",
+                    "buying_committee", "score_reasons", "email_subject", "email_html", "contacts", "evidence_urls", "dropped_hits",
                     "context_json", "model"]
 EVALS_HEADERS = ["analysis_id", "judged_at", "domain", "judge_model", "groundedness", "relevance", "actionability",
                  "email_quality", "compliance", "calibration", "llm_overall", "rule_checks_passed", "rule_failures",
@@ -80,6 +81,7 @@ return [{ json: {
   logged_at: new Date().toISOString(),
   domain: d.domain,
   organisation: d.company?.name ?? '',
+  locations: (d.company?.locations || []).join(', '),
   linkedin_verified: d.verified ? 'yes' : 'no',
   colleagues: d.colleagues,
   roles: join(d.roles),
@@ -90,6 +92,7 @@ return [{ json: {
   culture: a.culture ?? '', structure: a.structure ?? '',
   buying_committee: join(a.buying_committee), score_reasons: join(a.score_reasons),
   email_subject: a.champion_email_subject ?? '', email_html: String(a.champion_email_html ?? '').slice(0, 8000),
+  contacts: (d.contacts || []).map(c => `${c.priority} · ${c.name} · ${c.title} · ${c.linkedin}`).join('\n'),
   evidence_urls: evidence.join(' '), dropped_hits: d.droppedHits ?? 0,
   context_json: JSON.stringify(context).slice(0, 20000),
   model: 'MODEL_PLACEHOLDER',
@@ -316,6 +319,39 @@ def build_eval():
     return wf
 
 
+# ------------------------------------------------------------------ signal watch workflow
+def build_watch():
+    model = os.environ.get("FEATHERLESS_MODEL") or "Qwen/Qwen2.5-72B-Instruct"
+    sales = ",".join(x.strip() for x in [os.environ.get("SALES_EMAIL") or "sales@example.com", *os.environ.get("SALES_TEAM", "").split(",")] if x.strip())
+    wf = W.build(sticky, connect, SHEET_ID, rl_id, rl_name, SHEETS, GMAIL, FL_AUTH,
+                 {"httpHeaderAuth": {"id": "", "name": "Apify (Authorization: Bearer <token>)"}}, model, sales)
+    for node in wf["nodes"]:
+        if node["name"] in W.DOCS:
+            ph, what, api, cost = W.DOCS[node["name"]]
+            node["notes"], node["notesInFlow"] = f"{what}\n[{api} · {cost}]", True
+    wf["nodes"] += [
+        sticky("About Signal Watch", -60, -360, 1500, 300, 7,
+               "# Flashpoint · Signal Watch\n**Funding released, budgets frozen, rules changed: react the same day.**\n\n"
+               "Three times a day the watch searches the news, rates every new hit, saves all of it, and e-mails sales when a "
+               "signal is strong, with the affected accounts and their contacts. It learns which searches work: every search "
+               "has a precision score, dead ones are retired, and new ones are proposed from strong signals."),
+        sticky("1 · Collect", -60, 80, 1380, 460, 4,
+               "## 1 · Collect\nMon–Fri 08:00 · 12:00 · 15:00. Searches come from the **Watch queries** tab (editable) plus defaults. "
+               "Only hits from the last 3 days that were never seen before go on."),
+        sticky("2 · Rate", 1380, 80, 440, 460, 6,
+               "## 2 · Rate\nEach hit is rated 0-100 with event type, region, urgency and an action. "
+               "Hits sales marked useful or not are shown to the model as examples."),
+        sticky("3 · Save and learn", 1860, -60, 440, 520, 5,
+               "## 3 · Save and learn\nEvery rated hit goes to **Signals** (the knowledge base). Search stats go to "
+               "**Watch queries**: precision per search, dead searches retired, learned searches added."),
+        sticky("4 · Alert", 1860, 460, 1100, 300, 2,
+               "## 4 · Alert\nSignals rated 60+ are matched to known accounts by region and sector; sales gets one digest "
+               "with the action and the saved decision makers."),
+        sticky("Legend", -60, 820, 3020, 760, 7, legend(W.DOCS, "Flashpoint Signal Watch")),
+    ]
+    return wf
+
+
 # ------------------------------------------------------------------ deploy
 def call(method, path, body=None):
     base = os.environ["N8N_BASE_URL"].rstrip("/")
@@ -350,6 +386,7 @@ def deploy(wf, creds, existing):
                 disabled.append(f"{node['name']} (needs {ctype})")
         if "credentials" in node and not node["credentials"]: node.pop("credentials")
     body = {k: wf[k] for k in ("name", "nodes", "connections", "settings")}
+    body["settings"] = {k: v for k, v in body["settings"].items() if k in ("executionOrder", "timezone")}
     match = next((w for w in existing if w["name"] == wf["name"]), None)
     if match:
         s, res = call("PUT", f"/api/v1/workflows/{match['id']}", body); wid = match["id"]
@@ -364,10 +401,11 @@ def deploy(wf, creds, existing):
 
 
 if __name__ == "__main__":
-    main, ev = build_main(), build_eval()
+    main, ev, wt = build_main(), build_eval(), build_watch()
     json.dump(main, open(os.path.join(HERE, "flashpoint-main.json"), "w"), ensure_ascii=False, indent=2)
     json.dump(ev, open(os.path.join(HERE, "flashpoint-eval.json"), "w"), ensure_ascii=False, indent=2)
-    print(f"main: {len(main['nodes'])} nodes · eval: {len(ev['nodes'])} nodes")
+    json.dump(wt, open(os.path.join(HERE, "flashpoint-watch.json"), "w"), ensure_ascii=False, indent=2)
+    print(f"main: {len(main['nodes'])} nodes · eval: {len(ev['nodes'])} nodes · watch: {len(wt['nodes'])} nodes")
     if "--deploy" in sys.argv:
         s, creds = call("GET", "/api/v1/credentials?limit=100")
         s2, wfs = call("GET", "/api/v1/workflows?limit=100")
@@ -377,3 +415,4 @@ if __name__ == "__main__":
             if w["name"].startswith(("Critical Mass", "Flashpoint · Kredible")): w["name"] = main["name"]
         deploy(main, creds.get("data", []), existing)
         deploy(ev, creds.get("data", []), existing)
+        deploy(wt, creds.get("data", []), existing)

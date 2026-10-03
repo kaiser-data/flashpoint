@@ -63,7 +63,7 @@ def featherless(name, pos, messages_expr):
             "parameters": {"method": "POST", "url": "https://api.featherless.ai/v1/chat/completions",
                            "authentication": "genericCredentialType", "genericAuthType": "httpHeaderAuth",
                            "sendBody": True, "specifyBody": "json",
-                           "jsonBody": "={{ JSON.stringify({ model: '" + FEATHERLESS_MODEL + "', temperature: 0.2, max_tokens: 1200, messages: " + messages_expr + " }) }}",
+                           "jsonBody": "={{ JSON.stringify({ model: '" + FEATHERLESS_MODEL + "', temperature: 0.2, max_tokens: 3000, messages: " + messages_expr + " }) }}",
                            "options": {"timeout": 120000}}}
 
 # --- Chain A ---------------------------------------------------------------
@@ -79,9 +79,10 @@ return [{ json: {
   roles: signup.roles || [], notes: signup.notes || [],
   partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),
   colleague_emails: signup.colleague_emails,
+  signups: signup.signups || (signup.colleague_emails || []).map((e, i) => ({ name: '', email: e, role: (signup.roles || [])[i] || '' })),
   verified: Boolean(match),
   company: match ? {
-    name: match.name, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,
+    name: match.name, id: match.id ? String(match.id) : null, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,
     industries: match.industries, specialities: match.specialities, tagline: match.tagline,
     description: String(match.description || '').slice(0, 1500),
     locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),
@@ -89,16 +90,39 @@ return [{ json: {
 }}];
 '''
 
-context_js = r'''
-// Company-level context for the LLM. People appear only as roles, never as names.
+context_js = (r'''
+// Context for the LLM (titles only) and the contact list for sales (real names, ranked in code).
 const base = $('Verify company match').first().json;
 const posts = $('LinkedIn posts').all().map(i => i.json).filter(p => p && (p.content || p.text));
-const roles = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.headline);
+const people = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.firstName && !p.error);
+const orgName = String(base.company?.name || '').toLowerCase();
+const orgUrl = String(base.company?.linkedinUrl || '').toLowerCase().replace(/\/$/, '');
+// The person's current position at THIS organisation; people whose current job is elsewhere are dropped.
+// Matches by LinkedIn company id, profile URL, or name prefix (faculties: "Freie Universität Berlin, Fachbereich ...").
+const orgId = String(base.company?.id || '');
+const position = (p) => (p.currentPositions || []).find(x => x.current !== false && (
+  (orgId && String(x.companyId || '') === orgId) ||
+  String(x.companyLinkedinUrl || '').toLowerCase().replace(/\/$/, '') === orgUrl ||
+  (orgName && String(x.companyName || '').toLowerCase().startsWith(orgName)))) || null;
+// Rank: earlier entries in DECISION_ROLES weigh more; seniority words add weight.
+const ROLE_ORDER = DECISION_ROLES_JSON.map(r => r.toLowerCase());
+const SENIOR = /(head|leiter|leitung|director|direktor|vice|vize|präsident|president|kanzler|chief|dean|dekan)/i;
+const ASSISTANT = /(referent|assistent|assistant|sekretariat|secretary|werkstudent|student|praktikant|intern\b|trainee|hilfskraft)/i;
+const ACADEMIC = /(lecturer|professor|researcher|wissenschaftlich|doktorand|phd|postdoc|dozent)/i;
+const contacts = people.filter(p => position(p)).map(p => {
+  const title = String(position(p).title || '').trim();
+  const roleIdx = ROLE_ORDER.findIndex(r => title.toLowerCase().includes(r));
+  const rank = (roleIdx === -1 ? 0 : 100 - roleIdx * 5) + (SENIOR.test(title) ? 30 : 0)
+             - (ASSISTANT.test(title) ? 60 : 0) - (ACADEMIC.test(title) && !SENIOR.test(title) ? 40 : 0);
+  return { name: `${p.firstName} ${p.lastName || ''}`.trim(), title, linkedin: p.linkedinUrl || '',
+           location: p.location?.linkedinText || '', matched_role: roleIdx === -1 ? '' : DECISION_ROLES_JSON[roleIdx], rank };
+}).filter(c => c.title).sort((a, b) => b.rank - a.rank).slice(0, 10)
+  .map((c, i) => ({ ...c, priority: i < 3 && c.rank >= 100 ? 'A' : c.rank >= 70 ? 'B' : 'C' }));
 const topPosts = posts
   .map(p => ({ text: String(p.content || p.text).slice(0, 400),
                engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))
   .sort((a, b) => b.engagement - a.engagement).slice(0, 8);
-const roleTitles = [...new Set(roles.map(r => r.headline).filter(Boolean))].slice(0, 12);
+const roleTitles = [...new Set(contacts.map(c => c.title))].slice(0, 12);
 const news = $('Latest news').all().map(i => i.json).filter(n => n && n.metadata && n.markdown)
   .map(n => ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);
 const site = $('Website').all().map(i => i.json).find(w => w && w.markdown);
@@ -113,14 +137,15 @@ const hits = (n, keep) => $(n).all().map(i => i.json).filter(h => h && h.metadat
 const painSignal = hits('Pain signal', h => String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || '#none#').replace(/^https?:\/\/(www\.)?/, '').split('/')[0]));
 const customerVoice = hits('Customer voice', h => /reddit\.com/.test(h.metadata.url) && mentions(h));
 const droppedHits = $('Pain signal').all().length + $('Customer voice').all().length - painSignal.length - customerVoice.length;
-return [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];
-'''
+return [{ json: { ...base, topPosts, roleTitles, contacts, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];
+''').replace("DECISION_ROLES_JSON", json.dumps(DECISION_ROLES, ensure_ascii=False))
 
 analysis_system = (
   "You are a B2B analyst. Product: " + PRODUCT + " "
   "Several people from one " + ORG_TYPE + " signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. "
   "Return ONLY JSON: {\\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), "
   "\\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), "
+  "\\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), "
   "\\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. "
   + SCORE_HINTS + " The champion e-mail goes only to the people who signed up. " + EMAIL_BRIEF
 )
@@ -138,11 +163,11 @@ const ok = a && typeof a.interest_score === "number" && a.champion_email_html &&
 const score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;
 return [{{ json: {{ ...ctx, analysis: ok ? a : null, score,
   autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),
-  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= {HOT_SCORE},
-  handoffReason: !ok ? "LLM output unusable" : !ctx.verified ? "LinkedIn profile not verified" : ctx.partnershipRequested ? "Partnership call requested" : score >= {HOT_SCORE} ? "Hot lead (score " + score + ")" : null }} }}];
+  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= {HOT_SCORE} || (ctx.contacts || []).length > 0,
+  handoffReason: !ok ? "LLM output unusable" : !ctx.verified ? "LinkedIn profile not verified" : ctx.partnershipRequested ? "Partnership call requested" : score >= {HOT_SCORE} ? "Hot lead (score " + score + ")" : (ctx.contacts || []).length ? "Contact list for sales" : null }} }}];
 '''
 
-brief_js = r'''
+brief_js = (r'''
 const d = $('Parse analysis').first().json;
 const a = d.analysis || {};
 const li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join("");
@@ -155,12 +180,36 @@ ${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? "?"} 
 <p><b>Signal nobody uses:</b> ${a.pain_evidence ?? "n/a"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join("")}</ul>
 <p><b>Latest news:</b> ${a.news_summary ?? "n/a"}</p><ul>${(d.news || []).map(n => `<li><a href="${n.url}">${n.title}</a></li>`).join("")}</ul>
 <p><b>Culture:</b> ${a.culture ?? "n/a"}</p><p><b>Structure:</b> ${a.structure ?? "n/a"}</p>
+<h3>Who signed up (${(d.signups || []).length})</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;font-size:14px"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>
+${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>
+<p style="color:#666">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>
+<h3>Decision makers on LinkedIn</h3>
+${(d.contacts || []).length ? `<table border="1" cellpadding="6" style="border-collapse:collapse;font-size:14px">
+<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>
+${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href="${c.linkedin}">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}
+</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}
+<h3>Outreach templates (send personally)</h3>
+${(() => {
+  const tpl = a.outreach_templates || [];
+  if (!tpl.length) return '<p>No templates generated.</p>';
+  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);
+  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))
+                         .sort((x, y) => y.hit - x.hit)[0].t;
+  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);
+  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));
+  return blocks.map(({ c, t }) => `<div style="border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0">
+<p style="margin:0"><b>${c ? `<a href="${c.linkedin}">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>
+<p style="white-space:pre-wrap;margin:6px 0 0">${String(t.body).replace(/\{first_name\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');
+})()}
 <p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>
 <p><b>Suggested angle:</b> ${a.angle ?? "n/a"}</p><ul>${li(a.score_reasons)}</ul>
 <p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? "sent automatically" : "NOT sent, please review"}</p>
-<p style="color:#666">Account-level briefing. Subscriber addresses are not included.</p>`;
-return [{ json: { subject: `[${d.score ?? "review"}] Critical mass: ${d.colleagues} people at ${d.domain}`, html } }];
-'''
+<p style="color:#666">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.
+When you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;
+const prio = !d.analysis ? 'REVIEW' : d.score >= HOT_SCORE_VALUE ? 'HOT' : d.score >= 50 ? 'WARM' : 'FYI';
+return [{ json: { subject: `[${prio} ${d.score ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];
+''').replace("HOT_SCORE_VALUE", str(HOT_SCORE))
 
 # --- Chain B ---------------------------------------------------------------
 reply_system = ("Classify a reply to our e-mail. Return ONLY JSON: {\\\"label\\\": \\\"interested\\\"|\\\"question\\\"|\\\"not_interested\\\"|\\\"stop\\\", \\\"summary\\\": string}. "

@@ -14,6 +14,7 @@ B = runpy.run_path("build_critical_mass.py")          # analyst prompt, signal q
 os.chdir(cwd)
 import flashpoint as F
 from node_docs import MAIN, EVAL
+import watch as W
 
 main = F.build_main()
 ev = F.build_eval()
@@ -65,6 +66,7 @@ by a second model.</p>
 </div>"""),
     ("nodes-main", "Main workflow · every node", node_table(MAIN)),
     ("nodes-eval", "Eval workflow · every node", node_table(EVAL)),
+    ("nodes-watch", "Signal Watch · every node", f"<p>Runs <code>{e(W.SCHEDULE)}</code> (Mon–Fri 08:00, 12:00, 15:00 Berlin). Signals rated {W.RELEVANT}+ go to sales.</p>" + node_table(W.DOCS)),
     ("prompts", "Prompts", f"""
 <h3>1 · Analyst (Featherless · <code>{e(B['FEATHERLESS_MODEL'])}</code>, temperature 0.2)</h3>
 <p class="sub">System prompt. The user message is a JSON object with the context listed under it.</p>
@@ -76,7 +78,17 @@ top_posts, people_roles, latest_news, website, pain_signal, customer_voice.</p>
 <h3>3 · LLM judge (Featherless · <code>{e(F.JUDGE_MODEL)}</code>, temperature 0)</h3>
 <p class="sub">A different model family from the analyst, so the analyst never grades itself.</p>
 {pre(unescape(F.judge_system), 'system prompt')}
-<p class="sub">User message: <code>CONTEXT:</code> the full context the analyst saw, then <code>ANALYSIS:</code> the analyst's output.</p>"""),
+<p class="sub">User message: <code>CONTEXT:</code> the full context the analyst saw, then <code>ANALYSIS:</code> the analyst's output.</p>
+<h3>4 · Signal rater (Signal Watch, temperature 0)</h3>
+{pre(unescape(W.rate_system), 'system prompt')}
+<p class="sub">User message: up to 6 earlier hits sales marked useful / not useful (self-learning), then the article.</p>
+<h3>5 · Account matcher (Signal Watch)</h3>
+{pre(unescape(W.match_system), 'system prompt')}
+<h3>Default watch searches</h3><ul>{''.join('<li><code>' + e(q) + '</code></li>' for q in W.DEFAULT_QUERIES)}</ul>
+<h3>Self-learning rules</h3><ul><li>Every search keeps runs, hits, relevant hits and precision in the <b>Watch queries</b> tab.</li>
+<li>A search with {W.RETIRE_AFTER_RUNS} runs and no relevant hit is retired.</li>
+<li>Strong signals propose up to 2 new searches each; they are added as <code>learned</code> (max {W.MAX_ACTIVE_QUERIES} active).</li>
+<li>Rows sales marks <code>useful</code> yes/no in the <b>Signals</b> tab are shown to the rater as examples.</li></ul>"""),
     ("signals", "Signal queries", f"""
 <p>Search queries sent to <code>apify/rag-web-browser</code>. <code>{{domain}}</code> and <code>{{name}}</code> are filled per account.</p>
 <div class="box"><table><thead><tr><th>Signal</th><th>Query</th></tr></thead><tbody>
@@ -99,7 +111,9 @@ top_posts, people_roles, latest_news, website, pain_signal, customer_voice.</p>
     ("data", "Data contracts", f"""
 <h3>Webhook payload (sheet script → n8n)</h3>{pre(json.dumps(webhook_example, indent=2, ensure_ascii=False), 'json')}
 <h3>Analyses tab</h3><p><code>{e(' · '.join(F.ANALYSES_HEADERS))}</code></p>
-<h3>Evals tab</h3><p><code>{e(' · '.join(F.EVALS_HEADERS))}</code></p>"""),
+<h3>Evals tab</h3><p><code>{e(' · '.join(F.EVALS_HEADERS))}</code></p>
+<h3>Signals tab</h3><p><code>{e(' · '.join(W.SIGNALS_HEADERS))}</code></p>
+<h3>Watch queries tab</h3><p><code>{e(' · '.join(W.QUERIES_HEADERS))}</code></p>"""),
     ("logic", "Decision logic (code, not the model)", f"""
 <h3>Parse analysis: auto e-mail or human</h3>{pre(code(main, 'Parse analysis'), 'javascript')}
 <h3>Build context: drop off-target search hits</h3>{pre(code(main, 'Build context'), 'javascript')}
@@ -110,8 +124,10 @@ top_posts, people_roles, latest_news, website, pain_signal, customer_voice.</p>
 <li>Sign-ups need consent; rows without it are marked <code>no consent</code> and never sent.</li>
 <li>Private e-mail domains (gmail, gmx, web.de …) are never grouped by organisation.</li>
 <li>The agent only writes to people who signed up, in BCC, with an unsubscribe line. No cold e-mail (UWG §7).</li>
-<li>LinkedIn people appear only as job titles. Reddit usernames and e-mail addresses are removed before the LLM.</li>
-<li>Sales briefings contain account-level facts, not the sign-ups' addresses.</li>
+<li>Decision makers from LinkedIn (name, title, profile URL, location) go to the sales briefing and the Analyses log. The LLM only sees their job titles.</li>
+<li>Contacts found on LinkedIn are never e-mailed automatically. Sales reaches out personally and tells them where the details came from (GDPR Art. 14).</li>
+<li>Reddit usernames and e-mail addresses are removed before the LLM.</li>
+<li>Sales briefings do not contain the sign-ups' addresses.</li>
 <li>Secrets live in n8n credentials and Apps Script properties, never in the repo.</li>
 </ul>"""),
 ]

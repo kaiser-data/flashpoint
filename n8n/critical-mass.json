@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "5ab9eab8-8ac5-4a5a-a39d-6499493ebd99",
+      "id": "8953b766-deda-420a-b0da-a35baa50918d",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         300
       ],
-      "webhookId": "29b6ad8a-b161-4f77-9bda-bc5032f8ddf3",
+      "webhookId": "cdb44232-9094-4ca1-9ec9-bb00ed201987",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "f61c7c93-474f-42f8-9c43-f9d141ddc1a4",
+      "id": "f423532c-3e62-43b0-a2e7-2428264484aa",
       "name": "Exactly 3 colleagues?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -44,7 +44,7 @@
           },
           "conditions": [
             {
-              "id": "d58dcb1d-d257-4e41-a191-62f87adbe68c",
+              "id": "b21a98f9-38a1-4d6e-9060-dcc105aa8d4b",
               "leftValue": "={{ $json.body.colleagues }}",
               "operator": {
                 "type": "number",
@@ -53,7 +53,7 @@
               "rightValue": 3
             },
             {
-              "id": "22a2fbf0-2330-4b07-931f-40b0560e3bf9",
+              "id": "fdc35418-bce6-4b5c-bb9c-b9a8c87410da",
               "leftValue": "={{ $json.body.company_domain }}",
               "operator": {
                 "type": "string",
@@ -69,7 +69,7 @@
       }
     },
     {
-      "id": "b069c042-305f-4193-b088-a8cbbda40073",
+      "id": "89fc14a8-a406-4d97-a9d9-65b51b1b1c49",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -101,7 +101,7 @@
       }
     },
     {
-      "id": "3aa8d7ca-1c1c-4a14-b28c-bd59e48fc3e9",
+      "id": "eade65c7-3b57-46d6-a448-901095c97ea8",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -110,11 +110,11 @@
         300
       ],
       "parameters": {
-        "jsCode": "\n// Accept the LinkedIn match only if its website is the sign-up domain. Otherwise abstain.\nconst signup = $('Form sign-up').first().json.body;\nconst items = $input.all().map(i => i.json).filter(c => c && c.name);\nconst institution = String((signup.notes || [])[0] || '').split(' | ')[0].toLowerCase().trim();\nconst match = items.find(c => String(c.website || '').toLowerCase().includes(signup.company_domain))\n  || (institution ? items.find(c => String(c.name || '').toLowerCase() === institution) : undefined);\nreturn [{ json: {\n  domain: signup.company_domain, city: signup.city, colleagues: signup.colleagues,\n  roles: signup.roles || [], notes: signup.notes || [],\n  partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),\n  colleague_emails: signup.colleague_emails,\n  verified: Boolean(match),\n  company: match ? {\n    name: match.name, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,\n    industries: match.industries, specialities: match.specialities, tagline: match.tagline,\n    description: String(match.description || '').slice(0, 1500),\n    locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),\n  } : null,\n}}];\n"
+        "jsCode": "\n// Accept the LinkedIn match only if its website is the sign-up domain. Otherwise abstain.\nconst signup = $('Form sign-up').first().json.body;\nconst items = $input.all().map(i => i.json).filter(c => c && c.name);\nconst institution = String((signup.notes || [])[0] || '').split(' | ')[0].toLowerCase().trim();\nconst match = items.find(c => String(c.website || '').toLowerCase().includes(signup.company_domain))\n  || (institution ? items.find(c => String(c.name || '').toLowerCase() === institution) : undefined);\nreturn [{ json: {\n  domain: signup.company_domain, city: signup.city, colleagues: signup.colleagues,\n  roles: signup.roles || [], notes: signup.notes || [],\n  partnershipRequested: (signup.notes || []).some(n => /partnership call/i.test(n)),\n  colleague_emails: signup.colleague_emails,\n  signups: signup.signups || (signup.colleague_emails || []).map((e, i) => ({ name: '', email: e, role: (signup.roles || [])[i] || '' })),\n  verified: Boolean(match),\n  company: match ? {\n    name: match.name, id: match.id ? String(match.id) : null, website: match.website, linkedinUrl: match.linkedinUrl, employeeCount: match.employeeCount,\n    industries: match.industries, specialities: match.specialities, tagline: match.tagline,\n    description: String(match.description || '').slice(0, 1500),\n    locations: (match.locations || []).map(l => l.city || l.parsed?.city).filter(Boolean).slice(0, 10),\n  } : null,\n}}];\n"
       }
     },
     {
-      "id": "cf2fde38-45f6-4583-a2de-d0c15bfef78f",
+      "id": "ca45b878-2bfe-491f-a1dd-acff211f7f25",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -146,7 +146,7 @@
       }
     },
     {
-      "id": "9b3c1e17-9d70-4fb3-bde3-c97f718ef58b",
+      "id": "9f5a9276-6770-470a-bffc-480fce6a839d",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -178,7 +178,7 @@
       }
     },
     {
-      "id": "130ddf16-4d2e-4f39-9a7d-7b9a54fcd855",
+      "id": "a4d46132-75aa-44d0-b2b0-d54795d787cc",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -210,7 +210,7 @@
       }
     },
     {
-      "id": "9372d0fe-cf6d-4b56-b3d4-a9b78c1b7453",
+      "id": "b1fc8695-2768-48f2-8e64-0fcdc6d7af38",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -242,7 +242,7 @@
       }
     },
     {
-      "id": "31bd40d0-3c28-41a1-922c-ba903e4d4628",
+      "id": "4528cb8c-809c-4f4e-b321-c8d3a456be18",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -274,7 +274,7 @@
       }
     },
     {
-      "id": "b6685d1b-c480-4777-a0f0-976af37f3c8d",
+      "id": "facbe089-3228-45d0-9bba-296c4d88e7f7",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -306,7 +306,7 @@
       }
     },
     {
-      "id": "655266b7-0f80-44f2-a6ca-fa6d05d9e35f",
+      "id": "312fc4ce-35b7-44e5-9eb3-f354d9fc228c",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -315,11 +315,11 @@
         300
       ],
       "parameters": {
-        "jsCode": "\n// Company-level context for the LLM. People appear only as roles, never as names.\nconst base = $('Verify company match').first().json;\nconst posts = $('LinkedIn posts').all().map(i => i.json).filter(p => p && (p.content || p.text));\nconst roles = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.headline);\nconst topPosts = posts\n  .map(p => ({ text: String(p.content || p.text).slice(0, 400),\n               engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))\n  .sort((a, b) => b.engagement - a.engagement).slice(0, 8);\nconst roleTitles = [...new Set(roles.map(r => r.headline).filter(Boolean))].slice(0, 12);\nconst news = $('Latest news').all().map(i => i.json).filter(n => n && n.metadata && n.markdown)\n  .map(n => ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);\nconst site = $('Website').all().map(i => i.json).find(w => w && w.markdown);\nconst website = site ? String(site.markdown).slice(0, 2000) : null;\n// Search engines sometimes ignore site: filters. Keep only hits that are really about this account.\nconst domainRoot = String(base.domain || '').split('.')[0].replace(/-/g, ' ').toLowerCase();\nconst names = [String(base.company?.name || '').toLowerCase(), domainRoot].filter(x => x.length > 2);\nconst mentions = (h) => names.some(n => (String(h.metadata.title) + ' ' + String(h.markdown)).toLowerCase().includes(n));\nconst hits = (n, keep) => $(n).all().map(i => i.json).filter(h => h && h.metadata && h.markdown && keep(h))\n  .map(h => ({ title: String(h.metadata.title).slice(0, 160), url: h.metadata.url,\n               excerpt: String(h.markdown).replace(/u\\/[A-Za-z0-9_-]+/g, '').replace(/[\\w.+-]+@[\\w-]+\\.[\\w.]+/g, '[e-mail]').slice(0, 400) })).slice(0, 5);\nconst painSignal = hits('Pain signal', h => String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || '#none#').replace(/^https?:\\/\\/(www\\.)?/, '').split('/')[0]));\nconst customerVoice = hits('Customer voice', h => /reddit\\.com/.test(h.metadata.url) && mentions(h));\nconst droppedHits = $('Pain signal').all().length + $('Customer voice').all().length - painSignal.length - customerVoice.length;\nreturn [{ json: { ...base, topPosts, roleTitles, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];\n"
+        "jsCode": "\n// Context for the LLM (titles only) and the contact list for sales (real names, ranked in code).\nconst base = $('Verify company match').first().json;\nconst posts = $('LinkedIn posts').all().map(i => i.json).filter(p => p && (p.content || p.text));\nconst people = $('Decision-maker roles').all().map(i => i.json).filter(p => p && p.firstName && !p.error);\nconst orgName = String(base.company?.name || '').toLowerCase();\nconst orgUrl = String(base.company?.linkedinUrl || '').toLowerCase().replace(/\\/$/, '');\n// The person's current position at THIS organisation; people whose current job is elsewhere are dropped.\n// Matches by LinkedIn company id, profile URL, or name prefix (faculties: \"Freie Universität Berlin, Fachbereich ...\").\nconst orgId = String(base.company?.id || '');\nconst position = (p) => (p.currentPositions || []).find(x => x.current !== false && (\n  (orgId && String(x.companyId || '') === orgId) ||\n  String(x.companyLinkedinUrl || '').toLowerCase().replace(/\\/$/, '') === orgUrl ||\n  (orgName && String(x.companyName || '').toLowerCase().startsWith(orgName)))) || null;\n// Rank: earlier entries in DECISION_ROLES weigh more; seniority words add weight.\nconst ROLE_ORDER = [\"International Office\", \"International Relations\", \"Admissions\", \"Zulassung\", \"Studierendenservice\", \"Vice President International\", \"Vizepräsident\", \"Kanzler\", \"Finance\", \"Head of Finance\"].map(r => r.toLowerCase());\nconst SENIOR = /(head|leiter|leitung|director|direktor|vice|vize|präsident|president|kanzler|chief|dean|dekan)/i;\nconst ASSISTANT = /(referent|assistent|assistant|sekretariat|secretary|werkstudent|student|praktikant|intern\\b|trainee|hilfskraft)/i;\nconst ACADEMIC = /(lecturer|professor|researcher|wissenschaftlich|doktorand|phd|postdoc|dozent)/i;\nconst contacts = people.filter(p => position(p)).map(p => {\n  const title = String(position(p).title || '').trim();\n  const roleIdx = ROLE_ORDER.findIndex(r => title.toLowerCase().includes(r));\n  const rank = (roleIdx === -1 ? 0 : 100 - roleIdx * 5) + (SENIOR.test(title) ? 30 : 0)\n             - (ASSISTANT.test(title) ? 60 : 0) - (ACADEMIC.test(title) && !SENIOR.test(title) ? 40 : 0);\n  return { name: `${p.firstName} ${p.lastName || ''}`.trim(), title, linkedin: p.linkedinUrl || '',\n           location: p.location?.linkedinText || '', matched_role: roleIdx === -1 ? '' : [\"International Office\", \"International Relations\", \"Admissions\", \"Zulassung\", \"Studierendenservice\", \"Vice President International\", \"Vizepräsident\", \"Kanzler\", \"Finance\", \"Head of Finance\"][roleIdx], rank };\n}).filter(c => c.title).sort((a, b) => b.rank - a.rank).slice(0, 10)\n  .map((c, i) => ({ ...c, priority: i < 3 && c.rank >= 100 ? 'A' : c.rank >= 70 ? 'B' : 'C' }));\nconst topPosts = posts\n  .map(p => ({ text: String(p.content || p.text).slice(0, 400),\n               engagement: (p.engagement?.likes || 0) + 3 * (p.engagement?.comments || 0) + 2 * (p.engagement?.shares || 0) }))\n  .sort((a, b) => b.engagement - a.engagement).slice(0, 8);\nconst roleTitles = [...new Set(contacts.map(c => c.title))].slice(0, 12);\nconst news = $('Latest news').all().map(i => i.json).filter(n => n && n.metadata && n.markdown)\n  .map(n => ({ title: n.metadata.title, url: n.metadata.url, excerpt: String(n.markdown).slice(0, 600) })).slice(0, 5);\nconst site = $('Website').all().map(i => i.json).find(w => w && w.markdown);\nconst website = site ? String(site.markdown).slice(0, 2000) : null;\n// Search engines sometimes ignore site: filters. Keep only hits that are really about this account.\nconst domainRoot = String(base.domain || '').split('.')[0].replace(/-/g, ' ').toLowerCase();\nconst names = [String(base.company?.name || '').toLowerCase(), domainRoot].filter(x => x.length > 2);\nconst mentions = (h) => names.some(n => (String(h.metadata.title) + ' ' + String(h.markdown)).toLowerCase().includes(n));\nconst hits = (n, keep) => $(n).all().map(i => i.json).filter(h => h && h.metadata && h.markdown && keep(h))\n  .map(h => ({ title: String(h.metadata.title).slice(0, 160), url: h.metadata.url,\n               excerpt: String(h.markdown).replace(/u\\/[A-Za-z0-9_-]+/g, '').replace(/[\\w.+-]+@[\\w-]+\\.[\\w.]+/g, '[e-mail]').slice(0, 400) })).slice(0, 5);\nconst painSignal = hits('Pain signal', h => String(h.metadata.url).includes(base.domain) || String(h.metadata.url).includes(String(base.company?.website || '#none#').replace(/^https?:\\/\\/(www\\.)?/, '').split('/')[0]));\nconst customerVoice = hits('Customer voice', h => /reddit\\.com/.test(h.metadata.url) && mentions(h));\nconst droppedHits = $('Pain signal').all().length + $('Customer voice').all().length - painSignal.length - customerVoice.length;\nreturn [{ json: { ...base, topPosts, roleTitles, contacts, news, website, painSignal, customerVoice, droppedHits, postsAnalysed: posts.length } }];\n"
       }
     },
     {
-      "id": "f298d014-2cbf-436a-bacb-61ceb2e9395e",
+      "id": "714273b2-d46a-41de-a202-8ff327a048b6",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -342,14 +342,14 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 1200, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
         "options": {
           "timeout": 120000
         }
       }
     },
     {
-      "id": "99c34c04-9bab-4adb-b13d-b1fb7144c175",
+      "id": "75fbc461-9207-49f4-80dd-345eb34208dc",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -358,11 +358,11 @@
         300
       ],
       "parameters": {
-        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : null } }];\n"
+        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70 || (ctx.contacts || []).length > 0,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : (ctx.contacts || []).length ? \"Contact list for sales\" : null } }];\n"
       }
     },
     {
-      "id": "55d4dee2-e0ba-4e00-a51c-8188f7a9cc18",
+      "id": "a26066ec-63f2-4464-a482-fc12e2fd4b7d",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -380,7 +380,7 @@
           },
           "conditions": [
             {
-              "id": "5a809a01-cdbc-450b-95a7-23442270df33",
+              "id": "1cda040b-64c9-447b-a200-a9edb9239e43",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -396,7 +396,7 @@
       }
     },
     {
-      "id": "510ab843-b981-4de4-8d1e-8a9207a7385a",
+      "id": "8cce78d1-d281-4ee9-a114-888ccdc20411",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -425,7 +425,7 @@
       }
     },
     {
-      "id": "73849658-3cd8-439d-8af6-c46ec3ec4df9",
+      "id": "9d948ce3-ca9a-4b42-9d5e-e1829745cd5f",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -443,7 +443,7 @@
           },
           "conditions": [
             {
-              "id": "c960fe07-35e2-45bf-8fde-8ce7560b49c0",
+              "id": "1e0a9b40-e936-47dd-af7d-99f19ff93d15",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -459,7 +459,7 @@
       }
     },
     {
-      "id": "ea126a04-54ec-4dec-bd73-8f455ca01021",
+      "id": "fc353f62-fcc3-408d-9ba1-6d1fe7ea1c62",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -468,11 +468,11 @@
         420
       ],
       "parameters": {
-        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Account-level briefing. Subscriber addresses are not included.</p>`;\nreturn [{ json: { subject: `[${d.score ?? \"review\"}] Critical mass: ${d.colleagues} people at ${d.domain}`, html } }];\n"
+        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<h3>Who signed up (${(d.signups || []).length})</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>\n${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>\n<p style=\"color:#666\">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>\n<h3>Decision makers on LinkedIn</h3>\n${(d.contacts || []).length ? `<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\">\n<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>\n${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href=\"${c.linkedin}\">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}\n</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}\n<h3>Outreach templates (send personally)</h3>\n${(() => {\n  const tpl = a.outreach_templates || [];\n  if (!tpl.length) return '<p>No templates generated.</p>';\n  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);\n  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))\n                         .sort((x, y) => y.hit - x.hit)[0].t;\n  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);\n  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));\n  return blocks.map(({ c, t }) => `<div style=\"border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0\">\n<p style=\"margin:0\"><b>${c ? `<a href=\"${c.linkedin}\">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>\n<p style=\"white-space:pre-wrap;margin:6px 0 0\">${String(t.body).replace(/\\{first_name\\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');\n})()}\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.\nWhen you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;\nconst prio = !d.analysis ? 'REVIEW' : d.score >= 70 ? 'HOT' : d.score >= 50 ? 'WARM' : 'FYI';\nreturn [{ json: { subject: `[${prio} ${d.score ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];\n"
       }
     },
     {
-      "id": "cf8e35a5-b365-4323-979c-978ef8ba7a91",
+      "id": "683e2443-096d-4338-b4cb-6c9c8ce9a782",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -499,7 +499,7 @@
       }
     },
     {
-      "id": "9b97d2bc-38ad-4f4f-a3f1-383da0f5583f",
+      "id": "c8045d3b-4f92-4c80-8aa7-6888d5fd907b",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -530,7 +530,7 @@
       }
     },
     {
-      "id": "77aec860-78c6-45de-b0c5-e9c1cf900e54",
+      "id": "cb112e47-69b0-444a-a000-35c6ebcab776",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -553,14 +553,14 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 1200, messages: [{ role: 'system', content: \"Classify a reply to our e-mail. Return ONLY JSON: {\\\"label\\\": \\\"interested\\\"|\\\"question\\\"|\\\"not_interested\\\"|\\\"stop\\\", \\\"summary\\\": string}. STOP, unsubscribe, abmelden or any request not to be contacted is \\\"stop\\\".\" }, { role: 'user', content: String($json.text || $json.snippet || '').slice(0, 4000) }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"Classify a reply to our e-mail. Return ONLY JSON: {\\\"label\\\": \\\"interested\\\"|\\\"question\\\"|\\\"not_interested\\\"|\\\"stop\\\", \\\"summary\\\": string}. STOP, unsubscribe, abmelden or any request not to be contacted is \\\"stop\\\".\" }, { role: 'user', content: String($json.text || $json.snippet || '').slice(0, 4000) }] }) }}",
         "options": {
           "timeout": 120000
         }
       }
     },
     {
-      "id": "7bb564e7-fb7c-4192-a2cc-52fc89ba434f",
+      "id": "7fcbaef6-31f7-4e65-8517-ac56dd5132ea",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -573,7 +573,7 @@
       }
     },
     {
-      "id": "a45b3c64-927c-4645-8d30-55cb164ba2ac",
+      "id": "183702a1-2abb-4cc5-ac51-59d417fb887c",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -591,7 +591,7 @@
           },
           "conditions": [
             {
-              "id": "489f866f-4806-43e1-b8b5-f0dd733758b1",
+              "id": "e3fd46d7-bc07-4b25-97f9-21e99dddcfce",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -600,7 +600,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "6db7d586-c452-43be-9c49-a9740f2bcf1d",
+              "id": "5dc733b9-39fe-4db6-903d-4508979d478e",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -615,7 +615,7 @@
       }
     },
     {
-      "id": "27233921-650c-4a4a-9c3d-2b4466f7ea62",
+      "id": "deb9bde5-6def-448e-932b-5fd331cf41ea",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,

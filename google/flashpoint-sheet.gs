@@ -20,8 +20,10 @@ const MULTI = new Set(['co.uk', 'com.au', 'co.at', 'ac.uk']);
 
 // Tabs the n8n workflows write to. Headers must match n8n/flashpoint.py.
 const LOG_TABS = {
-  Analyses: ['analysis_id', 'logged_at', 'domain', 'organisation', 'linkedin_verified', 'colleagues', 'roles', 'score', 'decision', 'handoff_reason', 'angle', 'news_summary', 'pain_evidence', 'culture', 'structure', 'buying_committee', 'score_reasons', 'email_subject', 'email_html', 'evidence_urls', 'dropped_hits', 'context_json', 'model'],
+  Analyses: ['analysis_id', 'logged_at', 'domain', 'organisation', 'locations', 'linkedin_verified', 'colleagues', 'roles', 'score', 'decision', 'handoff_reason', 'angle', 'news_summary', 'pain_evidence', 'culture', 'structure', 'buying_committee', 'score_reasons', 'email_subject', 'email_html', 'contacts', 'evidence_urls', 'dropped_hits', 'context_json', 'model'],
   Evals: ['analysis_id', 'judged_at', 'domain', 'judge_model', 'groundedness', 'relevance', 'actionability', 'email_quality', 'compliance', 'calibration', 'llm_overall', 'rule_checks_passed', 'rule_failures', 'verdict', 'issues', 'judge_comment'],
+  Signals: ['signal_id', 'found_at', 'query', 'query_origin', 'title', 'url', 'excerpt', 'event_type', 'region', 'sector', 'relevance', 'urgency', 'action', 'summary', 'affected_accounts', 'useful'],
+  'Watch queries': ['query', 'status', 'origin', 'added_at', 'runs', 'hits', 'relevant_hits', 'precision', 'last_run', 'note'],
 };
 
 function setupTabs() {
@@ -85,6 +87,7 @@ function processNewRows() {
       note: col(/note|message|nachricht|comment|kommentar|help/i),
       call: col(/partner|call|meeting|termin|demo/i),
       consent: col(/consent|einwilligung|agree|zustimm|datenschutz/i),
+      name: header.findIndex((h, i) => i !== statusCol && /name/i.test(h) && !/mail|institution|company|firma|organi|universit/i.test(h)),
     };
     if (c.email === -1) throw new Error('No e-mail column found in the header row.');
 
@@ -122,6 +125,11 @@ function processNewRows() {
           colleagues: set.size,
           threshold,
           colleague_emails: [...set],
+          signups: people.map(x => ({
+            name: c.name === -1 ? '' : String(x[c.name] || '').trim(),
+            email: String(x[c.email] || '').trim().toLowerCase(),
+            role: c.role === -1 ? '' : String(x[c.role] || '').trim(),
+          })),
           roles: pick('role'),
           notes: pick('org').map((org, k) => org + (pick('call')[k] && /yes|ja|true|x/i.test(pick('call')[k]) ? ' | wants partnership call' : ''))
             .concat(pick('note')),
