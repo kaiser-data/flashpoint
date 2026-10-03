@@ -38,6 +38,7 @@ const UNIVERSITIES = [
   { domain: 'uni-frankfurt.de', name: 'Goethe-Universität Frankfurt' },
   { domain: 'uni-heidelberg.de', name: 'Universität Heidelberg' },
   { domain: 'uni-leipzig.de', name: 'Universität Leipzig' },
+  { domain: 'uni-potsdam.de', name: 'Universität Potsdam' },
 ];
 const FIRST = ['Anna', 'Jonas', 'Lena', 'Paul', 'Sophie', 'Felix', 'Marie', 'Lukas', 'Clara', 'David', 'Hannah', 'Tim',
                'Aylin', 'Mehmet', 'Priya', 'Jan', 'Laura', 'Niklas', 'Sara', 'Elias'];
