@@ -163,8 +163,8 @@ const ok = a && typeof a.interest_score === "number" && a.champion_email_html &&
 const score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;
 return [{{ json: {{ ...ctx, analysis: ok ? a : null, score,
   autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),
-  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= {HOT_SCORE} || (ctx.contacts || []).length > 0,
-  handoffReason: !ok ? "LLM output unusable" : !ctx.verified ? "LinkedIn profile not verified" : ctx.partnershipRequested ? "Partnership call requested" : score >= {HOT_SCORE} ? "Hot lead (score " + score + ")" : (ctx.contacts || []).length ? "Contact list for sales" : null }} }}];
+  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || (ctx.flashpointScore ?? 0) >= 60 || score >= {HOT_SCORE} || (ctx.contacts || []).length > 0,
+  handoffReason: !ok ? "LLM output unusable" : !ctx.verified ? "LinkedIn profile not verified" : ctx.partnershipRequested ? "Partnership call requested" : (ctx.flashpointScore ?? 0) >= 60 ? "Flashpoint score " + ctx.flashpointScore : score >= {HOT_SCORE} ? "Hot lead (score " + score + ")" : (ctx.contacts || []).length ? "Contact list for sales" : null }} }}];
 '''
 
 brief_js = (r'''
@@ -180,6 +180,11 @@ ${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? "?"} 
 <p><b>Signal nobody uses:</b> ${a.pain_evidence ?? "n/a"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join("")}</ul>
 <p><b>Latest news:</b> ${a.news_summary ?? "n/a"}</p><ul>${(d.news || []).map(n => `<li><a href="${n.url}">${n.title}</a></li>`).join("")}</ul>
 <p><b>Culture:</b> ${a.culture ?? "n/a"}</p><p><b>Structure:</b> ${a.structure ?? "n/a"}</p>
+<h2 style="margin:0">Flashpoint ${d.flashpointScore ?? '–'}/100 · ${d.company?.name || d.domain}</h2>
+<p style="font-size:15px"><b>Situation now:</b> ${a.current_situation ?? d.semester?.phase ?? ''}</p>
+<table border="1" cellpadding="6" style="border-collapse:collapse;font-size:14px"><tr><th>Signal</th><th>Strength</th><th>Detail</th><th>Evidence</th></tr>
+${(d.scorecard || []).map(x => `<tr style="${x.detected ? '' : 'color:#999'}"><td>${x.detected ? '<b>' + x.label + '</b>' : x.label}</td><td>${'●'.repeat(x.strength)}${'○'.repeat(3 - x.strength)}</td><td>${x.detail}</td><td>${String(x.evidence || '').startsWith('http') ? `<a href="${x.evidence}">source</a>` : String(x.evidence || '').slice(0, 140)}</td></tr>`).join('')}
+</table>
 <h3>Who signed up (${(d.signups || []).length})</h3>
 <table border="1" cellpadding="6" style="border-collapse:collapse;font-size:14px"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>
 ${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>
@@ -207,8 +212,9 @@ ${(() => {
 <p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? "sent automatically" : "NOT sent, please review"}</p>
 <p style="color:#666">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.
 When you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;
-const prio = !d.analysis ? 'REVIEW' : d.score >= HOT_SCORE_VALUE ? 'HOT' : d.score >= 50 ? 'WARM' : 'FYI';
-return [{ json: { subject: `[${prio} ${d.score ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];
+const fp = d.flashpointScore ?? d.score;
+const prio = !d.analysis ? 'REVIEW' : fp >= 60 ? 'HOT' : fp >= 35 ? 'WARM' : 'FYI';
+return [{ json: { subject: `[${prio} ${fp ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];
 ''').replace("HOT_SCORE_VALUE", str(HOT_SCORE))
 
 # --- Chain B ---------------------------------------------------------------

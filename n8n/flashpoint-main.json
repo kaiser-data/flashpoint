@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "6a6dbd92-314d-497e-a0a6-2f2ee384e823",
+      "id": "f4c061be-3feb-419c-aa5b-5872ddf79307",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         240
       ],
-      "webhookId": "b4e55e6a-ba93-4d18-b904-6046d664d73f",
+      "webhookId": "dfd3e60a-253d-45ff-82df-84d655f00f36",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -27,8 +27,8 @@
       "notesInFlow": true
     },
     {
-      "id": "3753c180-eab5-47ef-a3d0-1084313f28f1",
-      "name": "Exactly 3 colleagues?",
+      "id": "1b19de40-d648-4ad9-9c87-264466a788e7",
+      "name": "First sign-up or critical mass?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
@@ -45,20 +45,11 @@
           },
           "conditions": [
             {
-              "id": "52ae1087-3ee0-4fde-b911-54e59bef27f7",
-              "leftValue": "={{ $json.body.colleagues }}",
+              "id": "387655d7-11e2-4801-b679-6ef5637d3a2b",
+              "leftValue": "={{ [1, $json.body.threshold || 3].includes(Number($json.body.colleagues)) && Boolean($json.body.company_domain) }}",
               "operator": {
-                "type": "number",
-                "operation": "equals"
-              },
-              "rightValue": 3
-            },
-            {
-              "id": "c16d0425-d4df-4c9b-b0d2-e6c4c3030ca1",
-              "leftValue": "={{ $json.body.company_domain }}",
-              "operator": {
-                "type": "string",
-                "operation": "notEmpty",
+                "type": "boolean",
+                "operation": "true",
                 "singleValue": true
               },
               "rightValue": ""
@@ -68,11 +59,11 @@
         },
         "options": {}
       },
-      "notes": "Continues only on the exact threshold sign-up, so each organisation runs once.\n[n8n IF · free]",
+      "notes": "Runs on the first sign-up from an organisation and again when critical mass is reached. The headcount is one signal, not the decision.\n[n8n IF · free]",
       "notesInFlow": true
     },
     {
-      "id": "e6a8d9c9-58d4-4ae6-8a6c-25d96d6fa1c6",
+      "id": "b9a597f6-864e-4127-8967-d56d2278ce5e",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -105,7 +96,7 @@
       "notesInFlow": true
     },
     {
-      "id": "a50e36c1-ca5c-4b67-92f3-cbe3936fb39f",
+      "id": "25211d2b-098b-4115-9142-7d9a4c1b6e75",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -120,7 +111,7 @@
       "notesInFlow": true
     },
     {
-      "id": "652683e2-10b6-4bbc-afda-73586349e0bd",
+      "id": "2f115e6a-729f-42e3-a652-8caaf485590c",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -153,7 +144,7 @@
       "notesInFlow": true
     },
     {
-      "id": "141600a5-0560-4aa3-8874-b420b39c91e0",
+      "id": "dbe01b34-3a0e-40ee-9948-63647b82423d",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -186,7 +177,7 @@
       "notesInFlow": true
     },
     {
-      "id": "bcc2ecd0-c2b9-4c02-b48d-fb6af3e9ba31",
+      "id": "b10b6001-4372-44c3-aedc-3c5617d937ec",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -219,7 +210,7 @@
       "notesInFlow": true
     },
     {
-      "id": "809bd9c0-4675-48dc-9e3f-a84c237ad1c5",
+      "id": "d6e13f37-9636-49c9-bcb2-9f4e5a1dbb54",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -252,7 +243,7 @@
       "notesInFlow": true
     },
     {
-      "id": "d08210c0-c6f2-41e7-8f28-b69d1e69deb6",
+      "id": "af743e4a-6ac2-423d-915a-30252cd4ad15",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -285,7 +276,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e1b8d0fd-f6e6-458d-846c-70ce14d2dc54",
+      "id": "d4b0d6ee-34bd-472e-aa2b-8ae99788a290",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -318,12 +309,12 @@
       "notesInFlow": true
     },
     {
-      "id": "eda14ca0-59f5-4dd8-923e-d63c5c3fe91f",
+      "id": "d0a120d8-2b60-483a-ba12-ed9327e2f9bd",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2290,
+        2240,
         240
       ],
       "parameters": {
@@ -333,12 +324,12 @@
       "notesInFlow": true
     },
     {
-      "id": "2cfd682b-9897-49a0-837f-9461b47260a2",
+      "id": "aeb54133-8017-4896-89d6-cabde2f195b0",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2500,
+        2600,
         240
       ],
       "credentials": {
@@ -356,31 +347,31 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
+        "jsonBody": "={{ JSON.stringify({ model: 'Qwen/Qwen2.5-72B-Instruct', temperature: 0.2, max_tokens: 3000, messages: [{ role: 'system', content: \"You are a B2B analyst. Product: Kredible finances the blocked account (Sperrkonto), tuition fees and first-year living costs for admitted non-EU students at German universities. For the university it costs nothing: no fees, no revenue share, no repayment risk; tuition is paid directly to the institution and the university is told when a student's funding is secured. Main benefits: fewer admitted students lost between offer and enrolment, a wider talent pool, graduates who stay in Germany. Several people from one university signed up on our landing page. Use ONLY the facts given; write 'unknown' instead of guessing. Return ONLY JSON: {\\\"current_situation\\\": string (2 sentences: what is happening at this organisation right now, from semester and signal_scorecard), \\\"culture\\\": string, \\\"structure\\\": string, \\\"news_summary\\\": string (what is happening at the organisation right now, from the news), \\\"buying_committee\\\": string[] (roles only, no names), \\\"angle\\\": string (the one benefit to lead with, tied to their news or posts if possible), \\\"outreach_templates\\\": [{\\\"for_role\\\": string (one buying-committee role), \\\"channel\\\": \\\"LinkedIn\\\" or \\\"E-mail\\\", \\\"subject\\\": string, \\\"body\\\": string (max 120 words, starts with {first_name}, ties the product to this role's goals and to the news or pain evidence)}] (exactly 3, written for a salesperson to send personally), \\\"pain_evidence\\\": string (what pain_signal and customer_voice show, with counts; 'none found' if empty), \\\"interest_score\\\": integer 0-100, \\\"score_reasons\\\": string[], \\\"champion_email_subject\\\": string, \\\"champion_email_html\\\": string}. Score much higher when pain_signal shows extended or reopened application deadlines (unfilled seats) or customer_voice shows admitted students who cannot fund their studies. Score higher when more distinct roles signed up (International Office + Admissions + Finance is a full buying committee), when someone asked for a call, and when news or posts show a strong international student focus. Write for the CURRENT SITUATION: open the e-mail and the templates with the strongest detected signal (semester timing, a new programme, an extended deadline, free seats, policy news) and mention only signals listed in signal_scorecard. The champion e-mail goes only to the people who signed up. Thank them, mention that colleagues from their organisation signed up too (no names), explain in three sentences how the product helps them at no cost or risk, offer a 20-minute call, and end with: Reply STOP to unsubscribe. Write in German for German organisations, otherwise English.\" }, { role: 'user', content: JSON.stringify({ domain: $json.domain, colleagues_subscribed: $json.colleagues, roles: $json.roles, form_notes: $json.notes, partnership_call_requested: $json.partnershipRequested, linkedin_verified: $json.verified, company: $json.company, top_posts: $json.topPosts, people_roles: $json.roleTitles, flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news, website: $json.website, pain_signal: { label: 'Application deadline extensions (empty seats)', hits: $json.painSignal }, customer_voice: { label: 'Admitted students struggling to fund their studies (Reddit)', hits: $json.customerVoice } }) }] }) }}",
         "options": {
           "timeout": 120000
         }
       },
-      "notes": "The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail.\n[Featherless Qwen2.5-72B · flat plan]",
+      "notes": "The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals.\n[Featherless Qwen2.5-72B · flat plan]",
       "notesInFlow": true
     },
     {
-      "id": "939e1155-d40e-4b08-adfb-fc49e416cecf",
+      "id": "3c31a0f9-d1da-4e00-8b52-43421c3d335a",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2710,
+        2780,
         240
       ],
       "parameters": {
-        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70 || (ctx.contacts || []).length > 0,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : (ctx.contacts || []).length ? \"Contact list for sales\" : null } }];\n"
+        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Signal scorecard').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || (ctx.flashpointScore ?? 0) >= 60 || score >= 70 || (ctx.contacts || []).length > 0,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : (ctx.flashpointScore ?? 0) >= 60 ? \"Flashpoint score \" + ctx.flashpointScore : score >= 70 ? \"Hot lead (score \" + score + \")\" : (ctx.contacts || []).length ? \"Contact list for sales\" : null } }];\n"
       },
-      "notes": "Validates the model's JSON. Code decides: auto e-mail, hand to a human, or both.\n[Code · free]",
+      "notes": "Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both.\n[Code · free]",
       "notesInFlow": true
     },
     {
-      "id": "ff4c323b-dc30-4ecf-83f9-04ae28d619cc",
+      "id": "a90bb611-e9b9-401d-af41-25681d541d1e",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -398,7 +389,7 @@
           },
           "conditions": [
             {
-              "id": "0b8716a2-e503-4c93-8d48-fbf03dffaf07",
+              "id": "85bb188e-cb36-4016-b03f-880e44a90b41",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -416,7 +407,7 @@
       "notesInFlow": true
     },
     {
-      "id": "0306594e-a603-4ff6-bed9-d0b8babecefe",
+      "id": "8dfb9f1c-6b2f-4f16-92d0-29ae4131dafa",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -446,7 +437,7 @@
       "notesInFlow": true
     },
     {
-      "id": "c1e81739-33d8-486a-8762-bb7085ed16a8",
+      "id": "3088850b-e667-4f1e-81e7-9652bf6e7526",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -464,7 +455,7 @@
           },
           "conditions": [
             {
-              "id": "c4ad6e61-95f8-45ee-838a-1706cea3a639",
+              "id": "0aa70b7c-64ec-4215-8b23-b0c94f3357f7",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -482,7 +473,7 @@
       "notesInFlow": true
     },
     {
-      "id": "475d0038-ed84-47d2-8c41-e6de631110a9",
+      "id": "65ea7780-d44c-4822-b5c2-f280d2141dc6",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -491,13 +482,13 @@
         280
       ],
       "parameters": {
-        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<h3>Who signed up (${(d.signups || []).length})</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>\n${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>\n<p style=\"color:#666\">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>\n<h3>Decision makers on LinkedIn</h3>\n${(d.contacts || []).length ? `<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\">\n<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>\n${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href=\"${c.linkedin}\">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}\n</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}\n<h3>Outreach templates (send personally)</h3>\n${(() => {\n  const tpl = a.outreach_templates || [];\n  if (!tpl.length) return '<p>No templates generated.</p>';\n  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);\n  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))\n                         .sort((x, y) => y.hit - x.hit)[0].t;\n  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);\n  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));\n  return blocks.map(({ c, t }) => `<div style=\"border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0\">\n<p style=\"margin:0\"><b>${c ? `<a href=\"${c.linkedin}\">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>\n<p style=\"white-space:pre-wrap;margin:6px 0 0\">${String(t.body).replace(/\\{first_name\\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');\n})()}\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.\nWhen you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;\nconst prio = !d.analysis ? 'REVIEW' : d.score >= 70 ? 'HOT' : d.score >= 50 ? 'WARM' : 'FYI';\nreturn [{ json: { subject: `[${prio} ${d.score ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];\n"
+        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<h2 style=\"margin:0\">Flashpoint ${d.flashpointScore ?? '–'}/100 · ${d.company?.name || d.domain}</h2>\n<p style=\"font-size:15px\"><b>Situation now:</b> ${a.current_situation ?? d.semester?.phase ?? ''}</p>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Signal</th><th>Strength</th><th>Detail</th><th>Evidence</th></tr>\n${(d.scorecard || []).map(x => `<tr style=\"${x.detected ? '' : 'color:#999'}\"><td>${x.detected ? '<b>' + x.label + '</b>' : x.label}</td><td>${'●'.repeat(x.strength)}${'○'.repeat(3 - x.strength)}</td><td>${x.detail}</td><td>${String(x.evidence || '').startsWith('http') ? `<a href=\"${x.evidence}\">source</a>` : String(x.evidence || '').slice(0, 140)}</td></tr>`).join('')}\n</table>\n<h3>Who signed up (${(d.signups || []).length})</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>\n${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>\n<p style=\"color:#666\">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>\n<h3>Decision makers on LinkedIn</h3>\n${(d.contacts || []).length ? `<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\">\n<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>\n${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href=\"${c.linkedin}\">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}\n</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}\n<h3>Outreach templates (send personally)</h3>\n${(() => {\n  const tpl = a.outreach_templates || [];\n  if (!tpl.length) return '<p>No templates generated.</p>';\n  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);\n  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))\n                         .sort((x, y) => y.hit - x.hit)[0].t;\n  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);\n  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));\n  return blocks.map(({ c, t }) => `<div style=\"border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0\">\n<p style=\"margin:0\"><b>${c ? `<a href=\"${c.linkedin}\">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>\n<p style=\"white-space:pre-wrap;margin:6px 0 0\">${String(t.body).replace(/\\{first_name\\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');\n})()}\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.\nWhen you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;\nconst fp = d.flashpointScore ?? d.score;\nconst prio = !d.analysis ? 'REVIEW' : fp >= 60 ? 'HOT' : fp >= 35 ? 'WARM' : 'FYI';\nreturn [{ json: { subject: `[${prio} ${fp ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];\n"
       },
       "notes": "Builds the sales briefing: priority, contact list with names and LinkedIn links, evidence, analysis.\n[Code · free]",
       "notesInFlow": true
     },
     {
-      "id": "0017f8cf-9bfc-493e-8d73-ea39fad76fd4",
+      "id": "d12734ec-5dd6-4d3f-b0da-880fdf73e498",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -526,7 +517,7 @@
       "notesInFlow": true
     },
     {
-      "id": "a66bda26-dc44-4d69-abdd-f09bf1135c67",
+      "id": "41f8e0b5-671a-4654-97ad-1c698b73a9ce",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -559,7 +550,7 @@
       "notesInFlow": true
     },
     {
-      "id": "3542ee46-44cc-46d9-acbe-6b6bbc053838",
+      "id": "6aa05a29-87b1-4f77-8dc4-e7b3c94c6d5d",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -591,7 +582,7 @@
       "notesInFlow": true
     },
     {
-      "id": "e9ef0c67-30ce-47a1-84c8-3cbdd13cb021",
+      "id": "9e447f8a-08dc-426c-9589-316864446e32",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -606,7 +597,7 @@
       "notesInFlow": true
     },
     {
-      "id": "032673e1-415f-4009-a240-7410e94b7383",
+      "id": "ada2f18c-70b1-4a6e-8dc3-b34871fd8c58",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -624,7 +615,7 @@
           },
           "conditions": [
             {
-              "id": "79ef00d9-bb1b-4cea-91ae-a6cfbedf491e",
+              "id": "4ecc5326-e278-4a94-b6c8-cf6fa502842a",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -633,7 +624,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "2b41025e-4248-4f66-95a9-0ee4b79727d9",
+              "id": "66f993eb-dc2c-471b-b2bf-b587e4f81ffe",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -650,7 +641,7 @@
       "notesInFlow": true
     },
     {
-      "id": "9a2fd2f7-b696-402d-a259-44bcfc06db84",
+      "id": "cb54fdf5-f672-4f32-853e-c7e42ae562fa",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -679,7 +670,7 @@
       "notesInFlow": true
     },
     {
-      "id": "73179c86-19fa-441c-95aa-6de13cf214f9",
+      "id": "ee0ab8c1-b95e-4c42-a554-b84f75372bfd",
       "name": "Prepare log row",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -688,13 +679,13 @@
         440
       ],
       "parameters": {
-        "jsCode": "\n// One flat row per analysis for the \"Analyses\" tab. The eval workflow reads these rows.\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst join = (x) => Array.isArray(x) ? x.join(' | ') : (x ?? '');\nconst evidence = [...(d.painSignal || []), ...(d.customerVoice || []), ...(d.news || [])].map(h => h.url).filter(Boolean);\nconst context = { company: d.company, roles_signed_up: d.roles, notes: d.notes, top_posts: (d.topPosts || []).slice(0, 5),\n  people_roles: d.roleTitles, news: d.news, pain_signal: d.painSignal, customer_voice: d.customerVoice,\n  website_excerpt: String(d.website || '').slice(0, 1500) };\nreturn [{ json: {\n  analysis_id: $execution.id + '-' + d.domain,\n  logged_at: new Date().toISOString(),\n  domain: d.domain,\n  organisation: d.company?.name ?? '',\n  locations: (d.company?.locations || []).join(', '),\n  linkedin_verified: d.verified ? 'yes' : 'no',\n  colleagues: d.colleagues,\n  roles: join(d.roles),\n  score: d.score ?? '',\n  decision: [d.autoSend ? 'auto-email' : null, d.handToHuman ? 'human' : null].filter(Boolean).join(' + ') || 'none',\n  handoff_reason: d.handoffReason ?? '',\n  angle: a.angle ?? '', news_summary: a.news_summary ?? '', pain_evidence: a.pain_evidence ?? '',\n  culture: a.culture ?? '', structure: a.structure ?? '',\n  buying_committee: join(a.buying_committee), score_reasons: join(a.score_reasons),\n  email_subject: a.champion_email_subject ?? '', email_html: String(a.champion_email_html ?? '').slice(0, 8000),\n  contacts: (d.contacts || []).map(c => `${c.priority} · ${c.name} · ${c.title} · ${c.linkedin}`).join('\\n'),\n  evidence_urls: evidence.join(' '), dropped_hits: d.droppedHits ?? 0,\n  context_json: JSON.stringify(context).slice(0, 20000),\n  model: 'Qwen/Qwen2.5-72B-Instruct',\n}}];\n"
+        "jsCode": "\n// One flat row per analysis for the \"Analyses\" tab. The eval workflow reads these rows.\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst join = (x) => Array.isArray(x) ? x.join(' | ') : (x ?? '');\nconst evidence = [...(d.painSignal || []), ...(d.customerVoice || []), ...(d.news || [])].map(h => h.url).filter(Boolean);\nconst context = { company: d.company, roles_signed_up: d.roles, notes: d.notes, top_posts: (d.topPosts || []).slice(0, 5),\n  people_roles: d.roleTitles, news: d.news, pain_signal: d.painSignal, customer_voice: d.customerVoice,\n  website_excerpt: String(d.website || '').slice(0, 1500) };\nreturn [{ json: {\n  analysis_id: $execution.id + '-' + d.domain,\n  logged_at: new Date().toISOString(),\n  domain: d.domain,\n  organisation: d.company?.name ?? '',\n  locations: (d.company?.locations || []).join(', '),\n  linkedin_verified: d.verified ? 'yes' : 'no',\n  colleagues: d.colleagues,\n  roles: join(d.roles),\n  flashpoint_score: d.flashpointScore ?? '',\n  signals: (d.scorecard || []).filter(x => x.detected).map(x => `${x.label} (${x.strength}/3): ${x.detail}`).join(' | '),\n  situation: a.current_situation ?? '',\n  score: d.score ?? '',\n  decision: [d.autoSend ? 'auto-email' : null, d.handToHuman ? 'human' : null].filter(Boolean).join(' + ') || 'none',\n  handoff_reason: d.handoffReason ?? '',\n  angle: a.angle ?? '', news_summary: a.news_summary ?? '', pain_evidence: a.pain_evidence ?? '',\n  culture: a.culture ?? '', structure: a.structure ?? '',\n  buying_committee: join(a.buying_committee), score_reasons: join(a.score_reasons),\n  email_subject: a.champion_email_subject ?? '', email_html: String(a.champion_email_html ?? '').slice(0, 8000),\n  contacts: (d.contacts || []).map(c => `${c.priority} · ${c.name} · ${c.title} · ${c.linkedin}`).join('\\n'),\n  evidence_urls: evidence.join(' '), dropped_hits: d.droppedHits ?? 0,\n  context_json: JSON.stringify(context).slice(0, 20000),\n  model: 'Qwen/Qwen2.5-72B-Instruct',\n}}];\n"
       },
       "notes": "Flattens the analysis, the contact list and the context into one row for documentation and evaluation.\n[Code · free]",
       "notesInFlow": true
     },
     {
-      "id": "84d4baf6-b31f-4533-aca2-a5ab18cc8c0c",
+      "id": "a3e89f54-027d-42df-96fe-05ed3a5521e9",
       "name": "Log analysis to sheet",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
@@ -734,7 +725,22 @@
       "notesInFlow": true
     },
     {
-      "id": "a29c345d-1db4-44d9-adf6-44d7c71379ac",
+      "id": "424c831f-6de4-477d-b26f-2a6c6ff97eb7",
+      "name": "Signal scorecard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2420,
+        240
+      ],
+      "parameters": {
+        "jsCode": "\n// Flashpoint scorecard: every signal is named, scored 0-3 with evidence, and weighted. Code decides, not the model.\nconst c = $input.first().json;\nconst text = [...(c.news || []).map(n => n.title + ' ' + n.excerpt), String(c.website || ''), ...(c.topPosts || []).map(p => p.text)].join('\\n');\nconst find = (re) => { const m = text.match(re); if (!m) return null; const i = Math.max(0, m.index - 60); return text.slice(i, m.index + m[0].length + 80).replace(/\\s+/g, ' ').trim(); };\nconst today = new Date(); today.setHours(0, 0, 0, 0);\n// German semesters: winter starts 1 Oct, summer 1 Apr. Admitted non-EU students need the blocked account before the visa.\nconst starts = [-1, 0, 1].flatMap(dy => [new Date(today.getFullYear() + dy, 3, 1), new Date(today.getFullYear() + dy, 9, 1)]).sort((a, b) => a - b);\nconst next = starts.find(d => (d - today) / 864e5 >= -45);\nconst days = Math.round((next - today) / 864e5);\nconst term = next.getMonth() === 9 ? `Winter semester ${next.getFullYear()}/${String(next.getFullYear() + 1).slice(2)}` : `Summer semester ${next.getFullYear()}`;\nconst semester = { term, starts: next.toISOString().slice(0, 10), days_until_start: days,\n  phase: days < 0 ? `${term} started ${-days} days ago: admitted students without funding are missing the start`\n       : days <= 60 ? `${term} starts in ${days} days: visa and blocked-account deadlines are now`\n       : `${term} starts in ${days} days: admissions season` };\nconst roles = new Set((c.roles || []).map(r => String(r).toLowerCase()).filter(r => r && r !== 'other'));\nconst S = [];\nconst add = (key, label, weight, strength, detail, evidence) => S.push({ key, label, weight, strength: Math.max(0, Math.min(3, strength)), detected: strength > 0, detail, evidence: evidence || '' });\nadd('critical_mass', 'Colleagues signing up', 25, Math.min(3, c.colleagues || 0) - (roles.size < 2 && (c.colleagues || 0) >= 3 ? 1 : 0),\n    `${c.colleagues || 0} sign-up(s), ${roles.size} distinct role(s)`, (c.roles || []).join(', '));\nadd('call_requested', 'Asked for a call', 20, c.partnershipRequested ? 3 : 0, c.partnershipRequested ? 'ticked \"discuss a partnership\"' : 'no', '');\nadd('deadline_extension', 'Deadline extended (unfilled seats)', 15, (c.painSignal || []).length, `${(c.painSignal || []).length} page(s) on their own site`, (c.painSignal || [])[0]?.url);\nconst prog = find(/(neue[rn]?\\s+(\\w+\\s+)?(master|bachelor)?-?studiengang|new\\s+(master'?s?|bachelor'?s?|degree|study)\\s+program+e?|startet\\s+zum\\s+(winter|sommer)semester|launch\\w*\\s+.{0,30}programme?)/i);\nadd('new_programme', 'New programme launching', 10, prog ? 3 : 0, prog ? 'mentioned in news, website or posts' : 'none found', prog);\nconst seats = find(/(freie\\s+(Studien)?plätze|Restplätze|noch\\s+Plätze|places\\s+(still\\s+)?available|still\\s+accepting\\s+applications|Bewerbung\\s+(ist\\s+)?noch\\s+möglich|zulassungsfrei)/i);\nadd('seats_available', 'Seats still free', 10, seats ? 3 : 0, seats ? 'programme not full' : 'no sign', seats);\nadd('semester_timing', 'Semester timing', 10, days >= -45 && days <= 60 ? 3 : days <= 120 ? 2 : 1, semester.phase, '');\nadd('student_voice', 'Students struggling to fund (public)', 5, (c.customerVoice || []).length, `${(c.customerVoice || []).length} public post(s)`, (c.customerVoice || [])[0]?.url);\nconst pol = find(/(Haushaltssperre|Fördermittel|Förderprogramm|DAAD|Sperrkonto|Studiengebühren|Studienvisum|student visa|funding\\s+(cut|freeze|released))/i);\nadd('funding_politics', 'Funding or policy news', 5, pol ? 3 : 0, pol ? 'in recent news' : 'none found', pol);\nconst score = Math.round(S.reduce((t, x) => t + x.weight * x.strength / 3, 0));\nconst top = S.filter(x => x.detected && x.key !== 'semester_timing').sort((a, b) => b.weight * b.strength - a.weight * a.strength).slice(0, 3);\nreturn [{ json: { ...c, semester, scorecard: S, flashpointScore: score,\n  strongestSignals: top.map(x => x.label + ': ' + x.detail) } }];\n"
+      },
+      "notes": "Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence.\n[Code · free]",
+      "notesInFlow": true
+    },
+    {
+      "id": "d6ad89d6-152b-46c9-8224-b3119740d171",
       "name": "About Flashpoint",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -750,7 +756,7 @@
       }
     },
     {
-      "id": "ed4f11df-ff32-44d7-8c20-d299e1a05e79",
+      "id": "53268c14-1d58-4125-9b6f-f4d0305be7b7",
       "name": "1 · Trigger and threshold",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -766,7 +772,7 @@
       }
     },
     {
-      "id": "f7c410bd-4271-4dab-8aeb-57fb4db32b79",
+      "id": "1844125c-ee73-4926-8f34-cb947accf6de",
       "name": "2 · Account research",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -782,7 +788,7 @@
       }
     },
     {
-      "id": "d2992bc0-4c5d-432a-91b4-d2b6674fd165",
+      "id": "afa1ecd3-82ce-404b-8a9a-b33dc01a99b4",
       "name": "3 · AI analysis",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -798,7 +804,7 @@
       }
     },
     {
-      "id": "4cd3e343-10fd-4518-a50b-805f4a54a77d",
+      "id": "73b8d16f-22b8-4580-bc13-f7d7f1376d3c",
       "name": "4 · Act and document",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -814,7 +820,7 @@
       }
     },
     {
-      "id": "8f87efc7-a4b9-4468-981b-201e5ee11b93",
+      "id": "f2eb9780-4c39-4441-a426-4b9ac7356931",
       "name": "Legend",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -823,14 +829,14 @@
         -140
       ],
       "parameters": {
-        "content": "# Legend · Flashpoint main workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Trigger\n- **Form sign-up**: Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header. *(n8n Webhook, free)*\n- **Exactly 3 colleagues?**: Continues only on the exact threshold sign-up, so each organisation runs once. *(n8n IF, free)*\n\n### 2 Research\n- **LinkedIn company**: Finds the organisation's LinkedIn page by the name typed in the form, or by the domain. *(Apify harvestapi/linkedin-company, ~$0.004)*\n- **Verify company match**: Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains. *(Code, free)*\n- **LinkedIn posts**: Last 20 posts with likes, comments and shares. Commenters are not stored. *(Apify harvestapi/linkedin-company-posts, ~$0.03)*\n- **Decision-maker roles**: Real people in buying roles: name, title, LinkedIn URL, location. Titles go to the LLM; names go to sales. *(Apify harvestapi/linkedin-company-employees, ~$0.06)*\n- **Latest news**: Google search for the organisation's news from the last 120 days, with page text. *(Apify apify/rag-web-browser, ~$0.01)*\n- **Website**: The organisation's homepage as Markdown. *(Apify apify/rag-web-browser, ~$0.002)*\n- **Pain signal**: Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats). *(Apify apify/rag-web-browser, ~$0.01)*\n- **Customer voice**: What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed. *(Apify apify/rag-web-browser, ~$0.01)*\n\n### 3 Analysis\n- **Build context**: Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code. *(Code, free)*\n- **Featherless analysis**: The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse analysis**: Validates the model's JSON. Code decides: auto e-mail, hand to a human, or both. *(Code, free)*\n\n### 4 Act\n- **Send automatically?**: True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups. *(n8n IF, free)*\n- **Agent e-mails the sign-ups**: Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy. *(Gmail, free)*\n- **Hand to a human?**: True if contacts were found, a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable. *(n8n IF, free)*\n- **Write briefing**: Builds the sales briefing: priority, contact list with names and LinkedIn links, evidence, analysis. *(Code, free)*\n- **Briefing to sales**: E-mails the briefing to the sales team. *(Gmail, free)*\n- **Prepare log row**: Flattens the analysis, the contact list and the context into one row for documentation and evaluation. *(Code, free)*\n- **Log analysis to sheet**: Appends the row to the Analyses tab. The eval workflow reads it from there. *(Google Sheets, free)*\n\n### 5 Replies\n- **Reply received**: Polls the inbox every minute for unread replies to the agent's e-mail. *(Gmail Trigger, free)*\n- **Classify reply**: Labels the reply: interested, question, not interested or stop. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse reply**: Reads the label. Anything unclear is treated as a question, so a human sees it. *(Code, free)*\n- **Interested or question?**: Routes interested replies and questions to a human. Stop and no-interest end here. *(n8n IF, free)*\n- **Hand reply to a human**: E-mails the reply and its summary to the sales team. *(Gmail, free)*",
+        "content": "# Legend · Flashpoint main workflow\nEvery node, in order. **Phase** · what it does · *API* · cost per account.\n\n\n### 1 Trigger\n- **Form sign-up**: Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header. *(n8n Webhook, free)*\n- **First sign-up or critical mass?**: Runs on the first sign-up from an organisation and again when critical mass is reached. The headcount is one signal, not the decision. *(n8n IF, free)*\n\n### 2 Research\n- **LinkedIn company**: Finds the organisation's LinkedIn page by the name typed in the form, or by the domain. *(Apify harvestapi/linkedin-company, ~$0.004)*\n- **Verify company match**: Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains. *(Code, free)*\n- **LinkedIn posts**: Last 20 posts with likes, comments and shares. Commenters are not stored. *(Apify harvestapi/linkedin-company-posts, ~$0.03)*\n- **Decision-maker roles**: Real people in buying roles: name, title, LinkedIn URL, location. Titles go to the LLM; names go to sales. *(Apify harvestapi/linkedin-company-employees, ~$0.06)*\n- **Latest news**: Google search for the organisation's news from the last 120 days, with page text. *(Apify apify/rag-web-browser, ~$0.01)*\n- **Website**: The organisation's homepage as Markdown. *(Apify apify/rag-web-browser, ~$0.002)*\n- **Pain signal**: Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats). *(Apify apify/rag-web-browser, ~$0.01)*\n- **Customer voice**: What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed. *(Apify apify/rag-web-browser, ~$0.01)*\n\n### 3 Analysis\n- **Build context**: Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code. *(Code, free)*\n- **Signal scorecard**: Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence. *(Code, free)*\n- **Featherless analysis**: The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse analysis**: Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both. *(Code, free)*\n\n### 4 Act\n- **Send automatically?**: True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups. *(n8n IF, free)*\n- **Agent e-mails the sign-ups**: Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy. *(Gmail, free)*\n- **Hand to a human?**: True if contacts were found, a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable. *(n8n IF, free)*\n- **Write briefing**: Builds the sales briefing: priority, contact list with names and LinkedIn links, evidence, analysis. *(Code, free)*\n- **Briefing to sales**: E-mails the briefing to the sales team. *(Gmail, free)*\n- **Prepare log row**: Flattens the analysis, the contact list and the context into one row for documentation and evaluation. *(Code, free)*\n- **Log analysis to sheet**: Appends the row to the Analyses tab. The eval workflow reads it from there. *(Google Sheets, free)*\n\n### 5 Replies\n- **Reply received**: Polls the inbox every minute for unread replies to the agent's e-mail. *(Gmail Trigger, free)*\n- **Classify reply**: Labels the reply: interested, question, not interested or stop. *(Featherless Qwen2.5-72B, flat plan)*\n- **Parse reply**: Reads the label. Anything unclear is treated as a question, so a human sees it. *(Code, free)*\n- **Interested or question?**: Routes interested replies and questions to a human. Stop and no-interest end here. *(n8n IF, free)*\n- **Hand reply to a human**: E-mails the reply and its summary to the sales team. *(Gmail, free)*",
         "width": 820,
         "height": 1020,
         "color": 7
       }
     },
     {
-      "id": "60998e96-29a2-40bb-ae5c-c60f42f50ab7",
+      "id": "21604143-0858-4ed6-8d21-8a1a83571dd8",
       "name": "5 · Replies",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -851,18 +857,7 @@
       "main": [
         [
           {
-            "node": "Exactly 3 colleagues?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Exactly 3 colleagues?": {
-      "main": [
-        [
-          {
-            "node": "LinkedIn company",
+            "node": "First sign-up or critical mass?",
             "type": "main",
             "index": 0
           }
@@ -961,7 +956,7 @@
       "main": [
         [
           {
-            "node": "Featherless analysis",
+            "node": "Signal scorecard",
             "type": "main",
             "index": 0
           }
@@ -1071,6 +1066,28 @@
         [
           {
             "node": "Hand reply to a human",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "First sign-up or critical mass?": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Signal scorecard": {
+      "main": [
+        [
+          {
+            "node": "Featherless analysis",
             "type": "main",
             "index": 0
           }

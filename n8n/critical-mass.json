@@ -2,7 +2,7 @@
   "name": "Flashpoint · Kredible (universities)",
   "nodes": [
     {
-      "id": "0dab7666-41e1-41ba-8d74-d7eaf53e12ff",
+      "id": "d99cab4f-199b-4608-8a31-3a8247395205",
       "name": "Form sign-up",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -10,7 +10,7 @@
         0,
         300
       ],
-      "webhookId": "eef5b68f-36f4-4eb5-acf4-23c3428daaf4",
+      "webhookId": "10e21e64-53f7-4734-8ce6-f28c7bbdbf42",
       "credentials": {
         "httpHeaderAuth": {
           "id": "",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "b921ef45-7f6e-4b6a-9b0a-508bd5d4f66d",
+      "id": "5c5ff771-d273-4ba1-8d4e-1148b870b69e",
       "name": "Exactly 3 colleagues?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -44,7 +44,7 @@
           },
           "conditions": [
             {
-              "id": "00ac7340-cdad-4e7e-b322-dfc543f060c4",
+              "id": "910d2362-2d4a-485b-a684-300d21a42ea6",
               "leftValue": "={{ $json.body.colleagues }}",
               "operator": {
                 "type": "number",
@@ -53,7 +53,7 @@
               "rightValue": 3
             },
             {
-              "id": "89b1dbb0-092c-4728-a816-64c229494413",
+              "id": "5dc2bfe0-37ff-4b07-a314-2fb48d0fa432",
               "leftValue": "={{ $json.body.company_domain }}",
               "operator": {
                 "type": "string",
@@ -69,7 +69,7 @@
       }
     },
     {
-      "id": "d01d75a8-28a3-4d9a-9409-bc055d53e10f",
+      "id": "b237557e-22a3-48ba-a926-b4f904c80664",
       "name": "LinkedIn company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -101,7 +101,7 @@
       }
     },
     {
-      "id": "31ce7b5a-4ad9-484c-b6ec-ddf202754974",
+      "id": "56fdecf1-be5b-4e20-a25c-6cdf08c284ff",
       "name": "Verify company match",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -114,7 +114,7 @@
       }
     },
     {
-      "id": "df80b069-db93-4fd8-aeb3-28c84e3d8769",
+      "id": "b5a1b73f-51e7-46e3-a58b-0b2e8f14afce",
       "name": "LinkedIn posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -146,7 +146,7 @@
       }
     },
     {
-      "id": "5f8f70b8-4762-4b5e-a688-582481e0e4ef",
+      "id": "01cceea6-0a97-4316-8ac7-66698c057843",
       "name": "Decision-maker roles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -178,7 +178,7 @@
       }
     },
     {
-      "id": "7a715a62-5247-414d-805b-ce3764288878",
+      "id": "00ee4197-fc45-4d3f-aa35-bdb50eda130f",
       "name": "Latest news",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -210,7 +210,7 @@
       }
     },
     {
-      "id": "ad2bbb18-425b-418d-b265-7461aa51c763",
+      "id": "66ca1370-1814-4efd-9539-7d3d77e7fb0a",
       "name": "Website",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -242,7 +242,7 @@
       }
     },
     {
-      "id": "76903ec1-3c51-4cc8-b5e3-cd05cab044f9",
+      "id": "2f5800e6-0d5c-432d-89d5-807327c3aac0",
       "name": "Pain signal",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -274,7 +274,7 @@
       }
     },
     {
-      "id": "e8e1ca59-26af-431d-84c5-72e9b7606b80",
+      "id": "37b2d8ba-ee7e-46b9-a4b0-a75fd7812ba5",
       "name": "Customer voice",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -306,7 +306,7 @@
       }
     },
     {
-      "id": "ab111b7b-d3bf-4ee7-b0ec-1762bdd7b59a",
+      "id": "0cf89fcd-710c-4b35-aa72-a330a0e82aad",
       "name": "Build context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -319,7 +319,7 @@
       }
     },
     {
-      "id": "21ba8cb1-6ed4-420e-bb28-c22b6d80498c",
+      "id": "48468f0c-27f3-46de-b2b6-11217be7d2f9",
       "name": "Featherless analysis",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -349,7 +349,7 @@
       }
     },
     {
-      "id": "55ae5800-7f83-4321-9c3d-62417bb4c940",
+      "id": "9b79e9fa-ff0a-477f-bccf-3a142bb84267",
       "name": "Parse analysis",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -358,11 +358,11 @@
         300
       ],
       "parameters": {
-        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || score >= 70 || (ctx.contacts || []).length > 0,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : score >= 70 ? \"Hot lead (score \" + score + \")\" : (ctx.contacts || []).length ? \"Contact list for sales\" : null } }];\n"
+        "jsCode": "\n// Parse the model's JSON. Anything unparseable goes to a human, never to a customer.\nconst ctx = $('Build context').first().json;\nconst raw = $input.first().json.choices?.[0]?.message?.content ?? \"\";\nlet a = null;\ntry { a = JSON.parse(raw.slice(raw.indexOf(\"{\"), raw.lastIndexOf(\"}\") + 1)); } catch (e) {}\nconst ok = a && typeof a.interest_score === \"number\" && a.champion_email_html && a.champion_email_subject;\nconst score = ok ? Math.max(0, Math.min(100, Math.round(a.interest_score))) : null;\nreturn [{ json: { ...ctx, analysis: ok ? a : null, score,\n  autoSend: Boolean(ok && ctx.verified && ctx.colleague_emails.length),\n  handToHuman: !ok || !ctx.verified || ctx.partnershipRequested || (ctx.flashpointScore ?? 0) >= 60 || score >= 70 || (ctx.contacts || []).length > 0,\n  handoffReason: !ok ? \"LLM output unusable\" : !ctx.verified ? \"LinkedIn profile not verified\" : ctx.partnershipRequested ? \"Partnership call requested\" : (ctx.flashpointScore ?? 0) >= 60 ? \"Flashpoint score \" + ctx.flashpointScore : score >= 70 ? \"Hot lead (score \" + score + \")\" : (ctx.contacts || []).length ? \"Contact list for sales\" : null } }];\n"
       }
     },
     {
-      "id": "341374ef-66ee-4678-8a13-c6b5b36ca388",
+      "id": "171bcb73-193a-490b-9113-1791d6b1fe07",
       "name": "Send automatically?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -380,7 +380,7 @@
           },
           "conditions": [
             {
-              "id": "3e78267d-601c-4f45-899b-8883008017de",
+              "id": "13409d9f-0ccf-4af3-8439-e0c438d1e087",
               "leftValue": "={{ $json.autoSend }}",
               "operator": {
                 "type": "boolean",
@@ -396,7 +396,7 @@
       }
     },
     {
-      "id": "8a1fcaa3-d510-4d3b-b34c-7f6110412034",
+      "id": "8a0209dc-1358-4110-ac6c-2f0308d3b88c",
       "name": "Agent e-mails the sign-ups",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -425,7 +425,7 @@
       }
     },
     {
-      "id": "4c82ec9a-7ccd-4063-9f7d-fef751b7738e",
+      "id": "294a8417-02a1-4865-b342-c180a1583f39",
       "name": "Hand to a human?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -443,7 +443,7 @@
           },
           "conditions": [
             {
-              "id": "dacc7752-a9ff-44e0-a545-9178f5c15802",
+              "id": "b0a427c2-b8ae-4a56-9999-d4939ce6d86d",
               "leftValue": "={{ $json.handToHuman }}",
               "operator": {
                 "type": "boolean",
@@ -459,7 +459,7 @@
       }
     },
     {
-      "id": "d0d4692c-7b71-4ea3-831f-cd1a741ad635",
+      "id": "bb25162e-93da-41e8-9619-63ba313d9ec4",
       "name": "Write briefing",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -468,11 +468,11 @@
         420
       ],
       "parameters": {
-        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<h3>Who signed up (${(d.signups || []).length})</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>\n${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>\n<p style=\"color:#666\">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>\n<h3>Decision makers on LinkedIn</h3>\n${(d.contacts || []).length ? `<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\">\n<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>\n${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href=\"${c.linkedin}\">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}\n</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}\n<h3>Outreach templates (send personally)</h3>\n${(() => {\n  const tpl = a.outreach_templates || [];\n  if (!tpl.length) return '<p>No templates generated.</p>';\n  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);\n  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))\n                         .sort((x, y) => y.hit - x.hit)[0].t;\n  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);\n  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));\n  return blocks.map(({ c, t }) => `<div style=\"border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0\">\n<p style=\"margin:0\"><b>${c ? `<a href=\"${c.linkedin}\">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>\n<p style=\"white-space:pre-wrap;margin:6px 0 0\">${String(t.body).replace(/\\{first_name\\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');\n})()}\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.\nWhen you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;\nconst prio = !d.analysis ? 'REVIEW' : d.score >= 70 ? 'HOT' : d.score >= 50 ? 'WARM' : 'FYI';\nreturn [{ json: { subject: `[${prio} ${d.score ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];\n"
+        "jsCode": "\nconst d = $('Parse analysis').first().json;\nconst a = d.analysis || {};\nconst li = (xs) => (xs || []).map(x => `<li>${x}</li>`).join(\"\");\nconst html = `\n<h3>${d.colleagues} people at ${d.domain} signed up</h3>\n<p><b>Roles:</b> ${(d.roles || []).join(', ')}</p>\n<p><b>Why you are getting this:</b> ${d.handoffReason}</p>\n<p><b>Score:</b> ${d.score ?? \"n/a\"} · <b>LinkedIn verified:</b> ${d.verified ? \"yes\" : \"no\"} · posts analysed: ${d.postsAnalysed ?? 0}</p>\n${d.company ? `<p><b>${d.company.name}</b> · ${d.company.employeeCount ?? \"?\"} employees · ${(d.company.industries || []).join(\", \")} · ${(d.company.locations || []).join(\", \")}</p>` : \"\"}\n<p><b>Signal nobody uses:</b> ${a.pain_evidence ?? \"n/a\"}</p><ul>${[...(d.painSignal || []), ...(d.customerVoice || [])].map(n => `<li><a href=\\\"${n.url}\\\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Latest news:</b> ${a.news_summary ?? \"n/a\"}</p><ul>${(d.news || []).map(n => `<li><a href=\"${n.url}\">${n.title}</a></li>`).join(\"\")}</ul>\n<p><b>Culture:</b> ${a.culture ?? \"n/a\"}</p><p><b>Structure:</b> ${a.structure ?? \"n/a\"}</p>\n<h2 style=\"margin:0\">Flashpoint ${d.flashpointScore ?? '–'}/100 · ${d.company?.name || d.domain}</h2>\n<p style=\"font-size:15px\"><b>Situation now:</b> ${a.current_situation ?? d.semester?.phase ?? ''}</p>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Signal</th><th>Strength</th><th>Detail</th><th>Evidence</th></tr>\n${(d.scorecard || []).map(x => `<tr style=\"${x.detected ? '' : 'color:#999'}\"><td>${x.detected ? '<b>' + x.label + '</b>' : x.label}</td><td>${'●'.repeat(x.strength)}${'○'.repeat(3 - x.strength)}</td><td>${x.detail}</td><td>${String(x.evidence || '').startsWith('http') ? `<a href=\"${x.evidence}\">source</a>` : String(x.evidence || '').slice(0, 140)}</td></tr>`).join('')}\n</table>\n<h3>Who signed up (${(d.signups || []).length})</h3>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\"><tr><th>Name</th><th>E-mail</th><th>Role</th></tr>\n${(d.signups || []).map(p => `<tr><td>${p.name || '–'}</td><td>${p.email}</td><td>${p.role || '–'}</td></tr>`).join('')}</table>\n<p style=\"color:#666\">They gave consent on the sign-up form and already received the agent's e-mail${d.autoSend ? '' : ' (not sent this time, see above)'}.</p>\n<h3>Decision makers on LinkedIn</h3>\n${(d.contacts || []).length ? `<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;font-size:14px\">\n<tr><th>Prio</th><th>Name</th><th>Title</th><th>Location</th><th>Matched role</th></tr>\n${d.contacts.map(c => `<tr><td><b>${c.priority}</b></td><td><a href=\"${c.linkedin}\">${c.name}</a></td><td>${c.title}</td><td>${c.location}</td><td>${c.matched_role || '–'}</td></tr>`).join('')}\n</table>` : '<p>No decision makers found on LinkedIn for this account.</p>'}\n<h3>Outreach templates (send personally)</h3>\n${(() => {\n  const tpl = a.outreach_templates || [];\n  if (!tpl.length) return '<p>No templates generated.</p>';\n  const words = (t) => String(t).toLowerCase().split(/[^a-zäöüß]+/).filter(w => w.length > 3);\n  const best = (c) => tpl.map(t => ({ t, hit: words(t.for_role).filter(w => (c.title + ' ' + c.matched_role).toLowerCase().includes(w)).length }))\n                         .sort((x, y) => y.hit - x.hit)[0].t;\n  const targets = (d.contacts || []).filter(c => c.priority !== 'C').slice(0, 5);\n  const blocks = targets.length ? targets.map(c => ({ c, t: best(c) })) : tpl.map(t => ({ c: null, t }));\n  return blocks.map(({ c, t }) => `<div style=\"border-left:3px solid #c2410c;padding:6px 12px;margin:10px 0\">\n<p style=\"margin:0\"><b>${c ? `<a href=\"${c.linkedin}\">${c.name}</a> · ${c.title}` : t.for_role}</b> · ${t.channel}${t.subject ? ' · <i>' + t.subject + '</i>' : ''}</p>\n<p style=\"white-space:pre-wrap;margin:6px 0 0\">${String(t.body).replace(/\\{first_name\\}/g, c ? c.name.split(' ')[0] : '{first_name}')}</p></div>`).join('');\n})()}\n<p><b>Buying committee (roles):</b></p><ul>${li(a.buying_committee)}</ul>\n<p><b>Suggested angle:</b> ${a.angle ?? \"n/a\"}</p><ul>${li(a.score_reasons)}</ul>\n<p><b>Agent e-mail to the sign-ups:</b> ${d.autoSend ? \"sent automatically\" : \"NOT sent, please review\"}</p>\n<p style=\"color:#666\">Contacts come from public LinkedIn profiles (name, title, location). Reach out personally (LinkedIn, phone, event); no automated e-mails to them.\nWhen you first contact someone, tell them where you found their details and how to object (GDPR Art. 14). Subscriber addresses are not included.</p>`;\nconst fp = d.flashpointScore ?? d.score;\nconst prio = !d.analysis ? 'REVIEW' : fp >= 60 ? 'HOT' : fp >= 35 ? 'WARM' : 'FYI';\nreturn [{ json: { subject: `[${prio} ${fp ?? ''}] ${d.company?.name || d.domain}: ${d.colleagues} sign-ups, ${(d.contacts || []).length} contacts`, html } }];\n"
       }
     },
     {
-      "id": "1d9f40ed-2cf8-4d27-a5ef-3ad1267284da",
+      "id": "1df33b76-de59-46dc-b358-f098f33668d4",
       "name": "Briefing to sales",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -499,7 +499,7 @@
       }
     },
     {
-      "id": "e3a1b8f7-d463-431f-9716-1b125d601ae4",
+      "id": "8ac6f32a-c364-49ac-a2c1-c185ea69d1a2",
       "name": "Reply received",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.2,
@@ -530,7 +530,7 @@
       }
     },
     {
-      "id": "94bc2386-57a6-4136-9fda-92793967ec97",
+      "id": "f770e845-ac86-4fa0-b9f8-c5a4703b6f66",
       "name": "Classify reply",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -560,7 +560,7 @@
       }
     },
     {
-      "id": "22aa25bc-789d-45cb-b137-d81b533cbbc8",
+      "id": "916e4727-069d-48f2-bb29-05fef2ae68fd",
       "name": "Parse reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -573,7 +573,7 @@
       }
     },
     {
-      "id": "c34b39b1-eb95-40b9-b608-ee4ebae03866",
+      "id": "1c4717c6-a636-4135-84cb-af66adababbf",
       "name": "Interested or question?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -591,7 +591,7 @@
           },
           "conditions": [
             {
-              "id": "9afff726-bc6d-4219-b11b-14a820f92f6a",
+              "id": "36cec775-890a-40e5-8a7a-448dbd931633",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -600,7 +600,7 @@
               "rightValue": "interested"
             },
             {
-              "id": "808c2bf5-e657-4c9e-83e7-3c9248fea138",
+              "id": "86f903da-6b90-4264-a897-f22167d137ba",
               "leftValue": "={{ $json.label }}",
               "operator": {
                 "type": "string",
@@ -615,7 +615,7 @@
       }
     },
     {
-      "id": "1c54f247-b490-4448-9e6b-4fd579d22327",
+      "id": "9b23fe03-9174-4fb9-83a2-29a0249dc6be",
       "name": "Hand reply to a human",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,

@@ -65,7 +65,8 @@ def actual_path(r):
     return "research + decide"
 
 
-rows = json.load(open(os.path.join(HERE, "berlin_results.json")))
+NAME = os.environ.get("RESULTS", "berlin")
+rows = json.load(open(os.path.join(HERE, f"{NAME}_results.json")))
 for r in rows:
     r["expected_path"], r["actual_path"] = expected_path(r), actual_path(r)
     r["path_ok"] = r["expected_path"] == r["actual_path"] or (r["expected_path"] == "research + decide" and r["actual_path"] != "stop at threshold")
@@ -80,7 +81,7 @@ for r in rows:
     r["verdict"] = "judge-error" if "error" in j else (
         "pass" if not r["rule_failures"] and r["overall"] >= 3.5 and j.get("groundedness", 0) >= 3 and j.get("compliance", 0) >= 4 else "fail")
     print(f"{r['domain']:<18} rules {r['rule_total'] - len(r['rule_failures'])}/{r['rule_total']} judge {r['overall']} → {r['verdict']}", flush=True)
-json.dump(rows, open(os.path.join(HERE, "berlin_results_graded.json"), "w"), ensure_ascii=False, indent=2)
+json.dump(rows, open(os.path.join(HERE, f"{NAME}_results_graded.json"), "w"), ensure_ascii=False, indent=2)
 
 # ---------------------------------------------------------------- report
 judged = [r for r in rows if r["verdict"] in ("pass", "fail")]
@@ -117,7 +118,7 @@ avg_secs = round(sum(r.get("seconds") or 0 for r in rows if not r.get("stopped_a
                  max(1, sum(1 for r in rows if not r.get("stopped_at_threshold"))))
 
 page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Flashpoint Berlin Test</title><style>
+<title>Flashpoint {NAME.title()} Test</title><style>
 :root{{--bg:#f4f5f7;--surface:#fff;--ink:#1a1d24;--muted:#5d6472;--line:#dde0e6;--accent:#c2410c;--ok:#15803d;--ok-soft:#dcfce7;--bad:#b91c1c;--bad-soft:#fee2e2;--warn:#a16207;--warn-soft:#fef3c7;--mute-soft:#eceef2}}
 @media (prefers-color-scheme:dark){{:root{{--bg:#111318;--surface:#1a1d24;--ink:#e8eaee;--muted:#9aa1ad;--line:#2c313b;--accent:#fb923c;--ok:#4ade80;--ok-soft:#14321f;--bad:#f87171;--bad-soft:#3b1717;--warn:#facc15;--warn-soft:#3a2f0d;--mute-soft:#252932;color-scheme:dark}}}}
 *{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Avenir Next","Segoe UI",system-ui,sans-serif}}
@@ -133,7 +134,7 @@ th{{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--m
 .bar{{display:inline-block;width:70px;height:7px;background:var(--line);border-radius:4px;vertical-align:middle;overflow:hidden}}.bar i{{display:block;height:100%;background:var(--accent)}}
 .grid2{{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}}.pad{{padding:16px}}ul{{margin:0;padding-left:1.2em}}
 </style></head><body><div class="wrap">
-<header><div class="eyebrow">Flashpoint · live test · Berlin universities</div><h1>Berlin test run</h1>
+<header><div class="eyebrow">Flashpoint · live test · {NAME.title()} universities</div><h1>{NAME.title()} test run</h1>
 <p class="sub">{len(rows)} cases through the live n8n workflow. Graded by 7 rule checks and an LLM judge ({e(fp.JUDGE_MODEL)}), the same as the eval workflow. Sign-up address in every case: the team's own inbox.</p></header>
 <section class="tiles">
 <div class="tile"><b>{paths_ok}/{len(rows)}</b><span>cases took the expected path</span></div>
@@ -147,5 +148,5 @@ th{{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--m
 <div class="box pad"><h2>Rule failures</h2><ul>{fail_rows}</ul>
 <h2 style="margin-top:16px">How to read this</h2><ul><li><b>Pass</b>: all rules green, average at least 3.5, groundedness at least 3, compliance at least 4.</li><li><b>Path</b> checks the agent's decision logic: stop below threshold, abstain on a wrong LinkedIn match, hand calls to a human.</li><li><b>Dropped</b>: search hits removed in code because they were not about this university.</li></ul></div>
 </section></div></body></html>"""
-open(os.path.join(HERE, "berlin_report.html"), "w").write(page)
-print("report:", os.path.join(HERE, "berlin_report.html"))
+open(os.path.join(HERE, f"{NAME}_report.html"), "w").write(page)
+print("report:", os.path.join(HERE, f"{NAME}_report.html"))

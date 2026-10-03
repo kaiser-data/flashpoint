@@ -19,7 +19,7 @@ JUDGE_MODEL = os.environ.get("JUDGE_MODEL") or "deepseek-ai/DeepSeek-V3-0324"   
 EVAL_EMAIL = os.environ.get("EVAL_EMAIL") or os.environ.get("SALES_EMAIL") or "eval-team@example.com"
 EVAL_NAME = "Flashpoint · Eval (LLM as a judge)"
 
-ANALYSES_HEADERS = ["analysis_id", "logged_at", "domain", "organisation", "locations", "linkedin_verified", "colleagues", "roles", "score",
+ANALYSES_HEADERS = ["analysis_id", "logged_at", "domain", "organisation", "locations", "linkedin_verified", "colleagues", "roles", "flashpoint_score", "signals", "situation", "score",
                     "decision", "handoff_reason", "angle", "news_summary", "pain_evidence", "culture", "structure",
                     "buying_committee", "score_reasons", "email_subject", "email_html", "contacts", "evidence_urls", "dropped_hits",
                     "context_json", "model"]
@@ -46,11 +46,11 @@ def connect(wf, a, b, out=0):
 
 # ------------------------------------------------------------------ main workflow
 LAYOUT = {
-    "Form sign-up": (0, 240), "Exactly 3 colleagues?": (220, 240),
+    "Form sign-up": (0, 240), "First sign-up or critical mass?": (220, 240),
     "LinkedIn company": (520, 240), "Verify company match": (730, 240), "LinkedIn posts": (940, 240),
     "Decision-maker roles": (1150, 240), "Latest news": (1360, 240), "Website": (1570, 240),
     "Pain signal": (1780, 240), "Customer voice": (1990, 240),
-    "Build context": (2290, 240), "Featherless analysis": (2500, 240), "Parse analysis": (2710, 240),
+    "Build context": (2240, 240), "Signal scorecard": (2420, 240), "Featherless analysis": (2600, 240), "Parse analysis": (2780, 240),
     "Send automatically?": (3020, 120), "Agent e-mails the sign-ups": (3240, 120),
     "Hand to a human?": (3020, 280), "Write briefing": (3240, 280), "Briefing to sales": (3460, 280),
     "Prepare log row": (3020, 440), "Log analysis to sheet": (3240, 440),
@@ -85,6 +85,9 @@ return [{ json: {
   linkedin_verified: d.verified ? 'yes' : 'no',
   colleagues: d.colleagues,
   roles: join(d.roles),
+  flashpoint_score: d.flashpointScore ?? '',
+  signals: (d.scorecard || []).filter(x => x.detected).map(x => `${x.label} (${x.strength}/3): ${x.detail}`).join(' | '),
+  situation: a.current_situation ?? '',
   score: d.score ?? '',
   decision: [d.autoSend ? 'auto-email' : null, d.handToHuman ? 'human' : null].filter(Boolean).join(' + ') || 'none',
   handoff_reason: d.handoffReason ?? '',
@@ -98,6 +101,43 @@ return [{ json: {
   model: 'MODEL_PLACEHOLDER',
 }}];
 '''
+
+
+SCORECARD_JS = r"""
+// Flashpoint scorecard: every signal is named, scored 0-3 with evidence, and weighted. Code decides, not the model.
+const c = $input.first().json;
+const text = [...(c.news || []).map(n => n.title + ' ' + n.excerpt), String(c.website || ''), ...(c.topPosts || []).map(p => p.text)].join('\n');
+const find = (re) => { const m = text.match(re); if (!m) return null; const i = Math.max(0, m.index - 60); return text.slice(i, m.index + m[0].length + 80).replace(/\s+/g, ' ').trim(); };
+const today = new Date(); today.setHours(0, 0, 0, 0);
+// German semesters: winter starts 1 Oct, summer 1 Apr. Admitted non-EU students need the blocked account before the visa.
+const starts = [-1, 0, 1].flatMap(dy => [new Date(today.getFullYear() + dy, 3, 1), new Date(today.getFullYear() + dy, 9, 1)]).sort((a, b) => a - b);
+const next = starts.find(d => (d - today) / 864e5 >= -45);
+const days = Math.round((next - today) / 864e5);
+const term = next.getMonth() === 9 ? `Winter semester ${next.getFullYear()}/${String(next.getFullYear() + 1).slice(2)}` : `Summer semester ${next.getFullYear()}`;
+const semester = { term, starts: next.toISOString().slice(0, 10), days_until_start: days,
+  phase: days < 0 ? `${term} started ${-days} days ago: admitted students without funding are missing the start`
+       : days <= 60 ? `${term} starts in ${days} days: visa and blocked-account deadlines are now`
+       : `${term} starts in ${days} days: admissions season` };
+const roles = new Set((c.roles || []).map(r => String(r).toLowerCase()).filter(r => r && r !== 'other'));
+const S = [];
+const add = (key, label, weight, strength, detail, evidence) => S.push({ key, label, weight, strength: Math.max(0, Math.min(3, strength)), detected: strength > 0, detail, evidence: evidence || '' });
+add('critical_mass', 'Colleagues signing up', 25, Math.min(3, c.colleagues || 0) - (roles.size < 2 && (c.colleagues || 0) >= 3 ? 1 : 0),
+    `${c.colleagues || 0} sign-up(s), ${roles.size} distinct role(s)`, (c.roles || []).join(', '));
+add('call_requested', 'Asked for a call', 20, c.partnershipRequested ? 3 : 0, c.partnershipRequested ? 'ticked "discuss a partnership"' : 'no', '');
+add('deadline_extension', 'Deadline extended (unfilled seats)', 15, (c.painSignal || []).length, `${(c.painSignal || []).length} page(s) on their own site`, (c.painSignal || [])[0]?.url);
+const prog = find(/(neue[rn]?\s+(\w+\s+)?(master|bachelor)?-?studiengang|new\s+(master'?s?|bachelor'?s?|degree|study)\s+program+e?|startet\s+zum\s+(winter|sommer)semester|launch\w*\s+.{0,30}programme?)/i);
+add('new_programme', 'New programme launching', 10, prog ? 3 : 0, prog ? 'mentioned in news, website or posts' : 'none found', prog);
+const seats = find(/(freie\s+(Studien)?plätze|Restplätze|noch\s+Plätze|places\s+(still\s+)?available|still\s+accepting\s+applications|Bewerbung\s+(ist\s+)?noch\s+möglich|zulassungsfrei)/i);
+add('seats_available', 'Seats still free', 10, seats ? 3 : 0, seats ? 'programme not full' : 'no sign', seats);
+add('semester_timing', 'Semester timing', 10, days >= -45 && days <= 60 ? 3 : days <= 120 ? 2 : 1, semester.phase, '');
+add('student_voice', 'Students struggling to fund (public)', 5, (c.customerVoice || []).length, `${(c.customerVoice || []).length} public post(s)`, (c.customerVoice || [])[0]?.url);
+const pol = find(/(Haushaltssperre|Fördermittel|Förderprogramm|DAAD|Sperrkonto|Studiengebühren|Studienvisum|student visa|funding\s+(cut|freeze|released))/i);
+add('funding_politics', 'Funding or policy news', 5, pol ? 3 : 0, pol ? 'in recent news' : 'none found', pol);
+const score = Math.round(S.reduce((t, x) => t + x.weight * x.strength / 3, 0));
+const top = S.filter(x => x.detected && x.key !== 'semester_timing').sort((a, b) => b.weight * b.strength - a.weight * a.strength).slice(0, 3);
+return [{ json: { ...c, semester, scorecard: S, flashpointScore: score,
+  strongestSignals: top.map(x => x.label + ': ' + x.detail) } }];
+"""
 
 def build_main():
     subprocess.run([sys.executable, os.path.join(HERE, "build_critical_mass.py")], check=True, cwd=HERE,
@@ -115,6 +155,38 @@ def build_main():
                         "options": {}}},
     ]
     connect(wf, "Parse analysis", "Prepare log row")
+
+    # --- Trigger: first sign-up from an organisation OR critical mass; the count itself is only one signal
+    TRIGGER = "First sign-up or critical mass?"
+    for node in wf["nodes"]:
+        if node["name"] == "Exactly 3 colleagues?":
+            node["name"] = TRIGGER
+            conds = node["parameters"]["conditions"]
+            cm = conds["conditions"][0]
+            conds["conditions"] = [{**cm, "id": uid(), "leftValue": "={{ [1, $json.body.threshold || 3].includes(Number($json.body.colleagues)) && Boolean($json.body.company_domain) }}",
+                                     "operator": {"type": "boolean", "operation": "true", "singleValue": True}, "rightValue": ""}]
+    wf["connections"][TRIGGER] = wf["connections"].pop("Exactly 3 colleagues?")
+    for src in wf["connections"].values():
+        for outs in src["main"]:
+            for c in outs:
+                if c["node"] == "Exactly 3 colleagues?": c["node"] = TRIGGER
+    # --- Analyst sees the scorecard and writes for the current situation
+    for node in wf["nodes"]:
+        if node["name"] == "Featherless analysis":
+            b = node["parameters"]["jsonBody"]
+            b = b.replace('{\\"culture\\": string,', '{\\"current_situation\\": string (2 sentences: what is happening at this organisation right now, from semester and signal_scorecard), \\"culture\\": string,', 1)
+            b = b.replace("The champion e-mail goes only to the people who signed up.",
+                          "Write for the CURRENT SITUATION: open the e-mail and the templates with the strongest detected signal (semester timing, a new programme, an extended deadline, free seats, policy news) and mention only signals listed in signal_scorecard. The champion e-mail goes only to the people who signed up.", 1)
+            b = b.replace("latest_news: $json.news,", "flashpoint_score: $json.flashpointScore, semester: $json.semester, signal_scorecard: ($json.scorecard || []).filter(x => x.detected).map(x => ({ signal: x.label, strength: x.strength, detail: x.detail, evidence: x.evidence })), latest_news: $json.news,", 1)
+            node["parameters"]["jsonBody"] = b
+    # Scorecard sits between context and analysis
+    wf["nodes"].append({"id": uid(), "name": "Signal scorecard", "type": "n8n-nodes-base.code", "typeVersion": 2,
+                        "position": [0, 0], "parameters": {"jsCode": SCORECARD_JS}})
+    wf["connections"]["Build context"] = {"main": [[{"node": "Signal scorecard", "type": "main", "index": 0}]]}
+    connect(wf, "Signal scorecard", "Featherless analysis")
+    for node in wf["nodes"]:
+        if node["type"] == "n8n-nodes-base.code":
+            node["parameters"]["jsCode"] = node["parameters"]["jsCode"].replace("$('Build context')", "$('Signal scorecard')")
     connect(wf, "Prepare log row", "Log analysis to sheet")
 
     for n in wf["nodes"]:

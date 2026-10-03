@@ -160,7 +160,7 @@ function processNewRows() {
       if (status) return; // already processed in an earlier run
       if (duplicate) { updates.push([i, 'duplicate']); return; }
 
-      if (set.size === threshold) {
+      if (set.size === 1 || set.size === threshold) { // first sign-up starts research; critical mass escalates
         const people = valid.get(domain);
         const pick = (k) => c[k] === -1 ? [] : people.map(x => String(x[c[k]] || '').trim()).filter(Boolean);
         const code = notifyN8n_(props, {

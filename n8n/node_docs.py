@@ -4,7 +4,7 @@ Used for the node notes, the legend boxes in n8n and the HTML documentation page
 # name: (phase, what it does, API / tool, cost per account)
 MAIN = {
     "Form sign-up": ("1 Trigger", "Receives the sign-up from the sheet script. Rejects calls without the x-signal-secret header.", "n8n Webhook", "free"),
-    "Exactly 3 colleagues?": ("1 Trigger", "Continues only on the exact threshold sign-up, so each organisation runs once.", "n8n IF", "free"),
+    "First sign-up or critical mass?": ("1 Trigger", "Runs on the first sign-up from an organisation and again when critical mass is reached. The headcount is one signal, not the decision.", "n8n IF", "free"),
     "LinkedIn company": ("2 Research", "Finds the organisation's LinkedIn page by the name typed in the form, or by the domain.", "Apify harvestapi/linkedin-company", "~$0.004"),
     "Verify company match": ("2 Research", "Accepts the match only if the website contains the domain or the name matches the form. Otherwise abstains.", "Code", "free"),
     "LinkedIn posts": ("2 Research", "Last 20 posts with likes, comments and shares. Commenters are not stored.", "Apify harvestapi/linkedin-company-posts", "~$0.03"),
@@ -14,8 +14,9 @@ MAIN = {
     "Pain signal": ("2 Research", "Signal nobody uses: public evidence of the pain on the org's own site (e.g. extended deadlines = empty seats).", "Apify apify/rag-web-browser", "~$0.01"),
     "Customer voice": ("2 Research", "What the org's own customers say publicly (e.g. students on Reddit). Usernames and e-mails removed.", "Apify apify/rag-web-browser", "~$0.01"),
     "Build context": ("3 Analysis", "Merges all sources, drops off-target search hits, and ranks the contacts A/B/C by role and seniority in code.", "Code", "free"),
-    "Featherless analysis": ("3 Analysis", "The analyst: culture, structure, news, pain evidence, buying committee, angle, score 0-100 and the e-mail.", "Featherless Qwen2.5-72B", "flat plan"),
-    "Parse analysis": ("3 Analysis", "Validates the model's JSON. Code decides: auto e-mail, hand to a human, or both.", "Code", "free"),
+    "Signal scorecard": ("3 Analysis", "Names and weighs 8 signals (critical mass, call request, deadline extension, new programme, free seats, semester timing, student voice, policy news) into a 0-100 Flashpoint score, with evidence.", "Code", "free"),
+    "Featherless analysis": ("3 Analysis", "The analyst: current situation, culture, structure, news, buying committee, angle, score and e-mails written for the strongest signals.", "Featherless Qwen2.5-72B", "flat plan"),
+    "Parse analysis": ("3 Analysis", "Validates the model's JSON. Code decides from the Flashpoint score: auto e-mail, hand to a human, or both.", "Code", "free"),
     "Send automatically?": ("4 Act", "True only if the analysis is valid, LinkedIn is verified and there are consented sign-ups.", "n8n IF", "free"),
     "Agent e-mails the sign-ups": ("4 Act", "Sends the agent's e-mail to the people who signed up, in BCC. Sales gets the visible copy.", "Gmail", "free"),
     "Hand to a human?": ("4 Act", "True if contacts were found, a call was requested, the score is high, LinkedIn is unverified or the LLM output was unusable.", "n8n IF", "free"),
